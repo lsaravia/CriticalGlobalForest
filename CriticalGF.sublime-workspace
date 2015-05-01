@@ -1,0 +1,544 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mean",
+				"mean_sims"
+			],
+			[
+				"Re",
+				"ReplacementRate"
+			],
+			[
+				"DE",
+				"DeltaDq"
+			],
+			[
+				"Peri",
+				"PERIwd"
+			],
+			[
+				"ol",
+				"oldcd"
+			],
+			[
+				"BCI",
+				"BCIwd"
+			],
+			[
+				"d1_",
+				"d1_delta"
+			],
+			[
+				"bib",
+				"bib"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 56,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"command_palette":
+	{
+		"height": 369.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"syR",
+				"Set Syntax: R"
+			],
+			[
+				"syn",
+				"Set Syntax: Pandoc"
+			],
+			[
+				"syr",
+				"Set Syntax: R"
+			],
+			[
+				"r",
+				"Rot13 Selection"
+			],
+			[
+				"sy",
+				"Set Syntax: Pandoc"
+			],
+			[
+				"syp",
+				"Set Syntax: Pandoc"
+			],
+			[
+				"synr",
+				"Set Syntax: R"
+			],
+			[
+				"synp",
+				"Set Syntax: Pandoc"
+			],
+			[
+				"synR",
+				"Set Syntax: R"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Add eta-squared abbreviation based n LaTeX definition"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"previ",
+				"Markdown Preview: preview in Browser"
+			],
+			[
+				"mark",
+				"Markdown Preview: open Markdown Cheat sheet"
+			],
+			[
+				"prev",
+				"Markdown Preview: preview in Browser"
+			],
+			[
+				"contr",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 602.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/README.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/fishP64_100R8e-04.inp",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/R/Neutral_fun.r",
+		"/home/leonardo/.cache/.fr-iEyoap/Template_Por/solabima15P_1col.tex",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_512R0.1-5000.sed",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_512R0Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_512R0-0100.sed",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuFish64_512R1T5000CluSizes.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuFish64_512R1T5000Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuFish64_512R0.0026T5000CluSizes.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/sim64_512R0.005.par",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/Neutral_simulPow.Rmd",
+		"/home/leonardo/Dropbox/LabBiologia/LOF/Respuestas-Protistas-FloracionesNocivas.md",
+		"/home/leonardo/Descargas/ModisDownload.R",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/R/Test_DqCompNew.r",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/R/ExtractDuplicatedSimul.r",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/R/test_ADwithDq.r",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_256R0.02Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.Rmd",
+		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/Clusters/test_sp.sed",
+		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/Clusters/test_sp.out",
+		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/Clusters/hk.cpp",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_256R1T3000Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_256R0.1T3000Density.txt",
+		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/Clusters/README.md",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/srsdq.md",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/CITATION",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/IpsMultiContactStats.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/test.par",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/test.inp",
+		"/home/leonardo/Dropbox/Multifractals/NeutralDispersal/Notes.md",
+		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/Clusters/test_bi.sed",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/makefile",
+		"/home/leonardo/Descargas/hk.c",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/Simul/neuFish8_256R0.1-0500.sed",
+		"/home/leonardo/Dropbox/JBS Solabima/ListaDePapers.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Outline.md",
+		"/home/leonardo/Dropbox/LabBiologia/LOF/Respuestas-FitoplanctonNocivo.md",
+		"/home/leonardo/Dropbox/LabBiologia/LOF/PreguntasParcialDomiciliario.md",
+		"/home/leonardo/Dropbox/cpp/CaNew/PeriphytonBio/CaPeriBio.cpp",
+		"/home/leonardo/Dropbox/CV/cv2013.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Talks/Solabima_Charla.md",
+		"/home/leonardo/Dropbox/Charlas/RAE2012/makefile",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/MainIPS.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/IpsMultiContact/spe.bat",
+		"/home/leonardo/Dropbox/cpp/CaNew/caSimul/caInvaStats.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/caSimul/castats.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/caSimul/descripcionModelo.md",
+		"/home/leonardo/Dropbox/cpp/CaNew/Invasions/simulations/dis.bat",
+		"/home/leonardo/Dropbox/cpp/CaNew/Periphyton/CAStats.cpp",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_Model.Rmd",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_100R1Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/neuUnif64_100R0Density.txt",
+		"/home/leonardo/Dropbox/CV/cv2013_en.md",
+		"/home/leonardo/Dropbox/CV/cv2013_res.md",
+		"/home/leonardo/Dropbox/CV/cv2013_en_res.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/CriticalTransition.md",
+		"/home/leonardo/Dropbox/Cursos/MetapopulationsInR/Descripcion.md",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/MEE_reviewers.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/index.md",
+		"/home/leonardo/Dropbox/blog/source/_posts/2014-11-30-metacommunities-or-self-organization.md",
+		"/home/leonardo/Dropbox/blog/source/_posts/2014-12-22-modelos-de-metapoblaciones-en-r.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso3.2.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso3.1.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso4.1.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso2.2.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso1.2.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso2.1.md",
+		"/home/leonardo/Dropbox/blog/source/project/metapopulations-in-r/Curso1.1.md",
+		"/home/leonardo/Dropbox/Cursos/MetapopulationsInR/README.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Tandar_Talk.md",
+		"/home/leonardo/Dropbox/Multifractals/NeutralDispersal/pandoc.sh",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/CriticalTransition.mak",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/makefile",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/MainIPS.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/IpsNeutralStats.cpp",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/IpsNeutralAux.cpp",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/makefile",
+		"/home/leonardo/Dropbox/cpp/CaNew/Neutral/IpsNeutral.h",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/pomac.lin",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/per64Z.par",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/per64JZ.par",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Solabima_Charla.sty",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Ungs_Talk.md",
+		"/home/leonardo/Dropbox/Projects/PeriphytonDiana/SpeciesTraits.dat",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Solabima_Charla.md",
+		"/media/Leo/cpp/CaNew/Neutral/IpsNeutralAux.cpp",
+		"/home/leonardo/Dropbox/Mendeley/Abbreviations.txt",
+		"/media/Leo/cpp/CaNew/Neutral/IpsNeutral.cpp",
+		"/home/leonardo/Dropbox/Projects/EcostatisticalMechanics/README.md",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/mpnc_figures.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Solabima_Resumen.md",
+		"/home/leonardo/.config/sublime-text-2/Packages/LaTeXTools/README.markdown",
+		"/home/leonardo/.config/sublime-text-2/Packages/Markdown Preview/README.md",
+		"/media/Leo/cpp/CaNew/smattpl.hpp",
+		"/home/leonardo/Dropbox/Projects/EcostatisticalMechanics/EcoStat_ms.md",
+		"/home/leonardo/Dropbox/Multifractals/NeutralDispersal/spdns.md",
+		"/home/leonardo/Dropbox/Multifractals/Asociacion.md",
+		"/home/leonardo/Dropbox/Multifractals/Metacommunity.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Fun_Multi_patt.r",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/per64Pow500mfOrd.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/per64Pow00-05Density.txt",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/pomac00-10.lin",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Wee/cursoR3.r",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Wee/Multi.Rmd",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/simul.sh",
+		"/home/leonardo/Academicos/cpp/CaNew/Neutral/README.md",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/per64PowZ05.dat",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Pmodel.Rmd",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Multi_BCI_H_D1.Rmd",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Multi_patt.Rmd",
+		"/home/leonardo/Academicos/cpp/CaNew/Neutral/IpsNeutralCont.cpp",
+		"/home/leonardo/Academicos/cpp/CaNew/Neutral/ModelDescription.md",
+		"/home/leonardo/Academicos/cpp/CaNew/Neutral/makefileCont.mak",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/simul (Copia en conflicto de lypMini 2013-09-10).sh",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Simul/simul.sh",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/Simul/bci452.par",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/the-american-naturalist.csl",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/mpnc_MEE.md",
+		"/home/leonardo/Dropbox/LabBiologia/LOF/Parcial1.md",
+		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/mpnc.mak",
+		"/home/leonardo/UploadFigshare/t2biom.sh",
+		"/media/BAK/UploadFigshare/README.md",
+		"/home/leonardo/blog/source/_includes/asides/github.html",
+		"/home/leonardo/blog/source/_includes/article.html",
+		"/home/leonardo/Dropbox/Pandoc/odt2pandoc.py",
+		"/home/leonardo/UploadFigshare/README.md"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"genFisherSAD",
+			"plot",
+			"mc <-",
+			"mc",
+			"mc=",
+			"plotNeutral_Spat",
+			"plotNeutral_Spar",
+			"genNeutralParms",
+			"par[par$V1==\"pomac\",]$V2 <- 1",
+			"spatial",
+			"dplyr",
+			"parms",
+			"rho",
+			"combn",
+			"nSimul",
+			"m",
+			"eval=T",
+			"stat",
+			"plotNeutral_SAD_1T",
+			")))",
+			"\n  ",
+			"1)))\n",
+			")))",
+			"simul_NeutralPlotTime",
+			"spMeta",
+			"RankSAD_by",
+			"RAD",
+			"2",
+			"ggp",
+			"    simulNeutral_1T",
+			"    simulNeutral_1Time(nsp,side,alfa,m,ReplRate[i],\"S\",time,nSimul)\nsimulNeutral_1Time",
+			"join",
+			"meltDensityOut_NT",
+			"meltDensityOut",
+			"meltDensity",
+			"readWideDensityOut",
+			"readWideDensity",
+			"neutral",
+			"readWideDensityOut",
+			"simulNeutral_1Time",
+			"simul_NeutralPlotTime",
+			"1",
+			"plyr",
+			"dplyr",
+			"$",
+			"$D",
+			"$",
+			"[<+->]",
+			"exper",
+			"+-",
+			"\\begin{itemize}",
+			"n",
+			"\\begin{itemize}\\item",
+			"\\\\",
+			"\\item ",
+			"H",
+			"h",
+			"H",
+			"Periphyton & Tropical Forest",
+			"a",
+			"    ",
+			"   ",
+			"  ",
+			"|",
+			"	|",
+			"+",
+			"|",
+			"+",
+			" ",
+			"	",
+			"|",
+			"a",
+			"generation",
+			"generat",
+			"genera",
+			"DispxCol",
+			"D1",
+			"DispxCol",
+			"width",
+			"d1_delta",
+			"H",
+			"D1",
+			"S",
+			"Manuscritos-Multifractals patterns in natural communities.bib",
+			"mpnc",
+			"ggplo",
+			"figshare",
+			"doi",
+			"periphyton",
+			"append",
+			"part",
+			"2.5in",
+			"git",
+			"SRS",
+			"min",
+			"ExpDispersal",
+			"species",
+			"\"~/Dropbox/PeriphImages/1999/ImagesTif/c\"",
+			"setwd",
+			"\"~/Dropbox/Multifractals/NaturalCommunities\"",
+			"setwd",
+			"bciwd",
+			"setwd",
+			"\"~/Dropbox/BCI\"",
+			"~/Dropbox/BCI",
+			"~/Dropbox/BCI/",
+			"rank",
+			"figure ",
+			"BCI",
+			"R",
+			"quantitative",
+			"matrix",
+			"Blois2013",
+			"SD_s",
+			"SD",
+			"they",
+			"*",
+			"J* ",
+			"*",
+			"permut",
+			"Harte2001",
+			"Harte2001a",
+			"attractor",
+			"range",
+			"heterogeneous",
+			"heterogeneity",
+			"SD",
+			"multiple"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\\)",
+			"\\(",
+			"automata",
+			"\\Delta",
+			"\\mu",
+			"",
+			")",
+			")⁠",
+			"\\epsilon"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 56,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 97.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/leonardo/Dropbox/LabBiologia/LOF/clases.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
