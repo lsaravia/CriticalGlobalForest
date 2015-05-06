@@ -40,10 +40,26 @@
 	"buffers":
 	[
 		{
-			"file": "README.md",
+			"file": "Outline.md",
 			"settings":
 			{
-				"buffer_size": 56,
+				"buffer_size": 902,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Notes.md",
+			"settings":
+			{
+				"buffer_size": 1430,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile",
+			"settings":
+			{
+				"buffer_size": 241,
 				"line_ending": "Unix"
 			}
 		}
@@ -51,9 +67,13 @@
 	"build_system": "Packages/Makefile/Make.sublime-build",
 	"command_palette":
 	{
-		"height": 369.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"syn p",
+				"Set Syntax: Pandoc"
+			],
 			[
 				"Package Control: ",
 				"Package Control: Remove Package"
@@ -127,7 +147,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 602.0
+		"width": 710.0
 	},
 	"console":
 	{
@@ -144,6 +164,8 @@
 	},
 	"file_history":
 	[
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/.gitignore",
+		"/home/leonardo/Dropbox/Projects/PotterFoodWeb/SpeciesInteractionsGlacierRetreatSIBER/.gitignore",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/README.md",
 		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/fishP64_100R8e-04.inp",
 		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/R/Neutral_fun.r",
@@ -269,9 +291,7 @@
 		"/home/leonardo/UploadFigshare/t2biom.sh",
 		"/media/BAK/UploadFigshare/README.md",
 		"/home/leonardo/blog/source/_includes/asides/github.html",
-		"/home/leonardo/blog/source/_includes/article.html",
-		"/home/leonardo/Dropbox/Pandoc/odt2pandoc.py",
-		"/home/leonardo/UploadFigshare/README.md"
+		"/home/leonardo/blog/source/_includes/article.html"
 	],
 	"find":
 	{
@@ -448,23 +468,76 @@
 			[
 				{
 					"buffer": 0,
-					"file": "README.md",
+					"file": "Outline.md",
 					"settings":
 					{
-						"buffer_size": 56,
+						"buffer_size": 902,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								839,
+								839
 							]
 						],
 						"settings":
 						{
+							"syntax": "Packages/Pandoc Academic/Syntax/pandoc.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Notes.md",
+					"settings":
+					{
+						"buffer_size": 1430,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								775,
+								775
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "makefile",
+					"settings":
+					{
+						"buffer_size": 241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								80,
+								80
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

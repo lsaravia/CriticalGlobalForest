@@ -1,0 +1,6 @@
+*.html
+*.xls
+*.png
+*.pdf
+.R*
+.Rproj.user
