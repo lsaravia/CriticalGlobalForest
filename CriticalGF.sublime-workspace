@@ -51,7 +51,15 @@
 			"file": "Notes.md",
 			"settings":
 			{
-				"buffer_size": 1430,
+				"buffer_size": 3116,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Manuscript.md",
+			"settings":
+			{
+				"buffer_size": 2102,
 				"line_ending": "Unix"
 			}
 		},
@@ -70,6 +78,10 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"syp",
+				"Set Syntax: Pandoc"
+			],
 			[
 				"syn p",
 				"Set Syntax: Pandoc"
@@ -96,10 +108,6 @@
 			],
 			[
 				"sy",
-				"Set Syntax: Pandoc"
-			],
-			[
-				"syp",
 				"Set Syntax: Pandoc"
 			],
 			[
@@ -147,7 +155,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 710.0
+		"width": 602.0
 	},
 	"console":
 	{
@@ -164,6 +172,8 @@
 	},
 	"file_history":
 	[
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/manuscript.md",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/manjs",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/.gitignore",
 		"/home/leonardo/Dropbox/Projects/PotterFoodWeb/SpeciesInteractionsGlacierRetreatSIBER/.gitignore",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/README.md",
@@ -289,9 +299,7 @@
 		"/home/leonardo/Dropbox/LabBiologia/LOF/Parcial1.md",
 		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/mpnc.mak",
 		"/home/leonardo/UploadFigshare/t2biom.sh",
-		"/media/BAK/UploadFigshare/README.md",
-		"/home/leonardo/blog/source/_includes/asides/github.html",
-		"/home/leonardo/blog/source/_includes/article.html"
+		"/media/BAK/UploadFigshare/README.md"
 	],
 	"find":
 	{
@@ -463,7 +471,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -478,8 +486,8 @@
 						"selection":
 						[
 							[
-								839,
-								839
+								853,
+								853
 							]
 						],
 						"settings":
@@ -487,7 +495,7 @@
 							"syntax": "Packages/Pandoc Academic/Syntax/pandoc.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 51.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -497,15 +505,15 @@
 					"file": "Notes.md",
 					"settings":
 					{
-						"buffer_size": 1430,
+						"buffer_size": 3116,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								775,
-								775
+								1988,
+								1988
 							]
 						],
 						"settings":
@@ -514,13 +522,39 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
+						"translation.y": 483.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "Manuscript.md",
+					"settings":
+					{
+						"buffer_size": 2102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "makefile",
 					"settings":
 					{
