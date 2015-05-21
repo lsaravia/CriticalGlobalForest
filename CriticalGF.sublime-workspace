@@ -64,6 +64,22 @@
 			}
 		},
 		{
+			"file": "/home/leonardo/Dropbox/Pandoc/Git_commands.md",
+			"settings":
+			{
+				"buffer_size": 2295,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".gitignore",
+			"settings":
+			{
+				"buffer_size": 41,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "makefile",
 			"settings":
 			{
@@ -471,7 +487,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -512,8 +528,8 @@
 						"selection":
 						[
 							[
-								1988,
-								1988
+								0,
+								0
 							]
 						],
 						"settings":
@@ -522,7 +538,7 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 483.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -539,8 +555,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								2102,
+								2102
 							]
 						],
 						"settings":
@@ -548,13 +564,65 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 64.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+					"file": "/home/leonardo/Dropbox/Pandoc/Git_commands.md",
+					"settings":
+					{
+						"buffer_size": 2295,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								564,
+								564
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": ".gitignore",
+					"settings":
+					{
+						"buffer_size": 41,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								21,
+								21
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "makefile",
 					"settings":
 					{
@@ -627,6 +695,14 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"ne",
+				"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Notes.md"
+			],
+			[
+				"ot",
+				"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Outline.md"
+			]
 		],
 		"width": 0.0
 	},

@@ -44,9 +44,9 @@
 
 # The location of the external program calculating the zeta function
 # Used by zeta_function_once.gsl
-zeta_function_filename <- "~/bin/zeta_function"
-### EDIT THIS LOCATION!!! ####
+zeta_function_filename <- "~/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/zeta_func"
 
+### EDIT THIS LOCATION!!! ####
 
 
 
@@ -167,7 +167,13 @@ zeta_func <- function(s, q) {
 # Input: real-valued exponent (s), additive constant (q)
 # Output: Real value
 zeta_func_once.gsl <- function(q,s) {
-  zeta.command <- paste(zeta_function_filename,s,q)
+	
+	d <- system("uname -a",intern=T)
+	if(grepl("i686",d)) {
+		zeta.command <- paste(zeta_function_filename,s,q)
+	} else {
+		zeta.command <- paste(paste0(zeta_function_filename,"64"),s,q)
+	}
   zeta <- as.numeric(system(zeta.command,intern=TRUE))
   return(zeta)
 }

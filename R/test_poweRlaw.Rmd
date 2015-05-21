@@ -1,5 +1,12 @@
 
 # Test power law estimation
+
+Generate a data set with xmin=1 and alpha=1.59, then add a data set with xmin=20 alpha=1.89
+
+
+```{r simulData, eval=T, echo=F}
+
+
 require(poweRlaw)
 
 #Create distribution object              
@@ -13,7 +20,7 @@ testP <- dist_rand(m, 1000)
 m <- displ$new(testP)
 m$setXmin(1) 
 (est = estimate_pars(m))
-plot(m)
+plot(m, main="Alpha=1.59 1000 points")
 ## Add in the fitted distribution
 m$setPars(est$pars)
 lines(m, col=2)
@@ -26,7 +33,8 @@ testP <- c(testP,dist_rand(m, 1000))
 m <- displ$new(testP)
 m$setXmin(1) 
 (est = estimate_pars(m))
-plot(m)
+
+plot(m,pch=19, col="violet",main="2000 points a=1.59, xmin=20 a=1.89")
 ## Add in the fitted distribution
 m$setPars(est$pars)
 lines(m, col=2)
@@ -45,11 +53,23 @@ m$setXmin(1)
 m$setPars(estM$pars)
 lines(m, col=4)
 
+plot(mm)
+mm$setPars(estM$pars)
+lines(mm, col=4)
+
+
+```
+
+* it seems to be that the xmin that separates the 2 power laws is correctly estimated, 
+* the lower alpha is approximate usign xmin=1, 
+* the upper alpha is correctly estimated along xmin. 
+* Separating the data x<xmin and estimating alpha doesnt give a correct estimation of the lower alpha.
 
 
 
-#
 # Test with real file
+
+```{r realDataTest, eval=F, echo=F}
 #
 
 original_bin_files <-"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin"
@@ -110,3 +130,5 @@ source("powerlaw/power-law-test.R")
 power.powerexp.lrt(est2,est3)
 
 # Power law with cut-off is better!!
+
+```

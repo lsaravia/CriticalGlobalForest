@@ -29,7 +29,7 @@
 # Location of the external program calculating the normalizing constant
 ### EDIT THE FILE LOCATION TO GIVE CORRECT PATH ON YOUR SYSTEM!
 # invoked by discpowerexp.norm, below
-discpowerexp.filename <- "~/bin/discpowerexp"
+discpowerexp.filename <- "~/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/discpowerexp"
 
 
 
@@ -97,7 +97,12 @@ discpowerexp.fit <- function(x,threshold=1) {
 # Requires: compiled program "discpowerexp" in appropriate location
 # 	    see accompanying discpowerexp.c for this
 discpowerexp.norm <- function(xmin,exponent,rate) {
-  discpowerexp.command <- paste(discpowerexp.filename,exponent,rate,xmin)
+	d <- system("uname -a",intern=T)
+	if(grepl("i686",d)) {
+		discpowerexp.command <- paste(discpowerexp.filename,exponent,rate,xmin)
+	} else {
+		discpowerexp.command <- paste(paste0(discpowerexp.filename,"64"),exponent,rate,xmin)
+	}
   as.numeric(system(discpowerexp.command,intern=TRUE))
 }
 
