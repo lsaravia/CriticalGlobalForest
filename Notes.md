@@ -44,3 +44,59 @@ increased stress (Rietkerk et al. 2004, Scheffer et al.
 tipping point occurs is unknown, and cover fraction
 alone is not sufficient to indicate the proximity of a
 tipping point in the ecosystem (Kefi et al. 2010).
+
+
+------
+
+@Seri2012
+
+The number of H. prunifolius clusters of area s, n(s), is
+presented in figure 2 on a double-logarithmic scale. The
+distribution is clearly fat-tailed, and the large s tail resem-
+bles a straight line, apparently reflecting a power law. It
+deviates strongly from the Poisson forest limit, which has
+an exponential cutoff at large s.
+
+# Motion detection algorithm
+To test the relevance of spatial heterogeneity, we tracked
+clusters over time, using a simple motion-detection al-
+gorithm (see fig. 3A). We identified all of the clusters in
+two consecutive censuses and checked, for any cluster in
+the latter census, whether it had at least one colored square
+in common with a cluster in the former census. If there
+was such a square, the latter cluster was assigned the same
+index number as the former, so that they were considered
+two instances of the same cluster. If there was no such
+overlap, the latter cluster was designated as new. If a cluster
+had split between one census and the next, the larger piece
+kept the index number of the original cluster, and the
+smaller one was considered new. When two clusters
+merged, the merged cluster was assigned the same index
+as the larger of the two original clusters.
+
+
+If spatial heterogeneity is strong, then large patches have
+to be associated with favored spatial locations, while the
+small clusters, like the singletons, will appear in the non-
+favored regions. In such a case, the response to spatially
+uniform stress varies with cluster size. We implemented a
+motion-tracking algorithm in order to follow the dynamics
+of the cluster over time (see fig. 3). This allowed the ex-
+traction of the per capita birth/death rate from the dif-
+ferences between consecutive censuses, which was then
+plotted against the patch size in figure 3B. The result is
+independent of size (up to the noise that reflects the rel-
+ative rarity of large patches), suggesting that a patch of
+size s shrinks or grows by a number proportional to s
+(multiplicative random walk; see Manor and Shnerb
+2008a, 2008b).
+
+As further evidence against the niche assembly hypoth-
+esis, we measured the average displacement of the center
+of mass of patches as a function of time. The movement
+of the patches appears similar to a simple random walk
+(fig. 4), because Dr, the distance of the center of mass from
+its initial position, grows like t1/2. This implies that clusters
+are not trapped in small patches with favorable environ-
+mental conditions but move (through the birth-death pro-
+cess) randomly within the plot.

@@ -14,3 +14,6 @@ Additionally, we computed the goodness of fit of the power-law and power-law wit
 A randomization procedure was applied in order to determine whether the distribution of contiguous forest units can be simply the result of a completely random process. The land pixels of the original image where randomly relocated while keeping watered areas untouched. The randomization process was repeated 1000 times, and the resulting binary images were subsequently subjected to the described procedure. 
 
 Image processing were done in MATLAB. All statistical analyses were done using the GNU R (R Core Team 2015), using the poweRlaw package (Gillespie 2015) for fitting distributions.
+
+## Results
+

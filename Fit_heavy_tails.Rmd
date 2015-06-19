@@ -3,7 +3,7 @@
 ## Setup
 
 ```{r setup, eval=T }
-#load(".RData")
+load(".RData")
 #simul  <- F # variable to perform or not the simulations
 
 oldcd <-getwd()

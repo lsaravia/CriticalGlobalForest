@@ -19,6 +19,8 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 * Rates of growth an shrink of patches [@Manor2008a, @Manor2008] 
 
+* Portfolio concept relating [@Manor2008a]  and [@Schindler2015] 
+
 ## Results
 
 
@@ -62,10 +64,20 @@ Table: Model selection using Akaike criterion
 
 ## Related papers
 
-About global maps
+* About fitting power laws
+[@Clauset2009]
+[@White2008]  
+
+* About global maps 
 [@Haddad2015]
 [@Sexton2013]
 [@Hansen2013]  
+
+* About cluster statistics
+
+[@Seri2012]
+[@Manor2008a]
+
 
 ## Bibliography
 
