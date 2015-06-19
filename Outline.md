@@ -19,6 +19,47 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 * Rates of growth an shrink of patches [@Manor2008a, @Manor2008] 
 
+## Results
+
+
+---------------------------------------------------------------------------
+ year   xmin        model_name         par1         par2        delta_AICc 
+------ ------ ---------------------- --------- --------------- ------------
+ 2000    1          Power-law          1.918         NA             0      
+
+              Power-law w/Exp cutoff   1.909      3.839e-12       75.32    
+
+                    Log-normal         1.151        1.631         683753   
+
+                   Exponential       0.003986        NA          7511320   
+
+ 2010               Power-law          1.833         NA             0      
+
+              Power-law w/Exp cutoff   1.833   0.0000000002893    1.983    
+
+                    Log-normal         1.266        1.653         577578   
+
+                   Exponential       0.003998        NA          6827242   
+
+ 2000   100         Power-law          1.992         NA             0      
+
+              Power-law w/Exp cutoff   1.992      6.995e-14       2.005    
+
+                    Log-normal        -74.15        9.067         5.194    
+
+                   Exponential       0.0005522       NA           186476   
+
+ 2010    95         Power-law          1.995         NA             0      
+
+              Power-law w/Exp cutoff   1.996      3.402e-12       2.019    
+
+                    Log-normal        -55.88        7.957          5.1     
+
+                   Exponential        0.00058        NA           200935   
+---------------------------------------------------------------------------
+
+Table: Model selection using Akaike criterion
+
 ## Related papers
 
 About global maps

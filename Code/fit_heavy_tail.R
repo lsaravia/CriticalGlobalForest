@@ -61,11 +61,11 @@ fit_heavy_tail <- function (data_set,xmins,options.output)
 			if (i==1 & options.output$GOF){
 				# Goodnes of fit via boostrap
 				fit_ht[[i,i_set]]$GOF <- bootstrap_p(fit_ht[[i,i_set]]$model,
-																						 xmin=seq(max(1,fit_ht[[i,i_set]]$model$xmin-50),fit_ht[[i,i_set]]$model$xmin+50),
-																						 pars = NULL, 
-																						 xmax = max(data_set),
-																						 no_of_sims = 1000,
-																						 threads = 4)
+											 xmin=seq(max(1,fit_ht[[i,i_set]]$model$xmin-50),fit_ht[[i,i_set]]$model$xmin+50),
+											 pars = NULL, 
+											 xmax = max(data_set),
+											 no_of_sims = 1000,
+											 threads = 4)
 				GOF[i,i_set] <- fit_ht[[i,i_set]]$GOF$p
 			}
 			aic_min <- min(aic_min,fit_ht[[i,i_set]]$AICc)

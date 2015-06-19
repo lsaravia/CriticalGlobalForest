@@ -1,0 +1,69 @@
+# Fitting heaviy tails to modis VCF
+
+## Setup
+
+```{r setup, eval=T }
+#load(".RData")
+#simul  <- F # variable to perform or not the simulations
+
+oldcd <-getwd()
+
+
+require(pander)
+require(plyr)
+
+panderOptions('table.split.table',Inf)
+panderOptions('table.style', 'multiline')
+options("scipen"=6, "digits"=6)
+
+#Load package
+library(poweRlaw) 
+
+source("R/powerlaw/discpowerexp.R")
+source("R/powerlaw/discexp.R")
+source("R/powerlaw/powerexp.R")
+source("R/powerlaw/exp.R")
+source("R/powerlaw/pareto.R")
+source("R/powerlaw/zeta.R")
+source("R/power_fun.r")
+
+original_bin_files <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif.bin", 
+						"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin")
+image_names <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif", "MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif")
+dataDir <- "Results/Southamerica"
+codeDir <- "R"
+resultsDir <- "Results/Southamerica"
+```
+
+
+
+```{r conheavytailfit, eval=T,echo=F,message=T,warning=T}
+require(doParallel)
+require(plyr)
+
+cn <-detectCores()
+cl <- makeCluster(cn)
+registerDoParallel(cl)
+
+setwd(resultsDir)
+all_fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
+{ 
+  call_fit_con_heavy_tail() 
+}
+setwd(oldcd)
+
+rm(cl,cn)
+save.image()
+
+require(dplyr)
+
+ta <- mutate(all_fit,year=substr(data_set_name,16,19)) %>% arrange(model_set,year,delta_AICc) %>% 
+  select(year,xmin,model_name,par1,par2,delta_AICc,GOFp) %>% 
+  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
+  year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ))
+
+pandoc.table(ta)
+
+```
+
+

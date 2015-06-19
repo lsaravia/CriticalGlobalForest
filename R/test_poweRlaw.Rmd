@@ -4,7 +4,7 @@
 Generate a data set with xmin=1 and alpha=1.59, then add a data set with xmin=20 alpha=1.89
 
 
-```{r simulData, eval=T, echo=F}
+```{r simulData, eval=F, echo=F}
 
 
 require(poweRlaw)
@@ -65,11 +65,143 @@ lines(mm, col=4)
 * the upper alpha is correctly estimated along xmin. 
 * Separating the data x<xmin and estimating alpha doesnt give a correct estimation of the lower alpha.
 
+# Ploting and fitting power law with exponential cutoff to the previous data
+
+```{r testPowLawExp}
+len_tP <-length(testP)
+tP <- data.frame(psize=sort(testP),Rank=c(len_tP:1)/len_tP)
+
+require(ggplot2)
+
+# Plot with base plot and poweRlaw package
+#
+require(poweRlaw)
+m <- displ$new(testP)
+m$setXmin(1) 
+(est = estimate_pars(m))
+m$setPars(est$pars)
+plot(m)
+lines(m,col=3)
+
+# Calculate ccdf for power law
+#
+tP$powl <- 1- dist_cdf(m,tP$psize) 
+
+g <- ggplot(tP, aes(y=(Rank),x=(psize))) +  theme_bw() + geom_point(colour=3,alpha=0.3) + scale_y_log10() +scale_x_log10() + ylab("ccdf")
+g + geom_line(aes(y=(powl),x=(psize))) 
+
+# 
+source("powerlaw/discpowerexp.R")
+source("powerlaw/discexp.R")
+source("powerlaw/powerexp.R")
+
+
+tP$type <- "PowLaw"
+
+# Fit a power law with exponential cutoff
+#
+#
+(est1 <- discpowerexp.fit(testP,1))
+
+# likelihood radio-Test 
+#
+source("powerlaw/power-law-test.R")
+
+power.powerexp.lrt(est,est1)
+
+# Cumulative power law with exponential cutoff
+#
+pdiscpowerexp <- function(x,exponent,rate=0,threshold=1)
+  {
+	# this my.int function allows my CDF to run over vectors
+    my.int <- function(y) sum( ddiscpowerexp((threshold:y),exponent,rate,threshold))
+    # apply the my.int to each element of x
+    sapply(x, FUN=my.int)
+  }
+
+
+cdf_pe <- pdiscpowerexp(unique(tP$psize),est1$exponent,est1$rate)
+
+tP1 <- data.frame(Rank=0,psize=unique(tP$psize),powl=1-cdf_pe,type="PowLawExp")
+g + geom_line(aes(y=(powl),x=(psize))) + geom_line(data=tP1,aes(y=(powl),x=(psize)),colour=4) 
+
+# Generete a continous processs discretize it and then... 
+
+```
+
+* I dont like it! 
+
+# Generate a continuous power law, discretize with ceiling and then estimate 
+
+
+```{r continuousDiscretizedPLaw, eval=F, echo=F}
+
+#Create distribution object for continuous power law             
+# 
+m = conpl$new()
+m$setXmin(1);m$setPars(1.59)
+# 
+#Generate random numbers            #
+# 
+testP <- dist_rand(m, 1000)
+m <- conpl$new(testP)
+m$setXmin(1) 
+(est = estimate_pars(m))
+
+# plot
+#
+m$setPars(est$pars)
+plot(m, main="Alpha=1.59 Continuous")
+
+## Add in the fitted distribution
+lines(m, col=4)
+
+# Discretize by ceiling
+#
+testP <- ceiling(testP)
+
+m1 <- displ$new(testP)
+m1$setXmin(1) 
+(estd = estimate_pars(m1))
+m1$setPars(estd$pars)
+
+plot(m1, main="Alpha=1.59 Ceiling")
+lines(m1, col=2)
+
+m2 <- conpl$new(testP)
+m2$setXmin(1) 
+(est = estimate_pars(m2))
+m2$setPars(est$pars)
+lines(m2, col=3)
+# m = conpl$new()
+# m$setXmin(1);m$setPars(1.59)
+# lines(m2, col=4)
+
+source("powerlaw/powerexp.R")
+source("powerlaw/exp.R")
+
+# Fit a power law with exponential cutoff
+#
+#
+(est1 <- powerexp.fit(testP,1))
+
+x <- sort(unique(testP))
+y <- ppowerexp(x,1,est1$exponent,est1$rate,lower.tail=F)
+lines(x,y,col=4)
+
+# Continuous power law
+cdfplot_cpowerlaw(testP,est$pars,est1$exponent,est1$rate)
+# Discrete power law
+cdfplot_cpowerlaw(testP,estd$pars,est1$exponent,est1$rate)
+
+```
+
+If the process is continuous and then discretized with celing, simulating 30% tree cover rule, estimation with continuous power law seems to be better. 
 
 
 # Test with real file
 
-```{r realDataTest, eval=F, echo=F}
+```{r realDataTest, eval=T, echo=F}
 #
 
 original_bin_files <-"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin"
@@ -87,9 +219,9 @@ m_m$setXmin(1)
 
 m_m$setPars(est$pars)
 
-#png(filename="pLawEstimationComp.png",res=300,units = "mm", height=200, width=200)
+png(filename="pLawEstimationComp.png",res=300,units = "mm", height=200, width=200)
 
-plot(m_m,xlab="Area",ylab="CCDF")
+plot(m_m,xlab="Patch Area",ylab="CCDF")
 ## Add in the fitted distribution
 lines(m_m, col=2)
 
@@ -99,19 +231,35 @@ lines(m_m, col=2)
 setwd("~/Dropbox/Projects/CriticalGlobalForest/R")
 source("powerlaw/pareto.R")
 
-est1 <- pareto.fit(data_set,1)
+(est1 <- pareto.fit(data_set,1))
 
 m_m$setXmin(1);m_m$setPars(est1$exponent)
 
 lines(m_m,col=3)
-model_names <- c("Est. poweRlaw=1.59","Est. Shalizi=1.83")
-legend("topright",model_names,bty="n",col=seq(2,5),lty=c(1,1),cex=0.5)
 
-#dev.off()
+source("powerlaw/powerexp.R")
+source("powerlaw/exp.R")
+
+(est2 <- powerexp.fit(data_set,1))
+x <- sort(unique(data_set))
+y <- ppowerexp(x,1,est2$exponent,est2$rate,lower.tail=F)
+lines(x,y,col=4)
+
+
+model_names <- c("disc powLaw","Cont pow law","Cont pow law exp")
+legend("topright",model_names,bty="n",col=seq(2,5),lty=c(1,1,1),cex=0.5)
+
+#cdfplot_cpowerlaw(data_set,est$pars,est1$exponent,est1$rate)
+
+source("powerlaw/power-law-test.R")
+
+power.powerexp.lrt(est1,est2)
+
+
+dev.off()
 
 source("powerlaw/zeta.R")
-(est2 <- zeta.fit(data_set,1))
-
+(est3 <- zeta.fit(data_set,1))
 
 
 #
@@ -121,13 +269,11 @@ source("powerlaw/discpowerexp.R")
 source("powerlaw/discexp.R")
 
 
-(est3 <- discpowerexp.fit(data_set,1))
-
-est3
+(est4 <- discpowerexp.fit(data_set,1))
 
 source("powerlaw/power-law-test.R")
 
-power.powerexp.lrt(est2,est3)
+power.powerexp.lrt(est3,est4)
 
 # Power law with cut-off is better!!
 

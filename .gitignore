@@ -4,3 +4,5 @@
 *.png
 .R*
 .Rproj.user
+.o
+.dropbox
