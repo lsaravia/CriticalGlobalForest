@@ -278,3 +278,39 @@ power.powerexp.lrt(est3,est4)
 # Power law with cut-off is better!!
 
 ```
+
+
+
+```{r plotTest, eval=T, echo=F}
+
+m = conpl$new()
+m$setXmin(1);m$setPars(2.1)
+# 
+#Generate random numbers            #
+# 
+testP <- dist_rand(m, 100)
+m$setXmin(30);m$setPars(2.5)
+testP <- c(testP,dist_rand(m, 100))
+
+m <- conpl$new(testP)
+(est = estimate_xmin(m))
+
+
+po<-plot(m,xlab="Area",ylab="CCDF")
+m$setPars(est$pars)
+m$setXmin(est$xmin) 
+lines(m,col=2)
+
+(est1 <- powerexp.fit(testP,est$xmin))
+x <- sort(unique(testP))
+x <- x[x>=est1$xmin]
+shift <- max(po[po$x>=est1$xmin,]$y)
+
+y <- ppowerexp(x,est1$xmin,est1$exponent,est1$rate,lower.tail=F)*shift
+lines(x,y,col=3)
+
+m <- conlnorm$new(x)
+m$setXmin(est1$xmin)
+(est2<-estimate_pars(m))
+m$setPars(est2$pars)
+lines(m, col=5)

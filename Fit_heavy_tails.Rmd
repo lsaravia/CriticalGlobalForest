@@ -41,14 +41,24 @@ resultsDir <- "Results/Southamerica"
 require(doParallel)
 require(plyr)
 
-cn <-detectCores()
-cl <- makeCluster(cn)
-registerDoParallel(cl)
+#cn <-detectCores()
+#cl <- makeCluster(cn)
+#registerDoParallel(cl)
+
+options.output <- vector("list", length=0)
+options.output$GOF <- 0
+options.output$ploting <- 0
+options.output$data_set_name <- image_names
+options.output$resultsDir <- resultsDir 
+options.output$sample_data <- 0 # For testing
+set.seed(seed=0)
+
+all_fit <- data.frame()
 
 setwd(resultsDir)
-all_fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
+all_fit <-foreach(i_im=1:length(image_names),.combine='rbind',.errorhandling='remove') %do%
 { 
-  call_fit_con_heavy_tail() 
+  call_fit_con_heavy_tail(options.output) 
 }
 setwd(oldcd)
 
@@ -63,6 +73,51 @@ ta <- mutate(all_fit,year=substr(data_set_name,16,19)) %>% arrange(model_set,yea
   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ))
 
 pandoc.table(ta)
+```
+
+```{r conheavytailplotfreq, eval=F,echo=F,message=T,warning=T}
+require(dplyr)
+
+# Change model name
+nn <- c("Power","LogNorm","Exp","PowerExp")
+all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
+all_fit <- mutate(all_fit,data_set_name=unlist(data_set_name))
+# Read binary data
+setwd(resultsDir)
+set.seed(seed=0)
+
+for( i_im in 1:length(image_names) ){
+	connection_file <- file(original_bin_files[i_im], "rb")
+	data_set <- readBin(connection_file, "double", n = 10^6)
+	#data_set<- sample(data_set,1000) ### TESTING
+	
+	nn <- strsplit(original_bin_files[i_im],".tif")[[1]][1]
+	ff <- filter(all_fit,data_set_name==nn,xmin==1)
+	#freq_plot_con_ht(data_set,ff)
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$xmin[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+	#cdfplot_con_ht(data_set,ff,paste0(na,"B"))
+
+	ff <- filter(all_fit,data_set_name==nn,xmin!=1)
+	#freq_plot_con_ht(data_set,ff)
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$xmin[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+	#cdfplot_con_ht(data_set,ff,paste0(na,"B"))
+
+
+}
+
+
+ff <- filter(all_fit,model_name=="Power") %>% mutate(year=substr(data_set_name,16,19),
+													 se=(par1-1)/sqrt(n))
+pd <-position_dodge(.1)
+g <- ggplot(ff, aes(x=year,y=par1,colour=model_set)) +  theme_bw() + geom_point(position=pd)+ 
+	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.1,position=pd) + ylab(expression(alpha))
+g
+ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+setwd(oldcd)
+rm(data_set,ff,nn,na)
 
 ```
 

@@ -182,7 +182,10 @@ powerexp.fit <- function(data,threshold=1,method="constrOptim",initial_rate=-1) 
   pure_powerlaw <- pareto.fit(data,threshold)
   # Use this as a first guess at the exponent
   initial_exponent <- pure_powerlaw$exponent
-  if (initial_rate < 0) { initial_rate <- exp.fit(data,threshold)$rate }
+  if (initial_rate < 0) { 
+    #initial_rate <- exp.fit(data,threshold)$rate
+    initial_rate <- 0.5 
+  }
   minute_rate <- 1e-6
   theta_0 <- as.vector(c(initial_exponent,initial_rate))
   theta_1 <- as.vector(c(initial_exponent,minute_rate))

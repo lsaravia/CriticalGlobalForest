@@ -45,6 +45,10 @@ exp.fit.tail <- function(x,threshold = 0) {
   # but let's not take chances!
   negloglike <- function(lambda) { -exp.loglike.tail(x,lambda,threshold) }
   fit <-nlm(f=negloglike,p=lambda_0)
+  if(is.infinite(fit$estimate)) {
+    fit$estimate<-NA
+    cat("Infininte result from nlm in exp.fit.tail\n")
+  }
   list(type="exp", rate=fit$estimate, loglike=-fit$minimum, datapoints.over.threshold=length(x))
 }
 
