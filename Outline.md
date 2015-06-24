@@ -22,6 +22,8 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 * Portfolio concept relating [@Manor2008a]  and [@Schindler2015] 
 
+\newpage
+
 ## Results
 
 ### South America
@@ -63,6 +65,12 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 ------------------------------------------------------------------
 
 Table: Model selection using Akaike criterion
+
+
+![Power law exponent by year and with different starting point: xmin=1 the minimun patchs size was fixed at 1, *Estimated Xmin* the minimun patch size was estimated from data.](Results/Southamerica/PowerExp_xmin_year.png)
+
+* The $\alpha$ with Estimated Xmin correspond to big forest patches and natural forest dynamics, and there is no variation in these. The  $\alpha$ with xmin=1 correspond to small patches probably influenced by deforestation.
+
 
 ## Related papers
 
