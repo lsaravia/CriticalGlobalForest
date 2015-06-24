@@ -37,7 +37,7 @@ resultsDir <- "Results/Southamerica"
 
 
 
-```{r conheavytailfit, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailfit, eval=F,echo=F,message=T,warning=T}
 require(doParallel)
 require(plyr)
 
@@ -75,13 +75,13 @@ ta <- mutate(all_fit,year=substr(data_set_name,16,19)) %>% arrange(model_set,yea
 pandoc.table(ta)
 ```
 
-```{r conheavytailplotfreq, eval=F,echo=F,message=T,warning=T}
+```{r conheavytailplotfreq, eval=T,echo=F,message=T,warning=T}
 require(dplyr)
 
 # Change model name
-nn <- c("Power","LogNorm","Exp","PowerExp")
-all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
-all_fit <- mutate(all_fit,data_set_name=unlist(data_set_name))
+#nn <- c("Power","LogNorm","Exp","PowerExp")
+#all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
+#all_fit <- mutate(all_fit,data_set_name=unlist(data_set_name))
 # Read binary data
 setwd(resultsDir)
 set.seed(seed=0)

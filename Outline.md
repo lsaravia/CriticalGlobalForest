@@ -8,14 +8,15 @@ Thus the question is how near/far is the global forest from a catastrophic trans
 
 We will use the MODIS vegetation continuous field, so we can analyze temporal changes.
 
+* Hypothesis: two power laws, small patches related to deforestation dynamics, large patches related to forest inner dynamics.
 
 # Methods
 
 * The United Nations’ International Geosphere-Biosphere Programme definition of forest (Belward 1996) defined forest as pixels with tree cover equal or greater than 30%  
 
-* We should define areas with different levels of degradation to apply the spatial indicators 
+* We should define areas with different levels of degradation to apply the spatial indicators [Very difficult because is not possible to establish reliable controls]
 
-* We should use 2D DFT and multifractals in continuous data and fit patch size distributions in discretized data. 
+* We should use 2D DFT and multifractals in continuous data and fit patch size distributions in discretized data.[Not implemented] 
 
 * Rates of growth an shrink of patches [@Manor2008a, @Manor2008] 
 
@@ -23,42 +24,43 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 ## Results
 
+### South America
 
----------------------------------------------------------------------------
- year   xmin        model_name         par1         par2        delta_AICc 
------- ------ ---------------------- --------- --------------- ------------
- 2000    1          Power-law          1.918         NA             0      
+------------------------------------------------------------------
+ year   xmin   model_name    par1      par2     delta_AICc   GOFp 
+------ ------ ------------ --------- --------- ------------ ------
+ 2000    1       Power       1.918      NA          0         NA  
 
-              Power-law w/Exp cutoff   1.909      3.839e-12       75.32    
+                PowerExp     1.918   3.36e-11     2.019       NA  
 
-                    Log-normal         1.151        1.631         683753   
+                LogNorm      1.151     1.631      683753      NA  
 
-                   Exponential       0.003986        NA          7511320   
+                  Exp      0.003986     NA       7511320      NA  
 
- 2010               Power-law          1.833         NA             0      
+ 2010            Power       1.833      NA          0         NA  
 
-              Power-law w/Exp cutoff   1.833   0.0000000002893    1.983    
+                PowerExp     1.831   2.233e-10    6.217       NA  
 
-                    Log-normal         1.266        1.653         577578   
+                LogNorm      1.266     1.653      577578      NA  
 
-                   Exponential       0.003998        NA          6827242   
+                  Exp      0.003998     NA       6827242      NA  
 
- 2000   100         Power-law          1.992         NA             0      
+ 2000   265      Power       2.013      NA          0         NA  
 
-              Power-law w/Exp cutoff   1.992      6.995e-14       2.005    
+                LogNorm      -1532     39.04      2.261       NA  
 
-                    Log-normal        -74.15        9.067         5.194    
+                PowerExp     2.003   1.38e-13     2.688       NA  
 
-                   Exponential       0.0005522       NA           186476   
+                  Exp      0.0005124    NA        139893      NA  
 
- 2010    95         Power-law          1.995         NA             0      
+ 2010   216      Power       2.021      NA          0         NA  
 
-              Power-law w/Exp cutoff   1.996      3.402e-12       2.019    
+                PowerExp     2.015   6.11e-12     2.312       NA  
 
-                    Log-normal        -55.88        7.957          5.1     
+                LogNorm      -1228     34.87      2.548       NA  
 
-                   Exponential        0.00058        NA           200935   
----------------------------------------------------------------------------
+                  Exp      0.0005397    NA        150593      NA  
+------------------------------------------------------------------
 
 Table: Model selection using Akaike criterion
 

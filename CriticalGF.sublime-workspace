@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Powe",
+				"PowerExp"
+			],
+			[
 				"mean",
 				"mean_sims"
 			],
@@ -40,10 +44,18 @@
 	"buffers":
 	[
 		{
-			"file": "Fit_heavy_tails.Rmd",
+			"file": "Outline.md",
 			"settings":
 			{
-				"buffer_size": 2459,
+				"buffer_size": 2682,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile",
+			"settings":
+			{
+				"buffer_size": 241,
 				"line_ending": "Unix"
 			}
 		},
@@ -51,15 +63,7 @@
 			"file": "R/power_fun.r",
 			"settings":
 			{
-				"buffer_size": 10991,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "R/powerlaw/pareto.R",
-			"settings":
-			{
-				"buffer_size": 9870,
+				"buffer_size": 13132,
 				"line_ending": "Unix"
 			}
 		},
@@ -72,10 +76,27 @@
 			}
 		},
 		{
-			"file": "Outline.md",
+			"file": "R/powerlaw/exp.R",
 			"settings":
 			{
-				"buffer_size": 2682,
+				"buffer_size": 3102,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "rmconflicto.sh",
+			"settings":
+			{
+				"buffer_size": 61,
+				"line_ending": "Unix",
+				"name": "find .git -name \"*conflicto*\" -type f -delete"
+			}
+		},
+		{
+			"file": "Fit_heavy_tails.Rmd",
+			"settings":
+			{
+				"buffer_size": 2625,
 				"line_ending": "Unix"
 			}
 		},
@@ -104,26 +125,10 @@
 			}
 		},
 		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 52,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "R/powerlaw/zeta.R",
 			"settings":
 			{
 				"buffer_size": 6714,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.Rmd",
-			"settings":
-			{
-				"buffer_size": 44089,
 				"line_ending": "Unix"
 			}
 		},
@@ -163,6 +168,10 @@
 				"Set Syntax: R"
 			],
 			[
+				"synr",
+				"Set Syntax: R"
+			],
+			[
 				"sR",
 				"SublimeREPL: R"
 			],
@@ -193,10 +202,6 @@
 			[
 				"sy",
 				"Set Syntax: Pandoc"
-			],
-			[
-				"synr",
-				"Set Syntax: R"
 			],
 			[
 				"synp",
@@ -256,8 +261,18 @@
 	},
 	"file_history":
 	[
-		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/powerexp.R",
+		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.Rmd",
 		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/R/Neutral_fun.r",
+		"/home/leonardo/Descargas/gist027e1f63343ba223b9cb-fbe08e45a1864769758383976a870927cc13ffd2/base_r_plotting_tutorial_koontz_d-rug.r",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/powerexp.R",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/LICENSE.md",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Fit_heavy_tails.md",
+		"/home/leonardo/Dropbox/Multifractals/SpeciesRankSurface/README.md",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/.gitignore",
+		"/home/leonardo/Dropbox/Pandoc/knit.sh",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Code/fit_heavy_tail.R",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Code/fit_heavy_tails_modis_tree_script.R",
+		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Results/Southamerica/script_data_forest.R",
 		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/README.md",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/makefile",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/zeta-function/Makefile",
@@ -277,16 +292,13 @@
 		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/mf.h",
 		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/mainPairCorrelation.cpp",
 		"/home/leonardo/Dropbox/cpp/SpatialAnalysis/mainCoherenceLength.cpp",
-		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/Results/Southamerica/script_data_forest.R",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/pareto.R",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/plfit.r",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/R/powerlaw/plpva.r",
 		"/home/leonardo/Dropbox/Projects/Invasiones/LF/LocalModel/R/ABC/cantidades.csv",
 		"/home/leonardo/Dropbox/Projects/Invasiones/LF/LocalModel/R/ABC/Source_ABC.r",
-		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.Rmd",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/manuscript.md",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/manjs",
-		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/.gitignore",
 		"/home/leonardo/Dropbox/Projects/PotterFoodWeb/SpeciesInteractionsGlacierRetreatSIBER/.gitignore",
 		"/home/leonardo/Dropbox/Projects/CriticalGlobalForest/README.md",
 		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Simul/fishP64_100R8e-04.inp",
@@ -376,14 +388,7 @@
 		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Solabima_Charla.md",
 		"/media/Leo/cpp/CaNew/Neutral/IpsNeutralAux.cpp",
 		"/home/leonardo/Dropbox/Mendeley/Abbreviations.txt",
-		"/media/Leo/cpp/CaNew/Neutral/IpsNeutral.cpp",
-		"/home/leonardo/Dropbox/Projects/EcostatisticalMechanics/README.md",
-		"/home/leonardo/Dropbox/Multifractals/NaturalCommunities/mpnc_figures.md",
-		"/home/leonardo/Dropbox/Multifractals/CriticalTransition/Solabima_Resumen.md",
-		"/home/leonardo/.config/sublime-text-2/Packages/LaTeXTools/README.markdown",
-		"/home/leonardo/.config/sublime-text-2/Packages/Markdown Preview/README.md",
-		"/media/Leo/cpp/CaNew/smattpl.hpp",
-		"/home/leonardo/Dropbox/Projects/EcostatisticalMechanics/EcoStat_ms.md"
+		"/media/Leo/cpp/CaNew/Neutral/IpsNeutral.cpp"
 	],
 	"find":
 	{
@@ -409,6 +414,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ggsa",
+			"xmin",
+			"Discrete",
 			"Spectral.h",
 			"mfSBA",
 			"Spectral.h",
@@ -533,10 +541,7 @@
 			"BCI",
 			"R",
 			"quantitative",
-			"matrix",
-			"Blois2013",
-			"SD_s",
-			"SD"
+			"matrix"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -563,15 +568,43 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Fit_heavy_tails.Rmd",
+					"file": "Outline.md",
 					"settings":
 					{
-						"buffer_size": 2459,
+						"buffer_size": 2682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1824,
+								1824
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Pandoc Academic/Syntax/pandoc.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 561.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "makefile",
+					"settings":
+					{
+						"buffer_size": 241,
 						"regions":
 						{
 						},
@@ -584,7 +617,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/R/R.tmLanguage"
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -593,56 +626,29 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "R/power_fun.r",
 					"settings":
 					{
-						"buffer_size": 10991,
+						"buffer_size": 13132,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3916,
-								3916
+								11662,
+								11662
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/R/R.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"translate_tabs_to_spaces": false,
+							"word_wrap": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1510.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "R/powerlaw/pareto.R",
-					"settings":
-					{
-						"buffer_size": 9870,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2238,
-								2238
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/R/R.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 765.0,
+						"translation.y": 5724.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -659,8 +665,8 @@
 						"selection":
 						[
 							[
-								4881,
-								4881
+								13197,
+								13197
 							]
 						],
 						"settings":
@@ -670,17 +676,45 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1275.0,
+						"translation.y": 4743.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "Outline.md",
+					"file": "R/powerlaw/exp.R",
 					"settings":
 					{
-						"buffer_size": 2682,
+						"buffer_size": 3102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2063,
+								2063
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 510.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "rmconflicto.sh",
+					"settings":
+					{
+						"buffer_size": 61,
 						"regions":
 						{
 						},
@@ -693,9 +727,8 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Pandoc Academic/Syntax/pandoc.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"auto_name": "find .git -name \"*conflicto*\" -type f -delete",
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -704,7 +737,35 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
+					"file": "Fit_heavy_tails.Rmd",
+					"settings":
+					{
+						"buffer_size": 2625,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/R/R.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 612.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "Notes.md",
 					"settings":
 					{
@@ -715,8 +776,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								5673,
+								5673
 							]
 						],
 						"settings":
@@ -725,13 +786,13 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1606.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "Manuscript.md",
 					"settings":
 					{
@@ -742,8 +803,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								2115,
+								2115
 							]
 						],
 						"settings":
@@ -751,13 +812,13 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 64.0,
+						"translation.y": 459.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "/home/leonardo/Dropbox/Pandoc/Git_commands.md",
 					"settings":
 					{
@@ -783,33 +844,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": ".gitignore",
-					"settings":
-					{
-						"buffer_size": 52,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "R/powerlaw/zeta.R",
 					"settings":
 					{
@@ -837,34 +872,6 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "/home/leonardo/Dropbox/Multifractals/CriticalTransition/Neutral_simulCT.Rmd",
-					"settings":
-					{
-						"buffer_size": 44089,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2087,
-								2087
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/R/R.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1224.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 11,
 					"file": "R/powerlaw/README",
 					"settings":
@@ -886,7 +893,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 2601.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
