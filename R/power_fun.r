@@ -169,91 +169,6 @@ call_fit_con_heavy_tail <-function(options.output){
 
 
 
-# Function to plot CCDF power law 
-#
-cdfplot_displ_exp <- function(x,exp0,exp1,exponent,rate,xmin=1,tit="")
-{
-	m <- displ$new(x)
-	tP <- plot(m,draw=F)
-	m <- disexp$new(x)
-	m$setPars(exp1)
-	#  x <- sort(x)
-	#  len_tP <-length(x)
-	#  tP <- data.frame(psize=x,Rank=c(len_tP:1)/len_tP)
-	require(ggplot2)
-	require(dplyr)
-	x <- unique(x)
-	# Plot with base plot and poweRlaw package
-	#
-	tP1 <- data.frame(psize=x,powl=pzeta(x,xmin,exp0,F))
-	tP2 <- data.frame(psize=x,powl=pdiscpowerexp(x,exponent,rate,xmin))
-	tP2 <- mutate(tP2, powl = powl/max(powl)) # y <- y/max(y)
-	tP3 <- data.frame(psize=x,powl=dist_cdf(m,x,lower_tail=F))
-	#tP2 <-filter(tP2, powl>= min(tP$Rank))
-	#tP1 <-filter(tP1, powl>= min(tP$Rank))
-	
-	mc <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-	
-	g <- ggplot(tP, aes(y=y,x=x)) +  theme_bw() + geom_point(alpha=0.3) + coord_cartesian(ylim=c(1,min(y)))+
-		scale_y_log10() +scale_x_log10() + ylab("ccdf") + xlab("Patch size") +ggtitle(tit)
-	
-	g <- g + geom_line(data=tP1,aes(y=powl,x=psize,colour="P.law")) + 
-		geom_line(data=tP2,aes(y=powl,x=psize,colour="P.law with\nexp. cutoff"))+
-		geom_line(data=tP3,aes(y=powl,x=psize,colour="Exp."))+
-		scale_colour_manual(values=mc,name="")  
-	
-	fil <- gsub(" ", "", tit, fixed = TRUE)
-	ggsave(fil,plot=g)
-}
-
-
-# Plot of frequencies of patch sizes with fitted discrete heavy tail functions
-# x: data
-# exp0 : Power exponent for power law 
-# exp1 : Exponential rate
-# exp2,rate: Power and exponential rate for power law with exponential cutoff
-#
-freq_plot_displ_exp <- function(x,exp0,exp1,exp2,rate,xmin=1,tit="")
-{
-	xx <-as.data.frame(table(x))
-	xx$x <- as.numeric(xx$x)
-	xx$pexp <-ddiscpowerexp(xx$x,exp2,rate,xmin)
-	xx$pow  <-dzeta(xx$x,xmin,exp0)
-	xx$exp  <-ddiscexp(xx$x,exp1,xmin)
-	xx$Freq <- xx$Freq/sum(xx$Freq)
-	g <- ggplot(xx, aes(y=Freq,x=x)) +  theme_bw() + geom_point(alpha=0.3) + #coord_cartesian(ylim=c(1,min(xx$Freq)))+
-		scale_y_log10() +scale_x_log10() + ylab("Frequency") + xlab("Patch size") +ggtitle(tit)
-	
-	mc <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-	
-	g <- g + geom_line(aes(y=pow,x=x,colour="P.law")) + 
-		geom_line(aes(y=pexp,x=x,colour="P.law with\nexp. cutoff"))+
-		geom_line(aes(y=exp,x=x,colour="Exp."))+
-		scale_colour_manual(values=mc,name="")  
-	
-	fil <- gsub(" ", "", tit, fixed = TRUE)
-	fil <- paste0(fil,".png")
-	ggsave(fil,plot=g)
-	
-}
-
-
-# Discrete power law with exponential cutoff 
-# Cumulative distribution function
-#
-pdiscpowerexp<- function(x,exponent,rate=0,threshold=1,lower.tail=T){
-	C <- discpowerexp.norm(threshold,exponent,rate)
-	if (lower.tail) {
-		#cdf <- (C - sapply(x, function(i) sum(discpowerexp.base(threshold:i,exponent,rate))))/C
-		#cdf <- 1 - sapply(x, function(i) sum(ddiscpowerexp(threshold:i,exponent,rate)))
-		cdf <- 1 - (sapply(x, function(i) sum(discpowerexp.base(threshold:i,exponent,rate))))/C
-	} else {
-		cdf <- (sapply(x, function(i) sum(discpowerexp.base(threshold:i,exponent,rate))))/C
-	}
-	cdf <- ifelse(x<threshold,NA,cdf)
-}
-
-
 # Plot of frequencies of patch sizes with fitted continuous heavy tail functions
 # x: data
 # fit_ht_df : dataframe with fitted parameters
@@ -297,8 +212,12 @@ freq_plot_con_ht <- function(x,fit_ht,tit="")
 }
 
 
-# Function to plot CCDF power law 
+# Function to plot CCDF of fitted continuous heavy tail functions using ggplo2
 #
+# x: data
+# fit_ht : dataframe with fitted parameters
+#
+
 cdfplot_conpl_exp <- function(x,fit_ht,tit="")
 {
 	require(poweRlaw)
@@ -354,7 +273,7 @@ cdfplot_conpl_exp <- function(x,fit_ht,tit="")
 	if(tit=="")
 		print(g)
 	else
-		ggsave(fil,plot=g,width=6,height=6,units="in",dpi=600)
+		ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
 }
 
 # Function to plot CCDF of heavy tailed distributions using base graphics
