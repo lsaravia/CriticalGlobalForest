@@ -31,7 +31,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 ------------------------------------------------------------------
  year   xmin   model_name    par1      par2     delta_AICc   GOFp 
 ------ ------ ------------ --------- --------- ------------ ------
- 2000    1       Power       1.918      NA          0         NA  
+ 2000    1       Power       1.918      NA          0         1  
 
                 PowerExp     1.918   3.36e-11     2.019       NA  
 
@@ -39,7 +39,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
                   Exp      0.003986     NA       7511320      NA  
 
- 2010            Power       1.833      NA          0         NA  
+ 2010            Power       1.833      NA          0         1  
 
                 PowerExp     1.831   2.233e-10    6.217       NA  
 
@@ -47,7 +47,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
                   Exp      0.003998     NA       6827242      NA  
 
- 2000   265      Power       2.013      NA          0         NA  
+ 2000   265      Power       2.013      NA          0         1  
 
                 LogNorm      -1532     39.04      2.261       NA  
 
@@ -55,7 +55,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
                   Exp      0.0005124    NA        139893      NA  
 
- 2010   216      Power       2.021      NA          0         NA  
+ 2010   216      Power       2.021      NA          0         1  
 
                 PowerExp     2.015   6.11e-12     2.312       NA  
 
@@ -64,7 +64,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
                   Exp      0.0005397    NA        150593      NA  
 ------------------------------------------------------------------
 
-Table: Model selection using Akaike criterion
+Table: Model selection using Akaike criterion, and goodnes of fit calculated by bootstrap.
 
 
 ![Power law exponent by year and with different starting point: xmin=1 the minimun patchs size was fixed at 1, *Estimated Xmin* the minimun patch size was estimated from data.](Results/Southamerica/PowerExp_xmin_year.png)

@@ -1,0 +1,69 @@
+
+# Test what happen if we have two power laws mixed
+
+Generate a data set with xmin=1 and alpha=1.918, then add a data set with xmin=265 alpha=2.013
+
+
+```{r simulTwoPower, eval=T, echo=T}
+require(poweRlaw)
+
+m = conpl$new()
+m$setXmin(1);m$setPars(1.918)
+ 
+# Generate random numbers            #
+testP <- dist_rand(m, 10000)
+
+m$setXmin(265);m$setPars(2.013)
+testP <- c(testP,dist_rand(m, 1000))
+
+
+m <- conpl$new(testP)
+plot(m,xlab="Area",ylab="CCDF")
+
+(est = estimate_xmin(m,xmin=1:500))
+
+# Thus the estimation of the break was correct!!!!!!!!!!!!!!!
+
+m$setXmin(1)
+(est1 = estimate_pars(m))
+
+
+m$setPars(est$pars)
+m$setXmin(est$xmin) 
+lines(m,col=2)
+
+m$setPars(est1$pars)
+m$setXmin(1) 
+lines(m,col=3)
+
+
+# Estimating the upper power law give a lower exponent
+
+# Separating the data set gives a better alpha
+#
+testM<-testP[testP<est$xmin]
+m1 <- conpl$new(testM)
+(est2 = estimate_pars(m1))
+
+m$setPars(est2$pars)
+m$setXmin(1) 
+lines(m,col=4)
+
+bs <-bootstrap_p(m,no_of_sims=100,xmin=est$xmin)
+plot(bs)
+bs
+
+source("R/powerlaw/powerexp.R")
+source("R/powerlaw/exp.R")
+source("R/powerlaw/pareto.R")
+source("R/powerlaw/zeta.R")
+
+
+(est1 <- powerexp.fit(testP,1))
+x <- sort(unique(testP))
+x <- x[x>=est1$xmin]
+#shift <- max(po[po$x>=est1$xmin,]$y)
+
+y <- ppowerexp(x,est1$xmin,est1$exponent,est1$rate,lower.tail=F)
+lines(x,y,col=5)
+

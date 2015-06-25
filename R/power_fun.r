@@ -6,7 +6,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 {
 	n <- length(unique(data_set))
 	n_models <- 4
-	n_sets <- 2
+	n_sets <- 3
 	# List of models
 	model_list = list(list(model=vector("list", length=0), 
 						   						GOF=vector("list", length=0),
@@ -23,7 +23,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 	dim(fit_ht) <- c(n_models,n_sets)
 	# Two sets: power law with and without cut-off
 	# Declare models
-	for (i_set in 1:n_sets){
+	for (i_set in 1:(n_sets-1)){
 		# Continuous power law
 		fit_ht[[1,i_set]]$model <- conpl$new(data_set)
 		fit_ht[[1,i_set]]$k <- 1
@@ -36,22 +36,41 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 		# power law with exponential cutoff
 		fit_ht[[4,i_set]]$model <- "" 
 		fit_ht[[4,i_set]]$k <- 2
-
 	}
-	# Fit power law models
+	# Estimate Xmin with complete data_set for power law model
 	fit_ht[[1,2]]$xmin_estimation <- estimate_xmin(fit_ht[[1,2]]$model,
 		xmins = xmins, 
 		pars = NULL, 
 		xmax = max(data_set))
 
 	fit_ht[[1,2]]$model$setXmin(fit_ht[[1,2]]$xmin_estimation)
+
+	# Data set < xmin for i_set=3
+	#
+	xmin <- fit_ht[[1,2]]$xmin_estimation$xmin
+	i_set<-3 
+	# Continuous power law
+	fit_ht[[1,i_set]]$model <- conpl$new(data_set[data_set<xmin])
+	fit_ht[[1,i_set]]$k <- 1
+	# Continuous log-normal
+	fit_ht[[2,i_set]]$model <- conlnorm$new(data_set[data_set<xmin])
+	fit_ht[[2,i_set]]$k <- 2
+	# Continuous exponential
+	fit_ht[[3,i_set]]$model <- conexp$new(data_set[data_set<xmin])
+	fit_ht[[3,i_set]]$k <- 1
+	# power law with exponential cutoff
+	fit_ht[[4,i_set]]$model <- "" 
+	fit_ht[[4,i_set]]$k <- 2
+
+
 	model_names <- c("Power", "LogNorm","Exp","PowerExp")
-	AICc_weight <- matrix( nrow = 4, ncol = 2,
-							dimnames = list(model_names,c("Xmin=1", "Estimated Xmin")))
+	labels_set <- c("Xmin=1","Estimated Xmin","<Xmin")
+
+	AICc_weight <- matrix( nrow = n_models, ncol = n_sets,
+							dimnames = list(model_names,labels_set))
 
 	delta_AICc <- AICc_weight
 	GOF <- delta_AICc
-	labels_set <- c("Xmin=1","Estimated Xmin")
 	
 	for (i_set in 1:n_sets){
 		aic_min=Inf
@@ -61,7 +80,11 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			fit_ht[[i,i_set]]$model$xmin <- fit_ht[[1,i_set]]$model$xmin
 			
 			# Correct n with xmin
-			fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin])
+			if(i_set==3) {
+				fit_ht[[i,i_set]]$n <-length(data_set[data_set<xmin])
+			} else {
+				fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin])
+			}
 			
 			# Fit models
 			if(i!=n_models){
@@ -69,8 +92,13 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 				# Compute AICc
 				fit_ht[[i,i_set]]$LL <- dist_ll(fit_ht[[i,i_set]]$model)
 			} else {
-				# Fit models
-				fit_ht[[i,i_set]]$model<- powerexp.fit(data_set,fit_ht[[1,i_set]]$model$xmin)
+				# Fit Power Exponential (not poweRlaw package)
+				#
+				if(i_set==3){
+					fit_ht[[i,i_set]]$model<- powerexp.fit(data_set[data_set<xmin],fit_ht[[1,i_set]]$model$xmin)					
+				} else {
+					fit_ht[[i,i_set]]$model<- powerexp.fit(data_set,fit_ht[[1,i_set]]$model$xmin)
+				}
 				# Compute AICc
 				fit_ht[[i,i_set]]$LL <- fit_ht[[i,i_set]]$model$loglike 			
 			}
@@ -79,9 +107,9 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			fit_ht[[i,i_set]]$AICc <- (2*k-2*LL)+2*k*(k+1)/(n-k-1)
 			aic_min <- min(aic_min,fit_ht[[i,i_set]]$AICc)
 			if (i==1 & options.output$GOF){
-				# Goodnes of fit via boostrap
+				# Goodness of fit via boostrap
 				fit_ht[[i,i_set]]$GOF <- bootstrap_p(fit_ht[[i,i_set]]$model,
-											 xmin=seq(max(1,fit_ht[[i,i_set]]$model$xmin-50),fit_ht[[i,i_set]]$model$xmin+50),
+											 xmin=fit_ht[[i,i_set]]$model$xmin,
 											 pars = NULL, 
 											 xmax = max(data_set),
 											 no_of_sims = 1000,
@@ -108,14 +136,16 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			fnam <-paste0(strsplit(options.output$data_set_name,".tif"),"_",labels_set[i_set], ".png")
 			png(filename=fnam, res=300,units = "mm", height=200, width=200,bg="white")
 
-			plot(fit_ht[[1,i_set]]$model,xlab="Area",ylab="CCDF",main=labels_set[i_set])
+			po <-plot(fit_ht[[1,i_set]]$model,xlab="Area",ylab="CCDF",main=labels_set[i_set])
 			for (i in 1:n_models){
 				if(i!=n_models) {
 					lines(fit_ht[[i,i_set]]$model, col=i+1)
 				} else {
 					est1 <- fit_ht[[i,i_set]]$model
 					x <- sort(unique(data_set))
-					y <- ppowerexp(x,est1$xmin,est1$exponent,est1$rate,lower.tail=F)
+					x <- x[x>=est1$xmin]
+					shift <- max(po[po$x>=est1$xmin,]$y)
+					y <- ppowerexp(x,est1$xmin,est1$exponent,est1$rate,lower.tail=F)*shift
 					lines(x,y,col=i+1)
 				}
 			}
