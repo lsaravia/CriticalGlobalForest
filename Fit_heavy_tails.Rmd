@@ -41,11 +41,18 @@ original_bin_files <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif.bin",
 						"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin")
 
 image_names <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif", "MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif")
+
+options.output <- vector("list", length=0)
+options.output$GOF <- 1
+options.output$ploting <- 0
+options.output$data_set_name <- image_names
+options.output$resultsDir <- resultsDir 
+options.output$sample_data <- 0 # For testing
 ```
 
 # Fit heavy tailed distributions
 
-```{r conheavytailfit, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailfit, eval=F,echo=F,message=T,warning=T}
 require(doParallel)
 require(plyr)
 require(dplyr)
@@ -55,43 +62,48 @@ require(dplyr)
 #cl <- makeCluster(cn)
 #registerDoParallel(cl)
 
-options.output <- vector("list", length=0)
-options.output$GOF <- 1
-options.output$ploting <- 1
-options.output$data_set_name <- image_names
-options.output$resultsDir <- resultsDir 
-options.output$sample_data <- 100 # For testing
 set.seed(seed=0)
 
-fit <- data.frame()
+#fit <- data.frame()
 all_fit<-data.frame()
 
 setwd(resultsDir)
-fit <-foreach(i_im=1:length(image_names),.combine='rbind',.errorhandling='remove') %do%
+all_fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
 { 
   call_fit_con_heavy_tail(options.output) 
 }
-all_fit <- bind_rows(all_fit,fit)
+#all_fit <- bind_rows(all_fit,fit)
 
 setwd(oldcd)
 rm(cl,cn,fit)
-save.image()
+
 
 # Build a dataframe for table output
 #
+nn <- c("Complete",">=Xmin","<Xmin")
+#all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
+ta <- mutate(all_fit,year=substr(data_set_name,16,19),
+			 Data_Set=nn[match(model_set,c("Xmin=1", "Estimated Xmin","<Xmin"))]) 
 
-ta <- mutate(all_fit,year=substr(data_set_name,16,19)) %>% arrange(model_set,year,delta_AICc) %>% 
-  select(year,xmin,model_name,par1,par2,delta_AICc,GOFp) %>% 
+ta[ta$model_set=="<Xmin",]$xmin <-ta[ta$model_set=="Estimated Xmin",]$xmin
+
+ta <- ta %>% arrange(model_set,year,delta_AICc) %>% 
+  select(year,Data_Set,xmin,model_name,par1,par2,delta_AICc,GOFp) %>% 
   mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-  year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ))
+  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
+  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ))
+
+options("scipen"=4, "digits"=6)
 
 pandoc.table(ta)
+
+save.image()
 
 ```
 
 # Plots of fits, and exponents with SE
 
-```{r conheavytailplotfreq, eval=F,echo=F,message=T,warning=T}
+```{r conheavytailplotfreq, eval=T,echo=F,message=T,warning=T}
 require(dplyr)
 
 # Change model name
@@ -110,32 +122,39 @@ for( i_im in 1:length(image_names) ){
 		data_set<- sample(data_set,options.output$sample_data) ### TESTING
 	
 	nn <- strsplit(original_bin_files[i_im],".tif")[[1]][1]
-	ff <- filter(all_fit,data_set_name==nn,xmin==1)
-	#freq_plot_con_ht(data_set,ff)
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$xmin[1])
+	
+	# Complete data set (Xmin=1)
+	#
+	ff <- filter(all_fit,data_set_name==nn,model_set=="Xmin=1")
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
 	cdfplot_conpl_exp(data_set,ff,na)
+	#freq_plot_con_ht(data_set,ff)
 	#cdfplot_con_ht(data_set,ff,paste0(na,"B"))
 
-	ff <- filter(all_fit,data_set_name==nn,xmin!=1)
-	#freq_plot_con_ht(data_set,ff)
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$xmin[1])
-	cdfplot_conpl_exp(data_set,ff,na)
-	#cdfplot_con_ht(data_set,ff,paste0(na,"B"))
+	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	#cdfplot_conpl_exp(data_set,ff,na)
 
+	# data set>=Estimated Xmin (Estimated Xmin)
+	#	
+	ff1 <- filter(all_fit,data_set_name==nn,model_set=="<Xmin")
+	# data set< Estimated Xmin (<Xmin)
+	ff <- filter(all_fit,data_set_name==nn,model_set=="Estimated Xmin")
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na,ff1)
 
 }
 
 
-ff <- filter(all_fit,model_name=="Power") %>% mutate(year=substr(data_set_name,16,19),
+ff <- filter(all_fit,model_set!="Xmin=1",delta_AICc==0) %>% mutate(year=substr(data_set_name,16,19),
 													 se=(par1-1)/sqrt(n))
 pd <-position_dodge(.1)
-g <- ggplot(ff, aes(x=year,y=par1,colour=model_set)) +  theme_bw() + geom_point(position=pd)+ 
+g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
 	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.1,position=pd) + ylab(expression(alpha))
 g
 ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
 setwd(oldcd)
-rm(data_set,ff,nn,na)
+rm(data_set,ff,ff1,nn,na)
 
 ```
 

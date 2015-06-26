@@ -246,24 +246,71 @@ freq_plot_con_ht <- function(x,fit_ht,tit="")
 #
 # x: data
 # fit_ht : dataframe with fitted parameters
-#
+# tit: file name to save graph
+# fit_ht1: second set of parameters to superimpose in the same graph
 
-cdfplot_conpl_exp <- function(x,fit_ht,tit="")
+cdfplot_conpl_exp <- function(x,fit_ht,tit="",fit_ht1=NULL)
 {
 	require(poweRlaw)
 	m <- conpl$new(x)
 	tP <- plot(m,draw=F)
 	require(ggplot2)
 	require(dplyr)
+
+	tP1 <- cdfplot_conpl_exp_helper(x,tP,fit_ht)
+
+	#tP2 <-filter(tP2, powl>= min(tP$Rank))
+	#tP1 <-filter(tP1, powl>= min(tP$Rank))
+	
+	#mc <- c("#E69F00", "#56B4E9", "#009E73","#F0E442", "#0072B2","#D55E00", "#CC79A7")
+	# Brewer
+	#mc <- c("#d7191c","#fdae61","#abd9e9","#2c7bb6")
+	
+	g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + coord_cartesian(ylim=c(1,min(tP$y)))+
+		scale_y_log10() +scale_x_log10() + ylab("log[P(X > x)]") + xlab("Patch size") #+ggtitle(tit)
+	brk<-unique(tP1$model)
+	g <- g + geom_line(data=tP1,aes(y=powl,x=psize,colour=model)) + 
+		#scale_colour_discrete(name="",breaks=brk)
+		#scale_colour_manual(values=mc,name="",breaks=brk)  
+		scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
+
+	if(!is.null(fit_ht1))
+	{	
+		fit_ht1$xmin <- fit_ht$xmin 
+		tP2 <- cdfplot_conpl_exp_helper(x,tP,fit_ht1,"lt")
+
+		g <- g + geom_line(data=tP2,aes(y=powl,x=psize,colour=model)) + 
+			#scale_colour_discrete(name="",breaks=brk)
+			#scale_colour_manual(values=mc,name="",breaks=brk)  
+			scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
+	}
+	
+	fil <- gsub(" ", "", tit, fixed = TRUE)
+	fil <- paste0(fil,".png")
+	if(tit=="")
+		print(g)
+	else
+		ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
+}
+
+cdfplot_conpl_exp_helper <- function(x,tP,fit_ht,mode="gt")
+{
 	x1 <- unique(x)
 
 	# Select model and generate a data frame 
 	#
 	ff <- filter(fit_ht,model_name=="PowerExp")
 	xmin <- ff$xmin
-	shift <- max(filter(tP,x>=xmin)$y)
 
-	x1 <- x1[x1>=xmin]
+	if(mode=="gt") {
+		x1 <- x1[x1>=xmin]
+		shift <- max(filter(tP,x>=xmin)$y)
+	} else {
+		x1 <- x1[x1<xmin]
+		xmin<-1
+		shift <-1
+	}
+
 	tP2 <- data.frame(psize=x1, powl=ppowerexp(x1,xmin,ff$par1,ff$par2,lower.tail=F)*shift,model=ff$model_name)
 
 	ff <- filter(fit_ht,model_name=="Power")
@@ -282,29 +329,8 @@ cdfplot_conpl_exp <- function(x,fit_ht,tit="")
 	m$setXmin(xmin)
 	tP4 <- data.frame(psize=x1,powl=dist_cdf(m,x1,lower_tail=F)*shift,model=ff$model_name)
 	tP1 <- bind_rows(tP1,tP2,tP3,tP4)
-
-	#tP2 <-filter(tP2, powl>= min(tP$Rank))
-	#tP1 <-filter(tP1, powl>= min(tP$Rank))
-	
-	#mc <- c("#E69F00", "#56B4E9", "#009E73","#F0E442", "#0072B2","#D55E00", "#CC79A7")
-	# Brewer
-	#mc <- c("#d7191c","#fdae61","#abd9e9","#2c7bb6")
-	
-	g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + coord_cartesian(ylim=c(1,min(tP$y)))+
-		scale_y_log10() +scale_x_log10() + ylab("log[P(X > x)]") + xlab("Patch size") #+ggtitle(tit)
-	brk<-unique(tP1$model)
-	g <- g + geom_line(data=tP1,aes(y=powl,x=psize,colour=model)) + 
-		#scale_colour_discrete(name="",breaks=brk)
-		#scale_colour_manual(values=mc,name="",breaks=brk)  
-		scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
-	
-	fil <- gsub(" ", "", tit, fixed = TRUE)
-	fil <- paste0(fil,".png")
-	if(tit=="")
-		print(g)
-	else
-		ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
 }
+
 
 # Function to plot CCDF of heavy tailed distributions using base graphics
 # x: data set
