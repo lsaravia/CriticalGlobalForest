@@ -37,6 +37,10 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 		fit_ht[[4,i_set]]$model <- "" 
 		fit_ht[[4,i_set]]$k <- 2
 	}
+	
+	# Set xmin for set 1
+	fit_ht[[1,1]]$model$xmin <- 9
+	
 	# Estimate Xmin with complete data_set for power law model
 	fit_ht[[1,2]]$xmin_estimation <- estimate_xmin(fit_ht[[1,2]]$model,
 		xmins = xmins, 
@@ -62,6 +66,13 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 	fit_ht[[4,i_set]]$model <- "" 
 	fit_ht[[4,i_set]]$k <- 2
 
+	# xmin for data set <Xmin **********************TEST
+	fit_ht[[1,3]]$xmin_estimation <- estimate_xmin(fit_ht[[1,3]]$model,
+		xmins = xmins, 
+		pars = NULL, 
+		xmax = max(data_set))
+	fit_ht[[1,3]]$model$setXmin(fit_ht[[1,3]]$xmin_estimation)
+
 
 	model_names <- c("Power", "LogNorm","Exp","PowerExp")
 	labels_set <- c("Xmin=1","Estimated Xmin","<Xmin")
@@ -81,7 +92,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			
 			# Correct n with xmin
 			if(i_set==3) {
-				fit_ht[[i,i_set]]$n <-length(data_set[data_set<xmin])
+				fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin & data_set<xmin])
 			} else {
 				fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin])
 			}
@@ -133,7 +144,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 		# Plots
 		if (options.output$ploting){
 			#setwd(options.output$resultsDir)
-			fnam <-paste0(strsplit(options.output$data_set_name,".tif"),"_",labels_set[i_set], ".png")
+			fnam <-paste0(strsplit(options.output$data_set_name[i_im],".tif"),"_",labels_set[i_set], ".png")
 			png(filename=fnam, res=300,units = "mm", height=200, width=200,bg="white")
 
 			po <-plot(fit_ht[[1,i_set]]$model,xlab="Area",ylab="CCDF",main=labels_set[i_set])
@@ -203,7 +214,7 @@ call_fit_con_heavy_tail <-function(options.output){
 # x: data
 # fit_ht_df : dataframe with fitted parameters
 #
-freq_plot_con_ht <- function(x,fit_ht,tit="")
+freq_plot_con_ht <- function(x,fit_ht,tit="") # PLOT ALL FROM X=1 ?????????????????
 {
 	require(dplyr)
 	require(ggplot2)
@@ -211,15 +222,18 @@ freq_plot_con_ht <- function(x,fit_ht,tit="")
 	xx$x <- as.numeric(as.character(xx$x))
 	ff <- filter(fit_ht,model_name=="PowerExp")
 	xmin <- ff$xmin
-	xx$pexp <-dpowerexp(xx$x,xmin,ff$par1,ff$par2)
+	xx$pexp <-dpowerexp(xx$x,1,ff$par1,ff$par2)
 	
 	ff <- filter(fit_ht,model_name=="Power")
-	xx$pow  <-dpareto(xx$x,xmin,ff$par1)
+	xx$pow  <-dpareto(xx$x,1,ff$par1)
 
 	ff <- filter(fit_ht,model_name=="Exp")
-	xx$exp  <-dexp(xx$x,ff$par1)
+	xx$exp  <-dexp(xx$x,ff$par1)	
 
-	xx$Freq <- xx$Freq/sum(xx$Freq)
+	xx <-mutate(xx,pexp=ifelse(x<xmin,NA,pexp),pow=ifelse(x<xmin,NA,pexp),
+				exp=ifelse(x<xmin,NA,exp),
+				Freq=Freq/sum(Freq))
+
 	minFreq <- min(xx$Freq) - 0.5*min(xx$Freq)
 	minFreq <- ifelse(minFreq<0,0,minFreq)
 	g <- ggplot(xx, aes(y=Freq,x=x)) +  theme_bw() + geom_point(alpha=0.3) + 
@@ -232,12 +246,13 @@ freq_plot_con_ht <- function(x,fit_ht,tit="")
 		geom_line(aes(y=pexp,x=x,colour="P.law with\nexp. cutoff"))+
 		geom_line(aes(y=exp,x=x,colour="Exp."))+
 		scale_colour_manual(values=mc,name="")  
+
 	fil <- gsub(" ", "", tit, fixed = TRUE)
 	fil <- paste0(fil,".png")
 	if(tit=="")
 		print(g)
 	else
-		ggsave(fil,plot=g)
+		ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
 	
 }
 
@@ -249,15 +264,18 @@ freq_plot_con_ht <- function(x,fit_ht,tit="")
 # tit: file name to save graph
 # fit_ht1: second set of parameters to superimpose in the same graph
 
-cdfplot_conpl_exp <- function(x,fit_ht,tit="",fit_ht1=NULL)
+cdfplot_conpl_exp <- function(x,fit_ht,tit="",xmax=0)
 {
 	require(poweRlaw)
 	m <- conpl$new(x)
 	tP <- plot(m,draw=F)
 	require(ggplot2)
 	require(dplyr)
-
-	tP1 <- cdfplot_conpl_exp_helper(x,tP,fit_ht)
+	
+	ff <- filter(fit_ht,model_name=="Power")
+	xmin <- ff$xmin
+	
+	tP1 <- cdfplot_conpl_exp_helper(x,tP,fit_ht,xmin)
 
 	#tP2 <-filter(tP2, powl>= min(tP$Rank))
 	#tP1 <-filter(tP1, powl>= min(tP$Rank))
@@ -266,7 +284,8 @@ cdfplot_conpl_exp <- function(x,fit_ht,tit="",fit_ht1=NULL)
 	# Brewer
 	#mc <- c("#d7191c","#fdae61","#abd9e9","#2c7bb6")
 	
-	g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + coord_cartesian(ylim=c(1,min(tP$y)))+
+	g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + 
+		coord_cartesian(ylim=c(1,min(tP$y)))+
 		scale_y_log10() +scale_x_log10() + ylab("log[P(X > x)]") + xlab("Patch size") #+ggtitle(tit)
 	brk<-unique(tP1$model)
 	g <- g + geom_line(data=tP1,aes(y=powl,x=psize,colour=model)) + 
@@ -274,41 +293,60 @@ cdfplot_conpl_exp <- function(x,fit_ht,tit="",fit_ht1=NULL)
 		#scale_colour_manual(values=mc,name="",breaks=brk)  
 		scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
 
-	if(!is.null(fit_ht1))
-	{	
-		fit_ht1$xmin <- fit_ht$xmin 
-		tP2 <- cdfplot_conpl_exp_helper(x,tP,fit_ht1,"lt")
-
-		g <- g + geom_line(data=tP2,aes(y=powl,x=psize,colour=model)) + 
-			#scale_colour_discrete(name="",breaks=brk)
-			#scale_colour_manual(values=mc,name="",breaks=brk)  
-			scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
-	}
 	
+	
+# 	if(!is.null(fit_ht1))
+# 	{	
+# 		#tP <-filter(tP,x<xmin)
+# 		#g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + coord_cartesian(ylim=c(1,min(tP$y)))+
+# 		#	scale_y_log10() +scale_x_log10() + ylab("log[P(X > x)]") + xlab("Patch size") #+ggtitle(tit)
+# 		
+# 
+# 		#xmin <- fit_ht1$xmin 
+# 		tP2 <- cdfplot_conpl_exp_helper(x,tP,fit_ht1,xmin,"lt")
+# 		brk<-unique(tP2$model)
+# 		
+# 		g <- g + geom_line(data=tP2,aes(y=powl,x=psize,colour=model)) + 
+# 			#scale_colour_discrete(name="",breaks=brk)
+# 			#scale_colour_manual(values=mc,name="",breaks=brk)  
+# 			scale_colour_brewer(type="div",palette=7,name="",breaks=brk)
+# 		
+# 		fil <- gsub(" ", "", tit, fixed = TRUE)
+# 		fil <- paste0(fil,"_1.png")
+# 		if(tit=="")
+# 			print(g)
+# 		else
+# 			ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
+# 		
+# 
+# 	}
 	fil <- gsub(" ", "", tit, fixed = TRUE)
 	fil <- paste0(fil,".png")
 	if(tit=="")
 		print(g)
 	else
 		ggsave(fil,plot=g,width=6,height=4,units="in",dpi=600)
+	
 }
 
-cdfplot_conpl_exp_helper <- function(x,tP,fit_ht,mode="gt")
+cdfplot_conpl_exp_helper <- function(x,tP,fit_ht,xmin,mode="gt")
 {
 	x1 <- unique(x)
 
 	# Select model and generate a data frame 
 	#
 	ff <- filter(fit_ht,model_name=="PowerExp")
-	xmin <- ff$xmin
 
 	if(mode=="gt") {
 		x1 <- x1[x1>=xmin]
 		shift <- max(filter(tP,x>=xmin)$y)
 	} else {
 		x1 <- x1[x1<xmin]
-		xmin<-1
-		shift <-1
+		#xmin<-1
+		#shift <-1
+		# First select lower subset the change to the Xmin of this subset
+		xmin <- ff$xmin
+		shift <- max(filter(tP,x>=xmin)$y)
 	}
 
 	tP2 <- data.frame(psize=x1, powl=ppowerexp(x1,xmin,ff$par1,ff$par2,lower.tail=F)*shift,model=ff$model_name)

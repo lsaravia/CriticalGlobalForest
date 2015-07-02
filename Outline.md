@@ -8,7 +8,11 @@ Thus the question is how near/far is the global forest from a catastrophic trans
 
 We will use the MODIS vegetation continuous field, so we can analyse temporal changes.
 
+
+* Most probably multiple process influence the distributions of patch size at a continental scale, so we are trying to extract the main generic ones.
+
 * Hypothesis: two power laws, small patches related to deforestation dynamics, large patches related to forest inner dynamics.
+
 
 # Methods
 
@@ -16,7 +20,12 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 * We should define areas with different levels of degradation to apply the spatial indicators [Very difficult because is not possible to establish reliable controls]
 
+* The distribution of patches is continuous but the data is discretized so we discard the lowest values and start fitting patch sizes greater than 10. Latter we found the Xmin around 15 for the lower portion of the data.
+
+* If we truncate the data set in two and estimate for the lower part we will get higher power exponent than the real ones(less heavy tails), if we use the complete data set because the lower part have a more importan influence in fitting (because of the greater number of small patches) we will estimate lower power exponents than the real ones (because the tails of the two procesess are mixed)  
+
 * We should use 2D DFT and multifractals in continuous data and fit patch size distributions in discretized data.[Not implemented] 
+
 
 * Rates of growth an shrink of patches [@Manor2008a, @Manor2008] 
 
@@ -28,58 +37,57 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 ### South America
 
+------------------------------------------------------------------------------
+ year   Data_Set   xmin   model_name    par1      par2     AICc_weight   GOFp 
+------ ---------- ------ ------------ --------- --------- ------------- ------
+ 2000   Complete    1       Power       1.918      NA        0.7329       0   
 
------------------------------------------------------------------------------
- year   Data_Set   xmin   model_name    par1      par2     delta_AICc   GOFp 
------- ---------- ------ ------------ --------- --------- ------------ ------
- 2000   Complete    1       Power       1.918      NA          0         0   
+                           PowerExp     1.918   3.36e-11     0.2671       NA  
 
-                           PowerExp     1.918   3.36e-11     2.019       NA  
+                           LogNorm      1.151     1.631         0         NA  
 
-                           LogNorm      1.151     1.631      683753      NA  
+                             Exp      0.003986     NA           0         NA  
 
-                             Exp      0.003986     NA       7511320      NA  
+ 2010                       Power       1.833      NA        0.9572       0   
 
- 2010                       Power       1.833      NA          0         0   
+                           PowerExp     1.831   2.233e-10    0.04277      NA  
 
-                           PowerExp     1.831   2.233e-10    6.217       NA  
+                           LogNorm      1.266     1.653         0         NA  
 
-                           LogNorm      1.266     1.653      577578      NA  
+                             Exp      0.003998     NA           0         NA  
 
-                             Exp      0.003998     NA       6827242      NA  
+ 2000    >=Xmin    265      Power       2.013      NA        0.6332       1   
 
- 2000    >=Xmin    265      Power       2.013      NA          0         1   
+                           LogNorm      -1486     38.46      0.2017       NA  
 
-                           LogNorm      -1486     38.46      2.288       NA  
+                           PowerExp     2.003   1.38e-13     0.1651       NA  
 
-                           PowerExp     2.003   1.38e-13     2.688       NA  
+                             Exp      0.0005124    NA           0         NA  
 
-                             Exp      0.0005124    NA        139893      NA  
+ 2010              216      Power       2.021      NA        0.6279       1   
 
- 2010              216      Power       2.021      NA          0         1   
+                           PowerExp     2.015   6.11e-12     0.1976       NA  
 
-                           PowerExp     2.015   6.11e-12     2.312       NA  
+                           LogNorm      -1213     34.66      0.1744       NA  
 
-                           LogNorm      -1213     34.66      2.562       NA  
+                             Exp      0.0005397    NA           0         NA  
 
-                             Exp      0.0005397    NA        150593      NA  
+ 2000    <Xmin      16     PowerExp     1.561   0.007014        1         NA  
 
- 2000    <Xmin     265     PowerExp     1.936   0.0006666      0         NA  
+                            Power       2.169      NA           0         1   
 
-                            Power       1.956      NA         1522       0   
+                           LogNorm      2.701     1.167         0         NA  
 
-                           LogNorm      1.389     1.338      818292      NA  
+                             Exp       0.02767     NA           0         NA  
 
-                             Exp       0.08521     NA       1822635      NA  
+ 2010               14     PowerExp     1.493   0.009059        1         NA  
 
- 2010              216     PowerExp     1.829   0.001763       0         NA  
+                            Power       2.165      NA           0         1   
 
-                            Power       1.877      NA         5615       0   
+                           LogNorm      2.732     1.103         0         NA  
 
-                           LogNorm      1.499     1.319      713859      NA  
-
-                             Exp       0.08257     NA       1525334      NA  
------------------------------------------------------------------------------
+                             Exp       0.03171     NA           0         NA  
+------------------------------------------------------------------------------
 
 Table: Model selection using Akaike criterion, and goodness of fit calculated by bootstrap. The models were fited using maximum likelihood with three different data sets: *Complete*, the full data set; >=Xmin, values greater than or equal than *Xmin* threshold; <Xmin, values less than *Xmin*. 
 

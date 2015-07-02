@@ -52,7 +52,7 @@ options.output$sample_data <- 0 # For testing
 
 # Fit heavy tailed distributions
 
-```{r conheavytailfit, eval=F,echo=F,message=T,warning=T}
+```{r conheavytailfit, eval=T,echo=F,message=T,warning=T}
 require(doParallel)
 require(plyr)
 require(dplyr)
@@ -85,10 +85,10 @@ nn <- c("Complete",">=Xmin","<Xmin")
 ta <- mutate(all_fit,year=substr(data_set_name,16,19),
 			 Data_Set=nn[match(model_set,c("Xmin=1", "Estimated Xmin","<Xmin"))]) 
 
-ta[ta$model_set=="<Xmin",]$xmin <-ta[ta$model_set=="Estimated Xmin",]$xmin
+#ta[ta$model_set=="<Xmin",]$xmin <-ta[ta$model_set=="Estimated Xmin",]$xmin
 
-ta <- ta %>% arrange(model_set,year,delta_AICc) %>% 
-  select(year,Data_Set,xmin,model_name,par1,par2,delta_AICc,GOFp) %>% 
+ta <- ta %>% arrange(model_set,year,desc(AICc_weight)) %>% 
+  select(year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
   mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
   	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
   	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ))
@@ -128,28 +128,37 @@ for( i_im in 1:length(image_names) ){
 	ff <- filter(all_fit,data_set_name==nn,model_set=="Xmin=1")
 	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
 	cdfplot_conpl_exp(data_set,ff,na)
-	#freq_plot_con_ht(data_set,ff)
+	#
+	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_Freq_",ff$model_set[1])
+	#freq_plot_con_ht(data_set,ff,na)
 	#cdfplot_con_ht(data_set,ff,paste0(na,"B"))
 
-	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
-	#cdfplot_conpl_exp(data_set,ff,na)
+	# data set< Estimated Xmin (<Xmin)
+	#
+	ff <- filter(all_fit,data_set_name==nn,model_set=="Estimated Xmin")
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+
+	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_Freq_",ff$model_set[1])
+	#freq_plot_con_ht(data_set,ff,na)
 
 	# data set>=Estimated Xmin (Estimated Xmin)
 	#	
-	ff1 <- filter(all_fit,data_set_name==nn,model_set=="<Xmin")
-	# data set< Estimated Xmin (<Xmin)
-	ff <- filter(all_fit,data_set_name==nn,model_set=="Estimated Xmin")
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_xmin_",ff$model_set[1])
-	cdfplot_conpl_exp(data_set,ff,na,ff1)
+	xmax <- ff$xmin[1]
+	ff <- filter(all_fit,data_set_name==nn,model_set=="<Xmin")
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na,xmax)
 
+	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_Freq_",ff1$model_set[1])
+	#freq_plot_con_ht(data_set,ff1,na)
 }
 
-
-ff <- filter(all_fit,model_set!="Xmin=1",delta_AICc==0) %>% mutate(year=substr(data_set_name,16,19),
+require(ggplot2)
+ff <- filter(all_fit,delta_AICc==0) %>% mutate(year=substr(data_set_name,16,19),
 													 se=(par1-1)/sqrt(n))
 pd <-position_dodge(.1)
 g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
-	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.1,position=pd) + ylab(expression(alpha))
+	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd) + ylab(expression(alpha))
 g
 ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 

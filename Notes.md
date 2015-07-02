@@ -100,3 +100,10 @@ its initial position, grows like t1/2. This implies that clusters
 are not trapped in small patches with favorable environ-
 mental conditions but move (through the birth-death pro-
 cess) randomly within the plot.
+
+
+---------------------
+@Newman2005 Power laws, Pareto distributions and Zipf's law
+
+Another example of the “combination of exponentials” mechanism has been discussed by Reed and
+Hughes [43]. They consider a process in which a set of items, piles or groups each grows exponentially in time, having size x ∼ e^bt with b > 0. For instance, populations of organisms reproducing freely without resource con- straints grow exponentially. Items also have some fixed probability of dying per unit time (populations might have a stochastically constant probability of extinction), so that the times t at which they die are exponentially distributed p(t) ∼ e^at with a < 0.

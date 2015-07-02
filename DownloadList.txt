@@ -26,3 +26,7 @@ http://mrtwebdistro.cr.usgs.gov/MRT1435347281664/MOD44B.MRTWEB.A2006065.005.Perc
 http://mrtwebdistro.cr.usgs.gov/MRT1435347365383/MOD44B.MRTWEB.A2007065.005.Percent_Tree_Cover.tif
 http://mrtwebdistro.cr.usgs.gov/MRT1435347434135/MOD44B.MRTWEB.A2008065.005.Percent_Tree_Cover.tif
 http://mrtwebdistro.cr.usgs.gov/MRT1435347522516/MOD44B.MRTWEB.A2009065.005.Percent_Tree_Cover.tif
+
+North America
+
+http://mrtwebdistro.cr.usgs.gov/MRT1435352738670/MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif

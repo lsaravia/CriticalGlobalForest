@@ -1,14 +1,14 @@
 
 # Test what happen if we have two power laws mixed
 
-Generate a data set with xmin=1 and alpha=1.918, then add a data set with xmin=265 alpha=2.013
+Generate a data set with xmin=1 and alpha=2.918, then add a data set with xmin=265 alpha=2.013
 
 
 ```{r simulTwoPower, eval=T, echo=T}
 require(poweRlaw)
 
 m = conpl$new()
-m$setXmin(1);m$setPars(1.918)
+m$setXmin(1);m$setPars(2.169)
  
 # Generate random numbers            #
 testP <- dist_rand(m, 10000)
