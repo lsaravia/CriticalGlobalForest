@@ -40,21 +40,21 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 ------------------------------------------------------------------------------
  year   Data_Set   xmin   model_name    par1      par2     AICc_weight   GOFp 
 ------ ---------- ------ ------------ --------- --------- ------------- ------
- 2000   Complete    1       Power       1.918      NA        0.7329       0   
+ 2000   Complete    9       Power       1.918      NA        0.7372       1   
 
-                           PowerExp     1.918   3.36e-11     0.2671       NA  
+                           PowerExp     1.919   3.794e-12    0.2628       NA  
 
-                           LogNorm      1.151     1.631         0         NA  
+                           LogNorm     -3.444     3.043         0         NA  
 
-                             Exp      0.003986     NA           0         NA  
+                             Exp      0.001303     NA           0         NA  
 
- 2010                       Power       1.833      NA        0.9572       0   
+ 2010                       Power       1.898      NA        0.9196       1   
 
-                           PowerExp     1.831   2.233e-10    0.04277      NA  
+                           PowerExp     1.894   9.513e-10    0.08036      NA  
 
-                           LogNorm      1.266     1.653         0         NA  
+                           LogNorm     -2.593     2.903         0         NA  
 
-                             Exp      0.003998     NA           0         NA  
+                             Exp      0.001471     NA           0         NA  
 
  2000    >=Xmin    265      Power       2.013      NA        0.6332       1   
 
