@@ -2,10 +2,16 @@
 dataDircell={'F:\Dropbox_UNGS\Dropbox\GlobalCriticalForest\southamerica'...
     'F:\Dropbox_UNGS\Dropbox\GlobalCriticalForest\centralamerica'};
 exclusion_borders_name = {{'Panama'} {'Colombia' 'United States' 'Venezuela' 'Ecuador' 'Brazil'}};
+codeDir=[dropbox '/Proyectos en colaboracion/Saravia/Completo/Code'];
 borderDir='F:/Dropbox_UNGS/Dropbox/GlobalCriticalForest/Borders';
+% %
+addpath(codeDir);
 % Options
 n_randomization=0;
 thrsh_density=30;
+min_area_overlap=100;
+
+
 % Load country borders
 cd(borderDir)
 dir_shp=dir('*.shp');
@@ -159,7 +165,7 @@ for i_dir = 1:length(dataDircell)
                 %imwrite(im_rand,['Randomization_' num2str(i_randomization) '_of_' image_names{i_im} '.tif'],'Compression','LZW')
                 % Save data in binary file
                 CC=bwconncomp(im_rand);
-                area_fp = regionprops(CC,'Area');
+                area_fp = regionprops(CC_rem,'Area');
                 area_fp = [area_fp.Area];
                 randomized_bin_files(i_im,i_randomization)={[image_names{i_im} '_randomized_' numstr(i_randomization) '.bin']}; %#ok<SAGROW>
                 fid = fopen(randomized_bin_files{i_im,i_randomization}, 'w');
