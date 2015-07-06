@@ -2,16 +2,10 @@
 dataDircell={'F:\Dropbox_UNGS\Dropbox\GlobalCriticalForest\southamerica'...
     'F:\Dropbox_UNGS\Dropbox\GlobalCriticalForest\centralamerica'};
 exclusion_borders_name = {{'Panama'} {'Colombia' 'United States' 'Venezuela' 'Ecuador' 'Brazil'}};
-codeDir=[dropbox '/Proyectos en colaboracion/Saravia/Completo/Code'];
 borderDir='F:/Dropbox_UNGS/Dropbox/GlobalCriticalForest/Borders';
-% %
-addpath(codeDir);
 % Options
 n_randomization=0;
 thrsh_density=30;
-min_area_overlap=100;
-
-
 % Load country borders
 cd(borderDir)
 dir_shp=dir('*.shp');
@@ -55,9 +49,10 @@ for i_dir = 1:length(dataDircell)
         [C,I] = max(land_area);
         CCland.PixelIdxList = CCland.PixelIdxList(I);
         CCland.NumObjects = 1;
-        continent = labelmatrix(CCland);
+        continent = labelmatrix(CCland)>0;
         clear CCland
         im = im > thrsh_density & continent;
+        size_im = size(im);
         %% Eliminate patches in excluded areas that are NOT connected with
         % non-excluded area
         % Use borders from shape file
@@ -100,23 +95,14 @@ for i_dir = 1:length(dataDircell)
             col_ex(out_of_bounds_border )=[];
             excluded_index = [excluded_index ; sub2ind(size(im),row_ex,col_ex)]; %#ok<AGROW>
         end
-        % Save bordes image for graphical checking
-        if i_im==1
-            im_border_check=zeros(size(im),'uint8');
-            im_border_check(excluded_index)=1;
-            cd(resultsDir)
-            imwrite(im_border_check>0,'Border_check.tif','tif','Compression','lzw');
-            clear im_border_check
-        end
         % Contiguous forested uints that overlap with excluded areas are
         % retainded
         CC=bwconncomp(im);
         patch_matrix = labelmatrix(CC);
         clear CC
         % Patches outside target area
-        im_rem = continent > 0;
-        im_rem(excluded_index) = 0;
-        CC_rem=bwconncomp(im_rem);
+        continent(excluded_index) = 0;
+        CC_rem=bwconncomp(continent);
         area_patch_check = regionprops(CC_rem,'Area'); 
         area_patch_check = [area_patch_check .Area]; 
         % Retain only greatest area not excluded - give tolerance to minor
@@ -125,13 +111,14 @@ for i_dir = 1:length(dataDircell)
         CC_rem.PixelIdxList(index_max) = [];
         CC_rem.NumObjects = CC_rem.NumObjects  - 1;
         excluded_index = [excluded_index ; cell2mat(CC_rem.PixelIdxList')]; %#ok<AGROW>
+        clear CC_rem
         excluded_patches = unique(patch_matrix(excluded_index));
-        im_rem(excluded_index) = 0;
+        continent(excluded_index) = 0;
         % Patches that are retained are those with at leat 1 pixel in target area
-        remaining_patches = setxor(unique(patch_matrix(im_rem)),0);
-        clear im_rem
+        remaining_patches = setxor(unique(patch_matrix(continent)),0);
+        clear 
+        clear continent
         CC=bwconncomp(im);
-        clear im
         CC.PixelIdxList = CC.PixelIdxList(remaining_patches);
         CC.NumObjects = length(CC.PixelIdxList);
         % Save final forest image for graphical checking
@@ -149,6 +136,14 @@ for i_dir = 1:length(dataDircell)
         fid = fopen(original_bin_files{i_im}, 'w');
         fwrite(fid, area_fp, 'double');
         fclose(fid);
+        % Save bordes image for graphical checking
+        if i_im==1
+            im_border_check=zeros(size_im,'uint8');
+            im_border_check(excluded_index)=1;
+            cd(resultsDir)
+            imwrite(im_border_check>0,'Border_check.tif','tif','Compression','lzw');
+            clear im_border_check
+        end
         %% Randomization
         randomized_bin_files={};
         if n_randomization>0
@@ -165,7 +160,7 @@ for i_dir = 1:length(dataDircell)
                 %imwrite(im_rand,['Randomization_' num2str(i_randomization) '_of_' image_names{i_im} '.tif'],'Compression','LZW')
                 % Save data in binary file
                 CC=bwconncomp(im_rand);
-                area_fp = regionprops(CC_rem,'Area');
+                area_fp = regionprops(CC,'Area');
                 area_fp = [area_fp.Area];
                 randomized_bin_files(i_im,i_randomization)={[image_names{i_im} '_randomized_' numstr(i_randomization) '.bin']}; %#ok<SAGROW>
                 fid = fopen(randomized_bin_files{i_im,i_randomization}, 'w');
