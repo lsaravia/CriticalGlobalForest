@@ -36,11 +36,19 @@ source("R/power_fun.r")
 dataDir <- "Results/Southamerica"
 codeDir <- "R"
 resultsDir <- "Results/Southamerica"
+##  
+#  
+# ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
+# original_bin_files <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif.bin", 
+# 						"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin")
+# 
+# image_names <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif", "MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif")
 
-original_bin_files <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif.bin", 
-						"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin")
-
-image_names <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif", "MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif")
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+# Delete already processed files
+#
+original_bin_files <-original_bin_files[-c(1,11)]
+image_names <- unlist(strsplit(original_bin_files,".bin"))
 
 options.output <- vector("list", length=0)
 options.output$GOF <- 1
@@ -64,15 +72,18 @@ require(dplyr)
 
 set.seed(seed=0)
 
-#fit <- data.frame()
-all_fit<-data.frame()
+#all_fit<-data.frame()
+#
+# Add results to existing data.frame
+#
+fit <- data.frame()
 
 setwd(resultsDir)
-all_fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
+fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
 { 
   call_fit_con_heavy_tail(options.output) 
 }
-#all_fit <- bind_rows(all_fit,fit)
+all_fit <- bind_rows(all_fit,fit)
 
 setwd(oldcd)
 rm(cl,cn,fit)

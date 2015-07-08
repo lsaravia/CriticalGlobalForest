@@ -107,3 +107,10 @@ cess) randomly within the plot.
 
 Another example of the “combination of exponentials” mechanism has been discussed by Reed and
 Hughes [43]. They consider a process in which a set of items, piles or groups each grows exponentially in time, having size x ∼ e^bt with b > 0. For instance, populations of organisms reproducing freely without resource con- straints grow exponentially. Items also have some fixed probability of dying per unit time (populations might have a stochastically constant probability of extinction), so that the times t at which they die are exponentially distributed p(t) ∼ e^at with a < 0.
+
+
+----
+
+@Sole2006
+
+Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002)d.

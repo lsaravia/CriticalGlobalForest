@@ -1,5 +1,6 @@
 # Analysis of critical transitions at the Global Forest
 
+Ecologists must search for universal principles, and one of these universal principles are scaling laws [@Harte2014],   
 
 the idea is to do a global analysis using early warning signals of ecological transitions [@Kefi2014] 
 
@@ -10,6 +11,8 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 
 * Most probably multiple process influence the distributions of patch size at a continental scale, so we are trying to extract the main generic ones.
+
+* How scaling laws are related to ecosystem function?
 
 * Hypothesis: two power laws, small patches related to deforestation dynamics, large patches related to forest inner dynamics.
 
