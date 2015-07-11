@@ -1,6 +1,6 @@
 # Analysis of critical transitions at the Global Forest
 
-Ecologists must search for universal principles, and one of these universal principles are scaling laws [@Harte2014],   
+Ecologists must search for universal principles [@Harte2014], and one of these universal principles are scaling laws, These scaling laws are a signal of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
 
 the idea is to do a global analysis using early warning signals of ecological transitions [@Kefi2014] 
 
@@ -27,6 +27,12 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 * If we truncate the data set in two and estimate for the lower part we will get higher power exponent than the real ones(less heavy tails), if we use the complete data set because the lower part have a more importan influence in fitting (because of the greater number of small patches) we will estimate lower power exponents than the real ones (because the tails of the two procesess are mixed)  
 
+* MODIS VCF
+
+* Fitting four models
+
+* Consecuences of each model
+
 * We should use 2D DFT and multifractals in continuous data and fit patch size distributions in discretized data.[Not implemented] 
 
 
@@ -38,61 +44,9 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 ## Results
 
-### South America
 
-------------------------------------------------------------------------------
- year   Data_Set   xmin   model_name    par1      par2     AICc_weight   GOFp 
------- ---------- ------ ------------ --------- --------- ------------- ------
- 2000   Complete    9       Power       1.918      NA        0.7372       1   
 
-                           PowerExp     1.919   3.794e-12    0.2628       NA  
 
-                           LogNorm     -3.444     3.043         0         NA  
-
-                             Exp      0.001303     NA           0         NA  
-
- 2010                       Power       1.898      NA        0.9196       1   
-
-                           PowerExp     1.894   9.513e-10    0.08036      NA  
-
-                           LogNorm     -2.593     2.903         0         NA  
-
-                             Exp      0.001471     NA           0         NA  
-
- 2000    >=Xmin    265      Power       2.013      NA        0.6332       1   
-
-                           LogNorm      -1486     38.46      0.2017       NA  
-
-                           PowerExp     2.003   1.38e-13     0.1651       NA  
-
-                             Exp      0.0005124    NA           0         NA  
-
- 2010              216      Power       2.021      NA        0.6279       1   
-
-                           PowerExp     2.015   6.11e-12     0.1976       NA  
-
-                           LogNorm      -1213     34.66      0.1744       NA  
-
-                             Exp      0.0005397    NA           0         NA  
-
- 2000    <Xmin      16     PowerExp     1.561   0.007014        1         NA  
-
-                            Power       2.169      NA           0         1   
-
-                           LogNorm      2.701     1.167         0         NA  
-
-                             Exp       0.02767     NA           0         NA  
-
- 2010               14     PowerExp     1.493   0.009059        1         NA  
-
-                            Power       2.165      NA           0         1   
-
-                           LogNorm      2.732     1.103         0         NA  
-
-                             Exp       0.03171     NA           0         NA  
-------------------------------------------------------------------------------
-
-Table: Model selection using Akaike criterion, and goodness of fit calculated by bootstrap. The models were fited using maximum likelihood with three different data sets: *Complete*, the full data set; >=Xmin, values greater than or equal than *Xmin* threshold; <Xmin, values less than *Xmin*. 
 
 
 ![Power law exponent of best models by year and with different data set: *<Xmin* the data is less than the extimated minimum patch size, *Estimated Xmin* the minimum patch size was estimated from data, and only patch sizes greater than or equal to Xmin was used.](Results/Southamerica/PowerExp_xmin_year.png)

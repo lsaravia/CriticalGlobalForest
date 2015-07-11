@@ -36,18 +36,16 @@ source("R/power_fun.r")
 dataDir <- "Results/Southamerica"
 codeDir <- "R"
 resultsDir <- "Results/Southamerica"
+
 ##  
 #  
 # ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
-# original_bin_files <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif.bin", 
-# 						"MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif.bin")
-# 
-# image_names <- c("MOD44B.MRTWEB.A2000065.005.Percent_Tree_Cover.tif", "MOD44B.MRTWEB.A2010065.005.Percent_Tree_Cover.tif")
+
 
 original_bin_files <- list.files(path=dataDir,pattern="*.bin")
 # Delete already processed files
 #
-original_bin_files <-original_bin_files[-c(1,11)]
+#original_bin_files <-original_bin_files[-c(1,11)]
 image_names <- unlist(strsplit(original_bin_files,".bin"))
 
 options.output <- vector("list", length=0)
@@ -60,7 +58,7 @@ options.output$sample_data <- 0 # For testing
 
 # Fit heavy tailed distributions
 
-```{r conheavytailfit, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailfit, eval=F,echo=F,message=T,warning=T}
 require(doParallel)
 require(plyr)
 require(dplyr)
@@ -172,6 +170,13 @@ g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_b
 	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd) + ylab(expression(alpha))
 g
 ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+# Plot of Xmin
+# 
+ff <- filter(all_fit,delta_AICc==0,model_set=="Estimated Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
+g <- ggplot(ff, aes(x=year,y=xmin)) +  theme_bw() + geom_point(shape=19,colour="red")
+g + geom_line(aes(group=1),colour="lightgreen")
+ggsave("EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
 setwd(oldcd)
 rm(data_set,ff,ff1,nn,na)

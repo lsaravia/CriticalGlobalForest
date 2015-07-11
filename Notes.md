@@ -113,4 +113,43 @@ Hughes [43]. They consider a process in which a set of items, piles or groups ea
 
 @Sole2006
 
-Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002)d.
+Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002).
+
+
+-------
+@VanRooij2013 A Fractal Approach to Dynamic Inference and Distribution Analysis
+
+This article is motivated by the insight that the shape of
+probability distributions of events reveals information about the
+dynamics that govern a system’s output. The approach leverages
+the fact that the essential nature of the dynamics that govern many
+natural stochastic systems can be understood without specific
+knowledge of the components that comprise the system itself
+(Holden et al., 2009; Holden and Rajaraman, 2012).
+
+Characteristic system dynamics originate in the relationships
+among the processes that comprise a system. Our introduc-
+tion briefly distinguished two broad taxonomies of characteristic
+system dynamics: component-dominant dynamics and interaction-
+dominant dynamics. They each entail distinct system transactions,
+superposition, and interdependence, respectively.
+
+
+Thus,
+Gaussian distributions emerge from systems whose observables
+are subject to vast arrays of relatively weak, additive, and inde-
+pendently acting perturbations: component-dominant systems.
+
+Interaction-dominant dynamics are associated with
+systems that entail tightly coupled processes spanning a wide
+range of temporal or spatial scales, including fractal systems.
+They refer to systems that entail multiplicative and/or interde-
+pendent feedback transactions among the processes that govern
+the system’s dynamics
+
+Of course,
+power law scaling alone is not sufficient to establish criticality.
+That said, self-organization and critical behavior
+are generally accepted as plausible working hypotheses with the
+observation of non-trivial scaling in complex biological systems
+

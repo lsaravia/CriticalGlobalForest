@@ -287,6 +287,9 @@ cdfplot_conpl_exp <- function(x,fit_ht,tit="",xmax=0)
 	g <- ggplot(tP, aes(x=x,y=y)) +  theme_bw() + geom_point(alpha=0.3) + 
 		coord_cartesian(ylim=c(1,min(tP$y)))+
 		scale_y_log10() +scale_x_log10() + ylab("log[P(X > x)]") + xlab("Patch size") #+ggtitle(tit)
+	if(xmax>0) {
+		g<-g + xlim(0,xmax+1) + scale_x_log10()
+	}
 	brk<-unique(tP1$model)
 	g <- g + geom_line(data=tP1,aes(y=powl,x=psize,colour=model)) + 
 		#scale_colour_discrete(name="",breaks=brk)
