@@ -11,13 +11,13 @@ require(poweRlaw)
 
 #Create distribution object              
 # 
-m = displ$new()
+m = conpl$new()
 m$setXmin(1);m$setPars(1.59)
 # 
 #Generate random numbers            #
 # 
 testP <- dist_rand(m, 1000)
-m <- displ$new(testP)
+m <- conpl$new(testP)
 m$setXmin(1) 
 (est = estimate_pars(m))
 plot(m, main="Alpha=1.59 1000 points")
@@ -25,12 +25,12 @@ plot(m, main="Alpha=1.59 1000 points")
 m$setPars(est$pars)
 lines(m, col=2)
 
-# Add some data with different alpha and different xmin
+# Add 2nd Power law with different alpha and different xmin
 #
 m$setXmin(20);m$setPars(1.89)
 
 testP <- c(testP,dist_rand(m, 1000))
-m <- displ$new(testP)
+m <- conpl$new(testP)
 m$setXmin(1) 
 (est = estimate_pars(m))
 
@@ -38,14 +38,18 @@ plot(m,pch=19, col="violet",main="2000 points a=1.59, xmin=20 a=1.89")
 ## Add in the fitted distribution
 m$setPars(est$pars)
 lines(m, col=2)
+
 (est = estimate_xmin(m))
 
 m$setXmin(est$xmin)
 m$setPars(est$pars)
 lines(m, col=3)
 
+
+# Test to fit only data < estimated xmin
+#
 testM <- testP[testP<est$xmin]
-mm <- displ$new(testM)
+mm <- conpl$new(testM)
 mm$setXmin(1) 
 (estM = estimate_pars(mm))
 
@@ -53,10 +57,47 @@ m$setXmin(1)
 m$setPars(estM$pars)
 lines(m, col=4)
 
-plot(mm)
+plot(mm,pch=18,col="bisque")
 mm$setPars(estM$pars)
 lines(mm, col=4)
 
+# Test godness of fit 
+
+ms <- bootstrap_p(m,no_of_sims = 10, xmax = max(testP), threads = 2, xmins=est$xmin)
+ms
+
+# Estimate parameter uncertainty
+#
+ms <- bootstrap(m,no_of_sims = 10, xmax = max(testP), threads = 2, xmins=(est$xmin-10):(est$xmin+10))
+sd(ms$bootstraps[,1])
+sd(ms$bootstraps[,2])
+
+# Testing the values of KS distances calculated by poweRlaw package 
+#
+comp_ks <-sapply(1:50, function(x){
+	x <- sort(rplcon(50, 1, 2))
+	m <- conpl$new(x)
+	m$setPars(2)
+	q <- m$dat
+	n <- m$internal[["n"]]; N = length(q)
+	q <- q[(N-n+1):N]
+	fit_cdf <- dist_cdf(m, q)
+	data_cdf <- ((0:(n-1))/n)[1:length(fit_cdf)]
+	tmp <- ecdf(x)
+	
+	#plot(tmp,col=5,pch=21)
+	#points(tmp(x),col=2)
+	#points(fit_cdf,col=3)
+	#curve(pplcon(x,m$xmin,est$pars),min(x),max(x),add = T,col=4)
+	
+	ks <-ks.test(x,"pplcon",1,2)$statistic
+	
+	pl_ks <-max(abs(fit_cdf-data_cdf))
+	
+	c(ks,pl_ks)
+})
+
+plot(comp_ks[1,],comp_ks[2,])
 
 ```
 

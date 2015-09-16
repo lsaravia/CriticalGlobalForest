@@ -153,3 +153,14 @@ That said, self-organization and critical behavior
 are generally accepted as plausible working hypotheses with the
 observation of non-trivial scaling in complex biological systems
 
+--------------
+@Clauset2009
+
+Because formulas for continuous distributions, such as (2.2), tend to be simpler
+than those for discrete distributions, it is common to approximate discrete power-law
+behavior with its continuous counterpart for the sake of mathematical convenience.
+But a word of caution is in order: there are several different ways to approximate
+a discrete power law by a continuous one and though some of them give reasonable
+results, others do not. One relatively reliable method is to treat an integer power
+law as if the values of x were generated from a continuous power law then rounded
+to the nearest integer.

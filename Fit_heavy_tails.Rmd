@@ -163,21 +163,33 @@ for( i_im in 1:length(image_names) ){
 }
 
 require(ggplot2)
-ff <- filter(all_fit,delta_AICc==0) %>% mutate(year=substr(data_set_name,16,19),
-													 se=(par1-1)/sqrt(n))
+#ff <- bind_rows(ff,	filter(all_fit,model_set=="<Xmin",model_name=="Power"))
+ff <- filter(all_fit,delta_AICc==0) %>%
+	mutate(year=substr(data_set_name,16,19), se=(par1-1)/sqrt(n))
+
 pd <-position_dodge(.1)
 g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
 	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd) + ylab(expression(alpha))
-g
+g + scale_colour_discrete(name="Data Set",labels=c("Xmin=9","Estimated Xmin","<Xmin")) +
+	scale_shape_discrete(name="Best Model",labels=c("Power","Power exp."))
 ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
 # Plot of Xmin
 # 
 ff <- filter(all_fit,delta_AICc==0,model_set=="Estimated Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
 g <- ggplot(ff, aes(x=year,y=xmin)) +  theme_bw() + geom_point(shape=19,colour="red")
-g + geom_line(aes(group=1),colour="lightgreen")
+g + geom_line(aes(group=1),colour="lightgreen") + ylab(expression(X[min]))
 ggsave("EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
+
+# Exponential RATES ARE AN ARTIFACT!!!!!!!!!!!!!!!!!!!!!!! 
+# MAKE SIMULATIONS TO TEST THE PROCEDURE
+#
+ff <- filter(all_fit,delta_AICc==0,model_set=="<Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
+
+g <- ggplot(ff, aes(x=year,y=par2)) +  theme_bw() + geom_point(shape=19,colour="red")
+g + geom_line(aes(group=1),colour="lightgreen") + ylab("Exponential rate")
+g
 setwd(oldcd)
 rm(data_set,ff,ff1,nn,na)
 

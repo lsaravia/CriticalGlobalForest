@@ -49,9 +49,11 @@ We will use the MODIS vegetation continuous field, so we can analyse temporal ch
 
 
 
-![Power law exponent of best models by year and with different data set: *<Xmin* the data is less than the extimated minimum patch size, *Estimated Xmin* the minimum patch size was estimated from data, and only patch sizes greater than or equal to Xmin was used.](Results/Southamerica/PowerExp_xmin_year.png)
+![Power law exponent of best models by year and with different data sets: **<Xmin* the data is less than the extimated minimum patch size, *Estimated Xmin* the minimum patch size was estimated from data, and only patch sizes greater than or equal to Xmin was used.](Results/Southamerica/PowerExp_xmin_year.png)
 
-* The $\alpha$ with Estimated Xmin correspond to big forest patches and natural forest dynamics, and there is no variation in these. The  $\alpha$ with xmin=1 correspond to small patches probably influenced by deforestation.
+![Estimated $X_min$ by year. ](Results/Southamerica/EstimatedXmin_year.png)
+
+* The $\alpha$ with Estimated Xmin correspond to big forest patches and natural forest dynamics, and there is no variation in these. The  $\alpha$ with xmin=9 correspond to small patches probably influenced by deforestation.
 
 * Besides the power law distribution is the best model is not a valid model for the complete data set. For  the patch sizes greater than Xmin the best model is the power law and it is not rejected by the goodness of fit test (GOF). For patches less than Xmin, the best model is power law with exponential cutoff, the second best is power law but it was rejected by GOF.
 
