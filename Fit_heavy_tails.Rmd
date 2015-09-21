@@ -58,7 +58,7 @@ options.output$sample_data <- 0 # For testing
 
 # Fit heavy tailed distributions
 
-```{r conheavytailfit, eval=F,echo=F,message=T,warning=T}
+```{r conheavytailfit, eval=T,echo=T,message=T,warning=T}
 require(doParallel)
 require(plyr)
 require(dplyr)
@@ -74,12 +74,13 @@ set.seed(seed=0)
 #
 # Add results to existing data.frame
 #
-fit <- data.frame()
+fit <- data_frame()
+all_fit <- data_frame()
 
 setwd(resultsDir)
-fit <-foreach(i_im=1:length(image_names),.combine='rbind') %do%
+for(i_im in 1:length(image_names))
 { 
-  call_fit_con_heavy_tail(options.output) 
+  fit <- rbind(fit,call_fit_con_heavy_tail(options.output))
 }
 all_fit <- bind_rows(all_fit,fit)
 
@@ -89,10 +90,10 @@ rm(cl,cn,fit)
 
 # Build a dataframe for table output
 #
-nn <- c("Complete",">=Xmin","<Xmin")
+nn <- c("Complete",">=Xmin")
 #all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
 ta <- mutate(all_fit,year=substr(data_set_name,16,19),
-			 Data_Set=nn[match(model_set,c("Xmin=1", "Estimated Xmin","<Xmin"))]) 
+			 Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))]) 
 
 #ta[ta$model_set=="<Xmin",]$xmin <-ta[ta$model_set=="Estimated Xmin",]$xmin
 
@@ -112,7 +113,7 @@ save.image()
 
 # Plots of fits, and exponents with SE
 
-```{r conheavytailplotfreq, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailplotfreq, eval=F,echo=F,message=T,warning=T}
 require(dplyr)
 
 # Change model name
@@ -134,7 +135,7 @@ for( i_im in 1:length(image_names) ){
 	
 	# Complete data set (Xmin=1)
 	#
-	ff <- filter(all_fit,data_set_name==nn,model_set=="Xmin=1")
+	ff <- filter(all_fit,data_set_name==nn,model_set=="Xmin=9")
 	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
 	cdfplot_conpl_exp(data_set,ff,na)
 	#
@@ -153,23 +154,29 @@ for( i_im in 1:length(image_names) ){
 
 	# data set>=Estimated Xmin (Estimated Xmin)
 	#	
-	xmax <- ff$xmin[1]
-	ff <- filter(all_fit,data_set_name==nn,model_set=="<Xmin")
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
-	cdfplot_conpl_exp(data_set,ff,na,xmax)
+# 	xmax <- ff$xmin[1]
+# 	ff <- filter(all_fit,data_set_name==nn,model_set=="<Xmin")
+# 	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+# 	cdfplot_conpl_exp(data_set,ff,na,xmax)
 
 	#na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_Freq_",ff1$model_set[1])
 	#freq_plot_con_ht(data_set,ff1,na)
 }
 
 require(ggplot2)
+require(dplyr)
 #ff <- bind_rows(ff,	filter(all_fit,model_set=="<Xmin",model_name=="Power"))
 ff <- filter(all_fit,delta_AICc==0) %>%
 	mutate(year=substr(data_set_name,16,19), se=(par1-1)/sqrt(n))
 
+ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
+ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
+
 pd <-position_dodge(.1)
 g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
-	geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd) + ylab(expression(alpha))
+	#geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd)  +
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha))
+
 g + scale_colour_discrete(name="Data Set",labels=c("Xmin=9","Estimated Xmin","<Xmin")) +
 	scale_shape_discrete(name="Best Model",labels=c("Power","Power exp."))
 ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
@@ -177,19 +184,23 @@ ggsave("PowerExp_xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 # Plot of Xmin
 # 
 ff <- filter(all_fit,delta_AICc==0,model_set=="Estimated Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
-g <- ggplot(ff, aes(x=year,y=xmin)) +  theme_bw() + geom_point(shape=19,colour="red")
-g + geom_line(aes(group=1),colour="lightgreen") + ylab(expression(X[min]))
+ff$lPar1 <- sapply(ff$bXminQuant, '[', 1)
+ff$hPar1 <- sapply(ff$bXminQuant, '[', 5)
+
+g <- ggplot(ff, aes(x=year,y=xmin)) +  theme_bw() + geom_point(shape=19,colour="red")+
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5)
+
+g + ylab(expression(X[min]))
 ggsave("EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
 
-# Exponential RATES ARE AN ARTIFACT!!!!!!!!!!!!!!!!!!!!!!! 
-# MAKE SIMULATIONS TO TEST THE PROCEDURE
+# Relationship between xmin & alpha 
 #
-ff <- filter(all_fit,delta_AICc==0,model_set=="<Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
+g <- ggplot(ff, aes(x=par1,y=xmin)) +  theme_bw() + geom_point(shape=19,colour="red")
+g + ylab(expression(X[min])) + xlab(expression(alpha))
 
-g <- ggplot(ff, aes(x=year,y=par2)) +  theme_bw() + geom_point(shape=19,colour="red")
-g + geom_line(aes(group=1),colour="lightgreen") + ylab("Exponential rate")
-g
+# There is no trend
+
 setwd(oldcd)
 rm(data_set,ff,ff1,nn,na)
 

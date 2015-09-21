@@ -11,7 +11,7 @@ require(poweRlaw)
 
 #Create distribution object              
 # 
-m = conpl$new()
+m <- conpl$new()
 m$setXmin(1);m$setPars(1.59)
 # 
 #Generate random numbers            #
@@ -39,7 +39,7 @@ plot(m,pch=19, col="violet",main="2000 points a=1.59, xmin=20 a=1.89")
 m$setPars(est$pars)
 lines(m, col=2)
 
-(est = estimate_xmin(m))
+(est = estimate_xmin(m,xmins = 1:100))
 
 m$setXmin(est$xmin)
 m$setPars(est$pars)
@@ -63,14 +63,17 @@ lines(mm, col=4)
 
 # Test godness of fit 
 
-ms <- bootstrap_p(m,no_of_sims = 10, xmax = max(testP), threads = 2, xmins=est$xmin)
+ms <- bootstrap_p(m,no_of_sims = 100, xmax = max(testP), threads = 2, xmins=est$xmin)
 ms
 
 # Estimate parameter uncertainty
 #
-ms <- bootstrap(m,no_of_sims = 10, xmax = max(testP), threads = 2, xmins=(est$xmin-10):(est$xmin+10))
+ms <- bootstrap(m,no_of_sims = 100, xmax = max(testP), threads = 2, xmins=est$xmin-10:est$xmin+10)
 sd(ms$bootstraps[,1])
 sd(ms$bootstraps[,2])
+quantile(ms$bootstraps[,3],probs=c(0.025,0.25,0.5,0.75,0.975))
+quantile(ms$bootstraps[,2],probs=c(0.025,0.25,0.5,0.75,0.975))
+
 
 # Testing the values of KS distances calculated by poweRlaw package 
 #

@@ -6,11 +6,12 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 {
 	n <- length(unique(data_set))
 	n_models <- 4
-	n_sets <- 3
+	n_sets <- 2 # delete set 3
 	# List of models
 	model_list = list(list(model=vector("list", length=0), 
 						   						GOF=vector("list", length=0),
 												 xmin_estimation=vector("list", length=0),
+												 uncert_estimation=vector("list", length=0),
 												 k=0,
 												 LL=0,
 												 n=n,
@@ -23,7 +24,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 	dim(fit_ht) <- c(n_models,n_sets)
 	# Two sets: power law with and without cut-off
 	# Declare models
-	for (i_set in 1:(n_sets-1)){
+	for (i_set in 1:(n_sets)){
 		# Continuous power law
 		fit_ht[[1,i_set]]$model <- conpl$new(data_set)
 		fit_ht[[1,i_set]]$k <- 1
@@ -49,33 +50,9 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 
 	fit_ht[[1,2]]$model$setXmin(fit_ht[[1,2]]$xmin_estimation)
 
-	# Data set < xmin for i_set=3
-	#
-	xmin <- fit_ht[[1,2]]$xmin_estimation$xmin
-	i_set<-3 
-	# Continuous power law
-	fit_ht[[1,i_set]]$model <- conpl$new(data_set[data_set<xmin])
-	fit_ht[[1,i_set]]$k <- 1
-	# Continuous log-normal
-	fit_ht[[2,i_set]]$model <- conlnorm$new(data_set[data_set<xmin])
-	fit_ht[[2,i_set]]$k <- 2
-	# Continuous exponential
-	fit_ht[[3,i_set]]$model <- conexp$new(data_set[data_set<xmin])
-	fit_ht[[3,i_set]]$k <- 1
-	# power law with exponential cutoff
-	fit_ht[[4,i_set]]$model <- "" 
-	fit_ht[[4,i_set]]$k <- 2
-
-	# xmin for data set <Xmin **********************TEST
-	fit_ht[[1,3]]$xmin_estimation <- estimate_xmin(fit_ht[[1,3]]$model,
-		xmins = xmins, 
-		pars = NULL, 
-		xmax = max(data_set))
-	fit_ht[[1,3]]$model$setXmin(fit_ht[[1,3]]$xmin_estimation)
-
 
 	model_names <- c("Power", "LogNorm","Exp","PowerExp")
-	labels_set <- c("Xmin=1","Estimated Xmin","<Xmin")
+	labels_set <- c("Xmin=9","Estimated Xmin")
 
 	AICc_weight <- matrix( nrow = n_models, ncol = n_sets,
 							dimnames = list(model_names,labels_set))
@@ -91,41 +68,57 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			fit_ht[[i,i_set]]$model$xmin <- fit_ht[[1,i_set]]$model$xmin
 			
 			# Correct n with xmin
-			if(i_set==3) {
-				fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin & data_set<xmin])
-			} else {
-				fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin])
-			}
-			
+			fit_ht[[i,i_set]]$n <-length(data_set[data_set>=fit_ht[[1,i_set]]$model$xmin])
+
 			# Fit models
+			#
 			if(i!=n_models){
 				fit_ht[[i,i_set]]$model$setPars(estimate_pars(fit_ht[[i,i_set]]$model))
-				# Compute AICc
+				# 
+				# Get Loglikelihood
 				fit_ht[[i,i_set]]$LL <- dist_ll(fit_ht[[i,i_set]]$model)
 			} else {
 				# Fit Power Exponential (not poweRlaw package)
 				#
-				if(i_set==3){
-					fit_ht[[i,i_set]]$model<- powerexp.fit(data_set[data_set<xmin],fit_ht[[1,i_set]]$model$xmin)					
-				} else {
-					fit_ht[[i,i_set]]$model<- powerexp.fit(data_set,fit_ht[[1,i_set]]$model$xmin)
-				}
-				# Compute AICc
+				fit_ht[[i,i_set]]$model<- powerexp.fit(data_set,fit_ht[[1,i_set]]$model$xmin)
+				# 
+				# Get Loglikelihood
 				fit_ht[[i,i_set]]$LL <- fit_ht[[i,i_set]]$model$loglike 			
 			}
 			LL <- fit_ht[[i,i_set]]$LL
 			k <- fit_ht[[i,i_set]]$k
+			# Compute AICc
+			#
 			fit_ht[[i,i_set]]$AICc <- (2*k-2*LL)+2*k*(k+1)/(n-k-1)
 			aic_min <- min(aic_min,fit_ht[[i,i_set]]$AICc)
 			if (i==1 & options.output$GOF){
+				#
 				# Goodness of fit via boostrap
+				#
+				# xmins is fixed at estimated value (or 9)
 				fit_ht[[i,i_set]]$GOF <- bootstrap_p(fit_ht[[i,i_set]]$model,
-											 xmin=fit_ht[[i,i_set]]$model$xmin,
+											 xmins=fit_ht[[i,i_set]]$model$xmin,
 											 pars = NULL, 
 											 xmax = max(data_set),
 											 no_of_sims = 1000,
 											 threads = parallel::detectCores())
-				#GOF[i,i_set] <- fit_ht[[i,i_set]]$GOF$p
+				#
+				# Uncertainty in parms estimation via bootstrap
+				#
+				# Range of xmins to make bootstrap
+				if(i_set==1) { # Xmin=9 Fixed
+					l_xmin <- fit_ht[[i,i_set]]$model$xmin
+					u_xmin <- fit_ht[[i,i_set]]$model$xmin
+				}else {
+					l_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 0.8)
+					u_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 1.2)
+				}
+				fit_ht[[i,i_set]]$uncert_estimation <- bootstrap(fit_ht[[i,i_set]]$model,
+											 xmins=l_xmin:u_xmin,
+											 pars = NULL, 
+											 xmax = max(data_set),
+											 no_of_sims = 1000,
+											 threads = parallel::detectCores())
 			}
 			fit_ht[[i,i_set]]$model_set <- labels_set[i_set]
 			fit_ht[[i,i_set]]$model_name <- model_names[i]
@@ -175,16 +168,20 @@ extract_fit_ht <-function(e)
 {
 	ee <- e$model
 	gg <- e$GOF
+	uu <- e$uncert_estimation
+	bootXmin <-list(quantile(uu$bootstraps[,2],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
+	bootPar1 <-list(quantile(uu$bootstraps[,3],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
+	
 	if(class(ee)=="list")
 	{
-		data.frame(model_name=e$model_name,model_set=e$model_set,par1=ee$exponent,par2=ee$rate,
+		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$exponent,par2=ee$rate,
 				   xmin=ee$xmin,n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
-				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p))
+				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p),bXminQuant=bootXmin,bPar1Quant=bootPar1)
 		
 	} else {
-		data.frame(model_name=e$model_name,model_set=e$model_set,par1=ee$pars[1],par2=ee$pars[2],
+		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$pars[1],par2=ee$pars[2],
 				   xmin=ee$xmin,n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
-				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p))
+				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p),bXminQuant=bootXmin,bPar1Quant=bootPar1)
 	}
 	
 }
@@ -198,7 +195,7 @@ call_fit_con_heavy_tail <-function(options.output){
 	connection_file <- file(original_bin_files[i_im], "rb")
 	data_set <- readBin(connection_file, "double", n = 10^6)
 	if(options.output$sample_data>0) data_set<- sample(data_set,options.output$sample_data) ### TESTING
-	xmins <- seq(1:300)
+	xmins <- seq(1:400)
 	
 	# Original data
 	fit_ht <- fit_con_heavy_tail(data_set,xmins,options.output)
