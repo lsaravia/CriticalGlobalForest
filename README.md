@@ -8,8 +8,8 @@ Author(s):
 
 Target Journal: [??]()
 
-* [raw manuscript source in markdown](.md) (figures and citations not rendered in this version)
-* [Draft PDF](https://github.com/../manuscript.pdf?raw=true) (contains parsed citations and figures)
+* [raw manuscript source in markdown](CriticalGF.md) (figures and citations not rendered in this version)
+* [Draft PDF](https://github.com/../CriticalGF.pdf?raw=true) (contains parsed citations and figures)
 * [Bibliography](https://github.com/lsaravia/CriticalGF/../*.bib) 
 
 

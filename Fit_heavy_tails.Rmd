@@ -32,21 +32,8 @@ source("R/powerlaw/pareto.R")
 # Functions for the analysis
 #
 source("R/power_fun.r")
-
-dataDir <- "Results/Southamerica"
 codeDir <- "R"
-resultsDir <- "Results/Southamerica"
 
-##  
-#  
-# ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
-
-
-original_bin_files <- list.files(path=dataDir,pattern="*.bin")
-# Delete already processed files
-#
-#original_bin_files <-original_bin_files[-c(1,11)]
-image_names <- unlist(strsplit(original_bin_files,".bin"))
 
 options.output <- vector("list", length=0)
 options.output$GOF <- 1
@@ -58,10 +45,21 @@ options.output$sample_data <- 0 # For testing
 
 # Fit heavy tailed distributions
 
-```{r conheavytailfit, eval=T,echo=T,message=T,warning=T}
-require(doParallel)
+```{r conheavytailfit, eval=F,echo=T,message=T,warning=T}
+#require(doParallel)
 require(plyr)
 require(dplyr)
+
+
+dataDir <- "Results/Southamerica"
+resultsDir <- "Results/Southamerica"
+
+##  
+#  
+# ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
 
 
 #cn <-detectCores()
@@ -107,6 +105,8 @@ options("scipen"=4, "digits"=6)
 
 pandoc.table(ta)
 
+all_fit$region <- "SA" # South America
+
 save.image()
 
 ```
@@ -115,11 +115,7 @@ save.image()
 
 ```{r conheavytailplotfreq, eval=F,echo=F,message=T,warning=T}
 require(dplyr)
-
-# Change model name
-#nn <- c("Power","LogNorm","Exp","PowerExp")
-#all_fit <- mutate(all_fit,model_name=nn[match(model_name,c("Power-law", "Log-normal","Exponential","Power-law w/Exp cutoff"))])
-#all_fit <- mutate(all_fit,data_set_name=unlist(data_set_name))
+require(ggplot2)
 
 # Read binary data
 setwd(resultsDir)
@@ -163,8 +159,6 @@ for( i_im in 1:length(image_names) ){
 	#freq_plot_con_ht(data_set,ff1,na)
 }
 
-require(ggplot2)
-require(dplyr)
 #ff <- bind_rows(ff,	filter(all_fit,model_set=="<Xmin",model_name=="Power"))
 ff <- filter(all_fit,delta_AICc==0) %>%
 	mutate(year=substr(data_set_name,16,19), se=(par1-1)/sqrt(n))
@@ -206,4 +200,153 @@ rm(data_set,ff,ff1,nn,na)
 
 ```
 
+# Results for Central America
 
+
+```{r conheavytailfitCA, eval=T,echo=T,message=T,warning=T}
+
+
+dataDir <- "Results/centralamerica"
+resultsDir <- "Results/centralamerica"
+
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
+
+set.seed(seed=0)
+
+#all_fit<-data.frame()
+#
+# Add results to existing data.frame
+#
+fit <- data_frame()
+
+setwd(resultsDir)
+for(i_im in 1:length(image_names))
+{ 
+  fit <- rbind(fit,call_fit_con_heavy_tail(options.output))
+}
+
+
+fit$region <- "CA" # Central America
+
+all_fit <- bind_rows(all_fit,fit)
+
+setwd(oldcd)
+rm(cl,cn,fit)
+
+
+# Build a dataframe for table output
+#
+nn <- c("Complete",">=Xmin")
+ta <- mutate(all_fit,year=substr(data_set_name,16,19),
+			 Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))]) 
+
+ta <- ta %>% arrange(region,model_set,year,desc(AICc_weight)) %>% 
+  select(region,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
+  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
+  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
+  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ))
+
+options("scipen"=4, "digits"=6)
+
+pandoc.table(ta)
+
+
+save.image()
+
+
+```
+
+# Plot fits CA
+
+```{r conheavytailplotFitCA, eval=F,echo=F,message=T,warning=T}
+
+# Read binary data
+setwd(resultsDir)
+set.seed(seed=0)
+
+for( i_im in 1:length(image_names) ){
+	connection_file <- file(original_bin_files[i_im], "rb")
+	data_set <- readBin(connection_file, "double", n = 10^6)
+	if(options.output$sample_data>0) 
+		data_set<- sample(data_set,options.output$sample_data) ### TESTING
+	
+	nn <- strsplit(original_bin_files[i_im],".tif")[[1]][1]
+	
+	# Complete data set (Xmin=1)
+	#
+	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region=="CA")
+	nn <- ff$data_set_name[1]
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+
+	# data set< Estimated Xmin (<Xmin)
+	#
+	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region=="CA")
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+
+}
+setwd(oldcd)
+
+```
+
+# Plot alpha and Xmin SA & CA
+
+```{r conheavytailplotparms, eval=F,echo=F,message=T,warning=T}
+require(dplyr)
+require(ggplot2)
+
+ff <- filter(all_fit,delta_AICc==0) %>%
+	mutate(year=substr(data_set_name,16,19), se=(par1-1)/sqrt(n))
+
+ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
+ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
+
+pd <-position_dodge(.1)
+g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
+	#geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd)  +
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha))
+
+g + scale_colour_discrete(name="Data Set",labels=c("Xmin=9","Estimated Xmin","<Xmin")) + scale_shape_discrete(name="Best Model",labels=c("Power","Power exp."))+ facet_grid(.~region) +scale_colour_brewer(palette="Set1",name="Region")
+ggsave("figure/PowerExp_allXmin_year.png",plot=g,width=8,height=4,units="in",dpi=600)
+
+ff <- filter(ff,model_set=="Estimated Xmin")
+g <- ggplot(ff, aes(x=year,y=par1,colour=region)) +  theme_bw() + geom_point(position=pd)+ geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha))
+g +scale_colour_brewer(palette="Set1",name="Region") 
+ggsave("figure/PowerExp_Xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+
+
+# Plot of Xmin
+#
+
+ff <- filter(all_fit,delta_AICc==0,model_set=="Estimated Xmin") %>% mutate(year=substr(data_set_name,16,19),se=(par1-1)/sqrt(n))
+ff$lPar1 <- sapply(ff$bXminQuant, '[', 1)
+ff$hPar1 <- sapply(ff$bXminQuant, '[', 5)
+
+# The regions as facets 
+#
+g <- ggplot(ff, aes(x=year,y=xmin)) +  theme_bw() + geom_point(shape=19)+
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5)
+
+g + ylab(expression(X[min])) + facet_grid(.~region)
+#ggsave("EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+# The regions with different colours
+#
+pd <-position_dodge(.2)
+g <- ggplot(ff, aes(x=year,y=xmin,colour=region)) +  theme_bw() + geom_point(shape=19,position=pd)+
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd)
+
+g + ylab(expression(X[min])) +scale_colour_brewer(palette="Set1",name="Region") 
+ggsave("figure/EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+# Relationship between xmin & alpha 
+#
+g <- ggplot(ff, aes(x=par1,y=xmin,colour=region)) +  theme_bw() + geom_point(shape=19)
+g + ylab(expression(X[min])) + xlab(expression(alpha))  +scale_colour_brewer(palette="Set1",name="Region") 
+ggsave("figure/Xmin_Alpha.png",plot=g,width=6,height=4,units="in",dpi=600)
+
+```

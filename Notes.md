@@ -164,3 +164,18 @@ a discrete power law by a continuous one and though some of them give reasonable
 results, others do not. One relatively reliable method is to treat an integer power
 law as if the values of x were generated from a continuous power law then rounded
 to the nearest integer.
+
+-----
+
+@Barnosky2012
+
+In the context of forecasting biological change, the realization that 
+critical transitions and state shifts can occur on the global scale3,12,15–18, as
+well as on smaller scales, is of great importance. One key question is how
+to recognize a global-scale state shift
+
+Finally, because the global-scale ecosystem comprises many smaller-
+scale, spatially bounded complex systems (for instance the community
+within a given physiographic region), each of which overlaps and interacts
+with others, state shifts of the small-scale components can propagate to
+cause a state shift of the entire system21.

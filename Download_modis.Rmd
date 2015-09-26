@@ -1,0 +1,56 @@
+
+```{r SA, eval=TRUE}
+
+
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/southamerica/"
+
+##  
+#  
+# ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
+
+setwd(dataDir)
+
+
+dn <- read.table("Download.txt",stringsAsFactors = F)
+
+
+require(stringr)
+
+regexpr("h[0-9]",dn[1,1])
+
+
+dn$h=as.numeric(str_sub(dn[,1],18,19))
+dn$v=as.numeric(str_sub(dn[,1],21,22))
+dn$year=str_sub(dn[,1],9,12)
+
+require(dplyr)
+
+#
+# For northamerica h in 07-15
+#
+dn1 <- filter(dn,h>=9 & h<=14) 
+
+str_sub(dn1$V1,28,40) <- "*"
+
+write.table(str_c(dn1$V1,"*"),file="MOD44BFiles",row.names = F,col.names = F,quote = F)
+
+system("modis_download_from_list.py -p MOD44B.051 -f MOD44BFiles hdf")
+```
+
+
+```{r AF, eval=FALSE}
+
+#
+# Africa
+#
+
+dn <- read.table("Download_AF.txt",stringsAsFactors = F)
+dn$h=as.numeric(str_sub(dn[,1],90,91))
+dn$v=as.numeric(str_sub(dn[,1],93,94))
+dn$year=str_sub(dn[,1],81,84)
+dn1 <- filter(dn,h>=16 & h<=23) 
+write.table(dn1$V1,file="Download_AF.txt",row.names = F,col.names = F,quote = F)
+```
