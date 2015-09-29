@@ -430,3 +430,75 @@ cdfplot_con_ht <- function(x,fit_ht,fnam="")
 		dev.off()
 
 }
+
+
+# Downloada modis granules using the filenames contained in Download.txt in dataDir folder 
+# check that granules are not greater than hmax and less than hmin
+# Returns a data frame with file names and h v year
+# use a python module called pyModis
+# 
+down_modis <- function(dataDir,hmin,hmax) {
+	
+	setwd(dataDir)
+	
+	
+	dn <- read.table("Download.txt",stringsAsFactors = F)
+	
+	
+	require(stringr)
+	
+	regexpr("h[0-9]",dn[1,1])
+	
+	
+	dn$h=as.numeric(str_sub(dn[,1],18,19))
+	dn$v=as.numeric(str_sub(dn[,1],21,22))
+	dn$year=str_sub(dn[,1],9,12)
+	
+	require(dplyr)
+	
+	#
+	# For southamerica h in 07-15
+	#
+	dn1 <- filter(dn,h>=hmin & h<=hmax) 
+	
+	str_sub(dn1$V1,28,40) <- "*"
+	
+	write.table(str_c(dn1$V1,"*"),file="MOD44BFiles",row.names = F,col.names = F,quote = F)
+	
+	system("modis_download_from_list.py -p MOD44B.051 -f MOD44BFiles hdf")
+	
+	setwd(oldcd)
+	
+	return(dn1)
+	}
+
+
+# Make mosaic of hdf files downloaded with down_modis
+# in a folder "hdf" with base fol
+# dataDir: base folder to output mosaic geotif files
+#
+mosaic_modis <- function(dataDir,hmin,hmax) {
+	
+	setwd(dataDir)
+	dn <- read.table("Download.txt",stringsAsFactors = F)
+	require(stringr)
+	dn$h=as.numeric(str_sub(dn[,1],18,19))
+	dn$v=as.numeric(str_sub(dn[,1],21,22))
+	dn$year=str_sub(dn[,1],9,12)
+
+	require(dplyr)
+	dn1 <- filter(dn,h>=hmin & h<=hmax) 
+	setwd("hdf")
+	group_by(dn1,year) %>% do( s=mosaic_by_year(.))
+
+	setwd(oldcd)
+}
+
+# helper function for mosaic_modis
+#
+mosaic_by_year <-function(x) {
+	write.table(x$V1,file="listfileMOD44B.051.txt",quote=F,col.names = F,row.names = F)
+	s <- paste0('modis_mosaic.py -s "1 0 0 0 0 0 0" listfileMOD44B.051.txt -o ../MOD44B.MRTWEB.A',x$year[1],'065.051.Percent_Tree_Cover.tif')
+	system(s)
+	return(s)
+	}

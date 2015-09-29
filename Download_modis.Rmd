@@ -1,56 +1,41 @@
 
-```{r SA, eval=TRUE}
+# Download modis files MOD44B version 051
+
+There is a folder for each continent and in each folder a file "Download.txt" with the files to be downloaded I made a subset for each continent using the tool <http://reverb.echo.nasa.gov>
+
+```{r setup, eval=TRUE}
+
+source("R/power_fun.r")
+
+```
+
+```{r SADownload, eval=F}
 
 
 dataDir <- "~/Dropbox1T/GlobalCriticalForest/southamerica/"
 
-##  
-#  
-# ~/Dropbox1T/GlobalCriticalForest/southamerica/Results
+# Download
+# dm <- down_modis(dataDir,9,14)
 
-original_bin_files <- list.files(path=dataDir,pattern="*.bin")
-image_names <- unlist(strsplit(original_bin_files,".bin"))
+# Generate mosaics
 
-setwd(dataDir)
+mosaic_modis(dataDir,9,14)
 
 
-dn <- read.table("Download.txt",stringsAsFactors = F)
-
-
-require(stringr)
-
-regexpr("h[0-9]",dn[1,1])
-
-
-dn$h=as.numeric(str_sub(dn[,1],18,19))
-dn$v=as.numeric(str_sub(dn[,1],21,22))
-dn$year=str_sub(dn[,1],9,12)
-
-require(dplyr)
-
-#
-# For northamerica h in 07-15
-#
-dn1 <- filter(dn,h>=9 & h<=14) 
-
-str_sub(dn1$V1,28,40) <- "*"
-
-write.table(str_c(dn1$V1,"*"),file="MOD44BFiles",row.names = F,col.names = F,quote = F)
-
-system("modis_download_from_list.py -p MOD44B.051 -f MOD44BFiles hdf")
 ```
 
-
-```{r AF, eval=FALSE}
+```{r NA, eval=T}
 
 #
-# Africa
+# North America
 #
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/northamerica"
 
-dn <- read.table("Download_AF.txt",stringsAsFactors = F)
-dn$h=as.numeric(str_sub(dn[,1],90,91))
-dn$v=as.numeric(str_sub(dn[,1],93,94))
-dn$year=str_sub(dn[,1],81,84)
-dn1 <- filter(dn,h>=16 & h<=23) 
-write.table(dn1$V1,file="Download_AF.txt",row.names = F,col.names = F,quote = F)
+# Download
+dm <- down_modis(dataDir,7,15)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,7,15)
+
 ```
