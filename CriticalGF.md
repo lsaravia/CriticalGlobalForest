@@ -6,11 +6,18 @@ Detecting a global scale state shift
 
 ## Introduction
 
-Ecosystems change in response to environmental changes, at a global scale these changes are being produced by human activities. The changes may be seen as gradual and can be forecasted by projecting recent trends but complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009].  This may give the false impression that ecosystems are resilient to changes because they respond with small changes to environmental pressures, but critical transitions pruduce and abrupt state shift, that can not be linearly forecasted from past changes [@Scheffer2009]. These critical transitions had been detected mostly at local scales   [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause and produce and produce an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
+Ecosystems change in response to environmental changes, at a global scale these changes are being produced by human activities. The changes may be seen as gradual and can be forecasted by projecting recent trends, this may give the false impression that ecosystems are resilient to changes because they respond with small changes to environmental pressures. Complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009]. Critical transitions pruduce and abrupt state shift, that can not be linearly forecasted from past changes [@Scheffer2009]. These critical transitions had been detected mostly at local scales   [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
+
+One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;]
 
 The importance of propagation of information and spatial dynamics -> study spatial signals power law distributions -> Why forest cover is important
 
- Global scale forcings as well as the replacement of .40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans3,40. 
+ Global scale forcings as well as the replacement of .40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;]3,40. 
+
+Besides in several systems the observation of power laws in the patch distribution is a signal of a sistem in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
+
+Our objetive is to evaluate the forest patch distribution at a continental scale, to detect possible signals of a global critical transition. 
+
 
 
 * Why distribution of patches is important

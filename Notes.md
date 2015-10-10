@@ -179,3 +179,28 @@ scale, spatially bounded complex systems (for instance the community
 within a given physiographic region), each of which overlaps and interacts
 with others, state shifts of the small-scale components can propagate to
 cause a state shift of the entire system21.
+
+
+--------
+
+G. P. Asner, T. K. Rudel, T. M. Aide, R. Defries,
+and R. Emerson, A contemporary assessment of change in humid
+tropical forests, Conservation Biology 23:1386–1395 (2009)
+pag  633 campbell
+
+
+-------
+
+@Frank2009
+
+Much of biological research is reverse engineering. We observe a pattern or design, and we try to infer the underlying process that generated what we see. The observed patterns can often be described as probability distributions.
+
+We must understand why these distributions are so common and what they tell us, because our goal is to use these observed patterns to reverse engineer the underlying processes that created those patterns. What information do these distributions contain?
+
+The key probability distributions often arise as the most random pattern consistent with the information expressed by a few constraints (Jaynes, 2003)
+
+Why should observed probability distributions tend towards those with maximum entropy? Because observed patterns typically arise by the aggregation of many small-scale processes. Any directionality or non- randomness caused by each small-scale process tends, on average, to be cancelled in the aggregate: one fluctuation pushes in one direction, another fluctuation pushes in a different direction and so on
+
+In terms of information, the final pattern reflects only the information content of the system expressed by the constraints on randomness; all else dissipates to maximum entropy as the pattern converges to its limiting distribution defined by its informational constraints.
+
+With an increasing number of processes, the aggregate increases in entropy towards the maximum, stable value of disorder defined by the sampling structure and the information preserved through the multiple rounds of perturbations.

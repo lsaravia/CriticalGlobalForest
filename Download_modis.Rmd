@@ -9,6 +9,10 @@ source("R/power_fun.r")
 
 ```
 
+# South america
+
+Up to Panama (Panama is out)
+
 ```{r SADownload, eval=F}
 
 
@@ -24,7 +28,11 @@ mosaic_modis(dataDir,9,14)
 
 ```
 
-```{r NA, eval=T}
+# North America
+
+From USA 
+
+```{r NA, eval=F}
 
 #
 # North America
@@ -39,3 +47,82 @@ dm <- down_modis(dataDir,7,15)
 mosaic_modis(dataDir,7,15)
 
 ```
+
+# Central America
+
+From panama to mexico
+
+```{r CA, eval=F}
+
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/centralamerica"
+
+# Download
+dm <- down_modis(dataDir,7,11)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,7,11)
+
+```
+
+
+# Europa
+
+Europa include West countries Up to Russia and Turkey (excluding both) 
+
+```{r EU, eval=T}
+
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/europa"
+
+# Download
+dm <- down_modis(dataDir,17,21)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,17,21)
+
+```
+
+
+# North Asia
+
+Bounding box 40.980, -168.838, 74.868, 27.070
+
+Countries: Russia Kazakthstan Mongolia
+
+
+```{r NAS, eval=F}
+
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/northasia"
+
+# Download
+dm <- down_modis(dataDir,18,29)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,18,29)
+
+```
+
+
+# South Asia
+
+Bounding box 0.879, 150.469, 49.838, 25.840
+
+desde h=20 hasta h=30
+
+# Oceania
+
+Bounding box -48.342, 179.648, 7.885, 85.605
+
+
+# Africa
+
+Bounding box -37.160, 56.250, 37.719, -20.391
+
