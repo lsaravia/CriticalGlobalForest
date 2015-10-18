@@ -431,6 +431,37 @@ cdfplot_con_ht <- function(x,fit_ht,fnam="")
 
 }
 
+# Function to plot distributions fits from the complete dataset Xmin=9
+# and the dataset from the estimated Xmin 
+# calls the function cdfplot_con_ht and use global variables
+#
+# reg: geographic region {SA,CA,NA,EU, etc}
+#
+ccdfPlots_one_region <- function(rg)
+{
+	for( i_im in 1:length(image_names) ){
+	connection_file <- file(original_bin_files[i_im], "rb")
+	data_set <- readBin(connection_file, "double", n = 10^6)
+	if(options.output$sample_data>0) 
+		data_set<- sample(data_set,options.output$sample_data) ### TESTING
+	
+	nn <- strsplit(original_bin_files[i_im],".tif")[[1]][1]
+	
+	# Complete data set (Xmin=1)
+	#
+	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region==rg)
+	nn <- ff$data_set_name[1]
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+	
+	# data set< Estimated Xmin (<Xmin)
+	#
+	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region==rg)
+	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
+	cdfplot_conpl_exp(data_set,ff,na)
+		
+	}
+}
 
 # Downloada modis granules using the filenames contained in Download.txt in dataDir folder 
 # check that granules are not greater than hmax and less than hmin

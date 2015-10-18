@@ -204,3 +204,11 @@ Why should observed probability distributions tend towards those with maximum en
 In terms of information, the final pattern reflects only the information content of the system expressed by the constraints on randomness; all else dissipates to maximum entropy as the pattern converges to its limiting distribution defined by its informational constraints.
 
 With an increasing number of processes, the aggregate increases in entropy towards the maximum, stable value of disorder defined by the sampling structure and the information preserved through the multiple rounds of perturbations.
+
+----------------------
+@Manor2008
+
+Recent reports (Scanlon et al., 2007; Kefi et al., 2007) have demonstrated power-law statistics of the patch size for vegetation ecosystems in the arid and semi-arid climatic zone across a wide range along the annual rainfall gradient. As pointed out in Scanlon et al. (2007) and Kefi et al. (2007), this phenomenon is actually puzzling. 
+
+Typically, the distribution of sizes in nature (the height of different individuals within a single species is a classical example) tends to be Gaussian; its average is dictated by physical and biological constraints (e.g., the ability of the muscles to support the body) and the deviations from the average are attributed to many ‘‘small’’ random effects, like the genetic mixture of an individual and resource availability during its development. The central limit theorem assures that, in such a case, the results are normally distributed around their mean, and large fluctuations (in units of the standard deviation) are exponentially rare. Power-law, or otherwise fat-tailed distributions, are an exception of this scenario, and when such a distribution appears one should look for a mechanism that invalidates that simple logic.
+

@@ -6,23 +6,28 @@ Detecting a global scale state shift
 
 ## Introduction
 
-Ecosystems change in response to environmental changes, at a global scale these changes are being produced by human activities. The changes may be seen as gradual and can be forecasted by projecting recent trends, this may give the false impression that ecosystems are resilient to changes because they respond with small changes to environmental pressures. Complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009]. Critical transitions pruduce and abrupt state shift, that can not be linearly forecasted from past changes [@Scheffer2009]. These critical transitions had been detected mostly at local scales   [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
+Ecosystems change in response to environmental changes, at a global scale these changes are being produced by human activities. The changes may be seen as gradual and can be forecasted by projecting recent trends, this may give the false impression that ecosystems are resilient to changes because they respond with small changes to environmental pressures. Complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009]. These produce abrupt state shifts that can not be linearly forecasted from past changes [@Scheffer2009]. Critical transitions had been detected mostly at local scales [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
 
-One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;]
+One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;] this is a global scale forcing.
 
 The importance of propagation of information and spatial dynamics -> study spatial signals power law distributions -> Why forest cover is important
 
- Global scale forcings as well as the replacement of .40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;]3,40. 
+Power laws are asociated with two properties: scale invariance and universality [@Marquet2005]
+
+Both habitat fragmentation and population fragmentation are critical transitions. Tuning a control parameter we can find a critical value (hc or lc) at which the order parameter (P or n ) declines abruptly to zero, the conbination of both procesess is also a critical system only if fragmentation is a dynamical proces, that means that degraded patches can recover [@Oborny2007].
+
 
 Besides in several systems the observation of power laws in the patch distribution is a signal of a sistem in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
 
 Our objetive is to evaluate the forest patch distribution at a continental scale, to detect possible signals of a global critical transition. 
 
-
+We have to calculate the spatial auto-correlation [@Manor2008] 
 
 * Why distribution of patches is important
 
 One way to detect a global shift is to track power law distributions in forest patches 
+
+
 
 ## Methods
 

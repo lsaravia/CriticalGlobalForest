@@ -8,14 +8,14 @@ Author(s):
 
 Target Journal: [??]()
 
-* [raw manuscript source in markdown](CriticalGF.md) (figures and citations not rendered in this version)
-* [Draft PDF](https://github.com/../CriticalGF.pdf?raw=true) (contains parsed citations and figures)
-* [Bibliography](https://github.com/lsaravia/CriticalGF/../*.bib) 
+* [raw manuscript source in markdown](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.md) (figures and citations not rendered in this version)
+* [Draft PDF](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.pdf) (contains parsed citations and figures)
+* [Bibliography](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.bib) blob/master/CriticalGF.bib
 
 
 ## Folders
 
-| 
-|--- Code: matlab and R code by S. Doyle
-|--- R: R code by L. Saravia
-     |-- powerlaw code by Cosma Rohilla Shalizi
+	| 
+	|--- Code: matlab and R code by S. Doyle
+	|--- R: R code by L. Saravia
+    	 |-- powerlaw code by Cosma Rohilla Shalizi
