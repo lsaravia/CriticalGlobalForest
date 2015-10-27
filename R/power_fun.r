@@ -532,4 +532,26 @@ mosaic_by_year <-function(x) {
 	s <- paste0('modis_mosaic.py -s "1 0 0 0 0 0 0" listfileMOD44B.051.txt -o ../MOD44B.MRTWEB.A',x$year[1],'065.051.Percent_Tree_Cover.tif')
 	system(s)
 	return(s)
+}
+
+
+# Read data to call fit_con_heavy_tail and format output in a data.frame
+#
+#
+max_patch_size <-function(im_names,opts.out){
+	
+	max_s_df <- data_frame()
+	
+	for(i in 1:length(im_names))
+	{ 
+		# Read binary data
+		connection_file <- file(original_bin_files[i], "rb")
+		data_set <- readBin(connection_file, "double", n = 10^6)
+		if(options.output$sample_data>0) data_set<- sample(data_set,options.output$sample_data) ### TESTING
+		max_s_df <- rbind(max_s_df,data_frame( maxS=max(data_set), data_set_name=strsplit(options.output$data_set_name[i],".tif")[[1]][1],
+								year=substr(data_set_name,16,19),region=opts.out$region))
+		
 	}
+
+	return(max_s_df)
+}

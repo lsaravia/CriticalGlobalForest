@@ -46,7 +46,7 @@ options.output$sample_data <- 0 # For testing
 
 # Fit heavy tailed distributions SA (south america)
 
-```{r conheavytailfitSA, eval=T,echo=T,message=T,warning=T}
+```{r conheavytailfitSA, eval=F,echo=T,message=T,warning=T}
 #require(doParallel)
 require(plyr)
 require(dplyr)
@@ -80,6 +80,9 @@ for(i_im in 1:length(image_names))
 { 
   fit <- rbind(fit,call_fit_con_heavy_tail(options.output))
 }
+
+fit$region <- "SA" # South America
+
 all_fit <- bind_rows(all_fit,fit)
 
 setwd(oldcd)
@@ -105,7 +108,6 @@ options("scipen"=4, "digits"=6)
 
 pandoc.table(ta)
 
-all_fit$region <- "SA" # South America
 
 save.image()
 
@@ -113,7 +115,7 @@ save.image()
 
 # Plots fits for SA
 
-```{r conheavytailplotSA, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailplotSA, eval=F,echo=F,message=T,warning=T}
 require(dplyr)
 require(ggplot2)
 
@@ -191,7 +193,7 @@ save.image()
 
 # Plot fits CA
 
-```{r conheavytailplotFitCA, eval=T,echo=F,message=T,warning=T}
+```{r conheavytailplotFitCA, eval=F,echo=F,message=T,warning=T}
 
 dataDir <- "Results/centralamerica"
 resultsDir <- "Results/centralamerica"
@@ -265,7 +267,7 @@ rm(cl,cn,fit)
 #
 nn <- c("Complete",">=Xmin")
 ta <- mutate(all_fit,year=substr(data_set_name,16,19),
-			 Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))]) 
+			 Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))])
 
 ta <- ta %>% arrange(region,model_set,year,desc(AICc_weight)) %>% 
   select(region,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
@@ -307,8 +309,9 @@ g + scale_colour_discrete(name="Data Set",labels=c("Xmin=9","Estimated Xmin","<X
 ggsave("figure/PowerExp_allXmin_year.png",plot=g,width=8,height=4,units="in",dpi=600)
 
 ff <- filter(ff,model_set=="Estimated Xmin")
+ff1<- group_by(ff,region) %>% summarise(malpha=mean(par1))
 g <- ggplot(ff, aes(x=year,y=par1,colour=region)) +  theme_bw() + geom_point(position=pd)+ geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha))
-g +scale_colour_brewer(palette="Set1",name="Region") 
+g +scale_colour_brewer(palette="Set1",name="Region") + geom_hline(aes(yintercept=malpha,colour=region),ff1)
 ggsave("figure/PowerExp_Xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 
 
@@ -343,4 +346,72 @@ g <- ggplot(ff, aes(x=par1,y=xmin,colour=region)) +  theme_bw() + geom_point(sha
 g + ylab(expression(X[min])) + xlab(expression(alpha))  +scale_colour_brewer(palette="Set1",name="Region") 
 ggsave("figure/Xmin_Alpha.png",plot=g,width=6,height=4,units="in",dpi=600)
 
+#
+# Mean alpha and Xmin by region
+#
+filter(all_fit,model_name=="Power") %>% group_by(region,model_set) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+
+```
+
+# Extract max patch size 
+
+```{r extractMaxPatchSA, eval=T,echo=T,message=T,warning=T}
+#require(doParallel)
+require(plyr)
+require(dplyr)
+require(ggplot2)
+
+dataDir <- "Results/Southamerica"
+resultsDir <- "Results/Southamerica"
+
+options.output$region <- "SA" # For testing
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
+
+setwd(resultsDir)
+
+maxSize <-max_patch_size(image_names,options.output)
+
+setwd(oldcd)
+
+dataDir <- "Results/northamerica"
+resultsDir <- "Results/northamerica"
+
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
+
+setwd(resultsDir)
+
+options.output$region <- "NA" # For testing
+
+maxSize <-rbind(maxSize,max_patch_size(image_names,options.output))
+
+setwd(oldcd)
+
+
+dataDir <- "Results/centralamerica"
+resultsDir <- "Results/centralamerica"
+
+original_bin_files <- list.files(path=dataDir,pattern="*.bin")
+image_names <- unlist(strsplit(original_bin_files,".bin"))
+
+setwd(resultsDir)
+
+options.output$region <- "CA" # For testing
+
+maxSize <-rbind(maxSize,max_patch_size(image_names,options.output))
+
+setwd(oldcd)
+
+options("scipen"=0, "digits"=6)
+
+maxSize <- mutate(maxSize, maxSKm2=maxS*233*233/1000000)
+
+g <- ggplot(maxSize, aes(y=maxSKm2,x=year,colour=region)) +  theme_bw() + geom_point(shape=19)
+g + ylab(expression(Biggest~forest~patch~Km^2))  +scale_colour_brewer(palette="Set1",name="Region")
+ggsave("figure/Smax_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+# ylab(expression(S[max]))
+save.image()
 ```

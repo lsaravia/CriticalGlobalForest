@@ -1,15 +1,19 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=plos.csl 
 
-all: Outline.pdf CriticalGF.pdf
+all: Appendices.pdf CriticalGF.pdf
 
 Outline.pdf: Outline.md
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 	evince Outline.pdf		
 
-CriticalGF.pdf: CriticalGF.md margins.sty CriticalGF.bib makefile
+CriticalGF.pdf: CriticalGF.md margins.sty CriticalGF.bib 
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
+	evince $@		
+
+Appendices.pdf: Appendices.md 
+	pandoc  -V geometry:margin=1cm  --latex-engine=xelatex $^ -o $@
 	evince $@		
 
 CriticalGF.docx: CriticalGF.md margins.sty CriticalGF.bib makefile
@@ -19,5 +23,5 @@ CriticalGF.docx: CriticalGF.md margins.sty CriticalGF.bib makefile
 CriticalGF_AMNAT.pdf: CriticalGF_AMNAT.md margins.sty CriticalGF.bib
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc -H margins.sty --bibliography CriticalGF.bib --csl=the-american-naturalist.csl CriticalGF_AMNAT.md -o CriticalGF.pdf 
-	pdftk CriticalGF.pdf CriticalGF_figures.pdf CriticalGF_appendices.pdf output CriticalGF_AMNAT.pdf
+	pdftk CriticalGF.pdf CriticalGF_figures.pdf Appendices.pdf output CriticalGF_AMNAT.pdf
 	evince CriticalGF_AMNAT.pdf		

@@ -212,3 +212,7 @@ Recent reports (Scanlon et al., 2007; Kefi et al., 2007) have demonstrated power
 
 Typically, the distribution of sizes in nature (the height of different individuals within a single species is a classical example) tends to be Gaussian; its average is dictated by physical and biological constraints (e.g., the ability of the muscles to support the body) and the deviations from the average are attributed to many ‘‘small’’ random effects, like the genetic mixture of an individual and resource availability during its development. The central limit theorem assures that, in such a case, the results are normally distributed around their mean, and large fluctuations (in units of the standard deviation) are exponentially rare. Power-law, or otherwise fat-tailed distributions, are an exception of this scenario, and when such a distribution appears one should look for a mechanism that invalidates that simple logic.
 
+----------------
+@Oborny2005
+
+Universality’ is not an exaggeration: analyses have shown (Broadabent and Hammersley 1957, Hinrichsen 2000b) that the values of the critical exponents do not depend on the details of the model, only on the dimensionality

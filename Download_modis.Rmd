@@ -68,47 +68,50 @@ mosaic_modis(dataDir,7,11)
 ```
 
 
-# Europa
+# Eurasia
 
 Europa include West countries Up to Russia and Turkey (excluding both) 
 
-```{r EU, eval=T}
-
-#
-#
-dataDir <- "~/Dropbox1T/GlobalCriticalForest/europa"
-
-# Download
-dm <- down_modis(dataDir,17,21)
-
-# Generate mosaics
-
-mosaic_modis(dataDir,17,21)
-
-```
-
-
-# North Asia
-
+Northasia
 Bounding box 40.980, -168.838, 74.868, 27.070
 
 Countries: Russia Kazakthstan Mongolia
 
 
-```{r NAS, eval=F}
+```{r EUS, eval=F}
 
 #
 #
-dataDir <- "~/Dropbox1T/GlobalCriticalForest/northasia"
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/eurasia"
 
 # Download
-dm <- down_modis(dataDir,18,29)
+dm <- down_modis(dataDir,17,29)
 
 # Generate mosaics
 
-mosaic_modis(dataDir,18,29)
+mosaic_modis(dataDir,17,29)
 
 ```
+
+# Africa
+
+Bounding box -37.160, 56.250, 37.719, -20.391
+
+```{r AF, eval=F}
+
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/africa"
+
+# Download
+dm <- down_modis(dataDir,16,23)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,16,23)
+
+```
+
 
 
 # South Asia
@@ -116,13 +119,41 @@ mosaic_modis(dataDir,18,29)
 Bounding box 0.879, 150.469, 49.838, 25.840
 
 desde h=20 hasta h=30
+```{r SAS, eval=F}
+
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/southasia"
+
+# Download
+dm <- down_modis(dataDir,20,30)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,20,30)
+
+
+```
 
 # Oceania
 
 Bounding box -48.342, 179.648, 7.885, 85.605
 
 
-# Africa
+27-33
 
-Bounding box -37.160, 56.250, 37.719, -20.391
+```{r OC, eval=T}
 
+#
+#
+dataDir <- "~/Dropbox1T/GlobalCriticalForest/oceania"
+
+# Download
+dm <- down_modis(dataDir,27,33)
+
+# Generate mosaics
+
+mosaic_modis(dataDir,27,33)
+
+
+```
