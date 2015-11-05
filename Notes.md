@@ -216,3 +216,14 @@ Typically, the distribution of sizes in nature (the height of different individu
 @Oborny2005
 
 Universality’ is not an exaggeration: analyses have shown (Broadabent and Hammersley 1957, Hinrichsen 2000b) that the values of the critical exponents do not depend on the details of the model, only on the dimensionality
+----------------------
+@Zinck2009
+
+Here we show that two typical generic wildfire models from ecology are structurally equivalent to the most commonly used model from statistical physics. All three models can be unified to a single model in which they appear as special cases of regrowth-dependent flammability. This local "ecological memory" of former fire events is key to self-organization in wildfire ecosystems. 
+
+
+----------------------
+@White2012
+
+Systems are expected to be in their most likely state when the processes influencing the system combine in such a way that they effectively cancel each other out at the system level. Community-level patterns in ecological systems are known to reflect the influence of myriad processes and thus may exemplify such a phenomenon (Frank 2011, Harte 2011).
+

@@ -1,36 +1,42 @@
 
 # Download modis files MOD44B version 051
 
-There is a folder for each continent and in each folder a file "Download.txt" with the files to be downloaded I made a subset for each continent using the tool <http://reverb.echo.nasa.gov>
+There is a folder for each continent or region and in each folder a file "Download.txt" with the files to be downloaded I made a subset for each using the tool <http://reverb.echo.nasa.gov>, and the Python package PyModis is needed
+
 
 ```{r setup, eval=TRUE}
 
 source("R/power_fun.r")
 
+
+
 ```
 
-# South america
+# South america (Including Central america)
 
-Up to Panama (Panama is out)
+Up to Mexico, USA is out 
 
-```{r SADownload, eval=F}
+Bounding Box -56.170, -32.695, 33.724, -120.234
+
+
+```{r SADownload, eval=T}
 
 
 dataDir <- "~/Dropbox1T/GlobalCriticalForest/southamerica/"
 
 # Download
-# dm <- down_modis(dataDir,9,14)
+dm <- down_modis(dataDir,7,14)
 
 # Generate mosaics
 
-mosaic_modis(dataDir,9,14)
+mosaic_modis(dataDir,7,14)
 
 
 ```
 
 # North America
 
-From USA 
+USA & Canada
 
 ```{r NA, eval=F}
 
@@ -48,29 +54,11 @@ mosaic_modis(dataDir,7,15)
 
 ```
 
-# Central America
-
-From panama to mexico
-
-```{r CA, eval=F}
-
-#
-#
-dataDir <- "~/Dropbox1T/GlobalCriticalForest/centralamerica"
-
-# Download
-dm <- down_modis(dataDir,7,11)
-
-# Generate mosaics
-
-mosaic_modis(dataDir,7,11)
-
-```
 
 
 # Eurasia
 
-Europa include West countries Up to Russia and Turkey (excluding both) 
+Europa include West countries and Russia (excluding both) 
 
 Northasia
 Bounding box 40.980, -168.838, 74.868, 27.070
@@ -142,7 +130,7 @@ Bounding box -48.342, 179.648, 7.885, 85.605
 
 27-33
 
-```{r OC, eval=T}
+```{r OC, eval=F}
 
 #
 #
@@ -157,3 +145,4 @@ mosaic_modis(dataDir,27,33)
 
 
 ```
+

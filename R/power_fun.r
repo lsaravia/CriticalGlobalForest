@@ -505,8 +505,11 @@ down_modis <- function(dataDir,hmin,hmax) {
 
 
 # Make mosaic of hdf files downloaded with down_modis
-# in a folder "hdf" with base fol
+# in a folder "hdf" with base dataDir, it uses a file called
+# "Download.txt" to read the files to compose and the Python PyModis package
+#
 # dataDir: base folder to output mosaic geotif files
+# 
 #
 mosaic_modis <- function(dataDir,hmin,hmax) {
 	
@@ -555,3 +558,6 @@ max_patch_size <-function(im_names,opts.out){
 
 	return(max_s_df)
 }
+
+
+

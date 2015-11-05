@@ -1,13 +1,13 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=plos.csl 
 
-all: Appendices.pdf CriticalGF.pdf
+all: Appendices.pdf CriticalGF.pdf Outline.pdf
 
 Outline.pdf: Outline.md
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 	evince Outline.pdf		
 
-CriticalGF.pdf: CriticalGF.md margins.sty CriticalGF.bib 
+CriticalGF.pdf: CriticalGF.md margins.sty 
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 	evince $@		

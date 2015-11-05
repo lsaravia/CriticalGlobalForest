@@ -4,24 +4,30 @@
 
 ### Isotropic percolation
 
+The distribution of patch sizes has in general the following distribution:
+
 $$n_s(p) \propto s^{-\tau} e^{-cs}$$
+
+And at the critical point:
 
 $$n_s(p_c) \propto s^{-\tau}$$
 
-
-where
-
-$n_s(p)$ is the number of patches
-
-$s$ is the patch size
+where $n_s(p)$ is the number of patches and $s$ is the patch size
 
 The max cluster:
 
 $S_{max}  \propto L^D$ at $p=p_c$
 
 Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results
-from the transition from $S_{smax} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above.
+from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above.
 
+The correlation length
+
+$\xi \propto |h-h_c|^{-\nu}$
+
+with $\nu=4/3$
+
+and the fractal dimension $D=91/48=1.897$
 
 
 ### Directed percolation
@@ -30,21 +36,31 @@ $$\rho^{stat} \sim (p-p_c)^\beta$$
 
 where $\rho^{stat}$ is the stationary density of particles and $\beta=0.583(4)$
 
-if we consider an area $A$ which is larger in linear distance than 
-
-$$\xi_s \sim | p-p_c|^{-\nu_s}$$
+The correlation length
 
 
-where $\xi_s$ is the correlation length in space and $\nu_s=0.733(4)$ and 
+$\xi_s \propto (h-h_c)^{-\nu_s}$
+
+where $h$ is the control parameter and $\xi_s$ is the correlation length in space and $\nu_s=0.733(4)$ is equal to the fractal dimension at the threshold.
+ 
 
 Numbers in parentheses denote statistical uncertainties in the last figure(s)
+
+if we consider an area $A$ which is larger in linear distance than 
+
+$D_f= 1 / \sigma \nu_s=2.968$ 
+
+### Dynamic percolation
+
+Fire forest models belong to this class [@Odor2004], and the collection of exponents is found in [@Munoz1999]
+
 
 ## Tables
 
 ### South America
 
 ---------------------------------------------------------------------------------------
- region   year   Data_Set   xmin   model_name    par1      par2     AICc_weight   GOFp 
+ region   year   Data_Set   xmin   model_name    par1      par2    $AICc_weight$   GOFp 
 -------- ------ ---------- ------ ------------ --------- --------- ------------- ------
    SA     2000    >=Xmin     98      Power       1.993      NA        0.7519     0.034 
 
