@@ -4,6 +4,14 @@
 
 [@Haddad2015] Habitat fragmentation and its lasting impact on Earth’s ecosystems
 
+New satellite data sets reveal at high resolution how human activities
+are transforming global ecosystems. Foremost among these observations
+are those of forest cover because of the high contrast between forest
+and anthropogenic land cover types. Deforestation, which was already
+widespread in temperate regions in the mid-18th to 20th centuries
+and increased in the tropics over the past half century, has resulted
+in the loss of more than a third of all forest cover worldwide (10, 11).
+
 
 ##  Fragmentation Analysis – Global 
 
@@ -226,4 +234,65 @@ Here we show that two typical generic wildfire models from ecology are structura
 @White2012
 
 Systems are expected to be in their most likely state when the processes influencing the system combine in such a way that they effectively cancel each other out at the system level. Community-level patterns in ecological systems are known to reflect the influence of myriad processes and thus may exemplify such a phenomenon (Frank 2011, Harte 2011).
+
+-------------------------
+
+@Malhi2014
+
+Tropical forests are arguably the most significant biomes on the planet, accounting for one-
+third of land-surface productivity and evapotranspiration (5), and are estimated to host over half of
+all global terrestrial biodiversity (6). Humans have been interacting with and modifying tropical
+forests for tens of thousands of years, but the intensity of this interaction has been increasing
+substantially in the Anthropocene. As with other biomes, tropical forests have experienced effects
+of the Anthropocene that are multifaceted and include conversion to agricultural use, logging and
+other resource extraction, increased fire incidence, hunting and wildlife trade, global intercon-
+nectivity and its associated spread of introduced species and pathogens, altered biogeochemical
+cycles, and climate change.
+
+
+-------------
+@Lenton2013 On the origin of planetary-scale tipping points
+
+The use of ‘planetary-scale’ tipping point suggests to us and to
+Brook et al. [2] synchronous or near-synchronous tipping on a global
+scale. Hughes et al. [3] concede this ‘is very unlikely’ for the terrestrial
+biosphere, yet they persevere with the term when describing
+nonsynchronous cascades of smaller-scale tipping points that
+ultimately add up to global effects. Here, the critical uncertainty is
+whether the causal coupling between different tipping events is of the
+sign and strength necessary to produce a global tipping cascade (e.g.,
+Figure 1, main text). The ‘planetary-scale tipping point’ terminology
+may not be helpful because complex systems, such as the biosphere,
+often show scale-free distributions of event sizes [14].
+
+
+-------------
+Scenarios for global biodiversity in the 21st century.
+
+Arguably, the conversion of forest to agricultural systems has been the most important of these habitat changes. In most land-use scenarios, global forest area declines slightly over the next few decades (Fig. 3), resulting from extensive deforestation in tropical forests and subtropical woodlands, which is partially offset by increased forest cover in the Northern Hemisphere (33, 34, 38).
+Therefore, in terms of impacts on biodiversity, the overall picture is worse than the global forest
+projections indicate, as the habitat losses in the
+tropics cannot be directly compensated by forest
+habitat gains in temperate regions, and some of
+the forest gains in both regions are due to the
+expansion of species-poor plantations.
+
+
+---------------------
+@Crowther2015a
+
+Forest ecosystems harbour a large proportion of global biodiversity, contribute extensively to biogeochemical cycles, and provide countless ecosystem services, including water quality control, timber stocks and carbon sequestration1–4. Our current understanding of the global forest extent has been generated using remote sensing approaches that provide spatially explicit values relating to forest area and canopy cover3,5,6
+
+
+
+--------------------
+@Potapov2008
+
+Protection of large natural forest landscapes is a highly important task to help fulfill different international strategic initiatives to protect forest biodiversity, to reduce carbon emissions from deforestation and forest degradation, and to stimulate sustainable forest management practices. This paper introduces a new approach for mapping large intact forest landscapes (IFL), defined as an unbroken expanse of natural ecosystems within areas of current forest extent, without signs of significant human activity, and having an area of at least 500 km2.
+
+
+---------------------
+@Martinson2012
+
+As a result, the presence of food-web modules depended strongly on patch size: large and well-connected patches supported complex food-web modules, but only the simplest modules involving the most abundant species were found on small patches.
 

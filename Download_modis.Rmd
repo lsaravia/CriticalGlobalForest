@@ -19,7 +19,7 @@ Up to Mexico, USA is out
 Bounding Box -56.170, -32.695, 33.724, -120.234
 
 
-```{r SADownload, eval=T}
+```{r SADownload, eval=F}
 
 
 dataDir <- "~/Dropbox1T/GlobalCriticalForest/southamerica/"
@@ -60,8 +60,8 @@ mosaic_modis(dataDir,7,15)
 
 Europa include West countries and Russia (excluding both) 
 
-Northasia
-Bounding box 40.980, -168.838, 74.868, 27.070
+Northasia 
+Bounding box 31.053, -168.750, 74.868, -11.602
 
 Countries: Russia Kazakthstan Mongolia
 
@@ -107,7 +107,7 @@ mosaic_modis(dataDir,16,23)
 Bounding box 0.879, 150.469, 49.838, 25.840
 
 desde h=20 hasta h=30
-```{r SAS, eval=F}
+```{r SAS, eval=T}
 
 #
 #

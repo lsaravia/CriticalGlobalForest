@@ -6,7 +6,12 @@ Author(s):
 [Santiago R. Doyle]()
 [Ben Bond-Lamberty]()
 
-Target Journal: [??]()
+## Abstract (preliminar)
+
+One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. These areas contain much less species that the natural ecosystem they replaced, and are one the main drivers of extinctions in the anthropocene. The forest cover also is also coupled to atmospheric dynamics and the balance of gases in the atmosphere. The dynamics of forest fragments or patches is central to its function as ecosystem.  In different kinds of vegetation including forests the patch size distributions follow power laws or approximate power law, but all these patterns have been observed at relatively small scales. Here we studied the distribution of forest patch sizes at a global level and its changes in the last fourteen years. We hypothesize that the global forest patches should follow a power law distribution. Power laws are a signal of critical phase transitions, where the system changes suddenly of state at a critical point, in the case of forest patches this change implies an abrupt change in the connectivity that pose a risk on the functioning of forest as an habitat and as an ecosystem. Thus we calculate the distance of the global forest to a possible critical point as an early warning indicator.     
+
+
+*Target Journal*: [Nature]()
 
 * [raw manuscript source in markdown](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.md) (figures and citations not rendered in this version)
 * [Draft PDF](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.pdf) (contains parsed citations and figures)
