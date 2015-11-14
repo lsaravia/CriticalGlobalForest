@@ -37,7 +37,7 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 * Distance to the critical point is a two step procedure:
     
-    1) Correlation length is close to the linear length (average linear length) then we can assume the critical poin is close and we can apply the universal exponents
+    1) Correlation length is close to the linear length (average linear length) then we can assume the critical point is close and we can apply the universal exponents
 
     2) Correlation length is lower than the linear length we are far from the critical point.
 

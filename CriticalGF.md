@@ -7,22 +7,18 @@ One of the most important changes produced in the biosphere is the replacement o
 
 ## Introduction
 
-Forest is one of the most important ecosystems on earth providing habitat for a large proportion of species and contributing extensively to global biodiversity [@Crowther2015a]. 
+Forest is one of the most important ecosystems on earth providing habitat for a large proportion of species and contributing extensively to global biodiversity [@Crowther2015a]. In the previous century human activities have reached the global scale changing influecing the bio-geochemical cicles [CITA]. One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;] this is a global scale forcing. 
 
 One of the main causes of biodiversity loss is habitat destruction or degradation that in turn leads to fragmentation: Fragmentation is defined as the division of a continous habitat into separated portions that are smaller and more isolated. These habitat fragments are embedded in a matrix of antropogenic land uses [@Haddad2015].  
 
-Ecosystems change in response to environmental changes, at a global scale these changes are being produced by human activities . The changes may be seen as gradual and can be forecasted by projecting recent trends, this may give the false impression that ecosystems are resilient to changes because they respond with small changes to environmental pressures (SEE LENTON 2013). Complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009]. These produce abrupt state shifts that can not be linearly forecasted from past changes [@Scheffer2009]. Critical transitions had been detected mostly at local scales [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
+Complex interaction between species and feedbacks at different levels of organization [@Gilman2010] can produce abrupt changes called critical transitions [@Scheffer2009]. These produce abrupt state shifts that can not be linearly forecasted from past changes [@Scheffer2009]. Critical transitions had been detected mostly at local scales [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and cause an abrut change of the entire system [@Barnosky2012], thus there exist a possibility that a critical transition occurs at a global scale [@Rockstrom2009; @Folke2011].  
 
-One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;] this is a global scale forcing.
 
-Ecologists must search for universal principles [@Harte2014], and one of these universal principles are scaling laws, These scaling laws are a signal of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
+Science search for universal principles [@Marquet2005; @Harte2014], and one of these universal principles are scaling laws, These scaling laws are a of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
 
 Power laws are asociated with two properties: scale invariance and universality [@Marquet2005]
 
 Most patterns in biological and ecological systems are produced by the agregation of many small processes, thus the logical expectation is that they result in a Gaussian probability distribution according to the central limit theorem [@Frank2009]. Thus the finding that patch distribution follows a scale-free power law distribution is surprising, if the small scale process are in fact correlated we also obtain a Gausian distribution, so we need more than correlation to obtain the scale free distribution. 
-
-The importance of propagation of information and spatial dynamics -> study spatial signals power law distributions -> Why forest cover is important
-
 
 Both habitat fragmentation and population fragmentation are critical transitions. Tuning a control parameter we can find a critical value (hc or lc) at which the order parameter (P or n ) declines abruptly to zero, the conbination of both procesess is also a critical system only if fragmentation is a dynamical proces, that means that degraded patches can recover [@Oborny2007].
 
