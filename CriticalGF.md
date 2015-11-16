@@ -7,7 +7,7 @@ One of the most important changes produced in the biosphere is the replacement o
 
 ## Introduction
 
-Forest is one of the most important ecosystems on earth providing habitat for a large proportion of species and contributing extensively to global biodiversity [@Crowther2015a]. In the previous century human activities have reached the global scale changing influecing the bio-geochemical cicles [CITA]. One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011;] this is a global scale forcing. 
+Forest is one of the most important ecosystems on earth providing habitat for a large proportion of species and contributing extensively to global biodiversity [@Crowther2015a]. In the previous century human activities have reached the global scale changing influecing the bio-geochemical cicles [CITA]. One of the most dramatic human induced changes is the replacement of 40% of Earth’s formerly biodiverse land areas with landscapes that contain only a few species of crop plants, domestic animals and humans [@Foley2011] this is a global scale forcing. 
 
 One of the main causes of biodiversity loss is habitat destruction or degradation that in turn leads to fragmentation: Fragmentation is defined as the division of a continous habitat into separated portions that are smaller and more isolated. These habitat fragments are embedded in a matrix of antropogenic land uses [@Haddad2015].  
 
@@ -47,7 +47,7 @@ We fitted the empirical distribution of forest patch areas to four distributions
 
 Besides the hard $X_{min}$ limit we set due to discretization, empirical distributions can show power-law behavior at values above a lower bound that can be estimated by maximizing the Kolmogorov-Smirnov (KS) statistic comparing empirical to fitted cumulative distribution function [@Clauset2009].  
 
-The corrected Akaike Information Criteria ($AIC_c$) and the Akaike weigwere computed for each model (Burnham & Anderson 2002). Akaike weights ($w_i$) are the weight of  evidence in favor of model $i$ being the actual best model for the situation at hand given that one of the $N$ models must be the best model for that set of N models. 
+The corrected Akaike Information Criteria ($AIC_c$) and the Akaike weights were computed for each model [@Burnham2002]. Akaike weights ($w_i$) are the weight of  evidence in favor of model $i$ being the actual best model for the situation at hand given that one of the $N$ models must be the best model for that set of N models. 
 
 Additionally, we computed the goodness of fit of the power-law and power-law with cut-off models following the bootstrap approach described by Clauset et. al [-@Clauset2009], where simulated data sets following the fitted model are generated, and a p-value equal to the proportion of simulated data sets that has a KS statistic less extreme than empirical data. 
 
