@@ -1,5 +1,11 @@
 
 
+Science search for universal principles [@Marquet2005; @Harte2014], and one of these universal principles are scaling laws, These scaling laws are a of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
+
+Power laws are asociated with two properties: scale invariance and universality [@Marquet2005]
+
+Most patterns in biological and ecological systems are produced by the agregation of many small processes, thus the logical expectation is that they result in a Gaussian probability distribution according to the central limit theorem [@Frank2009]. Thus the finding that patch distribution follows a scale-free power law distribution is surprising, if the small scale process are in fact correlated we also obtain a Gausian distribution, so we need more than correlation to obtain the scale free distribution. 
+
 ------------------
 
 [@Haddad2015] Habitat fragmentation and its lasting impact on Earth’s ecosystems
@@ -16,6 +22,9 @@ in the loss of more than a third of all forest cover worldwide (10, 11).
 ##  Fragmentation Analysis – Global 
 
 The global distance-to-edge map and histogram (Figure 1A, B) were generated from a global, 30-m resolution raster dataset of percent tree cover for the year 2000 (Sexton et al. 2013). Pixels covered with clouds or shadows in 2000 were filled with values from the same dataset in 2005, and those obscured by clouds or shadows in both 2000 and 2005 were filled with values from the MOderate-resolution Imaging Spectrometer (MODIS) Vegetation Continuous Fields (VCF) tree cover layer for the year 2000 (DiMiceli et al. 2011). Following the United Nations’ International Geosphere-Biosphere Programme definition of forest (Belward 1996), tree-cover values were converted from percentages to binary forest/non-forest cover by applying a threshold of 30% cover: pixels with tree cover less than 30% were labeled “non-forest”, and those with tree cover greater than or equal to 30% were labeled “forest”. A minimum mapping unit (MMU) filter was then applied to the binary map, re-coding the values of any contiguous group of pixels—whether forest or non-forest—whose combined area was less than one hectare to that of the surrounding pixels. The resulting 30-m resolution binary raster of forest vs. non-forest cover with MMU of 1 ha was then coarsened to 90-m resolution using a majority rule.
+
+The area of Earth’s land surface devoted to cropland already occupies 1.53 billion hectares (83) and may expand 18% by the middle of this century (84), and the area committed to urban centers is predicted to triple to 0.18 billion hectares by 2030 (85)
+
 
 
 -----------
@@ -296,3 +305,9 @@ Protection of large natural forest landscapes is a highly important task to help
 
 As a result, the presence of food-web modules depended strongly on patch size: large and well-connected patches supported complex food-web modules, but only the simplest modules involving the most abundant species were found on small patches.
 
+---------------------
+
+@Martin2015
+
+Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition,
+giving rise to a second-order (continuous) one.
