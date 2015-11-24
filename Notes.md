@@ -6,6 +6,14 @@ Power laws are asociated with two properties: scale invariance and universality 
 
 Most patterns in biological and ecological systems are produced by the agregation of many small processes, thus the logical expectation is that they result in a Gaussian probability distribution according to the central limit theorem [@Frank2009]. Thus the finding that patch distribution follows a scale-free power law distribution is surprising, if the small scale process are in fact correlated we also obtain a Gausian distribution, so we need more than correlation to obtain the scale free distribution. 
 
+Both habitat fragmentation and population fragmentation are critical transitions. Tuning a control parameter we can find a critical value (hc or lc) at which the order parameter (P or n ) declines abruptly to zero, the combination of both processes is also a critical system only if fragmentation is a dynamical process, that means that degraded patches can recover [@Oborny2007].
+
+A random forest would have new exponential distribution unless is close to a critical state.
+
+Besides in several systems the observation of power laws in the patch distribution is a signal of a system in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
+
+
+
 ------------------
 
 [@Haddad2015] Habitat fragmentation and its lasting impact on Earth’s ecosystems
@@ -311,3 +319,12 @@ As a result, the presence of food-web modules depended strongly on patch size: l
 
 Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition,
 giving rise to a second-order (continuous) one.
+
+
+---------------------
+
+@Sole2006
+
+Pag 161
+
+The effect on \xi of removal experiments. The landscape is almost insensitive to removal experiments for p>p_c but close to the critical point the removal of a number of small patches can have an important effects. 

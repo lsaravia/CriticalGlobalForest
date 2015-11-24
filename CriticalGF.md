@@ -13,27 +13,21 @@ Complex interaction between species and feedbacks at different levels of organiz
 
 The problem with critical transitions is that the value of the critical threshold is not known in advance, and near that point a small change can precipitate a state shift of the system, thus they are very difficult to anticipate. Several methods were developed to detect the closeness of the critical point such as a deceleration in recovery from perturbations, an increase in variance in the spatial or temporal pattern. Besides some of these methods have been experimentally tested [@Carpenter2011; @Dai2012], still there is a debate about the its reliability [@Hastings2010b; @Boettiger2012].
 
-There are two general classes of critical transitions, one where the sudden shift between states is mostly irreversible showing the presence of two stable states an hysteresis that is known as a catastrophic regime shift [@Scheffer2001]. This are the results of positive feedback mechanisms like facilitation [@Martin2015], for example the growth of forest in a site is more probable if it is surrounded by forest than if it is surrounded cultivated or degraded land [Xu2015b]. This is observed in semiarid regions where the transition from a vegetated state to a desertic one occurs as a result of human pressures and climatic change [@Kefi2007a]   
+There are two general classes of critical transitions, one where the sudden shift between states is mostly irreversible showing the presence of two stable states an hysteresis that is known as a catastrophic regime shift [@Scheffer2001], also called first order transitions. This could be the results of positive feedback mechanisms like facilitation [@Martin2015], for example the growth of forest in a site is more probable if it is surrounded by forest than if it is surrounded cultivated or degraded land [@Xu2015b]. This is observed in semiarid regions where the transition from a vegetated state to a desertic one occurs as a result of human pressures and climatic change [@Kefi2007a], in biological invasions [@Taylor2005], and biology and social sciences in general [@Sole2011].   
+
+The second case are continuous critical transitions [@Sole2006], or second order transitions. In this case there is a narrow region where the system changes from one domain to another, besides the change is also sudden it is continuous and theoretically reversible. These transitions are linked to spatial structures: at the critical point we can observe self-similar or scale invariant fractal structures [@Stauffer1994]. This spatial phenomena is studied by percolation theory and is related to the concept of connection, in a very general way we can find a path between the objects that belongs to a system [@Sole2011], thus  connectivity is a fundamental property of general systems and ecosystems from forest [@Ochoa-Quintero2015] to marine [@Leibold2004a] and the whole biosphere [@Lenton2013]. Percolation is characterized by two domains one dominated by short range interactions where information can not spread and another where long range interactions are possible. There is a critical point that defines a threshold boundary between the two domains and the system could be driven close or far of the critical point by an external force, in the case of forest climate change and deforestation are the main forces that could change the state of the system [@Bonan2008;@Haddad2015].   
+
+Percolation thresholds are important to understand forest growth dynamics, when the system is above the critical point is in a connected state and that could produce the acceleration of an invasion of forest into a prairie [@Loehle1996b; @Naito2015]. In an opposite direction the habitat loss can lead to percolation breaking habitat space and triggering ecosystem collapse [@Bascompte1996; @Sole2004c; Alonso2000a].
 
 
-Both habitat fragmentation and population fragmentation are critical transitions. Tuning a control parameter we can find a critical value (hc or lc) at which the order parameter (P or n ) declines abruptly to zero, the combination of both processes is also a critical system only if fragmentation is a dynamical process, that means that degraded patches can recover [@Oborny2007].
-
-A random forest would have new exponential distribution unless is close to a critical state.
-
-Besides in several systems the observation of power laws in the patch distribution is a signal of a sistem in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
-
-Our objetive is to evaluate the forest patch distribution at a continental scale, to detect possible signals of a global critical transition. 
-
-
-* Why distribution of patches is important
-
-One way to detect a global shift is to track power law distributions in forest patches 
-
+Our objective is to evaluate the forest patch distribution at a continental scale, to detect possible signals of a global critical transition and to evaluate the distance to a critical point. 
+The advantage of using data at a continental scale is that for very large systems the transition is vary sharp thus much easier to detect than at smaller scales. 
 
 
 ## Methods
 
 * MODIS VCF short explanation <https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod44b>.
+
 
 We choose mainland zones at a continental scale to analyze based in the posibility of connection, close patches of continous forest must connect the region, big islands like Madagascar were included as a separate regions, smaller islands where not included, we considered big islands connected to the mainland when they are at 1 km or less distance away. With this criteria we defined three regions in America, one corresponding to South America temperate forest (SAT), another to subtropical and tropical forest up to Mexico (SAST), and the last covering USA and Canada forest (NA). Europe and north Asia were all connected and they are included in one region (EUS), the other regions are south Asia (SAS), Africa (AF), and Oceania (OC) that includes only australia (Appendix figure S1).      
 
