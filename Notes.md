@@ -13,6 +13,15 @@ A random forest would have new exponential distribution unless is close to a cri
 Besides in several systems the observation of power laws in the patch distribution is a signal of a system in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
 
 
+---------------------
+Another possible paper -> Mechanisms of Forest savanna transition:
+1) Marquet proposed a neutral model, no mechanisms are necessary
+2) Murphy & Bowman 2011 propose a strong negative feedback model 
+3) I there is another strong positive feedback model (Staver???)
+We can tell which is the mechanism at work using Weisman Shnerb methods of patch growth analysis
+---------------------
+
+
 
 ------------------
 
@@ -134,14 +143,22 @@ Another example of the “combination of exponentials” mechanism has been disc
 Hughes [43]. They consider a process in which a set of items, piles or groups each grows exponentially in time, having size x ∼ e^bt with b > 0. For instance, populations of organisms reproducing freely without resource con- straints grow exponentially. Items also have some fixed probability of dying per unit time (populations might have a stochastically constant probability of extinction), so that the times t at which they die are exponentially distributed p(t) ∼ e^at with a < 0.
 
 
-----
+-------------
 
 @Sole2006
 
 Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002).
 
 
--------
+-------------
+
+@Sole2005 Gap percolation in rainforests
+
+Percolation is recognised as a key property in landscape ecology (Gardner et al. 1987, Turner et al. 2001). When sets of neighbouring, connected small-scale sites define a cluster spanning the entire system under consideration, such cluster is called a percolation cluster (Stauffer and Aharony 1985, Peitgen et al. 1992, Milne et al. 1996, Keitt et al. 1997). Percolation phenomena influence metapopulation dynamics (Andren 1994, Bascompte and Sole 1996, Wiens et al. 1997, With and King ́ 1999), invasion processes (Loehle et al. 1996, With 2002), and are relevant to conservation biology (With 1997, Bunn et al. 2000) and ecosystem function (Gamarra and Sole 2002).
+
+
+------------
+
 @VanRooij2013 A Fractal Approach to Dynamic Inference and Distribution Analysis
 
 This article is motivated by the insight that the shape of
@@ -328,3 +345,18 @@ giving rise to a second-order (continuous) one.
 Pag 161
 
 The effect on \xi of removal experiments. The landscape is almost insensitive to removal experiments for p>p_c but close to the critical point the removal of a number of small patches can have an important effects. 
+
+
+----------------
+
+@Murphy2012 What controls the distribution of tropical forest and savanna?
+
+Hirota et al. (2011) and Staver et al. (2011b) recently used an analysis of satellite-derived tree cover throughout Africa, South America and Australia to show that the frequency distribution of tree cover is strongly trimodal across a broad rainfall gradient, with peaks in the frequency of tree cover around 0%, representing grassland, 20%, representing savanna, and 80%, representing forest.
+
+This pattern suggests three separate Ôbasins of attractionÕ representing grassland, savanna and forest, with intermediate states tending to be unstable. It seems likely that this pattern could only be maintained by strong biological feedbacks, and Staver et al. (2011b) concluded that the main
+feedbacks responsible are the suppressive effect of tree cover on fire activity, and conversely, of fire activity on tree cover.
+
+A number of key predictions of broader ASS (Alternative stable states)theory appear to be consistent with observational and experimental studies of forest – savanna systems.
+1) First, we expect sharp spatial boundaries between alternative states (Schroder et al. 2005).
+2) In the case of forest and savanna, the feedbacks are numerous and well documented (Fig. 5).
+3) abrupt shifts between ecosystem states should be possible if stabilising feedback processes are interrupted. This is consistent with the dynamic nature of forest-savanna boundaries at a range of temporal scales (Mariotti & Peterschmitt 1994; Desjardins et al. 1996; Bowman et al. 2010a; Wigley et al. 2010).
