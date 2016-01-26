@@ -110,7 +110,7 @@ for i_dir = 1:length(data_dir_label)
                                 cd(resultsDir)
                                 % Save final forest image for graphical checking
                                 TiffTags.Compression = 'LZW';
-                                geotiffwrite(['Forest_patches_' image_names{i_im} '_' threshold_label{i_threshold} '.tif'],...
+                                geotiffwrite(['Forest_patches_' area_label{i_area} '_' image_names{i_im} '_'  threshold_label{i_threshold} '.tif'],...
                                     forest_pixels, Rspatialref,'GeoKeyDirectoryTag', geo_info.GeoTIFFTags.GeoKeyDirectoryTag,'TiffTags',TiffTags)
                                 % Top n-rank patches
                                 [~,IX] =  sort(area_fp_ha,'descend');

@@ -17,6 +17,5 @@ pars.max_success_size_per_iteration = 10^8;
 pars.excess_porc_margin = 0.1;
 tic
 % Function call 
+dbstop if error
 GCF_spatial_analyses(base_data_dir,area_definition_dir,pars)
-%tic
-%    corr_func_gis_alpha(on_pixels,excluded_area,geo_info,bbox,pars)
