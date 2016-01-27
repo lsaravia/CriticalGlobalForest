@@ -28,9 +28,9 @@ The advantage of using data at a continental scale is that for very large system
 * MODIS VCF short explanation <https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod44b>. Ver Hansen2003
 
 
-We choose mainland zones at a continental scale to analyze based in the posibility of connection, close patches of continous forest must connect the region, big islands like Madagascar were included as a separate regions, smaller islands where not included, we considered big islands connected to the mainland when they are at 1 km or less distance away. With this criteria we defined three regions in America, one corresponding to South America temperate forest (SAT), another to subtropical and tropical forest up to Mexico (SAST), and the last covering USA and Canada forest (NA). Europe and north Asia were all connected and they are included in one region (EUS), the other regions are south Asia (SAS), Africa (AF), and Oceania (OC) that includes only australia (Appendix figure S1).      
+We choose mainland zones at a continental scale to analyze based in the possibility of connection, close patches of continuous forest must connect the region, big islands like Madagascar were included as a separate regions, smaller islands where not included, we considered big islands connected to the mainland when they are at 1 km or less distance away. With this criteria we defined three regions in America, one corresponding to South America temperate forest (SAT), another to subtropical and tropical forest up to Mexico (SAST), and the last covering USA and Canada forest (NA). Europe and north Asia were all connected and they are included in one region (EUS), the other regions are south Asia (SAS), Africa (AF), and Oceania (OC) that includes only australia (Appendix figure S1).      
 
-There are several definition of forest but we choose [@Sexton2015] A 30% threshold was used to convert the percentage tree cover to a binary image of forest and non-forest pixels [@Haddad2015]. Patches of contiguous forest were determined in the binary image by grouping connected pixels using a neighboorhood of 8 forest units (Moore neighborhood). We set a minimal patch size ($X_min$) at nine pixels to avoid artifacts at patch edges due to discretization. 
+There are several definition of forest but we choose [@Sexton2015] A 30% threshold was used to convert the percentage tree cover to a binary image of forest and non-forest pixels [@Haddad2015]. Patches of contiguous forest were determined in the binary image by grouping connected pixels using a neighborhood of 8 forest units (Moore neighborhood). We set a minimal patch size ($X_min$) at nine pixels to avoid artifacts at patch edges due to discretization. 
 
 We fitted the empirical distribution of forest patch areas to four distributions using maximum likelihood estimation [@Goldstein2004;@Clauset2009]. The distributions were: power-law, power-law with exponential cut-off, log-normal, and exponential distributions. We assume that the patch size distribution is a continuous variable that was discretized by remote sensing data acquisition procedure. 
 
@@ -47,12 +47,17 @@ To measure the distance to the critical point we estimate the correlation length
 
 * Estimation of the linear length of each region to compare with correlation length.
 
+### Maximum patch dynamics
+
+The landscape is almost insensitive to removal experiments for p>p_c but close to the critical point the removal of a number of small patches can have an important effects [@Sole2006]. Thus the biggest patch will have big fluctuations if we are near the critical point.
+
+  
 
 ## Results
 
 
 ## Discussion
 
-What are the consecuences of each distribution see [@VanRooij2013].
+What are the consequences of each distribution see [@VanRooij2013].
 
 ## References

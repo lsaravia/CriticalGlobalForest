@@ -349,6 +349,20 @@ The effect on \xi of removal experiments. The landscape is almost insensitive to
 
 ----------------
 
+@Sole2011 Phase Transitions
+
+Pag 56
+
+The sharpness of this transition increases dramatically as the system size is increased. For very large L, we would see a marked change between an almost-zero-order parameter for all p < p_c to a non-zero value after the critical point is reached.
+
+Two important comments need to be made. First, the complexity of the pattern observed at criticality is clearly larger than the ones obtained for both p > p_c (very homogeneous, random) and p < p_c (homogeneous, flat). At criticality, multiple scales are involved, as illustrated by the presence of islands of patches of all sizes, displaying a fractal structure. The complexity of this structure can be measured in many ways, but a simple, indirect measure is provided by the transient time τ(p) required
+in order to complete the burning process.
+
+
+
+
+----------------
+
 @Murphy2012 What controls the distribution of tropical forest and savanna?
 
 Hirota et al. (2011) and Staver et al. (2011b) recently used an analysis of satellite-derived tree cover throughout Africa, South America and Australia to show that the frequency distribution of tree cover is strongly trimodal across a broad rainfall gradient, with peaks in the frequency of tree cover around 0%, representing grassland, 20%, representing savanna, and 80%, representing forest.
