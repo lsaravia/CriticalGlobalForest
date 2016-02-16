@@ -55,9 +55,9 @@ The landscape is almost insensitive to removal experiments for p>p_c but close t
 
 ## Results
 
-
+	
 ## Discussion
 
-What are the consequences of each distribution see [@VanRooij2013].
+Percolation thresholds may be different for different species [@Pardini2010], we are constrained here by the resolution of MODIS data  but several general conclusion may be drew.
 
 ## References

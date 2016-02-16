@@ -19,6 +19,7 @@ Another possible paper -> Mechanisms of Forest savanna transition:
 2) Murphy & Bowman 2011 propose a strong negative feedback model 
 3) I there is another strong positive feedback model (Staver???)
 We can tell which is the mechanism at work using Weisman Shnerb methods of patch growth analysis
+
 ---------------------
 
 
@@ -47,37 +48,15 @@ The area of Earth’s land surface devoted to cropland already occupies 1.53 bil
 -----------
 @Weerman2012 Changes in diatom patch-size distribution and degradation in a spatially self-organized intertidal mudflat ecosystem
 
-we used a cumulative distribution in which no binning is used. The patch-size distributions were fitted using the following equation describing an upper-truncated cumulative number-size distribution based on a power law (Burroughs and Tebbens 2001):
+We used a cumulative distribution in which no binning is used. The patch-size distributions were fitted using the following equation describing an upper-truncated cumulative number-size distribution based on a power law (Burroughs and Tebbens 2001):
 
 
 where M(r) is the cumulative fitting function of patches
 of size r (in cm2), C is a constant, c is the scaling
 
-A recent paper of Pueyo (2011) showed that, for
-fundamental reasons, we should move away from the
-power law vs. truncated power law dichotomy to other
-categorizations. More precisely, a truncated power law
-can be fitted to all the data sets (if taken at a large
-enough scale) and we expect that truncation becomes
-stronger when a dryland approaches degradation
-(following similar reasoning as Kefi et al. [2007]). In
-line with this, all our patch-size distributions were fitted
-using Eq. 1. To evaluate the degree of the truncation of
-the curves, we defined the observed truncation to be th
+A recent paper of Pueyo (2011) showed that, for fundamental reasons, we should move away from the power law vs. truncated power law dichotomy to other categorizations. More precisely, a truncated power law can be fitted to all the data sets (if taken at a large enough scale) and we expect that truncation becomes stronger when a dryland approaches degradation (following similar reasoning as Kefi et al. [2007]). In line with this, all our patch-size distributions were fitted using Eq. 1. To evaluate the degree of the truncation of the curves, we defined the observed truncation to be th
 
-
-
-The loss of cover fraction of vegetation, or of other
-organisms, is the most direct way to assess the degree of
-deterioration of ecosystems (Reynolds et al. 2007,
-Maestre and Escudero 2009, 2010). However, ecosys-
-tems with strong feedback mechanisms can respond
-nonlinearly, involving tipping points, to gradually
-increased stress (Rietkerk et al. 2004, Scheffer et al.
-2009). In those cases, the cover fraction at which a
-tipping point occurs is unknown, and cover fraction
-alone is not sufficient to indicate the proximity of a
-tipping point in the ecosystem (Kefi et al. 2010).
+The loss of cover fraction of vegetation, or of other organisms, is the most direct way to assess the degree of deterioration of ecosystems (Reynolds et al. 2007, Maestre and Escudero 2009, 2010). However, ecosystems with strong feedback mechanisms can respond nonlinearly, involving tipping points, to gradually increased stress (Rietkerk et al. 2004, Scheffer et al. 2009). In those cases, the cover fraction at which a tipping point occurs is unknown, and cover fraction alone is not sufficient to indicate the proximity of a tipping point in the ecosystem (Kefi et al. 2010).
 
 
 ------
@@ -258,6 +237,7 @@ Typically, the distribution of sizes in nature (the height of different individu
 @Oborny2005
 
 Universality’ is not an exaggeration: analyses have shown (Broadabent and Hammersley 1957, Hinrichsen 2000b) that the values of the critical exponents do not depend on the details of the model, only on the dimensionality
+
 ----------------------
 @Zinck2009
 
@@ -283,6 +263,13 @@ other resource extraction, increased fire incidence, hunting and wildlife trade,
 nectivity and its associated spread of introduced species and pathogens, altered biogeochemical
 cycles, and climate change.
 
+One of the most striking global environmental trajectories of the past decade has been the
+decline in deforestation in the Brazilian Amazon. Over the decade 1996–2005, Brazilian Amazonia
+had an average deforestation rate of 19,500 km 2 year −1 , accounting for about half of the global
+tropical deforestation. Then, from 2004–2012, the rate declined by 82% and stabilized at ∼5,000–
+7,000 km 2 year −1 , with a relative increase of 28% between 2012 and 2013 (32). The reduction has
+been driven almost entirely by a large decline in deforestation on larger properties (33), resulting
+in part from major policy interventions, supported by monitoring technologies.
 
 -------------
 @Lenton2013 On the origin of planetary-scale tipping points
@@ -301,7 +288,7 @@ often show scale-free distributions of event sizes [14].
 
 
 -------------
-Scenarios for global biodiversity in the 21st century.
+@Pereira2010 - Scenarios for global biodiversity in the 21st century.
 
 Arguably, the conversion of forest to agricultural systems has been the most important of these habitat changes. In most land-use scenarios, global forest area declines slightly over the next few decades (Fig. 3), resulting from extensive deforestation in tropical forests and subtropical woodlands, which is partially offset by increased forest cover in the Northern Hemisphere (33, 34, 38).
 Therefore, in terms of impacts on biodiversity, the overall picture is worse than the global forest
@@ -324,6 +311,7 @@ Forest ecosystems harbour a large proportion of global biodiversity, contribute 
 
 Protection of large natural forest landscapes is a highly important task to help fulfill different international strategic initiatives to protect forest biodiversity, to reduce carbon emissions from deforestation and forest degradation, and to stimulate sustainable forest management practices. This paper introduces a new approach for mapping large intact forest landscapes (IFL), defined as an unbroken expanse of natural ecosystems within areas of current forest extent, without signs of significant human activity, and having an area of at least 500 km2.
 
+Recent research shows that MODIS- derived forest change data can be used for precise estimation of forest cover loss (using Landsat-based calibration), and for displaying the spatial and temporal patterns of forest-cover change (Shimabukuro et al. 2004, Hansen et al. 2008, Potapov et al. 2008). MODIS red and NIR bands with a spatial resolution of 250 m per pixel could be used to detect large- scale disturbances (i.e., logging in boreal forests and industrial agriculture clearings in the tropics) using visual interpretation. The disadvantages are that MODIS data do not allow identification of small- scale disturbances (such as small-scale agriculture in tropical Africa and Asia), scattered disturbances (intensive selective logging), or most elements of transportation infrastructure.
 
 ---------------------
 @Martinson2012
@@ -334,8 +322,7 @@ As a result, the presence of food-web modules depended strongly on patch size: l
 
 @Martin2015
 
-Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition,
-giving rise to a second-order (continuous) one.
+Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition, giving rise to a second-order (continuous) one.
 
 
 ---------------------
@@ -358,6 +345,14 @@ The sharpness of this transition increases dramatically as the system size is in
 Two important comments need to be made. First, the complexity of the pattern observed at criticality is clearly larger than the ones obtained for both p > p_c (very homogeneous, random) and p < p_c (homogeneous, flat). At criticality, multiple scales are involved, as illustrated by the presence of islands of patches of all sizes, displaying a fractal structure. The complexity of this structure can be measured in many ways, but a simple, indirect measure is provided by the transient time τ(p) required
 in order to complete the burning process.
 
+Pag 147 
+
+By analyzing the patterns displayed by Amazonian forest fires, it is
+possible to predict some potential scenarios of megafire spreading
+(Pueyo 2007; Pueyo et al. 2010). These studies suggest that, if
+the most adverse forecasts are realized, the second-order transition
+expected from an epidemics-like behavior would be replaced by
+sudden (first-order) changes.
 
 
 
@@ -374,3 +369,46 @@ A number of key predictions of broader ASS (Alternative stable states)theory app
 1) First, we expect sharp spatial boundaries between alternative states (Schroder et al. 2005).
 2) In the case of forest and savanna, the feedbacks are numerous and well documented (Fig. 5).
 3) abrupt shifts between ecosystem states should be possible if stabilising feedback processes are interrupted. This is consistent with the dynamic nature of forest-savanna boundaries at a range of temporal scales (Mariotti & Peterschmitt 1994; Desjardins et al. 1996; Bowman et al. 2010a; Wigley et al. 2010).
+
+
+--------------
+
+@Staver2012 Integrating Theoretical Climate and Fire Effects on Savanna and Forest Systems
+
+At a broad scale, however, fire spread depends on the continuity of the grass layer, to which tree cover usually acts as a barrier. In the tropics, tree cover has little effect on fire spread, frequency, or size until it reaches a threshold (45%–50%) above which fire can no longer spread (Hennenberg et al. 2006; Archibald et al. 2009, 2012; Pueyo et al. 2010; Staver et al. 2011a, 2011b). In this way, fire acts approximately as a percolation process, where either systems are connected and fire can spread or they are not connected and fire cannot spread (Li 2002; Favier 2004; Sullivan 2009).
+
+----------------
+
+@Pardini2010 Beyond the Fragmentation Threshold Hypothesis: Regime Shifts in Biodiversity Across Fragmented Landscapes
+
+----------------
+	
+@Hirota2011 Global Resilience of Tropical Forest and Savanna to Critical Transitions
+
+The problem is that they take a resolution of 1 km2 the distribution with different grain sizes may differ.
+
+Tree cover is one of the defining variables of landscapes, their ecological functioning, and their impact on climate. Despite insights into the effects of resource availability and disturbances on tree growth and survival (1–4), our understanding of the mechanisms determining global patterns of tree cover remains fragmented. A major question is whether tree represent alternative attractors
+
+
+-----------------
+
+@Lenton2008 
+
+We consider ‘‘components’’ S of the Earth system that are associated with a specific region (or collection of regions) of the globe and are at least subcontinental in scale (length scale of order 1,000 km). A full formal definition of a tipping element is given in supporting information (SI) Appendix 1. For the cases considered herein, a system S is a tipping element if the following condition is met:
+1. The parameters controlling the system can be transparently
+combined into a single control P , and there exists a critical
+control value Pcrit from which any significant variation by delta P>0  in a crucial system feature leads to a qualitative change (Fq)
+in a crucial system feature F, after some observation time T > 0, measured with respect to a reference feature at the critical value,
+
+Human activities are interfering with the system S such that decisions taken within a ‘‘political time horizon’’ (Tp>0) can determine whether the critical value for the control Pcrit is reached. This occurs at a critical time (Tcrit ) that is usually within Tp but may be later because of a commitment to further change made during Tp
+The time to observe a qualitative change plus the time to trigger it lie within an ‘‘ethical time horizon’’ (Te )
+
+Amazon Rainforest: Indeed land-use change alone could potentially bring forest cover to a critical threshold. Thus, the fate of the Amazon may be determined by a complex interplay between direct land-use change and the response of regional precipitation and ENSO to global forcing.
+
+Boreal Forest: The boreal system exhibits a complex interplay between tree physiology, permafrost, and fire. Under climate change, increased water stress, increased peak summer heat stress causing increased mortality, vulnerability to disease and subsequent fire, as well as decreased reproduction rates could lead to large-scale dieback of the boreal forests (77, 86), with transitions to open woodlands or grasslands
+
+Society may be lulled into a false sense of security by smooth projections of global change. Our synthesis of present knowledge suggests that a variety of tipping elements could reach their critical point within this century under anthropogenic climate change
+
+but a full assessment of policy relevance would require that, for each potential tipping element,
+we answer the following questions: Mitigation: Can we stay clear of Pcrit, Adaptation: Can a qualitative change Fq be tolerated?
+Given the large uncertainty that remains about tipping elements, there is an urgent need to improve our understanding of the underlying physical mechanisms determining their behavior, so that policy makers are able ‘‘to avoid the unmanageable, and to manage the unavoidable’’ (112).
