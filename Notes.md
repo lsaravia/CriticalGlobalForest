@@ -412,3 +412,9 @@ Society may be lulled into a false sense of security by smooth projections of gl
 but a full assessment of policy relevance would require that, for each potential tipping element,
 we answer the following questions: Mitigation: Can we stay clear of Pcrit, Adaptation: Can a qualitative change Fq be tolerated?
 Given the large uncertainty that remains about tipping elements, there is an urgent need to improve our understanding of the underlying physical mechanisms determining their behavior, so that policy makers are able ‘‘to avoid the unmanageable, and to manage the unavoidable’’ (112).
+
+------------
+
+@Ziff2002
+
+Using the point where the percolation probability equals 1/2 is indeed an excellent choice for finding the threshold; see R. M. Ziff and M. E. J. Newman, Physical Review E 66, 016129 (2002). The appendix of that paper also gives exact expressions for the percolation probability for square systems up to 7×7. Note also, the site-bond threshold for the honeycomb lattice is given on the “Percolation Threshold” Wikipedia page, a page that my students and I put up.

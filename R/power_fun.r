@@ -189,22 +189,44 @@ extract_fit_ht <-function(e)
 # Read data to call fit_con_heavy_tail and format output in a data.frame
 #
 #
-call_fit_con_heavy_tail <-function(options.output){
+call_fit_con_heavy_tail <-function(options,i){
 	
 	# Read binary data
-	connection_file <- file(original_bin_files[i_im], "rb")
+	connection_file <- file(options$original_bin_files[i], "rb")
 	data_set <- readBin(connection_file, "double", n = 10^6)
-	if(options.output$sample_data>0) data_set<- sample(data_set,options.output$sample_data) ### TESTING
-	xmins <- seq(1:400)
+	if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) ### TESTING
 	
 	# Original data
-	fit_ht <- fit_con_heavy_tail(data_set,xmins,options.output)
+	fit_ht <- fit_con_heavy_tail(data_set,options$xmins,options)
 	fit_ht_df <- ldply(fit_ht$fitted_models,extract_fit_ht)
-	fit_ht_df$data_set_name <- strsplit(options.output$data_set_name[i_im],".tif")[[1]][1]
+	fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
+	ss <- strsplit(options$data_set_name[i],"_")
+	fit_ht_df$region <- ss[[1]][2]
+	fit_ht_df$subregion <- ss[[1]][3]
+	fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
+	
 	return(fit_ht_df)
 	
 }
 
+# Fit all the images patch sizes for a region with maybe different areas 
+#
+#
+region_fit_con_heavy_tail <-function(options,region){
+
+
+	fit <- data_frame()
+
+
+	for(i in 1:length(options$data_set_name))
+	{ 
+	  fit <- rbind(fit,call_fit_con_heavy_tail(options,i))
+	}
+	if(region!=fit$region[1]) warning("Regions dont match ",region, fit$region)
+
+
+	return(fit)
+}
 
 
 # Plot of frequencies of patch sizes with fitted continuous heavy tail functions
@@ -560,4 +582,69 @@ max_patch_size <-function(im_names,opts.out){
 }
 
 
+read_random_percolation <-function(region) {
+	
+	percolation_R_files <- list.files(pattern="^.*_percolation_analysis\\.R$")
+	df <- data.frame()
+	
+	for(i in 1:length(percolation_R_files)){
+		ss <- strsplit(percolation_R_files[i],"_")
+		#df$region <- ss[[1]][2]
+		#df$subregion <- ss[[1]][3]
+		if(ss[[1]][2]!=region) warning("Regions don't match ",region, ss[[1]][2])
 
+		source(percolation_R_files[i])
+		ll <- length(p_set)
+		df1 <- data.frame(region=rep(ss[[1]][2],ll),subregion=rep(ss[[1]][3],ll),correlation_length_km=t(correlation_length_km_set),p_set=t(p_set))
+		df1$equivalent_diameter_km <- equivalent_diameter_km
+		df1$maximum_length_km <- maximum_length_km
+		df1$total_area_km2 <- total_area_km2
+		df <- rbind(df,df1)
+		
+	}
+	return(df)
+}
+
+
+read_region_correlation<-function(region) {
+
+	r_files <- list.files(pattern="^.*_correlation_analisys\\.R$")
+	df <- data.frame()
+	
+	for(i in 1:length(r_files)){
+
+		ss <- strsplit(r_files[i],"_")
+		#df$region <- ss[[1]][2]
+		#df$subregion <- ss[[1]][3]
+		if(ss[[1]][2]!=region) warning("Regions don't match ",region, ss[[1]][2])
+
+		source(r_files[i])
+		df1 <- data.frame(region=ss[[1]][2],subregion=ss[[1]][3],year=gsub(".*\\.A([0-9]{4}).*","\\1",r_files[i]),
+			correlation_length_km,maximum_length_km,total_area_km2,equivalent_diameter_km)
+
+		df <- rbind(df,df1)
+	}
+	return(df)
+}
+
+# Calculation of correlation exponent epsilon ~ (p-pc)^-nu
+#
+#
+calc_correlation_exponent <- function(range,cp,df)
+{
+	require(ggplot2)
+	
+	f_df <- df %>% group_by(region,subregion) %>% filter(p_set>=range[1] & p_set<=range[2]) %>% mutate(p_dif=abs(p_set-cp))
+	
+	g <- ggplot(f_df,aes(p_dif,correlation_length_km,colour=subregion))+theme_bw() + geom_point() + scale_y_log10() +scale_x_log10() 
+	print(g + geom_smooth(method=lm, se=FALSE))    # Don't add shaded confidence region
+	
+	mods <- do(f_df,mod=lm(log(correlation_length_km) ~ log(p_dif),data=.))
+#	slop <- mods %>% do(data.frame(region=.$region, subregion=.$subregion, var = names(coef(.$mod)), coef(summary(.$mod)))) %>% 
+#		filter(var=="log(p_dif)")
+	slop <- mods %>% do(region=.$region, subregion=.$subregion, log_inter=coef(summary(.$mod))[1],correl_exp=coef(summary(.$mod))[2],R2 = summary(.$mod)$r.squared)
+	#R2s <- mods %>% summarise(region=region, subregion=subregion,R2 = summary(mod)$r.squared)
+	#slop$R2 <- R2s$R2
+	
+	return(slop %>% select(-var,-t.value) %>% rename(correl_exp=Estimate,SE=Std..Error,pvalue=Pr...t..))
+}

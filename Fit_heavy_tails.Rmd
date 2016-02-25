@@ -4,7 +4,6 @@
 
 ```{r setup, eval=T }
 load(".RData")
-#simul  <- F # variable to perform or not the simulations
 
 oldcd <-getwd()
 
@@ -33,16 +32,129 @@ source("R/powerlaw/pareto.R")
 # Functions for the analysis
 #
 source("R/power_fun.r")
-codeDir <- "R"
 
+# Set global options and parameters 
+#
+options.glo <- vector("list", length=0)
+options.glo$GOF <- 1						# Estimate godness of fit for power law 
+options.glo$ploting <- 0					# Plots of cumulative distributions
+options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
+options.glo$resultsDir <- ""        		# Folder with bin files  
+options.glo$sample_data <- 0                # Set  >0 For testing
+options.glo$original_bin_files <- ""        # Files with patch sizes for each region (bin=binary)
+options.glo$xmins <- seq(1:400)				# Range of xmins (minimun patch sizes) to fit 
+											#
+											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
 
-options.output <- vector("list", length=0)
-options.output$GOF <- 1
-options.output$ploting <- 0
-options.output$data_set_name <- image_names
-options.output$resultsDir <- resultsDir 
-options.output$sample_data <- 0 # For testing
 ```
+
+
+# Fit heavy tailed distributions AF (Africa - new output)
+
+```{r conheavytailfitAF, eval=T,echo=T,message=T,warning=T}
+
+
+# Set folder with results for the region 
+#
+options.glo$resultsDir <- "Results/africa"
+options.glo$sample_data <- 0                 # Set >0 For testing
+
+
+set.seed(seed=0)
+
+setwd(options.glo$resultsDir)
+
+# Get files with patch sizes (*.bin) and image file names *.tif (data_set_name)
+#
+options.glo$original_bin_files <- list.files(pattern="*.\\.bin")
+options.glo$data_set_name <- unlist(strsplit(options.glo$original_bin_files,".bin")) 
+
+# The region AF must coincide with the region extracted from the filenames 
+#
+# options.glo$data_set_name <- options.glo$data_set_name[c(15,16)] 
+
+fit <- region_fit_con_heavy_tail(options.glo,"AF") 
+
+# Change to base folder  
+#
+setwd(oldcd)
+
+
+# Create a data.frame to hold all the distribution models
+#
+all_fit <- data.frame()
+all_fit <- bind_rows(all_fit,fit)
+
+
+
+# Build a dataframe for table output
+#
+nn <- c("Complete",">=Xmin")
+ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin))
+
+ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
+  select(region,subregion,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
+  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
+  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
+  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set )
+  	   )
+
+options("scipen"=4, "digits"=6)
+
+pandoc.table(ta)
+
+
+save.image()
+
+```
+
+# Percolation indices for AF
+
+The percolation threshold for Moore Neighborhood (z=8 3N+2N) = 0.407
+Malarz, K.; S. Galam (2005). "Square-lattice site percolation at increasing ranges of neighbor bonds". Physical Review E 71 (1): 016125. 
+
+```{r percoAnalysisAF, eval=F,echo=T,message=T,warning=T}
+
+# Set folder with results for the region 
+#
+options.glo$resultsDir <- "Results/africa"
+
+set.seed(seed=0)
+
+setwd(options.glo$resultsDir)
+
+rnd_percolation <- read_random_percolation("AF")
+
+region_corr <- read_region_correlation("AF")
+
+setwd(oldcd) # oldcd is a global variable 
+
+# The correlation exponent should be near  1.33333
+#
+calc_correlation_exponent(c(0.2,0.41),0.407,rnd_percolation)
+#calc_correlation_exponent(c(0.1,0.41),0.407,rnd_percolation)
+
+# Calculate the critical point!!!!1
+#
+ggplot(rnd_percolation,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=1) + facet_wrap(region ~ subregion,scales="free_x")
+
+rp <-rnd_percolation %>% filter(subregion==1) %>% mutate(p_correlation_length=correlation_length_km/max(correlation_length_km))
+rp
+logistic.fit = glm(p_correlation_length ~ p_set, family=binomial(logit), data = rp)
+rp$fit = logistic.fit$fitted
+pcrit = - logistic.fit$coefficients[1] / logistic.fit$coefficients[2]
+ggplot(rp,aes(p_set,p_correlation_length))+theme_bw() + geom_point(shape=21) +
+		geom_line(aes(x = p_set, y = fit), linetype = 2) +
+		geom_vline(xintercept = pcrit, color = "blue") +
+		annotate("text", label = sprintf("p == %.3f", pcrit), x = 0.9, y = .1, parse = TRUE) 
+	
+	
+```
+
+The correlation lenght have a range where is power law, if the actual correlation is less than the range the lanscape is fragmented and far from critical transition, if is greater than this range the landscape is connected.
+
+Thus I have to find a range where the correlation lenght has a power law distribution.
+
 
 # Fit heavy tailed distributions SA (south america)
 
@@ -355,7 +467,7 @@ filter(all_fit,model_name=="Power") %>% group_by(region,model_set) %>% summarise
 
 # Extract max patch size 
 
-```{r extractMaxPatchSA, eval=T,echo=T,message=T,warning=T}
+```{r extractMaxPatchSA, eval=F,echo=T,message=T,warning=T}
 #require(doParallel)
 require(plyr)
 require(dplyr)
