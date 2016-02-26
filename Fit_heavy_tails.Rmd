@@ -42,7 +42,7 @@ options.glo$data_set_name <- ""				# image_names from wich patch sizes were calc
 options.glo$resultsDir <- ""        		# Folder with bin files  
 options.glo$sample_data <- 0                # Set  >0 For testing
 options.glo$original_bin_files <- ""        # Files with patch sizes for each region (bin=binary)
-options.glo$xmins <- seq(1:400)				# Range of xmins (minimun patch sizes) to fit 
+options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit 
 											#
 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
 
@@ -51,7 +51,7 @@ options.glo$xmins <- seq(1:400)				# Range of xmins (minimun patch sizes) to fit
 
 # Fit heavy tailed distributions AF (Africa - new output)
 
-```{r conheavytailfitAF, eval=T,echo=T,message=T,warning=T}
+```{r conheavytailfitAF, eval=F,echo=T,message=T,warning=T}
 
 
 # Set folder with results for the region 
@@ -123,37 +123,63 @@ set.seed(seed=0)
 
 setwd(options.glo$resultsDir)
 
+# Reads a site percolation simulations using maximun convex hull area of forest.
+#
 rnd_percolation <- read_random_percolation("AF")
 
+# Read the correlation length for the forest patches and years.
+#
 region_corr <- read_region_correlation("AF")
+
+# Plot of correlation length by region and year
+#
+ggplot(region_corr,aes(correlation_length_km,year,colour=subregion))+theme_bw() + geom_point(shape=1) + facet_wrap(region ~ subregion,scales="free_x")
 
 setwd(oldcd) # oldcd is a global variable 
 
+# Estimates the exponent of the correlation length power law 
+#
 # The correlation exponent should be near  1.33333
 #
-calc_correlation_exponent(c(0.2,0.41),0.407,rnd_percolation)
-#calc_correlation_exponent(c(0.1,0.41),0.407,rnd_percolation)
+corr_exp <-est_correlation_exponent(c(0.2,0.41),0.407,rnd_percolation)
 
-# Calculate the critical point!!!!1
+# Calculates the percolation probability using the estimated correlation exponent, assuming the critical point is known.
 #
-ggplot(rnd_percolation,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=1) + facet_wrap(region ~ subregion,scales="free_x")
+region_cor <-calc_critical_probability(c(0.2,0.41),0.407,corr_exp, region_corr)
 
-rp <-rnd_percolation %>% filter(subregion==1) %>% mutate(p_correlation_length=correlation_length_km/max(correlation_length_km))
-rp
-logistic.fit = glm(p_correlation_length ~ p_set, family=binomial(logit), data = rp)
-rp$fit = logistic.fit$fitted
-pcrit = - logistic.fit$coefficients[1] / logistic.fit$coefficients[2]
-ggplot(rp,aes(p_set,p_correlation_length))+theme_bw() + geom_point(shape=21) +
-		geom_line(aes(x = p_set, y = fit), linetype = 2) +
-		geom_vline(xintercept = pcrit, color = "blue") +
-		annotate("text", label = sprintf("p == %.3f", pcrit), x = 0.9, y = .1, parse = TRUE) 
-	
-	
+# Plot of the probability of percolation
+#
+ggplot(region_cor_p,aes(p,correlation_length_km,colour=subregion))+theme_bw() + geom_point(shape=1) + facet_wrap(~region ,scales="free_y")
+
+
+# Plot the data correlation length with percolation probability colour=subregion
+#
+ggplot(rnd_percolation,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=1) + facet_wrap(region ~ subregion,scales="free_y") + geom_point(aes(p,correlation_length_km,colour=subregion),data=region_cor)
+
+# Estimate the critical point of site percolation using logistic equation
+#
+crit_point <- est_critical_point(rnd_percolation)
+
+# Calculate the percolation probability using logistic equation parms from est_critical_point
+#
+region_cor <-calc_critical_probability_logis(crit_point,region_cor)
+
+ggplot(rnd_percolation,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=21) + facet_wrap(region ~ subregion,scales="free_y") + geom_point(aes(pl,correlation_length_km,colour=subregion),data=region_cor) +
+	 geom_point(aes(p,correlation_length_km,colour=subregion),shape=25,colour="red",data=region_cor)
+
+# Percolation probability and critical points by subregion, estimated using logistic regression
+#
+ggplot(region_cor,aes(pl,year,colour=subregion))+theme_bw() + geom_point(shape=1) + facet_wrap(~region ,scales="free_y") +
+	geom_vline(aes(xintercept = pcrit,colour=subregion),data = crit_point) 
+
+#rm(correlation_length_km,correlation_length_km_set,correlation_sampled_distance_km,p_set,equivalent_diameter_km,
+#   maximum_length_km,total_area_km2,extrapolation_min_value_km,fit)	
+
 ```
 
-The correlation lenght have a range where is power law, if the actual correlation is less than the range the lanscape is fragmented and far from critical transition, if is greater than this range the landscape is connected.
+Africa is subcritical, already fragmented
 
-Thus I have to find a range where the correlation lenght has a power law distribution.
+Madagascar is critical, oscilating around the critical point.(Region 2)
 
 
 # Fit heavy tailed distributions SA (south america)
@@ -406,8 +432,8 @@ setwd(oldcd)
 require(dplyr)
 require(ggplot2)
 
-ff <- filter(all_fit,delta_AICc==0) %>%
-	mutate(year=substr(data_set_name,16,19), se=(par1-1)/sqrt(n))
+ff <- filter(all_fit,model_name=="Power", model_set!="Xmin=9") %>% 
+	mutate(year=substr(data_set_name,47,50), se=(par1-1)/sqrt(n))
 
 ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
 ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
@@ -415,8 +441,8 @@ ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
 pd <-position_dodge(.1)
 g <- ggplot(ff, aes(x=year,y=par1,colour=model_set,shape=model_name)) +  theme_bw() + geom_point(position=pd)+ 
 	#geom_errorbar(aes(ymin=par1-se, ymax=par1+se),width=0.0,position=pd)  +
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha))
-
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + facet_wrap(~subregion)
+g
 g + scale_colour_discrete(name="Data Set",labels=c("Xmin=9","Estimated Xmin","<Xmin")) + scale_shape_discrete(name="Best Model",labels=c("Power","Power exp."))+ facet_grid(.~region) +scale_colour_brewer(palette="Set1",name="Region")
 ggsave("figure/PowerExp_allXmin_year.png",plot=g,width=8,height=4,units="in",dpi=600)
 
@@ -525,5 +551,9 @@ g <- ggplot(maxSize, aes(y=maxSKm2,x=year,colour=region)) +  theme_bw() + geom_p
 g + ylab(expression(Biggest~forest~patch~Km^2))  +scale_colour_brewer(palette="Set1",name="Region")
 ggsave("figure/Smax_year.png",plot=g,width=6,height=4,units="in",dpi=600)
 # ylab(expression(S[max]))
+
 save.image()
+
+
+
 ```

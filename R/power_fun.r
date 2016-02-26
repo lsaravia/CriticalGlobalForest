@@ -627,10 +627,14 @@ read_region_correlation<-function(region) {
 	return(df)
 }
 
-# Calculation of correlation exponent epsilon ~ (p-pc)^-nu
+# Estimation of the correlation exponent epsilon ~ (p-pc)^-nu
+# based in the potential relationship near the critical point
 #
+# range: range of p to estimate exponent
+# cp: critical point
+# df: data frame with data
 #
-calc_correlation_exponent <- function(range,cp,df)
+est_correlation_exponent <- function(range,cp,df)
 {
 	require(ggplot2)
 	
@@ -639,12 +643,74 @@ calc_correlation_exponent <- function(range,cp,df)
 	g <- ggplot(f_df,aes(p_dif,correlation_length_km,colour=subregion))+theme_bw() + geom_point() + scale_y_log10() +scale_x_log10() 
 	print(g + geom_smooth(method=lm, se=FALSE))    # Don't add shaded confidence region
 	
-	mods <- do(f_df,mod=lm(log(correlation_length_km) ~ log(p_dif),data=.))
-#	slop <- mods %>% do(data.frame(region=.$region, subregion=.$subregion, var = names(coef(.$mod)), coef(summary(.$mod)))) %>% 
-#		filter(var=="log(p_dif)")
-	slop <- mods %>% do(region=.$region, subregion=.$subregion, log_inter=coef(summary(.$mod))[1],correl_exp=coef(summary(.$mod))[2],R2 = summary(.$mod)$r.squared)
+	mods <- do(f_df,mod=lm(log(correlation_length_km) ~ log(p_dif),data=.),max_corr_length=max(.$correlation_length_km),min_corr_length=min(.$correlation_length_km))
+	slop <- mods %>% mutate(log_inter=coef(summary(mod))[1],correl_exp=coef(summary(mod))[2],
+						R2 = summary(mod)$r.squared,pvalue_exp=coef(summary(mod))[2,4], #full_coef=coef(summary(.$mod)),
+						max_corr_length=max_corr_length,min_corr_length=min_corr_length) %>% select(-mod)
+	
+	#slop <- mods %>% do(data.frame(region=.$region, subregion=.$subregion, var = names(coef(.$mod)), coef(summary(.$mod)))) %>% filter(var=="log(p_dif)")
 	#R2s <- mods %>% summarise(region=region, subregion=subregion,R2 = summary(mod)$r.squared)
 	#slop$R2 <- R2s$R2
 	
-	return(slop %>% select(-var,-t.value) %>% rename(correl_exp=Estimate,SE=Std..Error,pvalue=Pr...t..))
+	return(slop) # %>% select(-var,-t.value) %>% rename(correl_exp=Estimate,SE=Std..Error,pvalue=Pr...t..))
+}
+
+# Calculates critical probability from correlation length based on the estimated exponents using 
+# function est_correlation_exponent
+#
+# range: range of p to estimate exponent (not used)
+# cp: critical point
+# corexp: data frame ouput of the function est_correlation_exponent
+# regcor: data frame with data 
+#
+calc_critical_probability <- function(range,cp,corexp,regcor)
+{
+	allcor <- regcor %>% inner_join(corexp) %>% mutate(p=cp-(correlation_length_km/exp(log_inter))^(1/correl_exp),
+													   p=ifelse(p<0,0,ifelse(p>1,1,p)))
+#	incor <- allcor %>% filter(correlation_length_km>=min_corr_length,correlation_length_km<=max_corr_length) %>%
+#		mutate(pdist=exp((log_inter-log(correlation_length_km))/correl_exp))
+#		mutate(p=cp-(correlation_length_km/exp(log_inter))^(1/correl_exp))
+#	ltcor <- allcor %>% filter(correlation_length_km<min_corr_length) %>% mutate(p=0.1)
+#	gtcor <- allcor %>% filter(correlation_length_km>max_corr_length) %>% mutate(p=0.9)
+	
+	return(select(allcor, -(max_corr_length:pvalue_exp)))
+}
+
+# Estimation of the critical point using logistic regression 
+#
+#
+est_critical_point <- function(rndper)
+{
+	rp <-rndper %>% group_by(region,subregion) %>% mutate(max_cl = max(correlation_length_km),
+														  p_correlation_length=correlation_length_km/max_cl)
+	rfit <- rp %>% do(lfit= glm(.$p_correlation_length ~ .$p_set, family=binomial(logit), data = .), max_cl=max(.$max_cl))
+	slop <- rfit %>% mutate(beta0 = coef(lfit)[1],
+							beta1 = coef(lfit)[2],
+							pcrit = - beta0 / beta1) %>% select(-max_cl)
+	slop <-slop %>% inner_join( rp %>% summarise(max_cl=max(max_cl)))
+	
+	rp1 <-rfit %>% do(data.frame(fit = .$lfit$fitted*.$max_cl))
+	rp <- bind_cols(rp, rp1)
+	gt <- slop %>% mutate(label = sprintf("p == %.3f", pcrit),x=0.9,y=0.1)
+	g <-ggplot(rp,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=21) + 		
+		geom_line(aes(x = p_set, y = fit), linetype = 2) +
+		geom_vline(aes(xintercept = pcrit),data = slop, color = "blue") +
+		geom_text(aes(x,y,label = label) ,data=gt,parse = TRUE ) +
+		facet_wrap(region ~ subregion,scales="free_y") 
+	print(g)
+
+	return(slop)
+}
+
+# Calculates the percolation probability using logistic equation parms from est_critical_point
+#
+# cripoi: critical point and logistic parameters 
+# regcor: data frame with data 
+#
+calc_critical_probability_logis <- function(cripoi,regcor)
+{
+	allcor <- regcor %>% inner_join(cripoi) %>% mutate( pl = (-log((max_cl-correlation_length_km)/correlation_length_km) -beta0) / beta1)
+													   
+	return(select(allcor,-(lfit:max_cl)))	
+	
 }
