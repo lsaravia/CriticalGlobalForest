@@ -59,8 +59,8 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 
 	delta_AICc <- AICc_weight
 	GOF <- delta_AICc
-	
-	for (i_set in 1:n_sets){
+	if(n>8) {
+		for (i_set in 1:n_sets){
 		aic_min=Inf
 		norm_aic_weight=0
 		for (i in 1:(n_models)){
@@ -158,6 +158,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 			dev.off()
 		}
 	}
+	}
 	return(list(fitted_models=fit_ht,delta_AICc=delta_AICc,AICc_weight=AICc_weight))  
 }
 
@@ -172,14 +173,24 @@ extract_fit_ht <-function(e)
 	bootXmin <-list(quantile(uu$bootstraps[,2],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
 	bootPar1 <-list(quantile(uu$bootstraps[,3],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
 	
-	if(class(ee)=="list")
+	if(grepl("con",class(ee),fixed = T))
 	{
-		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$exponent,par2=ee$rate,
-				   xmin=ee$xmin,n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
+# 		if(class(ee)=="conlnorm") { 
+# 			pa<-ee$getPars()
+# 			if(length(pa)!=2) stop("conlnorm must have 2 parameters")
+# 		} else {
+# 			pa<-double(2)
+# 			pa[1]<- ee$getPars()
+# 			pa[2]<- 0
+# 		}
+		data_frame(model_name=e$model_name,model_set=e$model_set,
+				   par1=ifelse(is.null(ee$pars[1]),NA,ee$pars[1]),
+				   par2=ifelse(is.null(ee$pars[2]),NA,ee$pars[2]),
+				   xmin=ee$getXmin(),n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
 				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p),bXminQuant=bootXmin,bPar1Quant=bootPar1)
 		
 	} else {
-		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$pars[1],par2=ee$pars[2],
+		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$exponent,par2=ee$rate,
 				   xmin=ee$xmin,n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
 				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p),bXminQuant=bootXmin,bPar1Quant=bootPar1)
 	}
@@ -194,16 +205,30 @@ call_fit_con_heavy_tail <-function(options,i){
 	# Read binary data
 	connection_file <- file(options$original_bin_files[i], "rb")
 	data_set <- readBin(connection_file, "double", n = 10^6)
-	if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) ### TESTING
 	
-	# Original data
-	fit_ht <- fit_con_heavy_tail(data_set,options$xmins,options)
-	fit_ht_df <- ldply(fit_ht$fitted_models,extract_fit_ht)
-	fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
-	ss <- strsplit(options$data_set_name[i],"_")
-	fit_ht_df$region <- ss[[1]][2]
-	fit_ht_df$subregion <- ss[[1]][3]
-	fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
+	nl<-length(data_set[data_set>=9])
+	
+	cat(options$original_bin_files[i],nl,"\n")
+	
+	fit_ht_df<-data_frame()
+	
+	if(nl>5000){
+		# Sample data for testing
+		if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) ### TESTING
+		
+		# Fit distribution models
+		fit_ht <- fit_con_heavy_tail(data_set,options$xmins,options)
+		
+		# List to data.frame
+		fit_ht_df <- ldply(fit_ht$fitted_models,extract_fit_ht)
+		fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
+		ss <- strsplit(options$data_set_name[i],"_")
+		fit_ht_df$region <- ss[[1]][2]
+		fit_ht_df$subregion <- ss[[1]][3]
+		fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
+	}
+	
+	close(connection_file)
 	
 	return(fit_ht_df)
 	
@@ -214,7 +239,15 @@ call_fit_con_heavy_tail <-function(options,i){
 #
 region_fit_con_heavy_tail <-function(options,region){
 
-
+	# Change to results folder  
+	#
+	setwd(options$resultsDir)
+	
+	# Get files with patch sizes (*.bin) and image file names *.tif (data_set_name)
+	#
+	options$original_bin_files <- list.files(pattern="*.\\.bin")
+	options$data_set_name <- unlist(strsplit(options$original_bin_files,".bin")) 
+	
 	fit <- data_frame()
 
 
@@ -222,9 +255,12 @@ region_fit_con_heavy_tail <-function(options,region){
 	{ 
 	  fit <- rbind(fit,call_fit_con_heavy_tail(options,i))
 	}
-	if(region!=fit$region[1]) warning("Regions dont match ",region, fit$region)
-
-
+	if(region!=fit$region[1]) warning("Regions don't match ",region, fit$region)
+	
+	# Change to base folder  
+	#
+	setwd(oldcd)
+	
 	return(fit)
 }
 
@@ -459,30 +495,34 @@ cdfplot_con_ht <- function(x,fit_ht,fnam="")
 #
 # reg: geographic region {SA,CA,NA,EU, etc}
 #
-ccdfPlots_one_region <- function(rg)
+ccdfPlots_one_region <- function(options,region)
 {
-	for( i_im in 1:length(image_names) ){
-	connection_file <- file(original_bin_files[i_im], "rb")
-	data_set <- readBin(connection_file, "double", n = 10^6)
-	if(options.output$sample_data>0) 
-		data_set<- sample(data_set,options.output$sample_data) ### TESTING
-	
-	nn <- strsplit(original_bin_files[i_im],".tif")[[1]][1]
-	
-	# Complete data set (Xmin=1)
-	#
-	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region==rg)
-	nn <- ff$data_set_name[1]
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
-	cdfplot_conpl_exp(data_set,ff,na)
-	
-	# data set< Estimated Xmin (<Xmin)
-	#
-	ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region==rg)
-	na<-paste0(substr(nn,1,6),"_", substr(nn,16,19),"_",ff$model_set[1])
-	cdfplot_conpl_exp(data_set,ff,na)
+	for( i_im in 1:length(options$data_set_name)) 
+	{
+		connection_file <- file(options$original_bin_files[i_im], "rb")
+		data_set <- readBin(connection_file, "double", n = 10^6)
+		if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) 
+		
+		ss <- strsplit(options$data_set_name[i_im],"_")[[1]][2]
+		if( region != ss) warning("Region extracted from file names: ",ss, " Different from parameter: ",region)
+		
+
+		nn <- strsplit(options$original_bin_files[i_im],".tif")[[1]][1]
+		
+		# Complete data set (Xmin=1)
+		#
+		ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region==region)
+		na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
+		cdfplot_conpl_exp(data_set,ff,na)
+		
+		# data set< Estimated Xmin (<Xmin)
+		#
+		ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region==region)
+		na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
+		cdfplot_conpl_exp(data_set,ff,na)
 		
 	}
+
 }
 
 # Downloada modis granules using the filenames contained in Download.txt in dataDir folder 
@@ -713,4 +753,29 @@ calc_critical_probability_logis <- function(cripoi,regcor)
 													   
 	return(select(allcor,-(lfit:max_cl)))	
 	
+}
+
+
+# Plot inverse cumulative size distributions fits by region
+#
+# region
+# odir: folder with the size distribution files
+#
+plot_size_dist_by_region <-function(region,odir)
+{
+	require(ggplot2)
+
+	options.glo$resultsDir <- odir
+	options.glo$sample_data <- 0                 # Set >0 For testing
+	
+	setwd(options.glo$resultsDir)
+	options.glo$original_bin_files <- list.files(pattern="*.\\.bin")
+	options.glo$data_set_name <- unlist(strsplit(options.glo$original_bin_files,".bin")) 
+	
+	# Read binary data
+	set.seed(seed=0)
+	
+	ccdfPlots_one_region(options.glo,region)
+	
+	setwd(oldcd)
 }
