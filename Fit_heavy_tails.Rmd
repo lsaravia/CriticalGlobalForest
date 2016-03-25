@@ -44,6 +44,7 @@ options.glo$original_bin_files <- ""        # Files with patch sizes for each re
 options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit 
 											#
 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
+options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
 ```
 
@@ -66,32 +67,6 @@ set.seed(seed=0)
 # options.glo$data_set_name <- options.glo$data_set_name[c(15,16)] 
 
 fit <- region_fit_con_heavy_tail(options.glo,"AF") 
-
-# Create a data.frame to hold all the distribution models
-#
-all_fit <- data.frame()
-all_fit <- bind_rows(all_fit,fit)
-
-# Build a dataframe for table output
-#
-nn <- c("Complete",">=Xmin")
-ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin))
-
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>%  # delta_AICc,
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ),
-  	   par1=round(par1,34),
-  	   par2=round(par2,3),
-  	   AICc_weight=round(AICc_weight,3)
-  	   
-  	   )
-
-options("scipen"=999, "digits"=4)
-
-pandoc.table(ta)
-
 
 save.image()
 ```
@@ -133,27 +108,6 @@ fit <- region_fit_con_heavy_tail(options.glo,"SEAS")
 #  Add the fitted distribution models data to all_fit data frame 
 #
 all_fit <- bind_rows(all_fit,fit)
-
-
-
-# Build a dataframe for table output
-#
-nn <- c("Complete",">=Xmin")
-ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin))
-
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>%  # delta_AICc,
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ),
-  	   par1=round(par1,3),
-  	   par2=round(par2,3),
-  	   AICc_weight=round(AICc_weight,3)
-  	   )
-
-options("scipen"=999, "digits"=4)
-
-pandoc.table(ta)
 
 rm(fit)
 save.image()
@@ -245,27 +199,6 @@ setwd(oldcd)
 all_fit <- bind_rows(all_fit,fit)
 
 
-
-# Build a dataframe for table output
-#
-nn <- c("Complete",">=Xmin")
-ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin)) %>% filter(region %in% c('OC'))
-
-
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,xmin,model_name,par1,par2,AICc_weight,GOFp) %>%  # delta_AICc,
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-#  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ),
-  	   par1=round(par1,3),
-  	   par2=round(par2,3),
-  	   AICc_weight=round(AICc_weight,3)
-  	   )
-
-options("scipen"=999, "digits"=4)
-
-write(pandoc.table.return(ta),file='fitted.txt')
-
 save.image()
 
 plot_size_dist_by_region("SA","Results/southamerica")
@@ -302,24 +235,6 @@ setwd(oldcd)
 all_fit <- bind_rows(all_fit,fit)
 
 
-
-# Build a dataframe for table output
-#
-nn <- c("Complete",">=Xmin")
-ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin))
-
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-       year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-       Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set )
-       )
-
-options("scipen"=4, "digits"=6)
-
-pandoc.table(ta)
-
-
 save.image()
 
 plot_size_dist_by_region("NA","Results/northamerica")
@@ -330,7 +245,7 @@ plot_size_dist_by_region("NA","Results/northamerica")
 # Fit heavy tailed distributions EUAS (Europa north asia)
 
 
-```{r conheavytailfitEUAS, eval=T,echo=T,message=T,warning=T}
+```{r conheavytailfitEUAS, eval=F,echo=T,message=T,warning=T}
 
 # Set folder with results for the region 
 #
@@ -357,34 +272,108 @@ all_fit <- bind_rows(all_fit,fit)
 
 save.image()
 
-
-# Build a dataframe for table output
-#
-nn <- c("Complete",">=Xmin")
-ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin))
-
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,Data_Set,xmin,model_name,par1,par2,AICc_weight,GOFp) %>% 
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-       year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-       Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set )
-       )
-
-options("scipen"=4, "digits"=6)
-
-pandoc.table(ta)
-
-
-
 plot_size_dist_by_region("EUAS","Results/eurasia")
 
 
 ```
 
+# Fit again heavy tailed distributions EUAS 1  
+
+
+```{r conheavytailfitEUAS3_SAST1, eval=T,echo=T,message=T,warning=T}
+
+
+# eliminate NA_5
+#
+#all_fit<- filter(all_fit, grepl("NA_5",data_set_name,fixed = T))
+
+# Delete duplicated 
+#all_fit <- group_by(all_fit,region, subregion) %>% unique() %>% ungroup()
+
+
+options.glo$resultsDir <- "Results/eurasia"
+options.glo$xmins <- seq(1:600)				# Range of xmins (minimun patch sizes) to fit 
+options.glo$sample_data <- 0                 # Set >0 For testing
+
+
+all_fit <-filter(all_fit, !grepl("EUAS_3",data_set_name,fixed = T))
+
+fit <- region_fit_con_heavy_tail(options.glo,"EUAS_3")
+
+all_fit <- bind_rows(all_fit,fit)
+
+setwd(oldcd)
+
+save.image()
+
+plot_size_dist_by_region("EUAS_3","Results/eurasia")
+
+
+options.glo$resultsDir <- "Results/southamerica"
+
+all_fit <-filter(all_fit, !grepl("SAST_1",data_set_name,fixed = T))
+
+fit <- region_fit_con_heavy_tail(options.glo,"SAST_1")
+
+all_fit <- bind_rows(all_fit,fit)
+
+setwd(oldcd)
+
+save.image()
+
+plot_size_dist_by_region("SAST_1","Results/southamerica")
+
+
+
+```
+
+# Tables of parameters by region/subregion and means 
+
+```{r poweLawRegiontables, eval=F,echo=F,message=T,warning=T}
+
+# Build a dataframe for table output
+#
+nn <- c("Complete",">=Xmin")
+ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))],  xmin=round(xmin)) %>% filter(model_set=="Estimated Xmin")  # %>% filter(region %in% c('OC'))
+
+
+ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
+  select(region,subregion,year,xmin,model_name,par1,par2,AICc_weight,GOFp) %>%  # delta_AICc,
+  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
+  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
+#  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ),
+  	   par1=round(par1,3),
+  	   par2=round(par2,3),
+  	   AICc_weight=round(AICc_weight,3)
+  	   )
+
+options("scipen"=999, "digits"=4)
+
+
+#write(pandoc.table.return(ta),file='fitted.txt')
+pandoc.table(filter(ta,region=="EUAS"))
+# Write fitted parameters and AIC comparison to ascii tab separated file
+#
+ta <- all_fit  %>% filter(model_set=="Estimated Xmin") %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
+  	select(region,subregion,year,model_name,xmin,par1,par2,n,LL,AICc,delta_AICc,AICc_weight,GOFp) %>% 
+	mutate(par1=round(par1,3),
+		    par2=round(par2,3),
+		    xmin=round(xmin),
+		    LL=round(LL,3),
+		   	AICc=round(AICc,3),
+		    delta_AICc=round(delta_AICc,3),
+   	   		AICc_weight=round(AICc_weight,3)
+  	   )
+
+
+write.table(ta,file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
+
+
+```
 
 # Plot alpha and Xmin by region and subregion
 
-```{r conheavytailplotparms, eval=F,echo=F,message=T,warning=T}
+```{r conheavytailplots, eval=F,echo=F,message=T,warning=T}
 setwd(oldcd)
 
 require(dplyr)
@@ -400,18 +389,31 @@ ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
 ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
 
 pd <-position_dodge(.3)
-g <- ggplot(ff, aes(x=year,y=par1,colour=subregion),shape=21) +  theme_bw() + geom_point(position=pd)+ 
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + facet_wrap(~region) +
-	scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom")
+g <- ggplot(ff, aes(x=year,y=par1,colour=subregion),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + facet_wrap(~region,ncol=2) +
+	scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+
 
 ff1<- group_by(ff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
 g + geom_hline(aes(yintercept=malpha,colour=subregion),ff1,linetype = 2)
 
-#ggsave("figure/PowerExp_Xmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+ggsave("figure/PowerExp_Xmin_year.png",width=6,height=8,units="in",dpi=600)
 
 # The exponent of patch size distribution is tau=2.05495 at the critical point for isotropic percolation
-# The values observed for Africa are much lower. 
+#
+# For regions with total patch area greater thant 10e7 
+#
+fff <-filter(ff,subregion==1,region!="SAT",region!="OC")
+g <- ggplot(fff, aes(x=year,y=par1,colour=region),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
+	scale_colour_brewer(palette="Set1",name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+
+
+ff1<- group_by(fff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
+
+g + geom_hline(aes(yintercept=malpha,colour=region),ff1,linetype = 2)
+ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=8,units="in",dpi=600)
 
 
 # Plot of Xmin
@@ -424,99 +426,294 @@ ff$hPar1 <- sapply(ff$bXminQuant, '[', 5)
 
 # The regions as facets 
 #
-g <- ggplot(ff, aes(x=year,y=xmin,colour=subregion)) +  theme_bw() + geom_point(position=pd,shape=19)+
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) +scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom") 
+g <- ggplot(ff, aes(x=year,y=xmin,colour=subregion)) +  theme_bw() + geom_point(position=pd,shape=19,size=1.5)+
+	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) +scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
-g + ylab(expression(X[min])) + facet_wrap(~region) + geom_hline(aes(yintercept=mxmin,colour=subregion),ff1,linetype = 2)
+ff1<- group_by(ff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
-ggsave("figure/EstimatedXmin_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+g + ylab(expression(X[min])) + facet_wrap(~region,,ncol=2) + geom_hline(aes(yintercept=mxmin,colour=subregion),ff1,linetype = 2)
+
+ggsave("figure/EstimatedXmin_year.png",width=6,height=8,units="in",dpi=600)
+
+
+
 
 # Relationship between xmin & alpha 
 #
-g <- ggplot(ff, aes(x=par1,y=xmin,colour=subregion)) +  theme_bw() + geom_point(shape=19) + facet_wrap(~region)
-g + ylab(expression(X[min])) + xlab(expression(alpha))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
-ggsave("figure/Xmin_Alpha.png",plot=g,width=6,height=4,units="in",dpi=600)
+g <- ggplot(ff, aes(y=par1,x=xmin,colour=subregion)) +  theme_bw() + geom_point(shape=19) + facet_wrap(~region,ncol=2)
+g + xlab(expression(X[min])) + ylab(expression(alpha))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
+ggsave("figure/Xmin_Alpha.png",plot=g,width=6,height=8,units="in",dpi=600)
+
+
+#
+# Max Xmin by region
+#
+group_by(ff,region,subregion) %>% summarise(max_xmin=max(xmin),mean_xmin=mean(xmin))
 
 #
 # Mean alpha and Xmin by region
 #
-filter(all_fit,model_name=="Power") %>% group_by(region,subregion,model_set) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+ta <-filter(all_fit,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
 
+pandoc.table(ta)
 
 #
-# Proportion of best fit models
+# Proportion of Selected models 
 # 
 
 tot_fit_by_model <- all_fit %>% group_by(region,subregion,model_set,model_name) %>% mutate(tot_by_model=n()) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) #%>% filter(model_set=="Estimated Xmin") 
 
-ggplot(tot_fit_by_model, aes(x=model_set,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity", position=position_dodge()) + facet_grid(subregion~region) + theme_bw() + scale_colour_brewer(palette="Set1")
+ggplot(tot_fit_by_model, aes(x=model_set,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity", position=position_dodge()) + facet_grid(subregion~region) + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Selected models proportion") +  
+
+ggsave("figure/ProportionSelModel.png",width=6,height=8,units="in",dpi=600)
+
+
 
 ```
 
-# Extract max patch size 
+# Extract max patch size and patch stats  
 
-```{r extractMaxPatchSA, eval=F,echo=T,message=T,warning=T}
+```{r extractPatchStats, eval=F,echo=T,message=T,warning=T}
+
 #require(doParallel)
 require(plyr)
 require(dplyr)
 require(ggplot2)
-
-dataDir <- "Results/southamerica"
-resultsDir <- "Results/southamerica"
-
-options.output$region <- "SA" # For testing
-
-original_bin_files <- list.files(path=dataDir,pattern="*.bin")
-image_names <- unlist(strsplit(original_bin_files,".bin"))
-
-setwd(resultsDir)
-
-maxSize <-max_patch_size(image_names,options.output)
-
 setwd(oldcd)
 
-dataDir <- "Results/northamerica"
-resultsDir <- "Results/northamerica"
+options.glo$sample_data <- 0                 # Set >0 For testing
+options.glo$fit <- FALSE                     # Calculate patch stats
+
+pstat <-data.frame()
 
 
-original_bin_files <- list.files(path=dataDir,pattern="*.bin")
-image_names <- unlist(strsplit(original_bin_files,".bin"))
-
-setwd(resultsDir)
-
-options.output$region <- "NA" # For testing
-
-maxSize <-rbind(maxSize,max_patch_size(image_names,options.output))
-
-setwd(oldcd)
+options.glo$resultsDir <- "Results/africa"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"AF") )
 
 
-dataDir <- "Results/centralamerica"
-resultsDir <- "Results/centralamerica"
+options.glo$resultsDir <- "Results/southasia"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"SEAS") )
 
-original_bin_files <- list.files(path=dataDir,pattern="*.bin")
-image_names <- unlist(strsplit(original_bin_files,".bin"))
 
-setwd(resultsDir)
+options.glo$resultsDir <- "Results/oceania"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"OC") )
 
-options.output$region <- "CA" # For testing
+options.glo$resultsDir <- "Results/southamerica"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"SA") )
 
-maxSize <-rbind(maxSize,max_patch_size(image_names,options.output))
+options.glo$resultsDir <- "Results/northamerica"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"NA") )
 
-setwd(oldcd)
+options.glo$resultsDir <- "Results/eurasia"
+pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"EUAS") )
 
-options("scipen"=0, "digits"=6)
+pstat <-filter(pstat,total_patch_area>100000)
+#
+# Max patch plot
+#
+g <- ggplot(pstat, aes(y=max_patch,x=year,colour=subregion)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~region,)
+g + ylab(expression(Biggest~forest~patch~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") + scale_y_log10() +
+	theme(axis.text.x = element_text(angle=90,hjust=0))
 
-maxSize <- mutate(maxSize, maxSKm2=maxS*233*233/1000000)
-
-g <- ggplot(maxSize, aes(y=maxSKm2,x=year,colour=region)) +  theme_bw() + geom_point(shape=19)
-g + ylab(expression(Biggest~forest~patch~Km^2))  +scale_colour_brewer(palette="Set1",name="Region")
-ggsave("figure/Smax_year.png",plot=g,width=6,height=4,units="in",dpi=600)
+ggsave("figure/max_patch_year.png",width=7,height=6,units="in",dpi=600)
 # ylab(expression(S[max]))
 
 save.image()
 
 
+
+
+
+#
+# Add max patch with alpha
+#
+
+ta <-filter(all_fit,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+
+ta <-inner_join(ta,group_by(pstat,region,subregion) %>% summarise(max_patch=mean(max_patch),mean_tot_area=mean(total_patch_area),prop_max_patch=max_patch/mean_tot_area))
+
+ta
+#
+# Total area greater than 10.000.000
+#
+
+g <- ggplot(filter(ta,mean_tot_area>1e7), aes(y=mean_tot_area,x=alpha,colour=region)) +  theme_bw() +
+	geom_point(shape=19) 
+g + ylab(expression(Total~patch~area~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
+
+#
+# Total area less than 10.000.000
+#
+
+g <- ggplot(filter(ta,mean_tot_area<1e7), aes(y=mean_tot_area,x=alpha,colour=region)) +  theme_bw() +
+	geom_point(shape=19) 
+g + ylab(expression(Total~patch~area~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
+
+```
+
+# Max patch dynamics
+
+```{r maxPatchdynamics, eval=F,echo=T,message=T,warning=T}
+
+require(dplyr)
+require(ggplot2)
+require(quantreg)
+
+
+#
+# Calculte some deltas
+# 
+pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_patch), 
+												   prop_max_patch=max_patch/total_patch_area,
+												   delta_max_patch=max_patch-mean_max_patch,
+												   delta_year_patch=max_patch-lag(max_patch,order_by=year)
+													delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)		
+													 ) %>% select(-data_set_name)
+
+pstat$ <- mutate(pstat,delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year))
+#
+# Max patch proportion plot greater than 1e7
+#
+ff1 <- filter(pstat,total_patch_area>1e7)
+
+g <- ggplot(ff1, aes(y=max_patch/total_patch_area,x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) 
+
+ff2<- group_by(ff1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
+
+g + ylab("Max patch proportion")  +scale_colour_brewer(palette="Set1",name="Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2)
+
+ggsave("figure/max_patch_prop_year_gt1e7.png",width=6,height=4,units="in",dpi=600)
+
+#
+# Max patch/total patch area plot less than 1e7
+#
+ff1 <- filter(pstat,total_patch_area<1e7)
+
+g <- ggplot(ff1, aes(y=max_patch/total_patch_area,x=year,colour=subregion)) +  theme_bw() +
+	geom_point(shape=19,size=1) +  facet_wrap(~region,)
+
+ff2<- group_by(ff1,region,subregion) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
+
+g + ylab("Maximun patch proportion")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=subregion),ff2,linetype = 2)
+
+ggsave("figure/max_patch_prop_year_ls1e7.png",width=6,height=6,units="in",dpi=600)
+
+
+#ff1<-filter(pstat, total_patch_area>1e7,delta_year_patch<0) 
+
+#
+# Annual fluctuations of maximun patch vs proportion of max patch/total patch area
+#
+#
+# Areas greater than 10000000 km2
+#
+ff1<-filter(pstat, total_patch_area>1e7) 
+
+
+g <- ggplot(ff1, aes(y=delta_year_patch,x=prop_max_patch,colour=region)) +  theme_bw() +
+	geom_point(shape=19) 
+g + ylab("Annual fluctuation of Maximun patch")  +scale_colour_brewer(palette="Set1",name="Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile(quantiles = 0.5)
+
+ggsave("figure/Annual_Delta_max_patch_prop_gt1e07.png",width=6,height=4,units="in",dpi=600)
+
+
+#
+# Total patch area less than 1e07
+#
+ff1<-filter(pstat, total_patch_area<1e7) 
+g <- ggplot(ff1, aes(y=delta_year_patch,x=prop_max_patch,colour=subregion)) +  theme_bw() +
+	geom_point(shape=19,size=1) + facet_wrap(~region)
+g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile(quantiles = 0.5)
+
+
+#
+# Annual fluctuations of maximun patch vs year 
+#
+#
+# Areas greater than 10000000 km2
+#
+
+ff1<-filter(pstat, total_patch_area>1e7) 
+
+g <- ggplot(ff1, aes(y=abs(delta_year_patch),x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
+g + ylab("Delta Year Max Patch")  +scale_colour_brewer(palette="Set1",name="Region") + stat_quantile() +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) #+ geom_crossbar(aes(ymax = abs(delta_year_patch), ymin = 0)) 
+
+ggsave("figure/Annual_Delta_max_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
+
+g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
+g + ylab("Delta Year Prop Max Patch")  +scale_colour_brewer(palette="Set1",name="Region") + stat_quantile() +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) #+ geom_crossbar(aes(ymax = abs(delta_year_patch), ymin = 0)) 
+ggsave("figure/Annual_Delta_prop_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
+
+g + ylab("Delta Year Max Patch")  +scale_colour_brewer(palette="Set1",name="Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_crossbar(aes(ymax = abs(delta_year_patch), ymin = 0)) 
+
+
+#
+# Total patch area less than 1e07
+#
+select(ff1,total_patch_area) %>% distinct()
+ff1<-filter(pstat, total_patch_area<1e7, total_patch_area>800000) 
+g <- ggplot(ff1, aes(y=abs(delta_year_patch),x=year,colour=subregion)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region)
+g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile()
+
+ff1<-filter(pstat, total_patch_area<800000) 
+g <- ggplot(ff1, aes(y=abs(delta_year_patch),x=year,colour=subregion)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region)
+g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile()
+
+rm(ff1,fff,ff2)
+
+save.image()
+
+```
+
+# Fit Max patch fluctuations to power law distribution
+
+```{r fitMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
+require(ggplot2)
+
+
+ff1<-filter(pstat, total_patch_area>1e7) %>% mutate(delta_max_patch=abs(delta_year_prop_patch)) %>% filter(!is.na(delta_year_patch))
+ 
+fit_delta<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)) %>% arrange(AICc)
+#fit_delta1<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,0.0001)) %>% arrange(AICc)
+
+ff1<-filter(pstat, total_patch_area<1e7) %>% mutate(delta_max_patch=abs(delta_year_prop_patch)) %>% filter(!is.na(delta_year_patch))
+
+fit_delta<-bind_rows(fit_delta, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T)))
+#fit_delta1<-bind_rows(fit_delta1, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1)))
+
+pandoc.table(select(fit_delta, region:GOFp) %>% group_by(region,subregion) %>% arrange(AICc))
+
+
+ff1<-filter(pstat, total_patch_area>1e7) %>% mutate(delta_year_patch=abs(delta_year_prop_patch)) 
+ff2<-group_by(fit_delta,region,subregion) %>% select(xmin) %>% inner_join(ff1) 
+
+g <- ggplot(ff2, aes(y=delta_year_patch,x=as.factor(year),colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
+g + ylab("Annual fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=region),linetype = 2) 
+ggsave("figure/Annual_abs_Delta_max_patch_year_gt1e07.png",width=8,height=6,units="in",dpi=600)
+
+ff1<-filter(pstat, total_patch_area<1e7)  %>% mutate(delta_year_patch=abs(delta_year_prop_patch)) 
+ff2<-group_by(fit_delta,region,subregion) %>% select(xmin) %>% inner_join(ff1)
+g <- ggplot(ff2, aes(y=abs(delta_year_patch),x=as.factor(year),colour=subregion)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
+g + ylab("Annual fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=subregion),linetype = 2)
 
 ```

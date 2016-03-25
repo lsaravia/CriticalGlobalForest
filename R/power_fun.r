@@ -206,13 +206,15 @@ call_fit_con_heavy_tail <-function(options,i){
 	connection_file <- file(options$original_bin_files[i], "rb")
 	data_set <- readBin(connection_file, "double", n = 10^6)
 	
-	nl<-length(data_set[data_set>=9])
+	ta<-sum(data_set)*233*233/1000000
 	
-	cat(options$original_bin_files[i],nl,"\n")
+	cat(options$original_bin_files[i],ta,"\n")
 	
 	fit_ht_df<-data_frame()
 	
-	if(nl>5000){
+	if(ta>100000){# Set folder with results for the region 
+
+		#
 		# Sample data for testing
 		if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) ### TESTING
 		
@@ -234,6 +236,34 @@ call_fit_con_heavy_tail <-function(options,i){
 	
 }
 
+# Returns a data.frame with: number of patches, max patch, and total patch area
+#
+data_con_heavy_tail <-function(options,i){
+	
+	# Read binary data
+	connection_file <- file(options$original_bin_files[i], "rb")
+	data_set <- readBin(connection_file, "double", n = 10^6)
+	
+	nl<-length(data_set[data_set>=9])
+	mx<-max(data_set)*233*233/1000000 # Convert to km2
+	ta<-sum(data_set)*233*233/1000000
+	cat(options$original_bin_files[i],"\t",nl,"\t",mx,"\t",ta,"\n")
+	
+	fit_ht_df <- data_frame(number_of_patches=nl,max_patch=mx,total_patch_area=ta)
+	fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
+	ss <- strsplit(options$data_set_name[i],"_")
+	fit_ht_df$region <- ss[[1]][2]
+	fit_ht_df$subregion <- ss[[1]][3]
+	fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
+
+	close(connection_file)
+	
+	return(fit_ht_df)
+	
+}
+
+
+
 # Fit all the images patch sizes for a region with maybe different areas 
 #
 #
@@ -245,7 +275,9 @@ region_fit_con_heavy_tail <-function(options,region){
 	
 	# Get files with patch sizes (*.bin) and image file names *.tif (data_set_name)
 	#
-	options$original_bin_files <- list.files(pattern="*.\\.bin")
+	options$original_bin_files <- list.files(pattern=paste0("^.*",region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
+	
+
 	options$data_set_name <- unlist(strsplit(options$original_bin_files,".bin")) 
 	
 	fit <- data_frame()
@@ -253,7 +285,12 @@ region_fit_con_heavy_tail <-function(options,region){
 
 	for(i in 1:length(options$data_set_name))
 	{ 
-	  fit <- rbind(fit,call_fit_con_heavy_tail(options,i))
+		if(options$fit)
+		{
+		  	fit <- rbind(fit,call_fit_con_heavy_tail(options,i))	# Fit models
+		} else {
+		 	fit <- rbind(fit,data_con_heavy_tail(options,i)) 		# calculate patch stats
+		}
 	}
 	if(region!=fit$region[1]) warning("Regions don't match ",region, fit$region)
 	
@@ -407,23 +444,23 @@ cdfplot_conpl_exp_helper <- function(x,tP,fit_ht,xmin,mode="gt")
 		shift <- max(filter(tP,x>=xmin)$y)
 	}
 
-	tP2 <- data.frame(psize=x1, powl=ppowerexp(x1,xmin,ff$par1,ff$par2,lower.tail=F)*shift,model=ff$model_name)
+	tP2 <- data.frame(psize=x1, powl=ppowerexp(x1,xmin,ff$par1,ff$par2,lower.tail=F)*shift,model="PowerExp")
 
 	ff <- filter(fit_ht,model_name=="Power")
 
-	tP1  <-data.frame(psize=x1, powl=ppareto(x1,xmin,ff$par1,lower.tail=F)*shift,model=ff$model_name)
+	tP1  <-data.frame(psize=x1, powl=ppareto(x1,xmin,ff$par1,lower.tail=F)*shift,model="Power")
 
 	ff <- filter(fit_ht,model_name=="Exp")
 	m <- conexp$new(x)
 	m$setPars(ff$par1)
 	m$setXmin(xmin)
-	tP3 <- data.frame(psize=x1,powl=dist_cdf(m,x1,lower_tail=F)*shift,model=ff$model_name)
+	tP3 <- data.frame(psize=x1,powl=dist_cdf(m,x1,lower_tail=F)*shift,model="Exp")
 	
 	ff <- filter(fit_ht,model_name=="LogNorm")
 	m <- conlnorm$new(x)
 	m$setPars(c(ff$par1,ff$par2))
 	m$setXmin(xmin)
-	tP4 <- data.frame(psize=x1,powl=dist_cdf(m,x1,lower_tail=F)*shift,model=ff$model_name)
+	tP4 <- data.frame(psize=x1,powl=dist_cdf(m,x1,lower_tail=F)*shift,model="LogNorm")
 	tP1 <- bind_rows(tP1,tP2,tP3,tP4)
 }
 
@@ -502,25 +539,26 @@ ccdfPlots_one_region <- function(options,region)
 		connection_file <- file(options$original_bin_files[i_im], "rb")
 		data_set <- readBin(connection_file, "double", n = 10^6)
 		if(options$sample_data>0) data_set<- sample(data_set,options$sample_data) 
-		
-		ss <- strsplit(options$data_set_name[i_im],"_")[[1]][2]
-		if( region != ss) warning("Region extracted from file names: ",ss, " Different from parameter: ",region)
-		
-
-		nn <- strsplit(options$original_bin_files[i_im],".tif")[[1]][1]
-		
-		# Complete data set (Xmin=1)
-		#
-		ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region==region)
-		na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
-		cdfplot_conpl_exp(data_set,ff,na)
-		
-		# data set< Estimated Xmin (<Xmin)
-		#
-		ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region==region)
-		na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
-		cdfplot_conpl_exp(data_set,ff,na)
-		
+		ta<-sum(data_set)*233*233/1000000
+		if(ta>100000){
+			ss <- strsplit(options$data_set_name[i_im],"_")[[1]][2]
+			if( region != ss) warning("Region extracted from file names: ",ss, " Different from parameter: ",region)
+			
+	
+			nn <- strsplit(options$original_bin_files[i_im],".tif")[[1]][1]
+			
+			# Complete data set (Xmin=1)
+			#
+			ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Xmin=9",region==region)
+			na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
+			cdfplot_conpl_exp(data_set,ff,na)
+			
+			# data set< Estimated Xmin (<Xmin)
+			#
+			ff <- filter(all_fit,grepl(nn,data_set_name,ignore.case = T),model_set=="Estimated Xmin",region==region)
+			na<-paste0(ff$region[1],"_", ff$subregion[1],"_",ff$year[1],"_",ff$model_set[1])
+			cdfplot_conpl_exp(data_set,ff,na)
+		}		
 	}
 
 }
@@ -769,7 +807,8 @@ plot_size_dist_by_region <-function(region,odir)
 	options.glo$sample_data <- 0                 # Set >0 For testing
 	
 	setwd(options.glo$resultsDir)
-	options.glo$original_bin_files <- list.files(pattern="*.\\.bin")
+	options.glo$original_bin_files <- list.files(pattern=paste0("^.*",region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
+	
 	options.glo$data_set_name <- unlist(strsplit(options.glo$original_bin_files,".bin")) 
 	
 	# Read binary data
@@ -778,4 +817,186 @@ plot_size_dist_by_region <-function(region,odir)
 	ccdfPlots_one_region(options.glo,region)
 	
 	setwd(oldcd)
+}
+
+
+# Fit continuos heavy tail models (used for small data sets not patch size distributions)
+#  
+#
+fit_cont_heavy_tail_mdls <- function (data_set,xmins,ploting=TRUE,gof=FALSE)
+{
+	n <- length(unique(data_set))
+	n_models <- 3
+	# List of models
+	model_list = list(list(model=vector("list", length=0), 
+						   						GOF=vector("list", length=0),
+												 xmin_estimation=vector("list", length=0),
+												 uncert_estimation=vector("list", length=0),
+												 k=0,
+												 LL=0,
+												 n=n,
+												 AICc=0,
+												 delta_AICc=0,
+												 AICc_weight=0,
+						   model_name=character(0),
+						   modelfit_cont_heavy_tail_mdls_set=character(0))) 
+	fit_ht <- rep(model_list,n_models)
+	dim(fit_ht) <- c(n_models)
+
+	# Declare models
+	# Continuous power law
+	fit_ht[[1]]$model <- conpl$new(data_set)
+	fit_ht[[1]]$k <- 1
+	# Continuous log-normal
+	fit_ht[[2]]$model <- conlnorm$new(data_set)
+	fit_ht[[2]]$k <- 2
+	# Continuous exponential
+	fit_ht[[3]]$model <- conexp$new(data_set)
+	fit_ht[[3]]$k <- 1
+
+	# Set xmin for set 1
+	fit_ht[[1]]$model$xmin <- xmins
+	if(length(xmins)>1){
+		# Estimate Xmin with complete data_set for power law model
+		fit_ht[[1]]$xmin_estimation <- estimate_xmin(fit_ht[[1]]$model,
+			xmins = xmins, 
+			pars = NULL, 
+			xmax = max(data_set))
+		fit_ht[[1]]$model$setXmin(fit_ht[[1]]$xmin_estimation)
+	} else if(xmins-1){
+		fit_ht[[1]]$xmin_estimation <- estimate_xmin(fit_ht[[1]]$model,
+													 pars = NULL, 
+													 xmax = max(data_set))
+		fit_ht[[1]]$model$setXmin(fit_ht[[1]]$xmin_estimation)
+	} else {		
+		fit_ht[[1]]$model$setXmin(xmins)
+	}
+	
+	
+	model_names <- c("Power", "LogNorm","Exp")
+
+	AICc_weight <- matrix( nrow = n_models, ncol = 1,
+							dimnames = list(model_names))
+
+	delta_AICc <- AICc_weight
+	GOF <- delta_AICc
+	if(n>8) {
+		aic_min=Inf
+		norm_aic_weight=0
+		for (i in 1:(n_models)){
+			# Set cut-off (x_min)
+			fit_ht[[i]]$model$xmin <- fit_ht[[1]]$model$xmin
+			
+			# Correct n with xmin
+			fit_ht[[i]]$n <-length(data_set[data_set>=fit_ht[[1]]$model$xmin])
+
+			# Fit models
+			#
+			fit_ht[[i]]$model$setPars(estimate_pars(fit_ht[[i]]$model))
+			# 
+			# Get Loglikelihood
+			fit_ht[[i]]$LL <- dist_ll(fit_ht[[i]]$model)
+
+			LL <- fit_ht[[i]]$LL
+			k <- fit_ht[[i]]$k
+			# Compute AICc
+			#
+			fit_ht[[i]]$AICc <- (2*k-2*LL)+2*k*(k+1)/(n-k-1)
+			aic_min <- min(aic_min,fit_ht[[i]]$AICc)
+			if (gof && fit_ht[[i]]$n>4){
+				#
+				# Goodness of fit via boostrap
+				#
+				# xmins is fixed at estimated value (or 9)
+				fit_ht[[i]]$GOF <- bootstrap_p(fit_ht[[i]]$model,
+											 xmins=fit_ht[[i]]$model$xmin,
+											 pars = NULL, 
+											 xmax = max(data_set),
+											 no_of_sims = 1000,
+											 threads = parallel::detectCores())
+				#
+				# Uncertainty in parms estimation via bootstrap
+				#
+				# Range of xmins to make bootstrap
+# 				l_xmin <- fit_ht[[i]]$model$xmin * 0.8
+# 				u_xmin <- fit_ht[[i]]$model$xmin * 1.2
+# 				fit_ht[[i]]$uncert_estimation <- bootstrap(fit_ht[[i]]$model,
+# 											 xmins=l_xmin:u_xmin,
+# 											 pars = NULL, 
+# 											 xmax = max(data_set),
+# 											 no_of_sims = 1000,
+# 											 threads = parallel::detectCores())
+			}
+			fit_ht[[i]]$model_name <- model_names[i]
+		}
+
+		for (i in 1:n_models){
+			delta_AICc[i] <- fit_ht[[i]]$AICc - aic_min
+			fit_ht[[i]]$delta_AICc <- delta_AICc[i]
+			norm_aic_weight <- norm_aic_weight + exp(-0.5*fit_ht[[i]]$delta_AICc) 
+		}
+		# Akaike weigths
+		for (i in 1:n_models){
+			AICc_weight[i]  <- exp(-0.5*fit_ht[[i]]$delta_AICc)/norm_aic_weight 
+			fit_ht[[i]]$AICc_weight <- AICc_weight[i]
+		}
+		# Plots
+		if (ploting){
+			#setwd(options.output$resultsDir)
+			#fnam <-paste0(strsplit(options.output$data_set_name[i_im],".tif"),"_",labels_set[i_set], ".png")
+			#png(filename=fnam, res=300,units = "mm", height=200, width=200,bg="white")
+
+			po <-plot(fit_ht[[1]]$model,xlab="Area",ylab="CCDF")
+			for (i in 1:n_models){
+				if(model_names[i]!="PowerExp") 
+				{
+					lines(fit_ht[[i]]$model, col=i+1)
+				} else {
+					est1 <- fit_ht[[i]]$model
+					x <- sort(unique(data_set))
+					x <- x[x>=est1$xmin]
+					shift <- max(po[po$x>=est1$xmin,]$y)
+					y <- ppowerexp(x,est1$xmin,est1$exponent,est1$rate,lower.tail=F)*shift
+					lines(x,y,col=i+1)
+				}
+			}
+
+			legend("topright",model_names,bty="n",col=seq(2,5),lty=c(1,1,1,1),cex=0.5)
+			#dev.off()
+		}
+	}
+	fit_ht_df <- ldply(fit_ht,extract_fit_ht_mdls)
+
+	return(fit_ht_df)  
+}
+
+# Function to extract a data frame from output generated by fit_con_heavy_tail
+#
+#
+extract_fit_ht_mdls <-function(e)
+{
+	ee <- e$model
+	gg <- e$GOF
+	uu <- e$uncert_estimation
+	bootXmin <-list(quantile(uu$bootstraps[,2],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
+	bootPar1 <-list(quantile(uu$bootstraps[,3],probs=c(0.025,0.25,0.5,0.75,0.975),na.rm=T))
+	
+	if(grepl("con",class(ee),fixed = T))
+	{
+		data_frame(model_name=e$model_name,
+				   par1=ifelse(is.null(ee$pars[1]),NA,ee$pars[1]),
+				   par2=ifelse(is.null(ee$pars[2]),NA,ee$pars[2]),
+				   xmin=ee$getXmin(),n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
+				   AICc_weight=e$AICc_weight,
+				   GOFp=ifelse(is.null(gg$p),NA,
+				   		ifelse(is.na(gg$p),sum(gg$bootstraps$KS>gg$gof,na.rm=TRUE)/nrow(gg$bootstraps),gg$p)),
+				   
+				   bXminQuant=bootXmin,bPar1Quant=bootPar1)
+		
+	} else {
+		data_frame(model_name=e$model_name,model_set=e$model_set,par1=ee$exponent,par2=ee$rate,
+				   xmin=ee$xmin,n=e$n,LL=e$LL,AICc=e$AICc,delta_AICc=e$delta_AICc,
+				   AICc_weight=e$AICc_weight,GOFp=ifelse(is.null(gg$p),NA,gg$p),bXminQuant=bootXmin,bPar1Quant=bootPar1)
+	}
+	
 }

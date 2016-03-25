@@ -14,13 +14,12 @@ Besides in several systems the observation of power laws in the patch distributi
 
 
 ---------------------
+
 Another possible paper -> Mechanisms of Forest savanna transition:
 1) Marquet proposed a neutral model, no mechanisms are necessary
 2) Murphy & Bowman 2011 propose a strong negative feedback model 
 3) I there is another strong positive feedback model (Staver???)
 We can tell which is the mechanism at work using Weisman Shnerb methods of patch growth analysis
-
----------------------
 
 
 
@@ -124,13 +123,6 @@ Hughes [43]. They consider a process in which a set of items, piles or groups ea
 
 -------------
 
-@Sole2006
-
-Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002).
-
-
--------------
-
 @Sole2005 Gap percolation in rainforests
 
 Percolation is recognised as a key property in landscape ecology (Gardner et al. 1987, Turner et al. 2001). When sets of neighbouring, connected small-scale sites define a cluster spanning the entire system under consideration, such cluster is called a percolation cluster (Stauffer and Aharony 1985, Peitgen et al. 1992, Milne et al. 1996, Keitt et al. 1997). Percolation phenomena influence metapopulation dynamics (Andren 1994, Bascompte and Sole 1996, Wiens et al. 1997, With and King ́ 1999), invasion processes (Loehle et al. 1996, With 2002), and are relevant to conservation biology (With 1997, Bunn et al. 2000) and ecosystem function (Gamarra and Sole 2002).
@@ -155,24 +147,18 @@ system dynamics: component-dominant dynamics and interaction-
 dominant dynamics. They each entail distinct system transactions,
 superposition, and interdependence, respectively.
 
+Gaussian distributions emerge from systems whose observables are subject to vast arrays of relatively weak, additive, and independently acting perturbations: component-dominant systems.
 
-Thus,
-Gaussian distributions emerge from systems whose observables
-are subject to vast arrays of relatively weak, additive, and inde-
-pendently acting perturbations: component-dominant systems.
+Interaction-dominant dynamics are associated with systems that entail tightly coupled processes spanning a wide range of temporal or spatial scales, including fractal systems. They refer to systems that entail multiplicative and/or interdependent feedback transactions among the processes that govern the system’s dynamics
 
-Interaction-dominant dynamics are associated with
-systems that entail tightly coupled processes spanning a wide
-range of temporal or spatial scales, including fractal systems.
-They refer to systems that entail multiplicative and/or interde-
-pendent feedback transactions among the processes that govern
-the system’s dynamics
+Power law scaling alone is not sufficient to establish criticality. That said, self-organization and critical behavior are generally accepted as plausible working hypotheses with the observation of non-trivial scaling in complex biological systems
 
-Of course,
-power law scaling alone is not sufficient to establish criticality.
-That said, self-organization and critical behavior
-are generally accepted as plausible working hypotheses with the
-observation of non-trivial scaling in complex biological systems
+Systems in which the effects of feedback are negligible but that are still governed by multiplicative interactions exhibit lognormal instead of power law dispersion
+
+
+At one extreme, there is the Gaussian distribution, a signature of weak unsystematic additive interactions among independent, random variables. At the other extreme, there is the heavy-tailed inverse power-law, the signature distribution of interdependent feedback dynamics. The moderately skewed lognormal stands between these two extremes; it arises from multiplicative interactions among independent variables.
+
+However, no matter their original form, variables conforming to the majority of common statistical distributions are attracted to the Gaussian shape in the case of unsystematic summation, the lognormal in the case of unsystematic multiplication, and the power law in the case of amplification contingent on interdependent feedback operations. Since complex systems likely entail many processes, operating across many time scales, the subset of distributions discussed here represent a plausible entry point for scientific investigation.
 
 --------------
 @Clauset2009
@@ -329,6 +315,10 @@ Thus, catastrophic shifts can actually appear in noisy systems. However, we also
 
 @Sole2006
 
+Understanding the origins of scaling can provide valuable information about the origins of ecological complexity. Sometimes it is asked why scaling laws are relevant. They are in fact the key to understanding a large number of phenomena using simple and clever theories. There is no reason, in principle, why scale-free, power law relations should apply to biological systems. But actually they do and are widespread. The presence of fractal patterns reveals the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions. They have provided the clues to understanding the origins of allometric scaling in biology (Brown and West 2000) and are a necessary ingredients of any theory of ecological organization. As Brown and coworkers have indicated, the self similar structure of many ecosystems properties reflects the constraints on their organization, which stems from basic physical, biological and even mathematical principles (Brown et al. 2002).
+
+
+
 Pag 161
 
 The effect on \xi of removal experiments. The landscape is almost insensitive to removal experiments for p>p_c but close to the critical point the removal of a number of small patches can have an important effects. 
@@ -418,3 +408,44 @@ Given the large uncertainty that remains about tipping elements, there is an urg
 @Ziff2002
 
 Using the point where the percolation probability equals 1/2 is indeed an excellent choice for finding the threshold; see R. M. Ziff and M. E. J. Newman, Physical Review E 66, 016129 (2002). The appendix of that paper also gives exact expressions for the percolation probability for square systems up to 7×7. Note also, the site-bond threshold for the honeycomb lattice is given on the “Percolation Threshold” Wikipedia page, a page that my students and I put up.
+
+
+------------
+
+@Odor2004
+
+
+If we allow memory in the unary DP spreading process (Sec. IV.A) such that the infected sites may have a
+different reinfection probability (p) from the virgin ones (q), we obtain different percolation behavior (Grass-
+berger et al., 1997).
+
+Ordinary percolation (Stauffer and Aharony, 1994; Grimmett, 1999) is a geometrical phenomenon that describes the occurrence of infinitely large connected clusters by completely random displacement of some variables (sites, bonds, etc., with probability p) on lattices
+(see Fig. 10). The dynamical percolation process is known to generate such percolating clusters (see Sec. IV.B). At the transition point, moments of the s cluster size distribution n_s(p) show singular behavior.
+
+
+------------
+@Gastner2009
+
+Both empirical and modeling studies have emphasized that the same landscape can be connected or fragmented, depending on the movement range of the actual species (Forman 1995; Ims 1995; With and Crist 1995; With et al. 1997; Wiens 1997; Sole and Bascompte 2006).
+
+A frequently used method for studying the connectivity structure of a landscape is percolation modeling. The main focus of percolation theory is spatial spreading in a heterogeneous medium consisting of occupied and vacant sites (Stauffer and Aharony 1994). In a typical ecological setting, an occupied site is one containing a particular habitat type (i.e., suitable for the particular organism). The significance of percolation theory for ecology was recognized in the late 1980s (Gardner et al. 1987). Since then, a number of papers have investigated habitat maps with simulations and field data (Gustafson and Parker 1992; Milne 1992; Plotnick and Gardner 1993; Loehle et al. 1996; With 1997; Li 2002; He and Hubbell 2003; Sole et al. 2005). Effects of percolation on population dynamics have also been investigated (Andren 1994; With and Crist 1995; Bascompte and Sole 1996; Oborny et al. 2007).
+
+
+-------------
+
+Manor2008a
+
+The main characteristic that distinguishes endogenous from exogenous cluster formation mechanisms is the dynamic of the system. If spatial heterogeneity plays a major role and determines the location and the size of large colonies, the chance of such a colony to disappear due to
+demographic stochasticity is exponentially small [20], so in practice, on experimental time scales, large colonies never disappear. This feature was used by Vandermeer, Perfecto, and Philpott [8], who utilized the appearance or disappearance of large ant colonies as a manifestation of endogenous population dynamics.
+
+
+If the patch distribution is Pareto-like with a relatively small slope beta, the system
+admits larger patches; this implies that the effect of positive feedback is strong enough to oppose stochasticity
+(purely stochastic dynamics lead to Poisson-like statistics). A truncated power law, on the other hand, shows that
+density-independent factors control the overall carrying capacity. Given two systems with the same tree coverage
+f Ã but with different cluster statistics, the scale-free one is more robust against environmental changes (e.g., de-
+creased annual rainfall) than the system characterized by a truncated power law.
+
+The dynamical law presented here allows one to identify the transition between these states when the total population is still fixed; qualitative changes in the stability of large patches—from linear to logarithmic—may thus serve as an important precursor of catastrophic shifts [24] such as desertification in arid ecosystems.
+
+-------------
