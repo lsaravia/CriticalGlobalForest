@@ -489,366 +489,366 @@ Table: Model selection for Africa region using Akaike criterion, and goodness of
  region   subregion   year   xmin   model name    par1      par2   AICc weight    GOF
                                                                                  p-val 
 -------- ----------- ------ ------ ------------ --------- ------- ------------- -------
-  EUAS        1       2000   472     LogNorm     -61.276    8.639      0.861       NA  
+  EUAS        1       2000   472     LogNorm     -61.276  8.639      0.861       NA  
 
-  EUAS        1                       Power       1.932      NA        0.102     0.000 
+  EUAS        1                       Power       1.932     NA       0.102     0.000 
 
-  EUAS        1                      PowerExp     1.932     0.000      0.037       NA  
+  EUAS        1                      PowerExp     1.932   0.000      0.037       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2001   315     LogNorm     -25.262    6.039      1.000       NA  
+  EUAS        1       2001   315     LogNorm     -25.262  6.039      1.000       NA  
 
-  EUAS        1                       Power       1.909      NA        0.000     0.000 
+  EUAS        1                       Power       1.909     NA       0.000     0.000 
 
-  EUAS        1                      PowerExp     1.923     0.000      0.000       NA  
+  EUAS        1                      PowerExp     1.923   0.000      0.000       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2002   456     LogNorm     -67.543    9.015      0.801       NA  
+  EUAS        1       2002   558     LogNorm     -82.127  9.828      0.564       NA  
 
-  EUAS        1                       Power       1.932      NA        0.145     0.000 
+  EUAS        1                       Power       1.938     NA       0.319     0.000 
 
-  EUAS        1                      PowerExp     1.932     0.000      0.053       NA  
+  EUAS        1                      PowerExp     1.938   0.000      0.117       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2003   391     LogNorm     -36.113    6.891      1.000       NA  
+  EUAS        1       2003   590     LogNorm     -52.183  8.011      0.881       NA  
 
-  EUAS        1                       Power       1.930      NA        0.000     0.000 
+  EUAS        1                       Power       1.945     NA       0.087     0.000 
 
-  EUAS        1                      PowerExp     1.930     0.000      0.000       NA  
+  EUAS        1                      PowerExp     1.945   0.000      0.032       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2004   440     LogNorm     -35.627    6.928      0.999       NA  
+  EUAS        1       2004   440     LogNorm     -35.627  6.928      0.999       NA  
 
-  EUAS        1                       Power       1.914      NA        0.000     0.000 
+  EUAS        1                       Power       1.914     NA       0.000     0.000 
 
-  EUAS        1                      PowerExp     1.914     0.000      0.000       NA  
+  EUAS        1                      PowerExp     1.914   0.000      0.000       NA  
 
-  EUAS        1                        Exp        0.000      NA        0.000       NA  
+  EUAS        1                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        1       2005   499     LogNorm     -40.439    7.258      0.990       NA  
+  EUAS        1       2005   499     LogNorm     -40.439  7.258      0.990       NA  
 
-  EUAS        1                       Power       1.926      NA        0.007     0.000 
+  EUAS        1                       Power       1.926     NA       0.007     0.000 
 
-  EUAS        1                      PowerExp     1.926     0.000      0.003       NA  
+  EUAS        1                      PowerExp     1.926   0.000      0.003       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2006   413     LogNorm     -32.934    6.716      1.000       NA  
+  EUAS        1       2006   413     LogNorm     -32.934  6.716      1.000       NA  
 
-  EUAS        1                       Power       1.911      NA        0.000     0.000 
+  EUAS        1                       Power       1.911     NA       0.000     0.000 
 
-  EUAS        1                      PowerExp     1.911     0.000      0.000       NA  
+  EUAS        1                      PowerExp     1.911   0.000      0.000       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2007   407     LogNorm     -48.830    7.858      0.980       NA  
+  EUAS        1       2007   407     LogNorm     -48.830  7.858      0.980       NA  
 
-  EUAS        1                       Power       1.923      NA        0.015     0.000 
+  EUAS        1                       Power       1.923     NA       0.015     0.000 
 
-  EUAS        1                      PowerExp     1.922     0.000      0.005       NA  
+  EUAS        1                      PowerExp     1.922   0.000      0.005       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2008   429     LogNorm     -40.582    7.241      0.994       NA  
+  EUAS        1       2008   429     LogNorm     -40.582  7.241      0.994       NA  
 
-  EUAS        1                       Power       1.930      NA        0.005     0.000 
+  EUAS        1                       Power       1.930     NA       0.005     0.000 
 
-  EUAS        1                      PowerExp     1.930     0.000      0.002       NA  
+  EUAS        1                      PowerExp     1.930   0.000      0.002       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2009   413     LogNorm     -62.045    8.701      0.880       NA  
+  EUAS        1       2009   413     LogNorm     -62.045  8.701      0.880       NA  
 
-  EUAS        1                       Power       1.927      NA        0.088     0.000 
+  EUAS        1                       Power       1.927     NA       0.088     0.000 
 
-  EUAS        1                      PowerExp     1.927     0.000      0.032       NA  
+  EUAS        1                      PowerExp     1.927   0.000      0.032       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2010   429     LogNorm     -54.349    8.240      0.952       NA  
+  EUAS        1       2010   429     LogNorm     -54.349  8.240      0.952       NA  
 
-  EUAS        1                       Power       1.921      NA        0.036     0.000 
+  EUAS        1                       Power       1.921     NA       0.036     0.000 
 
-  EUAS        1                      PowerExp     1.923     0.000      0.012       NA  
+  EUAS        1                      PowerExp     1.923   0.000      0.012       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2011   499     LogNorm     -52.533    8.050      0.897       NA  
+  EUAS        1       2011   590      Power       1.949     NA       0.480     0.000 
 
-  EUAS        1                       Power       1.939      NA        0.075     0.000 
+  EUAS        1                      LogNorm    -120.815  11.669     0.344       NA  
 
-  EUAS        1                      PowerExp     1.939     0.000      0.028       NA  
+  EUAS        1                      PowerExp     1.950   0.000      0.176       NA  
 
-  EUAS        1                        Exp        0.000      NA        0.000       NA  
+  EUAS        1                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        1       2012   456     LogNorm     -47.985    7.766      0.959       NA  
+  EUAS        1       2012   574     LogNorm     -53.444  8.123      0.846       NA  
 
-  EUAS        1                       Power       1.932      NA        0.030     0.000 
+  EUAS        1                       Power       1.938     NA       0.115     0.002 
 
-  EUAS        1                      PowerExp     1.932     0.000      0.011       NA  
+  EUAS        1                      PowerExp     1.940   0.000      0.039       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2013   423     LogNorm     -38.270    7.047      0.996       NA  
+  EUAS        1       2013   423     LogNorm     -38.270  7.047      0.996       NA  
 
-  EUAS        1                       Power       1.935      NA        0.004     0.000 
+  EUAS        1                       Power       1.935     NA       0.004     0.000 
 
-  EUAS        1                      PowerExp     1.923     0.000      0.000       NA  
+  EUAS        1                      PowerExp     1.923   0.000      0.000       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        1       2014   418     LogNorm     -42.280    7.327      0.987       NA  
+  EUAS        1       2014   558     LogNorm     -48.704  7.766      0.887       NA  
 
-  EUAS        1                       Power       1.939      NA        0.010     0.000 
+  EUAS        1                       Power       1.947     NA       0.083     0.002 
 
-  EUAS        1                      PowerExp     1.939     0.000      0.003       NA  
+  EUAS        1                      PowerExp     1.947   0.000      0.030       NA  
 
-  EUAS        1                        Exp        0.001      NA        0.000       NA  
+  EUAS        1                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        2       2000   215      Power       1.798      NA        0.581     0.891 
+  EUAS        2       2000   215      Power       1.798     NA       0.581     0.891 
 
-  EUAS        2                      PowerExp     1.797     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.797   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -2987.898  61.293      0.209       NA  
+  EUAS        2                      LogNorm    -2987.898 61.293     0.209       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2001   105      Power       1.874      NA        0.582     0.712 
+  EUAS        2       2001   105      Power       1.874     NA       0.582     0.712 
 
-  EUAS        2                      PowerExp     1.873     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.873   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -3650.219  64.723      0.208       NA  
+  EUAS        2                      LogNorm    -3650.219 64.723     0.208       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2002    79      Power       1.900      NA        0.583     0.157 
+  EUAS        2       2002    79      Power       1.900     NA       0.583     0.157 
 
-  EUAS        2                      PowerExp     1.902     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.902   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -5584.647  78.832      0.208       NA  
+  EUAS        2                      LogNorm    -5584.647 78.832     0.208       NA  
 
-  EUAS        2                        Exp        0.001      NA        0.000       NA  
+  EUAS        2                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        2       2003    94      Power       1.916      NA        0.591     0.116 
+  EUAS        2       2003    94      Power       1.916     NA       0.591     0.116 
 
-  EUAS        2                      LogNorm    -4029.147  66.402      0.211       NA  
+  EUAS        2                      LogNorm    -4029.147 66.402     0.211       NA  
 
-  EUAS        2                      PowerExp     1.902     0.000      0.198       NA  
+  EUAS        2                      PowerExp     1.902   0.000      0.198       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2004   160      Power       1.842      NA        0.582     0.990 
+  EUAS        2       2004   160      Power       1.842     NA       0.582     0.990 
 
-  EUAS        2                      PowerExp     1.842     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.842   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -3439.654  63.980      0.208       NA  
+  EUAS        2                      LogNorm    -3439.654 63.980     0.208       NA  
 
-  EUAS        2                        Exp        0.001      NA        0.000       NA  
+  EUAS        2                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        2       2005   116      Power       1.838      NA        0.582     0.897 
+  EUAS        2       2005   116      Power       1.838     NA       0.582     0.897 
 
-  EUAS        2                      PowerExp     1.840     0.000      0.209       NA  
+  EUAS        2                      PowerExp     1.840   0.000      0.209       NA  
 
-  EUAS        2                      LogNorm    -2298.576  52.469      0.208       NA  
+  EUAS        2                      LogNorm    -2298.576 52.469     0.208       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2006   104      Power       1.892      NA        0.584     0.396 
+  EUAS        2       2006   104      Power       1.892     NA       0.584     0.396 
 
-  EUAS        2                      LogNorm    -3896.160  66.159      0.208       NA  
+  EUAS        2                      LogNorm    -3896.160 66.159     0.208       NA  
 
-  EUAS        2                      PowerExp     1.885     0.000      0.207       NA  
+  EUAS        2                      PowerExp     1.885   0.000      0.207       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2007   249      Power       1.797      NA        0.582     0.994 
+  EUAS        2       2007   249      Power       1.797     NA       0.582     0.994 
 
-  EUAS        2                      PowerExp     1.797     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.797   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -4020.603  71.116      0.209       NA  
+  EUAS        2                      LogNorm    -4020.603 71.116     0.209       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2008    68      Power       1.881      NA        0.583     0.171 
+  EUAS        2       2008    68      Power       1.881     NA       0.583     0.171 
 
-  EUAS        2                      PowerExp     1.881     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.881   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -4977.017  75.245      0.207       NA  
+  EUAS        2                      LogNorm    -4977.017 75.245     0.207       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2009   291      Power       1.774      NA        0.582     0.986 
+  EUAS        2       2009   291      Power       1.774     NA       0.582     0.986 
 
-  EUAS        2                      PowerExp     1.774     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.774   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -4189.515  73.672      0.209       NA  
+  EUAS        2                      LogNorm    -4189.515 73.672     0.209       NA  
 
-  EUAS        2                        Exp        0.001      NA        0.000       NA  
+  EUAS        2                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        2       2010   218      Power       1.827      NA        0.582     0.920 
+  EUAS        2       2010   218      Power       1.827     NA       0.582     0.920 
 
-  EUAS        2                      PowerExp     1.827     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.827   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -4216.634  71.492      0.209       NA  
+  EUAS        2                      LogNorm    -4216.634 71.492     0.209       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2011    84      Power       1.903      NA        0.583     0.378 
+  EUAS        2       2011    84      Power       1.903     NA       0.583     0.378 
 
-  EUAS        2                      PowerExp     1.903     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.903   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -4753.402  72.619      0.208       NA  
+  EUAS        2                      LogNorm    -4753.402 72.619     0.208       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2012   172      Power       1.840      NA        0.582     0.903 
+  EUAS        2       2012   172      Power       1.840     NA       0.582     0.903 
 
-  EUAS        2                      PowerExp     1.840     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.840   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -3824.862  67.579      0.208       NA  
+  EUAS        2                      LogNorm    -3824.862 67.579     0.208       NA  
 
-  EUAS        2                        Exp        0.001      NA        0.000       NA  
+  EUAS        2                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        2       2013    74      Power       1.878      NA        0.585     0.227 
+  EUAS        2       2013    74      Power       1.878     NA       0.585     0.227 
 
-  EUAS        2                      LogNorm    -4769.544  73.787      0.208       NA  
+  EUAS        2                      LogNorm    -4769.544 73.787     0.208       NA  
 
-  EUAS        2                      PowerExp     1.873     0.000      0.208       NA  
+  EUAS        2                      PowerExp     1.873   0.000      0.208       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        2       2014    96      Power       1.869      NA        0.583     0.506 
+  EUAS        2       2014    96      Power       1.869     NA       0.583     0.506 
 
-  EUAS        2                      PowerExp     1.869     0.000      0.210       NA  
+  EUAS        2                      PowerExp     1.869   0.000      0.210       NA  
 
-  EUAS        2                      LogNorm    -5099.857  76.712      0.207       NA  
+  EUAS        2                      LogNorm    -5099.857 76.712     0.207       NA  
 
-  EUAS        2                        Exp        0.000      NA        0.000       NA  
+  EUAS        2                        Exp        0.000     NA       0.000       NA  
 
-  EUAS        3       2000   175      Power       1.988      NA        0.479     0.306 
+  EUAS        3       2000   175      Power       1.988     NA       0.479     0.306 
 
-  EUAS        3                      PowerExp     1.979     0.000      0.338       NA  
+  EUAS        3                      PowerExp     1.979   0.000      0.338       NA  
 
-  EUAS        3                      LogNorm     -162.185  13.092      0.182       NA  
+  EUAS        3                      LogNorm    -162.185  13.092     0.182       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2001   499      Power       2.031      NA        0.543     0.955 
+  EUAS        3       2001   547      Power       2.037     NA       0.550     0.995 
 
-  EUAS        3                      PowerExp     2.020     0.000      0.254       NA  
+  EUAS        3                      PowerExp     2.027   0.000      0.249       NA  
 
-  EUAS        3                      LogNorm     -120.472  11.170      0.203       NA  
+  EUAS        3                      LogNorm    -327.870  18.002     0.201       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2002   175      Power       1.990      NA        0.520     0.252 
+  EUAS        3       2002   558      Power       2.012     NA       0.552     0.962 
 
-  EUAS        3                      PowerExp     1.986     0.000      0.266       NA  
+  EUAS        3                      PowerExp     2.003   0.000      0.248       NA  
 
-  EUAS        3                      LogNorm     -94.639   10.139      0.214       NA  
+  EUAS        3                      LogNorm    -862.634  29.343     0.200       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2003   305      Power       2.002      NA        0.527     0.935 
+  EUAS        3       2003   305      Power       2.002     NA       0.527     0.935 
 
-  EUAS        3                      PowerExp     1.993     0.000      0.266       NA  
+  EUAS        3                      PowerExp     1.993   0.000      0.266       NA  
 
-  EUAS        3                      LogNorm     -78.440    9.273      0.207       NA  
+  EUAS        3                      LogNorm     -78.440  9.273      0.207       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2004   132     LogNorm      -8.221    3.948      0.509       NA  
+  EUAS        3       2004   132     LogNorm     -8.221   3.948      0.509       NA  
 
-  EUAS        3                      PowerExp     1.931     0.000      0.483       NA  
+  EUAS        3                      PowerExp     1.931   0.000      0.483       NA  
 
-  EUAS        3                       Power       1.966      NA        0.008     0.017 
+  EUAS        3                       Power       1.966     NA       0.008     0.017 
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2005   283      Power       1.996      NA        0.453     0.805 
+  EUAS        3       2005   283      Power       1.996     NA       0.453     0.805 
 
-  EUAS        3                      PowerExp     1.983     0.000      0.338       NA  
+  EUAS        3                      PowerExp     1.983   0.000      0.338       NA  
 
-  EUAS        3                      LogNorm     -46.606    7.377      0.208       NA  
+  EUAS        3                      LogNorm     -46.606  7.377      0.208       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2006   224      Power       1.948      NA        0.373     0.444 
+  EUAS        3       2006   224      Power       1.948     NA       0.373     0.444 
 
-  EUAS        3                      PowerExp     1.935     0.000      0.359       NA  
+  EUAS        3                      PowerExp     1.935   0.000      0.359       NA  
 
-  EUAS        3                      LogNorm     -29.126    6.212      0.268       NA  
+  EUAS        3                      LogNorm     -29.126  6.212      0.268       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2007   195      Power       1.955      NA        0.428     0.193 
+  EUAS        3       2007   195      Power       1.955     NA       0.428     0.193 
 
-  EUAS        3                      PowerExp     1.945     0.000      0.347       NA  
+  EUAS        3                      PowerExp     1.945   0.000      0.347       NA  
 
-  EUAS        3                      LogNorm     -43.502    7.294      0.225       NA  
+  EUAS        3                      LogNorm     -43.502  7.294      0.225       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2008   424     PowerExp     1.952     0.000      0.524       NA  
+  EUAS        3       2008   557     PowerExp     1.957   0.000      0.500       NA  
 
-  EUAS        3                       Power       1.981      NA        0.330     0.949 
+  EUAS        3                       Power       1.990     NA       0.356     0.989 
 
-  EUAS        3                      LogNorm     -46.072    7.426      0.145       NA  
+  EUAS        3                      LogNorm     -56.060  8.062      0.144       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2009   440      Power       1.998      NA        0.578     0.988 
+  EUAS        3       2009   440      Power       1.998     NA       0.578     0.988 
 
-  EUAS        3                      PowerExp     1.997     0.000      0.213       NA  
+  EUAS        3                      PowerExp     1.997   0.000      0.213       NA  
 
-  EUAS        3                      LogNorm    -1636.375  40.603      0.208       NA  
+  EUAS        3                      LogNorm    -1636.375 40.603     0.208       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2010   186      Power       1.998      NA        0.569     0.395 
+  EUAS        3       2010   186      Power       1.998     NA       0.569     0.395 
 
-  EUAS        3                      PowerExp     1.997     0.000      0.230       NA  
+  EUAS        3                      PowerExp     1.997   0.000      0.230       NA  
 
-  EUAS        3                      LogNorm    -1553.411  39.552      0.201       NA  
+  EUAS        3                      LogNorm    -1553.411 39.552     0.201       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2011   354      Power       2.021      NA        0.372     0.319 
+  EUAS        3       2011   354      Power       2.021     NA       0.372     0.319 
 
-  EUAS        3                      PowerExp     2.001     0.000      0.350       NA  
+  EUAS        3                      PowerExp     2.001   0.000      0.350       NA  
 
-  EUAS        3                      LogNorm     -19.747    5.191      0.278       NA  
+  EUAS        3                      LogNorm     -19.747  5.191      0.278       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2012   185     PowerExp     1.920     0.000      0.619       NA  
+  EUAS        3       2012   185     PowerExp     1.920   0.000      0.619       NA  
 
-  EUAS        3                       Power       1.940      NA        0.202     0.328 
+  EUAS        3                       Power       1.940     NA       0.202     0.328 
 
-  EUAS        3                      LogNorm     -29.052    6.217      0.179       NA  
+  EUAS        3                      LogNorm     -29.052  6.217      0.179       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2013   429     PowerExp     1.992     0.000      0.577       NA  
+  EUAS        3       2013   429     PowerExp     1.992   0.000      0.577       NA  
 
-  EUAS        3                       Power       2.034      NA        0.292     0.949 
+  EUAS        3                       Power       2.034     NA       0.292     0.949 
 
-  EUAS        3                      LogNorm     -37.453    6.628      0.131       NA  
+  EUAS        3                      LogNorm     -37.453  6.628      0.131       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
 
-  EUAS        3       2014   228     PowerExp     1.945     0.000      0.430       NA  
+  EUAS        3       2014   228     PowerExp     1.945   0.000      0.430       NA  
 
-  EUAS        3                       Power       1.960      NA        0.369     0.600 
+  EUAS        3                       Power       1.960     NA       0.369     0.600 
 
-  EUAS        3                      LogNorm     -42.338    7.204      0.201       NA  
+  EUAS        3                      LogNorm     -42.338  7.204      0.201       NA  
 
-  EUAS        3                        Exp        0.001      NA        0.000       NA  
----------------------------------------------------------------------------------------
+  EUAS        3                        Exp        0.001     NA       0.000       NA  
+----------------------------------------------------------------------------------------
 
 Table: Model selection for Eurasia region using Akaike criterion, and goodness of fit calculated by bootstrap. We have three subregions: 1) Mainland; 2) Japan; 3) United Kingdom. We fitted the models using maximum likelihood and the optimum Xmin was estimated from data.   
 
@@ -2080,245 +2080,245 @@ Table: Model selection for Australia and islands region using Akaike criterion, 
  region   subregion   year   xmin   model name    par1      par2   AICc weight    GOF
                                                                                  p-val 
 -------- ----------- ------ ------ ------------ --------- ------- ------------- -------
-  SAST        1       2000   450      Power       1.978      NA        0.505     0.003 
+  SAST        1       2000   568      Power       1.987     NA       0.582     0.071 
 
-  SAST        1                      LogNorm     -143.836  12.465      0.309       NA  
+  SAST        1                      PowerExp     1.986   0.000      0.214       NA  
 
-  SAST        1                      PowerExp     1.978     0.000      0.186       NA  
+  SAST        1                      LogNorm    -553.179  23.858     0.204       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2001   460      Power       1.987      NA        0.573     0.007 
+  SAST        1       2001   460      Power       1.987     NA       0.573     0.007 
 
-  SAST        1                      LogNorm     -375.983  19.729      0.216       NA  
+  SAST        1                      LogNorm    -375.983  19.729     0.216       NA  
 
-  SAST        1                      PowerExp     1.987     0.000      0.211       NA  
+  SAST        1                      PowerExp     1.987   0.000      0.211       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2002   488      Power       1.976      NA        0.583     0.003 
+  SAST        1       2002   551      Power       1.979     NA       0.642     0.067 
 
-  SAST        1                      PowerExp     1.976     0.000      0.214       NA  
+  SAST        1                      LogNorm    -716.721  27.211     0.206       NA  
 
-  SAST        1                      LogNorm     -578.927  24.531      0.203       NA  
+  SAST        1                      PowerExp     1.973   0.000      0.152       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2003   454      Power       1.989      NA        0.594     0.085 
+  SAST        1       2003   454      Power       1.989     NA       0.594     0.085 
 
-  SAST        1                      PowerExp     1.989     0.000      0.218       NA  
+  SAST        1                      PowerExp     1.989   0.000      0.218       NA  
 
-  SAST        1                      LogNorm     -726.919  27.263      0.188       NA  
+  SAST        1                      LogNorm    -726.919  27.263     0.188       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2004   481      Power       2.001      NA        0.599     0.094 
+  SAST        1       2004   555      Power       2.002     NA       0.600     0.274 
 
-  SAST        1                      PowerExp     2.001     0.000      0.220       NA  
+  SAST        1                      PowerExp     2.002   0.000      0.220       NA  
 
-  SAST        1                      LogNorm     -887.700  29.922      0.181       NA  
+  SAST        1                      LogNorm    -938.368  30.740     0.180       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2005   498      Power       1.983      NA        0.539     0.019 
+  SAST        1       2005   530      Power       1.985     NA       0.567     0.053 
 
-  SAST        1                      LogNorm     -183.942  13.985      0.263       NA  
+  SAST        1                      LogNorm    -279.210  17.082     0.225       NA  
 
-  SAST        1                      PowerExp     1.983     0.000      0.198       NA  
+  SAST        1                      PowerExp     1.985   0.000      0.208       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2006   499      Power       1.999      NA        0.585     0.004 
+  SAST        1       2006   563      Power       2.002     NA       0.592     0.035 
 
-  SAST        1                      PowerExp     1.999     0.000      0.215       NA  
+  SAST        1                      PowerExp     2.002   0.000      0.217       NA  
 
-  SAST        1                      LogNorm     -592.774  24.532      0.200       NA  
+  SAST        1                      LogNorm    -798.993  28.389     0.191       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2007   443      Power       1.990      NA        0.737     0.072 
+  SAST        1       2007   443      Power       1.990     NA       0.737     0.072 
 
-  SAST        1                      LogNorm     -669.994  26.174      0.241       NA  
+  SAST        1                      LogNorm    -669.994  26.174     0.241       NA  
 
-  SAST        1                      PowerExp     1.976     0.000      0.022       NA  
+  SAST        1                      PowerExp     1.976   0.000      0.022       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2008   465      Power       1.994      NA        0.596     0.038 
+  SAST        1       2008   465      Power       1.994     NA       0.596     0.038 
 
-  SAST        1                      PowerExp     1.994     0.000      0.219       NA  
+  SAST        1                      PowerExp     1.994   0.000      0.219       NA  
 
-  SAST        1                      LogNorm     -732.427  27.301      0.185       NA  
+  SAST        1                      LogNorm    -732.427  27.301     0.185       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2009   498      Power       1.992      NA        0.640     0.033 
+  SAST        1       2009   595      Power       1.996     NA       0.594     0.109 
 
-  SAST        1                      LogNorm     -294.438  17.465      0.250       NA  
+  SAST        1                      LogNorm    -604.562  24.803     0.204       NA  
 
-  SAST        1                      PowerExp     1.984     0.000      0.110       NA  
+  SAST        1                      PowerExp     1.994   0.000      0.202       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2010   423     LogNorm     -102.503  10.628      0.462       NA  
+  SAST        1       2010   423     LogNorm    -102.503  10.628     0.462       NA  
 
-  SAST        1                       Power       1.979      NA        0.393     0.003 
+  SAST        1                       Power       1.979     NA       0.393     0.003 
 
-  SAST        1                      PowerExp     1.979     0.000      0.145       NA  
+  SAST        1                      PowerExp     1.979   0.000      0.145       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2011   498      Power       1.985      NA        0.581     0.013 
+  SAST        1       2011   568      Power       1.989     NA       0.589     0.046 
 
-  SAST        1                      LogNorm     -505.168  22.829      0.211       NA  
+  SAST        1                      PowerExp     1.989   0.000      0.216       NA  
 
-  SAST        1                      PowerExp     1.987     0.000      0.208       NA  
+  SAST        1                      LogNorm    -733.694  27.394     0.195       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2012            Power       2.008      NA        0.593     0.027 
+  SAST        1       2012   514      Power       2.009     NA       0.597     0.028 
 
-  SAST        1                      PowerExp     2.007     0.000      0.216       NA  
+  SAST        1                      PowerExp     2.010   0.000      0.216       NA  
 
-  SAST        1                      LogNorm     -712.995  26.755      0.191       NA  
+  SAST        1                      LogNorm    -713.989  26.761     0.187       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2013            Power       2.013      NA        0.563     0.013 
+  SAST        1       2013   584      Power       2.019     NA       0.588     0.087 
 
-  SAST        1                      LogNorm     -260.420  16.285      0.231       NA  
+  SAST        1                      PowerExp     2.018   0.000      0.215       NA  
 
-  SAST        1                      PowerExp     2.013     0.000      0.207       NA  
+  SAST        1                      LogNorm    -649.922  25.421     0.197       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        1       2014   487      Power       1.979      NA        0.609     0.052 
+  SAST        1       2014   487      Power       1.979     NA       0.609     0.052 
 
-  SAST        1                      LogNorm     -130.419  11.900      0.391       NA  
+  SAST        1                      LogNorm    -130.419  11.900     0.391       NA  
 
-  SAST        1                      PowerExp     1.953     0.000      0.000       NA  
+  SAST        1                      PowerExp     1.953   0.000      0.000       NA  
 
-  SAST        1                        Exp        0.001      NA        0.000       NA  
+  SAST        1                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2000   381      Power       1.796      NA        0.530     0.857 
+  SAST        2       2000   381      Power       1.796     NA       0.530     0.857 
 
-  SAST        2                      PowerExp     1.784     0.000      0.276       NA  
+  SAST        2                      PowerExp     1.784   0.000      0.276       NA  
 
-  SAST        2                      LogNorm     -203.673  16.325      0.194       NA  
+  SAST        2                      LogNorm    -203.673  16.325     0.194       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2001   100      Power       1.742      NA        0.457     0.435 
+  SAST        2       2001   100      Power       1.742     NA       0.457     0.435 
 
-  SAST        2                      PowerExp     1.735     0.000      0.317       NA  
+  SAST        2                      PowerExp     1.735   0.000      0.317       NA  
 
-  SAST        2                      LogNorm     -49.464    8.743      0.225       NA  
+  SAST        2                      LogNorm     -49.464  8.743      0.225       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2002   143      Power       1.796      NA        0.559     0.845 
+  SAST        2       2002   143      Power       1.796     NA       0.559     0.845 
 
-  SAST        2                      PowerExp     1.792     0.000      0.239       NA  
+  SAST        2                      PowerExp     1.792   0.000      0.239       NA  
 
-  SAST        2                      LogNorm    -1288.572  40.368      0.201       NA  
+  SAST        2                      LogNorm    -1288.572 40.368     0.201       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2003   138      Power       1.772      NA        0.507     0.677 
+  SAST        2       2003   138      Power       1.772     NA       0.507     0.677 
 
-  SAST        2                      PowerExp     1.763     0.000      0.308       NA  
+  SAST        2                      PowerExp     1.763   0.000      0.308       NA  
 
-  SAST        2                      LogNorm     -599.648  28.056      0.185       NA  
+  SAST        2                      LogNorm    -599.648  28.056     0.185       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2004   252      Power       1.844      NA        0.560     0.831 
+  SAST        2       2004   252      Power       1.844     NA       0.560     0.831 
 
-  SAST        2                      PowerExp     1.839     0.000      0.237       NA  
+  SAST        2                      PowerExp     1.839   0.000      0.237       NA  
 
-  SAST        2                      LogNorm    -1021.860  34.937      0.203       NA  
+  SAST        2                      LogNorm    -1021.860 34.937     0.203       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2005   123      Power       1.761      NA        0.526     0.390 
+  SAST        2       2005   123      Power       1.761     NA       0.526     0.390 
 
-  SAST        2                      PowerExp     1.755     0.000      0.282       NA  
+  SAST        2                      PowerExp     1.755   0.000      0.282       NA  
 
-  SAST        2                      LogNorm     -528.516  26.545      0.192       NA  
+  SAST        2                      LogNorm    -528.516  26.545     0.192       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2006   173      Power       1.804      NA        0.579     0.647 
+  SAST        2       2006   173      Power       1.804     NA       0.579     0.647 
 
-  SAST        2                      PowerExp     1.804     0.000      0.213       NA  
+  SAST        2                      PowerExp     1.804   0.000      0.213       NA  
 
-  SAST        2                      LogNorm    -3258.673  63.757      0.208       NA  
+  SAST        2                      LogNorm    -3258.673 63.757     0.208       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2007   116      Power       1.765      NA        0.560     0.507 
+  SAST        2       2007   116      Power       1.765     NA       0.560     0.507 
 
-  SAST        2                      PowerExp     1.762     0.000      0.239       NA  
+  SAST        2                      PowerExp     1.762   0.000      0.239       NA  
 
-  SAST        2                      LogNorm    -2668.810  59.180      0.200       NA  
+  SAST        2                      LogNorm    -2668.810 59.180     0.200       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2008            Power       1.822      NA        0.579     0.429 
+  SAST        2       2008            Power       1.822     NA       0.579     0.429 
 
-  SAST        2                      PowerExp     1.821     0.000      0.214       NA  
+  SAST        2                      PowerExp     1.821   0.000      0.214       NA  
 
-  SAST        2                      LogNorm    -1904.579  48.238      0.208       NA  
+  SAST        2                      LogNorm    -1904.579 48.238     0.208       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2009   247      Power       1.780      NA        0.575     0.810 
+  SAST        2       2009   247      Power       1.780     NA       0.575     0.810 
 
-  SAST        2                      PowerExp     1.779     0.000      0.217       NA  
+  SAST        2                      PowerExp     1.779   0.000      0.217       NA  
 
-  SAST        2                      LogNorm    -3288.359  64.996      0.207       NA  
+  SAST        2                      LogNorm    -3288.359 64.996     0.207       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2010   451      Power       1.694      NA        0.527     0.980 
+  SAST        2       2010   451      Power       1.694     NA       0.527     0.980 
 
-  SAST        2                      PowerExp     1.680     0.000      0.281       NA  
+  SAST        2                      PowerExp     1.680   0.000      0.281       NA  
 
-  SAST        2                      LogNorm     -200.721  17.378      0.192       NA  
+  SAST        2                      LogNorm    -200.721  17.378     0.192       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2011   158      Power       1.797      NA        0.572     0.817 
+  SAST        2       2011   158      Power       1.797     NA       0.572     0.817 
 
-  SAST        2                      PowerExp     1.795     0.000      0.223       NA  
+  SAST        2                      PowerExp     1.795   0.000      0.223       NA  
 
-  SAST        2                      LogNorm    -3084.928  62.317      0.205       NA  
+  SAST        2                      LogNorm    -3084.928 62.317     0.205       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2012   210      Power       1.726      NA        0.460     0.969 
+  SAST        2       2012   210      Power       1.726     NA       0.460     0.969 
 
-  SAST        2                      PowerExp     1.712     0.000      0.366       NA  
+  SAST        2                      PowerExp     1.712   0.000      0.366       NA  
 
-  SAST        2                      LogNorm     -112.815  12.905      0.174       NA  
+  SAST        2                      LogNorm    -112.815  12.905     0.174       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2013   110      Power       1.868      NA        0.582     0.632 
+  SAST        2       2013   110      Power       1.868     NA       0.582     0.632 
 
-  SAST        2                      PowerExp     1.868     0.000      0.211       NA  
+  SAST        2                      PowerExp     1.868   0.000      0.211       NA  
 
-  SAST        2                      LogNorm    -4577.954  72.715      0.207       NA  
+  SAST        2                      LogNorm    -4577.954 72.715     0.207       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
-  SAST        2       2014    94      Power       1.780      NA        0.578     0.235 
+  SAST        2       2014    94      Power       1.780     NA       0.578     0.235 
 
-  SAST        2                      PowerExp     1.779     0.000      0.216       NA  
+  SAST        2                      PowerExp     1.779   0.000      0.216       NA  
 
-  SAST        2                      LogNorm    -3801.307  69.908      0.206       NA  
+  SAST        2                      LogNorm    -3801.307 69.908     0.206       NA  
 
-  SAST        2                        Exp        0.001      NA        0.000       NA  
+  SAST        2                        Exp        0.001     NA       0.000       NA  
 
   SAT         1       2000   310      Power       1.853      NA        0.541     0.450 
 

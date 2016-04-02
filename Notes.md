@@ -308,6 +308,9 @@ As a result, the presence of food-web modules depended strongly on patch size: l
 
 @Martin2015
 
+
+Furthermore—and differently for the two previous cases—spatial disorder induces a broad region around the transition point in which power law scaling is generically observed. In particular, the averaged activity decays in a very slow (power law) fashion as a function of time toward the quiescent state, not just at the critical point (as usually happens) but rather for a whole range of values of the control parameter a. This region, with generic scale-free behavior, is usually dubbed “Griffiths phase” and stems from the fact that unfavorable zones are emptied first and then, progressively, more and more resilient zones collapse in a step-by-step fashion (77). Therefore, we have confirmed that spatial random heterogeneity is a sufficient ingredient to destroy abrupt regime shifts in 2D stochastic systems, giving rise to smooth transitions, in agreement with ref 71.
+
 Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition, giving rise to a second-order (continuous) one.
 
 
@@ -449,3 +452,7 @@ creased annual rainfall) than the system characterized by a truncated power law.
 The dynamical law presented here allows one to identify the transition between these states when the total population is still fixed; qualitative changes in the stability of large patches—from linear to logarithmic—may thus serve as an important precursor of catastrophic shifts [24] such as desertification in arid ecosystems.
 
 -------------
+
+@Irvine2016
+
+A simple dimensionality argument can be used to show that in the aggregation and death model with a kernel that has a general power law scaling as described in Eq. (3), the resulting stationary distribution will have the same exponent as that in the model with no death (Connaughton et al., 2004). The conclusion of how to relate the patch-size distribution to the system dynamics is that both the power-law exponent and the presence of an exponential cut-off does give an indication of the underlying dynamics. More complex fragmentation processes than the one discussed would alter these conclusions however, as a non-linear fragmentation process will also lead to self-similar solutions and thus the two processes are confounded when only the stationary state is observed (Ernst and VanDongen, 1987), such processes include storms and other strong weather events that could split a single cluster of vegetation into multiple clusters. The size of the system where the dynamics occur, such as in the lattice model, may also have an impact on the exponents of the patch-size distribution due to finite-size effects
