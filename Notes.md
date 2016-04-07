@@ -456,3 +456,12 @@ The dynamical law presented here allows one to identify the transition between t
 @Irvine2016
 
 A simple dimensionality argument can be used to show that in the aggregation and death model with a kernel that has a general power law scaling as described in Eq. (3), the resulting stationary distribution will have the same exponent as that in the model with no death (Connaughton et al., 2004). The conclusion of how to relate the patch-size distribution to the system dynamics is that both the power-law exponent and the presence of an exponential cut-off does give an indication of the underlying dynamics. More complex fragmentation processes than the one discussed would alter these conclusions however, as a non-linear fragmentation process will also lead to self-similar solutions and thus the two processes are confounded when only the stationary state is observed (Ernst and VanDongen, 1987), such processes include storms and other strong weather events that could split a single cluster of vegetation into multiple clusters. The size of the system where the dynamics occur, such as in the lattice model, may also have an impact on the exponents of the patch-size distribution due to finite-size effects
+
+
+-------------
+
+@Pueyo2010
+
+In contrast, we do find evidence of a critical transition to a megafire regime under extreme drought in rainforests; this phenomenon is likely to determine the time scale of a possible loss of Amazonian rainforest caused by climate change.
+
+In rainforests, we found evidence of a different type of critical phenomenon: critical transitions. If the Amazonian rainforest is to be lost to climate change as some models suggest, the process is likely to take the form of a series of critical transitions.
