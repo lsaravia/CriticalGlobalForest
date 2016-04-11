@@ -908,12 +908,18 @@ fit_cont_heavy_tail_mdls <- function (data_set,xmins,ploting=TRUE,gof=FALSE)
 				# Goodness of fit via boostrap
 				#
 				# xmins is fixed at estimated value (or 9)
-				fit_ht[[i]]$GOF <- bootstrap_p(fit_ht[[i]]$model,
-											 xmins=fit_ht[[i]]$model$xmin,
+				fit_ht[[i]]$GOF <- try(bootstrap_p(fit_ht[[i]]$model,
+											 #xmins=fit_ht[[i]]$model$xmin,
 											 pars = NULL, 
 											 xmax = max(data_set),
-											 no_of_sims = 1000,
-											 threads = parallel::detectCores())
+											 no_of_sims = 999,
+											 threads = parallel::detectCores()))
+				GOF <- fit_ht[[i]]$GOF
+				if(class(GOF)!="bs_p_xmin"){
+					fit_ht[[i]]$GOF <-NULL
+				} else {
+					fit_ht[[i]]$GOF$p <- sum(GOF$gof >= GOF$bootstraps$gof,na.rm = TRUE)/999
+				}
 				#
 				# Uncertainty in parms estimation via bootstrap
 				#
