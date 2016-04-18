@@ -4,30 +4,32 @@
 
 ### Isotropic percolation
 
-The distribution of patch sizes has in general the following distribution:
+* The distribution of patch sizes has in general the following distribution:
 
-$$n_s(p) \propto s^{-\tau} e^{-cs}$$
+    $$n_s(p) \propto s^{-\tau} e^{-cs}$$
 
-And at the critical point:
+    where $n_s(p)$ is the number of patches and $s$ is the patch size. And at the critical point:
 
-$$n_s(p_c) \propto s^{-\tau}$$
+    $$n_s(p_c) \propto s^{-\tau}$$
 
-where $n_s(p)$ is the number of patches and $s$ is the patch size. Theoretically $\tau = 187/91 = 2.05495$
+    Theoretically $\tau = 187/91 = 2.05495$
 
-The max cluster:
+* The largest cluster $S_{max}$, at the critical point $p=p_c$ :
 
-$S_{max}  \propto L^D$ at $p=p_c$
+    $$S_{max}  \propto L^D$$
 
-Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results
-from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above.
+    Where $L$ is the side of the lattice with $L^d$ sites, $d=2$ for two-dimensional systems considered here, and the fractal dimension is $D=91/48=1.897$. 
 
-The correlation length
+    Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above [@Stauffer1994, pp 65-66].
 
-$\xi \propto |h-h_c|^{-\nu}$
+  
+* The correlation length $\xi$ is defined as the mean distance between two sites of the same patch, near the critical point
 
-with $\nu=4/3$
+    $$\xi \propto |h-h_c|^{-\nu}$$
 
-and the fractal dimension $D=91/48=1.897$
+    with $\nu=4/3=1.333$
+
+
 
 
 ### Directed percolation
@@ -54,12 +56,57 @@ $D_f= 1 / \sigma \nu_s=2.968$
 
 Fire forest models belong to this class [@Odor2004], and the collection of exponents is found in [@Munoz1999]
 
+\newpage
 
 ## Tables
 
 
+---------------------------------------------------------------------------
+        Sub
+Region  Region  Description
+------  ------  -----------------------------------------------------------
+EUAS      1     Eurasia, mainland
+
+          2     Japan
+
+          3     United Kingdom
+
+NA        1     North America
+
+          5     Newfoundland
+
+OC        1     Australia, Mainland 
+
+          2     New Guinea
+
+          3     Malaysia/Kalimantan
+
+          4     Sumatra
+
+          5     Celebes
+
+          6     New Zealand south island
+
+          7     Java
+
+          8     New Zealand north island
+
+SAST      1     South America, Tropical and subtropical forest up to Mexico
+
+          2     Cuba
+
+SAT       1     South America, Temperate forest.
+
+SEAS      1     South East Asia, Mainland
+
+          2     Philippines
+--------------------------------------------------------------------------
+
+Table: Description of the regions and subregions used.
+
+
 -----------------------------------
- region   subregion   alpha   xmin 
+ region   subregion  $\alpha$ $x_{min}$ 
 -------- ----------- ------- ------
    AF         1       1.926  402.2 
 
@@ -102,132 +149,135 @@ Fire forest models belong to this class [@Odor2004], and the collection of expon
   SEAS        2       1.879  133.3 
 -----------------------------------
 
-Table: Average power law parameters by region and subregion
+Table: Power law exponents of patch size distribution averaged by region and subregion
 
+\newpage
 
-------------------------------------------------------------------------------------------------------------------------------
- region   subregion   model_name     par1        par2       xmin     n     LL      AICc    delta_AICc   AICc_weight    GOFp   
--------- ----------- ------------ ----------- ---------- ---------- --- -------- -------- ------------ ------------- ---------
-   AF         1         Power       1.66804       NA     0.00828064 13  24.61576 -46.8982   0.000000    0.53504399   0.9259259
+------------------------------------------------------------------------------
+ region     sub-    model                   $x_{min}$  n      AICc       GOF
+          region    name        par1   par2                  weight    p-value
+-------- -------- --------- -------- ------ --------- --- ------------ -------
+   AF         1     Power     1.668    NA   0.0083    13      0.535     0.9259
 
-   AF         1          Exp       15.71112       NA     0.00828064 13  23.80679 -45.2802   1.617931    0.23826498   0.2592593
+   AF         1      Exp     15.711    NA   0.0083    13      0.238     0.2593
 
-   AF         1        LogNorm     -3.72785   1.4244005  0.00828064 13  25.13578 -45.1807   1.717522    0.22669102   0.3033033
+   AF         1    LogNorm   -3.728  1.424  0.0083    13      0.227     0.3033
 
-   AF         2         Power       5.57211       NA     0.18981413  5  9.81484  -17.2963   0.000000    0.49640593   0.1881882
+   AF         2     Power     5.572    NA   0.1898     5      0.496     0.1882
 
-   AF         2          Exp       15.30835       NA     0.18981413  5  9.64199  -16.9506   0.345699    0.41760858   0.3443443
+   AF         2      Exp     15.308    NA   0.1898     5      0.418     0.3443
 
-   AF         2        LogNorm     -1.65929   0.3415478  0.18981413  5  9.44041  -13.7899   3.506431    0.08598549   0.2872873
+   AF         2    LogNorm   -1.659  0.342  0.1898     5      0.086     0.2873
 
-  EUAS        1          Exp       38.55165       NA     0.00384995 13  35.47599 -68.6186   0.000000    0.70899501   0.3523524
+  EUAS        1      Exp     38.552    NA   0.0038    13      0.709     0.3524
 
-  EUAS        1         Power       1.65523       NA     0.00384995 13  33.93987 -65.5464   3.072230    0.15258678   0.9799800
+  EUAS        1     Power     1.655    NA   0.0038    13      0.153     0.9800
 
-  EUAS        1        LogNorm     -4.08326   1.0644630  0.00384995 13  35.22121 -65.3515   3.267138    0.13841821   0.1271271
+  EUAS        1    LogNorm   -4.083  1.064  0.0038    13      0.138     0.1271
 
-  EUAS        2          Exp       422.40263      NA     0.00229361  9  46.41363 -90.4939   0.000000    0.49397699   0.1511512
+  EUAS        2      Exp     422.403   NA   0.0023     9      0.494     0.1512
 
-  EUAS        2         Power       2.82950       NA     0.00229361  9  46.21563 -90.0979   0.396001    0.40524355   0.5895896
+  EUAS        2     Power     2.829    NA   0.0023     9      0.405     0.5896
 
-  EUAS        2        LogNorm     -5.73824   0.5866643  0.00229361  9  46.20286 -87.3148   3.179109    0.10077946   0.0310310
+  EUAS        2    LogNorm   -5.738  0.587  0.0023     9      0.101     0.0310
 
-  EUAS        3         Power       2.15431       NA     0.01708165  8  18.77545 -35.2176   0.000000    0.56771501   0.4504505
+  EUAS        3     Power     2.154    NA   0.0171     8      0.568     0.4505
 
-  EUAS        3          Exp       23.25899       NA     0.01708165  8  18.17353 -34.0137   1.203834    0.31097185   0.7347347
+  EUAS        3      Exp     23.259    NA   0.0171     8      0.311     0.7347
 
-  EUAS        3        LogNorm     -3.81830   1.1183389  0.01708165  8  18.61099 -32.1311   3.086489    0.12131314   0.3063063
+  EUAS        3    LogNorm   -3.818  1.118  0.0171     8      0.121     0.3063
 
-   NA         1         Power       1.66936       NA     0.00715497 12  24.53472 -46.7361   0.000000    0.80351811   0.9749750
+   NA         1     Power     1.669    NA   0.0072    12      0.804     0.9750
 
-   NA         1        LogNorm     -7.02409   2.8073419  0.00715497 12  24.45277 -43.8146   2.921478    0.18646819   0.3473473
+   NA         1    LogNorm   -7.024  2.807  0.0072    12      0.186     0.3473
 
-   NA         1          Exp       13.40740       NA     0.00715497 12  20.14968 -37.9660   8.770091    0.01001370   0.3343343
+   NA         1      Exp     13.407    NA   0.0072    12      0.010     0.3343
 
-   NA         5         Power      12.46072       NA     0.13081015  5  16.92840 -31.5235   0.000000    0.48577320   0.1901902
+   NA         5     Power    12.461    NA   0.1308     5      0.486     0.1902
 
-   NA         5          Exp       64.13308       NA     0.13081015  5  16.80480 -31.2763   0.247189    0.42929636   0.2662663
+   NA         5      Exp     64.133    NA   0.1308     5      0.429     0.2663
 
-   NA         5        LogNorm     -2.04424   0.1412569  0.13081015  5  16.56327 -28.0356   3.487819    0.08493044   0.2262262
+   NA         5    LogNorm   -2.044  0.141  0.1308     5      0.085     0.2262
 
-   OC         1         Power       5.38472       NA     0.02615738  4  15.57474 -28.8162   0.000000    0.49936273      NA    
+   OC         1     Power     5.385    NA   0.0262     4      0.499       NA  
 
-   OC         1          Exp       100.47898      NA     0.02615738  4  15.43979 -28.5463   0.269900    0.43632290      NA    
+   OC         1      Exp     100.479   NA   0.0262     4      0.436       NA  
 
-   OC         1        LogNorm     -3.41652   0.2445621  0.02615738  4  14.90398 -24.7171   4.099099    0.06431437      NA    
+   OC         1    LogNorm   -3.417  0.245  0.0262     4      0.064       NA  
 
-   OC         2         Power       2.08324       NA     0.00370746  9  33.78789 -65.2424   0.000000    0.80303683   0.6906907
+   OC         2     Power     2.083    NA   0.0037     9      0.803     0.6907
 
-   OC         2        LogNorm    -2555.13890 51.4846684 0.00370746  9  33.72704 -62.3632   2.879262    0.19033198   0.8118118
+   OC         2    LogNorm  -2555.13 51.485 0.0037555  9      0.190     0.8118
 
-   OC         2          Exp       60.95533       NA     0.00370746  9  28.99127 -55.6492   9.593231    0.00663119   0.9649650
+   OC         2      Exp     60.955    NA   0.0037     9      0.007     0.9650
 
-   OC         3         Power       6.43863       NA     0.01117945  4  20.01334 -37.6933   0.000000    0.51688969      NA    
+   OC         3     Power     6.439    NA   0.0112     4      0.517       NA  
 
-   OC         3          Exp       294.88436      NA     0.01117945  4  19.74633 -37.1593   0.534013    0.39576589      NA    
+   OC         3      Exp     294.884   NA   0.0112     4      0.396       NA  
 
-   OC         3        LogNorm     -4.62844   0.3622327  0.01117945  4  19.61416 -34.1374   3.555941    0.08734442      NA    
+   OC         3    LogNorm   -4.628  0.362  0.0112     4      0.087       NA  
 
-   OC         4         Power       1.70029       NA     0.00432225 11  29.25704 -56.1808   0.000000    0.49554627   0.7167167
+   OC         4     Power     1.700    NA   0.0043    11      0.496     0.7167
 
-   OC         4          Exp       34.10227       NA     0.00432225 11  28.82300 -55.3127   0.868079    0.32105782   0.6186186
+   OC         4      Exp     34.102    NA   0.0043    11      0.321     0.6186
 
-   OC         4        LogNorm     -4.29181   1.2818404  0.00432225 11  29.64182 -54.1927   1.988027    0.18339591   0.3173173
+   OC         4    LogNorm   -4.292  1.282  0.0043    11      0.183     0.3173
 
-   OC         5         Power      20.12598       NA     0.09081178  6  25.78637 -49.2394   0.000000    0.47045298   0.4034034
+   OC         5     Power    20.126    NA   0.0908     6      0.470     0.4034
 
-   OC         5          Exp       167.60195      NA     0.09081178  6  25.72955 -49.1258   0.113644    0.44446623   0.2952953
+   OC         5      Exp     167.602   NA   0.0908     6      0.444     0.2953
 
-   OC         5        LogNorm     -2.36153   0.0579241  0.09081178  6  25.45507 -45.8192   3.420190    0.08508078   0.1191191
+   OC         5    LogNorm   -2.362  0.058  0.0908     6      0.085     0.1191
 
-   OC         6         Power      21.05916       NA     0.03424716  4  21.29194 -40.2505   0.000000    0.50077263      NA    
+   OC         6     Power    21.059    NA   0.0342     4      0.501       NA  
 
-   OC         6          Exp       407.88194      NA     0.03424716  4  21.04391 -39.7545   0.496055    0.39077210      NA    
+   OC         6      Exp     407.882   NA   0.0342     4      0.391       NA  
 
-   OC         6        LogNorm    -295.50018  4.4075599  0.03424716  4  21.14091 -37.1909   3.059629    0.10845527      NA    
+   OC         6    LogNorm  -295.500 4.408  0.0342     4      0.108       NA  
 
-   OC         7         Power      16.34207       NA     0.31259629  4  11.31304 -20.2928   0.000000    0.49901184      NA    
+   OC         7     Power    16.342    NA   0.3126     4      0.499       NA  
 
-   OC         7          Exp       34.37683       NA     0.31259629  4  11.14953 -19.9657   0.327024    0.42373904      NA    
+   OC         7      Exp     34.377    NA   0.3126     4      0.424       NA  
 
-   OC         7        LogNorm     -1.14621   0.1009558  0.31259629  4  10.82624 -16.5616   3.731189    0.07724911      NA    
+   OC         7    LogNorm   -1.146  0.101  0.3126     4      0.077       NA  
 
-   OC         8          Exp       15.32225       NA     0.02943285 13  23.48098 -44.6286   0.000000    0.85970080   0.9929930
+   OC         8      Exp     15.322    NA   0.0294    13      0.860     0.9930
 
-   OC         8        LogNorm     -2.46115   0.4638366  0.02943285 13  22.84637 -40.6018   4.026803    0.11479903   0.8578579
+   OC         8    LogNorm   -2.461  0.464  0.0294    13      0.115     0.8579
 
-   OC         8         Power       2.00501       NA     0.02943285 13  19.96308 -37.5928   7.035799    0.02550017   1.0000000
+   OC         8     Power     2.005    NA   0.0294    13      0.026     1.0000
 
-  SAST        1         Power       3.81498       NA     0.03129566  5  15.71994 -29.1066   0.000000    0.58842073   0.2712713
+  SAST        1     Power     3.815    NA   0.0313     5      0.588     0.2713
 
-  SAST        1          Exp       44.75886       NA     0.03129566  5  15.00645 -27.6796   1.426993    0.28828396   0.0840841
+  SAST        1      Exp     44.759    NA   0.0313     5      0.288     0.0841
 
-  SAST        1        LogNorm     -7.78926   1.5132640  0.03129566  5  15.53587 -25.9808   3.125720    0.12329532   0.0960961
+  SAST        1    LogNorm   -7.789  1.513  0.0313     5      0.123     0.0961
 
-  SAST        2         Power       8.31690       NA     0.10188237  5  15.68726 -29.0412   0.000000    0.49820312   0.6546547
+  SAST        2     Power     8.317    NA   0.1019     5      0.498     0.6547
 
-  SAST        2          Exp       49.23726       NA     0.10188237  5  15.48325 -28.6332   0.408018    0.40626218   0.6236236
+  SAST        2      Exp     49.237    NA   0.1019     5      0.406     0.6236
 
-  SAST        2        LogNorm     -2.62867   0.3306085  0.10188237  5  15.41453 -25.7382   3.303037    0.09553469   0.3693694
+  SAST        2    LogNorm   -2.629  0.331  0.1019     5      0.096     0.3694
 
-  SAT         1         Power       5.05542       NA     0.03824356  7  23.92076 -45.5082   0.000000    0.47592470   0.3143143
+  SAT         1     Power     5.055    NA   0.0382     7      0.476     0.3143
 
-  SAT         1          Exp       70.79095       NA     0.03824356  7  23.81812 -45.3029   0.205287    0.42949762   0.2572573
+  SAT         1      Exp     70.791    NA   0.0382     7      0.429     0.2573
 
-  SAT         1        LogNorm     -3.35560   0.3996099  0.03824356  7  23.68371 -42.2765   3.231676    0.09457768   0.1281281
+  SAT         1    LogNorm   -3.356  0.400  0.0382     7      0.095     0.1281
 
-  SEAS        1         Power       1.76223       NA     0.01210068 12  21.97264 -41.6119   0.000000    0.73283832   0.8658659
+  SEAS        1     Power     1.762    NA   0.0121    12      0.733     0.8659
 
-  SEAS        1        LogNorm     -3.98711   1.5825952  0.01210068 12  22.10207 -39.1132   2.498712    0.21009691   0.4024024
+  SEAS        1    LogNorm   -3.987  1.583  0.0121    12      0.210     0.4024
 
-  SEAS        1          Exp       12.61633       NA     0.01210068 12  19.41990 -36.5065   5.105476    0.05706477   0.9909910
+  SEAS        1      Exp     12.616    NA   0.0121    12      0.057     0.9910
 
-  SEAS        2          Exp        8.66849       NA     0.11768318  7  9.11786  -15.9024   0.000000    0.52433792   0.3383383
+  SEAS        2      Exp      8.668    NA   0.1177     7      0.524     0.3383
 
-  SEAS        2         Power       2.90705       NA     0.11768318  7  8.82661  -15.3199   0.582503    0.39185224   0.4924925
+  SEAS        2     Power     2.907    NA   0.1177     7      0.392     0.4925
 
-  SEAS        2        LogNorm     -1.65534   0.4660593  0.11768318  7  8.66306  -12.2352   3.667172    0.08380984   0.4154154
-------------------------------------------------------------------------------------------------------------------------------
+  SEAS        2    LogNorm   -1.655  0.466  0.1177     7      0.084     0.4154
+------------------------------------------------------------------------------
+
 Table: Distribution of annual fluctuation of maximum patch. The maximum patch area was divided by total patch area to discard external factors that affect the forest patches.
 
 ### Africa
@@ -2692,4 +2742,7 @@ Table: Model selection for South America region using Akaike criterion, and good
 ---------------------------------------------------------------------------------------
 
 
-Table: Model selection for South West Asia using Akaike criterion, and goodness of fit calculated by bootstrap. We have 2 subregions: 1)Mainland; 2 Philippines; The models were fitted using maximum likelihood. We performed two fits one fixing Xmin=9 and the other estimating the optimum Xmin from data.   
+Table: Model selection for South East Asia using Akaike criterion, and goodness of fit calculated by bootstrap. We have 2 subregions: 1)Mainland; 2 Philippines. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data.   
+
+
+# References

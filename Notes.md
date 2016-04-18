@@ -13,6 +13,13 @@ A random forest would have new exponential distribution unless is close to a cri
 Besides in several systems the observation of power laws in the patch distribution is a signal of a system in a critical state, undergoing a critical transition, in several ecosystems the distribution of vegetation patches present a power law distribution in a healthy state. Deviation of the power law are observed when pressures like overgrazing and desertification increase. 
 
 
+Power-law ($\alpha$) exponents less than 2 have infinite variance, in practice this means that the variance will rise with time, and the system is prone to big fluctuations. When $\alpha$ is greater than 2 variance becomes finite and the system, is more stable. If the distribution is lognormal variance is always finite and fluctuations are even less pronounced. 
+  
+If fluctuations of patch dynamics are linear with its size, indicates that positive feedbacks are the most important factor in the patch formation process. A logarithmic dependence indicates that grazing deforestation or other random mortality processes. If fluctuations vary exponentially with their size, is most probable that the patch structure reflects habitat spatial heterogeneity [@Manor2008]
+
+The dynamical law presented here allows one to identify the transition between these states when the total population is still fixed; qualitative changes in the stability of large patches—from linear to logarithmic—may thus serve as an important precursor of catastrophic shifts [24]
+
+
 ---------------------
 
 Another possible paper -> Mechanisms of Forest savanna transition:
@@ -432,6 +439,8 @@ Ordinary percolation (Stauffer and Aharony, 1994; Grimmett, 1999) is a geometric
 Both empirical and modeling studies have emphasized that the same landscape can be connected or fragmented, depending on the movement range of the actual species (Forman 1995; Ims 1995; With and Crist 1995; With et al. 1997; Wiens 1997; Sole and Bascompte 2006).
 
 A frequently used method for studying the connectivity structure of a landscape is percolation modeling. The main focus of percolation theory is spatial spreading in a heterogeneous medium consisting of occupied and vacant sites (Stauffer and Aharony 1994). In a typical ecological setting, an occupied site is one containing a particular habitat type (i.e., suitable for the particular organism). The significance of percolation theory for ecology was recognized in the late 1980s (Gardner et al. 1987). Since then, a number of papers have investigated habitat maps with simulations and field data (Gustafson and Parker 1992; Milne 1992; Plotnick and Gardner 1993; Loehle et al. 1996; With 1997; Li 2002; He and Hubbell 2003; Sole et al. 2005). Effects of percolation on population dynamics have also been investigated (Andren 1994; With and Crist 1995; Bascompte and Sole 1996; Oborny et al. 2007).
+
+Sapoval et al. (1985) proposed that the fractal dimension of the GRM (Gradient Random Map) is related to the critical exponents b and g that characterize the size of the connected patch and the fragment size in the uniform process (see “Percolation through a Landscape with an Environmental Gradient”) through the equation D f p 1 ϩ 2/(2b ϩ g) . For the known values b p 5/36 and g p 43/18 , this equation indeed yields D f p 7/4 . The scaling exponents for w and u can also be related to the fundamental exponents b and g; see “Width and Length of the Hull.” Since b and g are uni- versal (i.e., independent of the lattice), the same is true for the scaling laws for w, u, and D f . In particular, they are also expected to be valid in correlated lattices as long as the correlations between the states of the sites (occupied or vacant) decay over short distances. This condition is met in the GCP because the hull edge is some distance away from the extinction edge, where correlations are strongest. We hypothesize that many other dynamic models would satisfy this rather weak condition, short correlation length; therefore, the same scaling laws presumably hold for a wide range of vegetation maps.
 
 
 -------------
