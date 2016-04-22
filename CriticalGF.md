@@ -80,6 +80,9 @@ To measure the distance to the critical point we estimate the correlation length
 
 ## Results
 
+Taking into account the bootstrapped confidence intervals of each power law exponent (\alpha), and the temporal autocorrelation there is no significative differences between the five biggest forest areas.
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=6in]{figure/PowerExp_gt10e7_year.png}

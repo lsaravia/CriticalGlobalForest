@@ -422,7 +422,6 @@ g <- ggplot(fff, aes(x=year,y=par1,colour=region),shape=21) +  theme_bw() + geom
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
 	scale_colour_brewer(palette="Set1",name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
- theme_bw() + 
 ff1<- group_by(fff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
 g + geom_hline(aes(yintercept=malpha,colour=region),ff1,linetype = 2)
@@ -485,9 +484,9 @@ ggsave("figure/ProportionSelModel.png",width=6,height=8,units="in",dpi=600)
 
 ```
 
-# Testing differences in alpha parameter
+# Testing differences in alpha parameter using Mixed models
 
-```{r alphaDifferences, eval=F,echo=T,message=T,warning=T}
+```{r alphaGLMM, eval=F,echo=T,message=T,warning=T}
 
 require(nlme)
 
@@ -501,35 +500,119 @@ ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
 ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
 
 ff$year <- as.numeric(ff$year)
-ff$weight <- 1/(ff$hPar1 - ff$lPar1)
 ff$region <- paste0(ff$region,ff$subregion)  
 
-
-am <-lm(par1 ~ region+year,data=ff,weights = weight)
-summary(am)
-plot(am, which=1)
-plot(am, which=2)
-
-# As the confidence intervals for par1 seem to be very similar we drop the weights
+# lm model
 #
-m1.lme <-lme(par1 ~ region,random=~ 1 |year, data=ff,method="REML")
-summary(m1.lme)
-plot(m1.lme)
-re <-resid(m1.lme)
+# Build weights with the bootstraped 95% intervals
+
+ff$weight <- (ff$hPar1 - ff$lPar1)
+
+# Not weighted lm all interactions included
+am <-gls(par1 ~ region*year,data=ff)
+summary(am)
+re <-resid(am)
+plot(am, which=1)
 boxplot(re~ff$region)
 boxplot(re~ff$year)
-boxplot(re~ff$region*ff$year)
+
+m.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight))
+summary(m.gls)
+AIC(m.gls,am)
+re <-resid(m.gls)
+plot(m.gls, which=1)
+boxplot(re~ff$region)
+boxplot(re~ff$year)
+plot(re~ff$year)
+# 
+ggplot(cbind(ff,re),aes(year,re)) + geom_point(shape=21) + facet_wrap(~region) + theme_bw()
+
 acf(re)
 
-ggplot(ff,aes(region,par1)) + geom_boxplot() + geom_jitter(width = 0.2) +  theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0))
+# Add autocorrelation
+#
+m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region))
+anova(m1.gls,m.gls,am)
+
+# I stay with the autocorrelation, AIC is lower, besides is not significative 
+
+# Check interaction likelihood ration test with or without interaction
+
+m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
+anova(m1.gls,m.gls,am)
+plot(m1.gls, which=1)
+anova(m1.gls)
+summary(m1.gls)
+
+m0.gls <-gls(par1 ~ region+year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
+anova(m1.gls,m0.gls)
+
+# The final model is with interaction!
+#
+m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="REML")
+anova(m1.gls)
+summary(m1.gls)
+plot(m1.gls, which=1)
+pred <- predict(m1.gls)
+
+ff <- cbind(ff,pred)
+ggplot(ff,aes(year,par1)) + geom_point(shape=21) + facet_wrap(~region) + theme_bw() + geom_line(aes(y=pred))
+
+# Boxplot
+#
+#ggplot(ff,aes(region,par1)) + geom_boxplot() + geom_jitter(width = 0.2) +  theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0))
 
 # Only regions with 1e07 Km
 #
 ff1<-filter(ff,subregion==1,region!="SAT1")
-ggplot(ff1,aes(region,par1)) + geom_boxplot() + geom_jitter(width = 0.2,shape=21) +  theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0))
+ggplot(ff1,aes(year,par1,colour=region)) + geom_point(shape=21) + theme_bw() + geom_line(aes(y=pred)) + scale_colour_brewer(palette="Set1") 
 
+
+ggplot(ff1,aes(region,par1)) + geom_boxplot() + geom_jitter(width = 0.2,shape=21) +  theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0)) + scale_colour_brewer(palette="Set1") 
+
+require(multcomp)
+
+# Add functions to use multcomp with gls
+#
+model.matrix.gls <- function(object, ...) {
+    model.matrix(terms(object), data = getData(object), ...)
+}
+model.frame.gls <- function(object, ...) {
+    model.frame(formula(object), data = getData(object), ...)
+}
+terms.gls <- function(object, ...) {
+    terms(model.frame(object), ...)
+}
+
+# To aid contrast matrix specification (this are main factors)
+K <- diag(length(coef(m1.gls)))[,]
+rownames(K) <- names(coef(m1.gls))[]
+rownames(K)[1] <-"regionAF1"
+#summary(glht(m2.gls, linfct = K) )
+
+contrast.matrix <- rbind("AF vs NA"=K["regionAF1",]+K["regionNA1",]*-1,
+"AF vs SAST"=K["regionAF1",]+K["regionSAST1",]*-1,
+"AF vs SEAS"=K["regionAF1",]+K["regionSEAS1",]*-1,
+"NA vs SAST"=K["regionNA1",]+K["regionSAST1",]*-1,
+"NA vs SEAS"=K["regionNA1",]+K["regionSEAS1",]*-1,
+"SAST vs SEAS"=K["regionSAST1",]+K["regionSEAS1",]*-1,
+"AFyear vs NAyear"=K["year",]+K["regionNA1:year",]*-1,
+"AFyear vs SASTyear"=K["year",]+K["regionSAST1:year",]*-1,
+"AFyear vs SEASyear"=K["year",]+K["regionSEAS1:year",]*-1,
+"NAyear vs SASTyear"=K["regionNA1:year",]+K["regionSAST1:year",]*-1,
+"NAyear vs SEASyear"=K["regionNA1:year",]+K["regionSEAS1:year",]*-1,
+"SEASyear vs SASTyear"=K["regionSEAS1:year",]+K["regionSAST1:year",]*-1)
+
+summary(glht(m1.gls, contrast.matrix))
+
+
+summary(glht(m1.gls, contrast.matrix))
+
+
+intervals(m1.gls)
 ```
 
+There is no significative differences between the 5 biggest regions AF NA SAST SEAS EUAS
 
 # Extract max patch size and patch stats  
 
