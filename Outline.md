@@ -1,47 +1,9 @@
 # Analysis of critical transitions at the Global Forest
 
-
-The idea is to do a global analysis using insights from percolation theory to detect signals of ecological transitions [@Kefi2014] 
-
-
-Thus the question is how near/far is the global forest from a catastrophic transition?
-
-We will use the MODIS vegetation continuous field, so we can analyze temporal changes.
+Power laws are ubiquitous in nature [@Newman2005] and much of them are related to vegetation, like patch patterns in semi-arid regions [@Sole2007] photosynthetic biofilms [@Weerman2012], savanna forest transitions [@Abades2014] and tree size structure in tropical forest [@Farrior2016]. Several of these power laws are related to patch sizes which define fragmentation [@Bascompte1996]. Fragmentation is a global issue and have multiple impacts on ecosystems from reducing biodiversity to changes on nutrient cycling [@Haddad2015]. The concept of percolation shows that there is a critical threshold where suitable habitat patches are essentially isolated [@Sole2006]. Here we analyzed forest at a global scale to determine if some regions are close to the fragmentation threshold. Following percolation theory, if a system is near a threshold its patch structure must follow a power-law, beside this is not a proof is a necessary condition []. If we are near the fragmentation threshold the biggest patch will have major fluctuations, because the addition or loose of a small patches will change its size the fluctuations must be also be power-law and that if we are approaching the threshold fluctuations will increase with time. We observed that the forest patch structure follows power laws in four major continental biomes: Africa, North America, South America, South East Asia; and it follows a log-normal distribution in Eurasia. Fluctuation of biggest patch are all power law reveals that Africa, and South East Asia are near a fragmentation threshold, North America and South America are not approaching it thus the power laws could be the results of fire and facilitation. Eurasia is also in a pattern of increasing fluctuations.       
 
 
-* Most probably multiple process influence the distributions of patch size at a continental scale, so we are trying to extract the main generic ones.
 
-* How scaling laws are related to ecosystem function?
-
-* Hypothesis: the patch distribution is a power law.
-
-* We use percolation theory to calculate the distance to a critical point, the exact value is dependent on details we can not determine but some exponents are invariant. 
-
-* Two assumptions: 
-    1) if we view the forest as a static landscape the isotropic percolation universality class is plausible
-    2) If we view the dynamic of forest the directed percolation universality class is plausible
-
-
-# Methods
-
-
-* The United Nations’ International Geosphere-Biosphere Programme definition of forest (Belward 1996) defined forest as pixels with tree cover equal or greater than 30%  
-
-* We defined broad regions based in connectivity 
-
-* The distribution of patches is continuous but the data is discretized so we discard the lowest values and start fitting patch sizes greater than 9.
-
-* MODIS VCF
-
-* Fitting four models
-
-* Distance to the critical point is a two step procedure:
-    
-    1) Correlation length is close to the linear length (average linear length) then we can assume the critical point is close and we can apply the universal exponents
-
-    2) Correlation length is lower than the linear length we are far from the critical point.
-
-    3) Correlation length is greater than the linear length --> something is wrong!
 
 
 
@@ -54,15 +16,6 @@ We will use the MODIS vegetation continuous field, so we can analyze temporal ch
 
 
 
-
-
-![Power law exponent of best models by year and with different data sets: **<Xmin* the data is less than the extimated minimum patch size, *Estimated Xmin* the minimum patch size was estimated from data, and only patch sizes greater than or equal to Xmin was used.](figure/PowerExp_Xmin_year.png)
-
-![Estimated $X_min$ by year. ](figure/EstimatedXmin_year.png)
-
-![$X_min$ vs power exponent](figure/Xmin_Alpha.png)
-
-![Biggest patch size by year](figure/Smax_year.png)
 
 
 ## Related papers

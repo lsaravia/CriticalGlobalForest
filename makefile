@@ -1,6 +1,10 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=plos.csl 
 
-all: Appendices.pdf CriticalGF.pdf Outline.pdf
+all: Appendices.pdf CriticalGF.pdf Outline.pdf test_tbl.pdf 
+
+%.pdf:%.md
+	pandoc $< -o $@ -H Appendices.sty
+	evince $@		
 
 Outline.pdf: Outline.md
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
@@ -13,7 +17,7 @@ CriticalGF.pdf: CriticalGF.md margins.sty
 	evince $@		
 
 Appendices.pdf: Appendices.md 
-	pandoc  -V geometry:margin=1cm  --latex-engine=xelatex $^ -o $@
+	pandoc -H Appendices.sty $^ -o $@
 	evince $@		
 
 CriticalGF.docx: CriticalGF.md margins.sty CriticalGF.bib makefile

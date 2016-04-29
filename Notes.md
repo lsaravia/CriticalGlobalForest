@@ -476,3 +476,28 @@ A simple dimensionality argument can be used to show that in the aggregation and
 In contrast, we do find evidence of a critical transition to a megafire regime under extreme drought in rainforests; this phenomenon is likely to determine the time scale of a possible loss of Amazonian rainforest caused by climate change.
 
 In rainforests, we found evidence of a different type of critical phenomenon: critical transitions. If the Amazonian rainforest is to be lost to climate change as some models suggest, the process is likely to take the form of a series of critical transitions.
+
+---------------------
+
+@Vandermeer2008
+
+Although sometimes difficult to measure at large scales, spatial
+pattern is important in natural biological spaces as a determinant
+of key ecological properties such as species diversity, stability,
+resiliency and others 1–6
+
+
+---------------------
+@Klaus2011
+
+For the cluster size distributions in neuronal avalanches, we
+tested the power law model – indicative of long-range spatiotem-
+poral correlations – against the alternative of an exponential
+distribution, which would be expected from uncorrelated, random
+activity (for an identical rate between channels it would be the
+binomial distribution). We also compared the power law to the
+lognormal distribution as both are heavy-tailed, a property that
+can make them difficult to distinguish [15,24–26]. In addition, we
+performed a comparison for the power law with exponential cut-
+off (‘‘truncated’’ power law), the gamma and the inverse Gaussian
+distribution.

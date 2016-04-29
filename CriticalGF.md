@@ -55,9 +55,11 @@ We fitted the empirical distribution of forest patch areas to four distributions
 
 Besides the hard $X_{min}$ limit we set due to discretization, the power-law distribution needs a lower bound for its scaling behaviour. This lower bound is also estimated from the data by maximizing the Kolmogorov-Smirnov (KS) statistic comparing empirical to fitted cumulative distribution function [@Clauset2009]. We also calculate the uncertainty of the parameters using a non-parametric bootstrap method [@Efron1994].
 
-The corrected Akaike Information Criteria ($AIC_c$) and the Akaike weights were computed for each model [@Burnham2002]. Akaike weights ($w_i$) are the weight of  evidence in favor of model $i$ being the actual best model for the situation at hand given that one of the $N$ models must be the best model for that set of N models. 
+The corrected Akaike Information Criteria ($AIC_c$) and the Akaike weights were computed for each model [@Burnham2002]. Akaike weights ($w_i$) are the weight of  evidence in favor of model $i$ being the actual best model for the situation at hand given that one of the $N$ models must be the best model for that set of $N$ models. 
 
-Additionally, we computed the goodness of fit of the power-law model following the bootstrap approach described by Clauset et. al [-@Clauset2009], where simulated data sets following the fitted model are generated, and a p-value equal to the proportion of simulated data sets that has a KS statistic less extreme than empirical data. 
+Additionally, we computed the goodness of fit of the power-law model following the bootstrap approach described by Clauset et. al [-@Clauset2009], where simulated data sets following the fitted model are generated, and a p-value equal to the proportion of simulated data sets that has a KS statistic less extreme than empirical data. The criterion to reject the power law model was $p\le0.1$ but as we have a very large n negligible small deviations could produce a rejection [@Klaus2011], thus we chose a $p\le0.05$ to reject the power law model.  
+
+To test for differences between the fitted power law exponent for regions and subregions we used a weighted linear regression with a residual auto-correlation structure. For this we use a generalized least squares procedures: function gls from package nlme [@Pinheiro2016]. The weights were the bootstraped 95% confidence intervals and we added an auto-regressive model of order 1 to the residuals to account for temporal autocorrelation. 
 
 Image processing were done in MATLAB. All statistical analyses were done using the GNU R [@RCoreTeam2015], using code provided by Cosma R. Shalizi for power law with exponential cutoff model and the poweRlaw package [@Gillespie2015] for fitting the other distributions.
 
@@ -72,22 +74,25 @@ To calculate the fluctuations we first divided $S_{max}$ by the total forest are
 A robust way to detect if the system is near a critical transition is to analyze the increase of variance of the forest's density [@Benedetti-Cecchi2015], the problem is that we cannot determine exactly the total size of the system to calculate the density, and that variance increase appears when we are very close to the transition [@Corrado2014]. An alternative is to analyze the variance of the fluctuations of the largest patch $\sigma_{smax}$, a maximum is attained at the critical point but a significant increase occurs well before the system reach the threshold [@Corrado2014]. We divide the data-set in two parts and use a non-parametric test for a monotonic increase of the variance $\sigma_{smax}$ [@Noguchi2010].  
 
 
-### Estimation of correlation length
-
-To measure the distance to the critical point we estimate the correlation length, [define the correlation length] 
-
-
-
 ## Results
 
-Taking into account the bootstrapped confidence intervals of each power law exponent (\alpha), and the temporal autocorrelation there is no significative differences between the five biggest forest areas.
+The power law model was selected as the best model in most of the cases (Supplementary Figure S1). In a small number of cases the power law with exponential cutoff were selected but the value of the parameter $\alpha$ was identical to the pure power law (Supplementary table S2). In finite-size systems the power law with exponential cutoff should be the favored model because the power-law is truncated to the size of the system, but here the size of the regions is so large that the cutoff are practically not observed.
+
+There is only one region that does not follow a power law: Eurasia mainland, and it follows a log-normal distribution. The log-normal and power law are both heavy tailed distributions, so they are difficult to distinguish, in our case there are no doubts Akaike weights selected it and the goodness of fit test clearly rejected power laws in all cases (Supplementary table S2). In general the power law model was not rejected in more than 90% of cases by the goodness of fit test. In large forest areas like Africa mainland or South America tropical-subtropical, larger deviations are expected and the rejections rates are higher so the proportion is near 60% (Supplementary Table S4).
+
+Taking into account the bootstrapped confidence intervals of each power law exponent ($\alpha$) and the temporal autocorrelation, there is no significant differences between $\alpha$ of the regions with biggest forest areas---greater than $10\times^{07}$ \si{km^2} (Figure 1 and Supplementary figure S2). And also there is no differences between these regions and the ones with forest areas smaller than $10\times^{07}$ \si{km^2}(Supplementary Table S6). Thus we can talk about global average $\alpha=1.907$.
 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=6in]{figure/PowerExp_gt10e7_year.png}
-\caption{Power law exponents for forest patch distributions at a continental level, with total forest area greater than $10\times^{07}$ \si{km^2}. Dashed horizontal lines are the average of the parameter. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: South east Asia. For EUAS the best model is log-normal but the exponents are included here for comparison.}
-\end{figure}
+
+![Power law exponents for forest patch distributions for regions with total forest area greater than $10\times^{07}$ \si{km^2}. Dashed horizontal lines are the fitted generalized least squares linear model, error bars are 95% confidence intervals estimated by bootstrap resampling. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: South east Asia. For EUAS the best model is log-normal but the exponents are included here for comparison.](figure/PowerExp_gt10e7_year.png)
+
+The annual fluctuations of the largest patch are power law for most of the regions but Eurasia, that are exponential (Supplementary Table S7). This is coincident with the fact that the patch size distribution of Eurasia is log-normal, and with Eurasia has smaller fluctuations than the other regions (Figure 2). Exponential fluctuations are compatible with independent Poisson or Gaussian processes [@VanRooij2013]. The test for an increase in variance of fluctuations gives significant results only for Africa mainland (AF1) and South East Asia (SEAS1). In North America (NA) the variance showed a significant decrease (Figure 3, Supplementary table S8). We repeated the variance test with largest patch sizes in \si{km^2} and the results where identical (Supplementary table S9). 
+
+
+
+![Annual fluctuations of largest patch for regions with total forest area greater than $10\times^{07}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Dashed horizontal lines are averages. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: South east Asia. ](figure/max_patch_prop_year_gt1e7.png)
+
+![Annual fluctuations of largest patch for regions with total forest area greater than $10\times^{07}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Lines are 75%, 50% and 25% quantil regressions, to show if fluctuations were increasing. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: South east Asia. ](figure/Annual_Delta_prop_patch_year_gt1e07.png)
 
 
 ## Discussion
