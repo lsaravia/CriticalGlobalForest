@@ -586,7 +586,7 @@ plot(m1.gls, which=1)
 anova(m1.gls)
 summary(m1.gls)
 
-m0.gls <-gls(par1 ~ region+year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
+m0.gls <-gls(par1 ~ region+year,data=ff,weights = http://www.fromthebottomoftheheap.net/2011/06/10/what-is-ordisurf-doing/http://www.fromthebottomoftheheap.net/2011/06/10/what-is-ordisurf-doing/varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
 anova(m1.gls,m0.gls)
 
 # The final model is with interaction!
@@ -657,8 +657,13 @@ terms.gls <- function(object, ...) {
 K <- diag(length(coef(m1.gls)))[,]
 rownames(K) <- names(coef(m1.gls))[]
 rownames(K)[1] <-"regionAF1"
-#summary(glht(m2.gls, linfct = K) )
 
+# All coefficients = 0
+#
+summary(glht(m1.gls, linfct = K) )
+
+# Build specific contrasts
+#
 contrast.matrix <- rbind("AF vs NA"=K["regionAF1",]+K["regionNA1",]*-1,
 "AF vs SAST"=K["regionAF1",]+K["regionSAST1",]*-1,
 "AF vs SEAS"=K["regionAF1",]+K["regionSEAS1",]*-1,
@@ -675,7 +680,22 @@ contrast.matrix <- rbind("AF vs NA"=K["regionAF1",]+K["regionNA1",]*-1,
 
 summary(glht(m1.gls, contrast.matrix))
 
-#intervals(m1.gls)
+
+# The global average with CI !
+#
+m1.gls <-gls(par1 ~ 1,data=ff,weights = varFixed(~weight), method="REML")
+intervals(m1.gls)
+weighted.mean(ff$par1, ff$weight)
+
+# Bootstrapped CI for the mean
+#
+require(boot)
+
+wemean <- function(dat,i) weighted.mean(dat$par1[i],dat$weight[i])
+myboot <- boot(ff,wemean,R=10000)
+myboot
+boot.ci(myboot)
+
 ```
 
 There is no significative differences between the 5 biggest regions AF NA SAST SEAS EUAS

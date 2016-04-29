@@ -30,32 +30,6 @@
     with $\nu=4/3=1.333$
 
 
-
-
-### Directed percolation
-
-$$\rho^{stat} \sim (p-p_c)^\beta$$
-
-where $\rho^{stat}$ is the stationary density of particles and $\beta=0.583(4)$
-
-The correlation length
-
-
-$\xi_s \propto (h-h_c)^{-\nu_s}$
-
-where $h$ is the control parameter and $\xi_s$ is the correlation length in space and $\nu_s=0.733(4)$ is equal to the fractal dimension at the threshold.
- 
-
-Numbers in parentheses denote statistical uncertainties in the last figure(s)
-
-if we consider an area $A$ which is larger in linear distance than 
-
-$D_f= 1 / \sigma \nu_s=2.968$ 
-
-### Dynamic percolation
-
-Fire forest models belong to this class [@Odor2004], and the collection of exponents is found in [@Munoz1999]
-
 \newpage
 
 ## Tables
@@ -97,12 +71,12 @@ SAST      1     South America, Tropical and subtropical forest up to Mexico
 
 SAT       1     South America, Temperate forest.
 
-SEAS      1     South East Asia, Mainland
+SEAS      1     Southeast Asia, Mainland
 
           2     Philippines
 --------------------------------------------------------------------------
 
-Table: Description of the regions and subregions used.
+Table: Description of the regions and subregions selected to study based on the criteria specified in methods.
 
 
 \newpage
@@ -2190,52 +2164,6 @@ Table: Description of the regions and subregions used.
 
   SAT      1                      LogNorm      -2258.528      53.557      2340    0.205       NA  
 
-  SAT      1                        Exp          0.001          NA        2340    0.000       NA  
-
-  SAT      1       2005   179      Power         1.795          NA        1663    0.578     0.666 
-
-  SAT      1                      PowerExp       1.794         0.000      1663    0.215       NA  
-
-  SAT      1                      LogNorm      -1428.072      42.519      1663    0.207       NA  
-
-  SAT      1                        Exp          0.001          NA        1663    0.000       NA  
-
-  SAT      1       2006   137      Power         1.791          NA        2040    0.571     0.466 
-
-  SAT      1                      LogNorm       -216.146      16.814      2040    0.215       NA  
-
-  SAT      1                      PowerExp       1.791         0.000      2040    0.214       NA  
-
-  SAT      1                        Exp          0.001          NA        2040    0.000       NA  
-
-  SAT      1       2007   227      Power         1.788          NA        1474    0.567     0.661 
-
-  SAT      1                      PowerExp       1.787         0.000      1474    0.217       NA  
-
-  SAT      1                      LogNorm       -157.203      14.479      1474    0.216       NA  
-
-  SAT      1                        Exp          0.001          NA        1474    0.000       NA  
-
-  SAT      1       2008   222      Power         1.795          NA        1385    0.576     0.758 
-
-  SAT      1                      PowerExp       1.795         0.000      1385    0.215       NA  
-
-  SAT      1                      LogNorm       -737.819      30.631      1385    0.209       NA  
-
-  SAT      1                        Exp          0.001          NA        1385    0.000       NA  
-
-  SAT      1       2009   175      Power         1.810          NA        1605    0.576     0.710 
-
-  SAT      1                      PowerExp       1.810         0.000      1605    0.212       NA  
-
-  SAT      1                      LogNorm       -383.030      21.965      1605    0.212       NA  
-
-  SAT      1                        Exp          0.001          NA        1605    0.000       NA  
-
-  SAT      1       2010   163      Power         1.759          NA        1718    0.481     0.446 
-
-  SAT      1                      LogNorm       -36.901        7.660      1718    0.329       NA  
-
   SAT      1                      PowerExp       1.759         0.000      1718    0.190       NA  
 
   SAT      1                        Exp          0.001          NA        1718    0.000       NA  
@@ -2513,57 +2441,10 @@ Table: Description of the regions and subregions used.
   SEAS     2                        Exp          0.001          NA         527    0.000       NA  
 ---------------------------------------------------------------------------------------------------
 
-Table: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 South East Asia mainland; SEAS2 Philippines
+Table: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
 
 \newpage
 
------------------------------------
- Region   Subregion  $\alpha$ $x_{min}$ 
--------- ----------- ------- ------
-   AF         1       1.926  402.2 
-
-   AF         2       1.925  273.8 
-
-  EUAS        1       1.927  430.7 
-
-  EUAS        2       1.855  141.7 
-
-  EUAS        3       1.987  282.3 
-
-   NA         1       1.963  415.2 
-
-   NA         5       1.982  155.3 
-
-   OC         1       1.867  355.8 
-
-   OC         2       1.938  145.0 
-
-   OC         3       1.890  216.6 
-
-   OC         4       1.901  214.7 
-
-   OC         5       1.961  103.1 
-
-   OC         6       1.893  216.5 
-
-   OC         7       1.830  186.5 
-
-   OC         8       1.952  132.3 
-
-  SAST        1       1.990  476.0 
-
-  SAST        2       1.783  187.5 
-
-  SAT         1       1.799  225.1 
-
-  SEAS        1       1.881  421.0 
-
-  SEAS        2       1.879  133.3 
------------------------------------
-
-Table: Average Power law exponents of patch size distribution averaged by region and subregion
-
-\newpage
 
 -------------------------------------------
  Region   Subregion    Proportion of 
@@ -2696,7 +2577,7 @@ Factors                      Value   Std.Error   t-value   p-value
    regionSEAS2:year      0.00682    0.002602     2.621   0.009276 
 ------------------------------------------------------------------
 
-Table: Generalized least squares fit by maximizing the restricted log-likelihood (REML). Model: $\alpha$ ~ region * year. Weighted by the $\alpha$ 95% confidence intevals obtained by bootstraping. Correlation structure: auto-regressive model of order 1 AR(1). 
+Table: Generalized least squares fit by maximizing the restricted log-likelihood (REML). Model: $\alpha$ ~ region * year. Weighted by the $\alpha$ 95% confidence intevals obtained by bootstraping. Correlation structure: auto-regressive model of order 1 AR(1). Labels of regions are explained in table S1.
 
 
 \newpage
@@ -2731,7 +2612,7 @@ SEAS1:year vs SAST1:year == 0                       0.0001       0.0014       0.
 Regions>1e07 km vs Regions<1e07 ==0                64.3473      30.2796       2.13     0.16
 --------------------------------------------------------------------------------------------
 
-Table: Simultaneous Tests for General Linear Hypotheses, for regions with forest areas greater than $10\times^{07}$ km^2^
+Table: Simultaneous Tests for General Linear Hypotheses, for regions with forest areas greater than $10^{7}$ km^2^, and all regions greater than $10^{7}$ km^2^ versus regions with less forest area. These big regions are AF1, NA1, SAST1, and SEAS1; EUAS1 is excluded because power law was not the best model.  The region's labels are as in table S1.
  
 \newpage
 
@@ -2860,7 +2741,7 @@ Table: Simultaneous Tests for General Linear Hypotheses, for regions with forest
   SEAS        2    LogNorm   -1.655  0.466  0.1177     7      0.084     0.4154
 ------------------------------------------------------------------------------
 
-Table: Model selection of annual fluctuation of maximum patch. The maximum patch area was divided by total patch area to discard external factors that affect the forest patches.
+Table: Model selection of annual fluctuation of largest patch. The largest patch area was divided by total patch area to discard external factors that affect the forest patches. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
 
 \newpage
 
@@ -2965,10 +2846,10 @@ Table: Test of increasing/decreasing variance for annual fluctuations of largest
 
 ## Supplementary figures
 
-![Proportion of best models selected for patch size distributions using the Akaike criterion. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 South East Asia mainland; SEAS2 Philippines.](figure/ProportionSelModel.png)
+![Proportion of best models selected for patch size distributions using the Akaike criterion. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/ProportionSelModel.png)
 
-![Power law exponents for forest patch distributions by year, The plot shows the fitted parameter and 95% confidence intervals estimated by bootstrap resampling. Dashed lines are the fitted generalized least squares linear model. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 South East Asia mainland; SEAS2 Philippines.](figure/PowerExp_Xmin_year.png)
+![Power law exponents for forest patch distributions by year, The plot shows the fitted parameter and 95% confidence intervals estimated by bootstrap resampling. Dashed lines are the fitted generalized least squares linear model. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/PowerExp_Xmin_year.png)
 
-![Annual fluctuations of largest patch for regions with total forest area less than $10\times^{07}$ km^2^. The patch sizes are relativized to the total forest area for that year. Dashed horizontal lines are averages. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 South East Asia mainland; SEAS2 Philippines.](figure/max_patch_prop_year_ls1e7.png)
+![Annual fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year. Dashed horizontal lines are averages. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/max_patch_prop_year_ls1e7.png)
 
 # References
