@@ -383,6 +383,12 @@ At a broad scale, however, fire spread depends on the continuity of the grass la
 
 @Pardini2010 Beyond the Fragmentation Threshold Hypothesis: Regime Shifts in Biodiversity Across Fragmented Landscapes
 
+we found strong evidence for our model predictions - that patch-
+area effects are evident only at intermediate levels of total forest cover, where landscape diversity is still high and
+opportunities for enhancing biodiversity through local management are greatest. Furthermore, high levels of forest loss can
+push native biota through an extinction filter, and result in the abrupt, landscape-wide loss of forest-specialist taxa,
+ecological resilience and management effectiveness.
+
 ----------------
 	
 @Hirota2011 Global Resilience of Tropical Forest and Savanna to Critical Transitions
@@ -501,3 +507,9 @@ can make them difficult to distinguish [15,24–26]. In addition, we
 performed a comparison for the power law with exponential cut-
 off (‘‘truncated’’ power law), the gamma and the inverse Gaussian
 distribution.
+
+---------------------
+
+@Ochoa-Quintero2015
+
+Our most striking finding was evidence of a threshold response in the relationship between levels of forest cover and species richness of sampled taxa. Although the existence of thresholds in ecological responses to landscape change has been contested (Lindenmayer & Luck 2005), the existence of a similar nonlinear pattern in both direct observation and interview-based data strengthens the case for our result being a real effect. We also found very similar results when analyzing a subset of individual threatened species (Supporting Information). Nonlinear responses of biodiversity to landscape-level deforestation have also been found by others. For example, working in an already heavily fragmented region of southeast Australia, Radford et al. (2005) found a threshold change in species richness at about 10% forest cover, and Pardini et al. (2010) and Martensen et al. (2012) reported thresholds comparable to our findings from Rondonia of about 30% forest cover in studies of small mammals and ant-birds in the Atlantic Forest.
