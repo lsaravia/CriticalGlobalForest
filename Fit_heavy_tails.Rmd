@@ -792,10 +792,11 @@ require(quantreg)
 # Calculte some deltas
 # 
 pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_patch), 
-											  prop_max_patch=max_patch/total_patch_area,
-											  delta_max_patch=max_patch-mean_max_patch,
-											  delta_year_patch=max_patch-lag(max_patch,order_by=year),
-											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)		
+											  prop_max_patch=max_patch/total_patch_area,  # Max patch proportion
+											  delta_max_patch=max_patch-mean_max_patch,   # Delta max patch
+											  delta_prop_max_patch=delta_max_patch/total_patch_area, # Delta max patch proportion
+											  delta_year_patch=max_patch-lag(max_patch,order_by=year), 
+											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)
 											) %>% select(-data_set_name)
 
 #pstat$ <- mutate(pstat,delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year))
@@ -806,7 +807,7 @@ pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_pat
 #
 ff1 <- filter(pstat,total_patch_area>1e7)
 pd <-position_dodge(.3)
-g <- ggplot(ff1, aes(y=max_patch/total_patch_area,x=year,colour=region)) +  theme_bw() +
+g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=region)) +  theme_bw() +
 	geom_point(shape=19,position=pd) 
 
 ff2<- group_by(ff1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
@@ -814,52 +815,40 @@ ff2<- group_by(ff1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=me
 g + ylab("Largest patch proportion")  +scale_colour_brewer(palette="Set1",name="Region") +
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
 
-
 ggsave("figure/max_patch_prop_year_gt1e7.png",width=6,height=6,units="in",dpi=600)
+
+#
+# Total forest patch area
+#
+g <- ggplot(ff1, aes(y=total_patch_area,x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19,position=pd) 
+g + ylab(expression(Total~patch~area~km^2))  +scale_colour_brewer(palette="Set1",name="Region") +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mtotpatch,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
+ggsave("figure/total_patch_year_gt1e7.png",width=6,height=6,units="in",dpi=600)
+
 
 #
 # Max patch/total patch area plot less than 1e7 Km2
 #
 ff1 <- filter(pstat,total_patch_area<1e7) %>% mutate(region1=paste0(region,subregion))
 
-g <- ggplot(ff1, aes(y=max_patch/total_patch_area,x=year,colour=region)) +  theme_bw() +
+g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=region)) +  theme_bw() +
 	geom_point(shape=19,size=1) +  facet_wrap(~region1)
 
 ff2<- group_by(ff1,region1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
-
-g + ylab("Largest patch proportion")  +scale_colour_brewer(palette="Set1",name="Region") +
+g + ylab("Largest patch proportion")  +scale_colour_brewer(palette="Set1",name="Region",guide=F) +
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=seq(2000,2014,2))
 
 ggsave("figure/max_patch_prop_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
 
 
-#ff1<-filter(pstat, total_patch_area>1e7,delta_year_patch<0) 
+g <- ggplot(ff1, aes(y=total_patch_area,x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~region1) 
+g + ylab(expression(Total~patch~area~km^2))  +scale_colour_brewer(palette="Set1",name="Region",guide=F) +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mtotpatch,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
 
-#
-# Annual fluctuations of maximun patch vs proportion of max patch/total patch area
-#
-#
-# Areas greater than 10000000 km2
-#
-# ff1<-filter(pstat, total_patch_area>1e7,!is.na(delta_year_patch))
-# 
-# 
-# g <- ggplot(ff1, aes(y=delta_year_prop_patch,x=prop_max_patch,colour=region)) +  theme_bw() +
-# 	geom_point(shape=19) 
-# g + ylab("Annual fluctuation of Maximun patch")  +scale_colour_brewer(palette="Set1",name="Region") +
-# 	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile(quantiles = 0.5)
-# 
-# ggsave("figure/Annual_Delta_max_patch_prop_gt1e07.png",width=6,height=4,units="in",dpi=600)
-# 
-# 
-# #
-# # Total patch area less than 1e07
-# #
-# ff1<-filter(pstat, total_patch_area<1e7,!is.na(delta_year_patch)) 
-# g <- ggplot(ff1, aes(y=delta_year_prop_patch,x=prop_max_patch,colour=subregion)) +  theme_bw() +
-# 	geom_point(shape=19,size=1) + facet_wrap(~region)
-# g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
-# 	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile(quantiles = 0.5)
+
+ggsave("figure/total_patch_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
 
 
 #
@@ -872,7 +861,7 @@ ggsave("figure/max_patch_prop_year_ls1e7.png",width=8,height=8,units="in",dpi=60
 ff1<-filter(pstat, total_patch_area>1e7) 
 
 #
-# Absolute fluctuatios
+# Absolute Annual fluctuatios
 #
 g <- ggplot(ff1, aes(y=abs(delta_year_patch),x=year,colour=region)) +  theme_bw() +
 	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
@@ -890,16 +879,16 @@ group_by(ff1,region,subregion) %>%
 group_by(ff1,region,subregion) %>% 
 	do(data.frame(t(coef(summary(rq(abs(delta_year_patch)~year,data=.,tau=c(.75)),se="boot",R=999))[2,])))
 
+#
+# Annual Fluctuations in proportion of total patch area
+#
 
 g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=region)) +  theme_bw() +
 	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
 g + ylab(expression(Delta~year~Largest~Patch/Total~area))  +scale_colour_brewer(palette="Set1",name="Region",guide=F) + stat_quantile() +
 	theme(axis.text.x = element_text(angle=90,hjust=0)) #+ geom_crossbar(aes(ymax = abs(delta_year_patch), ymin = 0)) 
-ggsave("figure/Annual_Delta_prop_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
+ggsave("figure/Annual_Delta_prop_patch_year_gt1e07.png",width=8,height=8,units="in",dpi=600)
 
-
-# Fluctuations in proportion of total patch area
-#
 
 # Test if quantiles are significative
 #
@@ -910,31 +899,78 @@ group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq(abs(delta_yea
 
 group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq(abs(delta_year_prop_patch)~year,data=.,tau=c(.75)),se="boot",R=999))[2,])))
 
+#
+# Fluctuation around the mean propotional to total patch area
+#
+g <- ggplot(ff1, aes(y=(delta_prop_max_patch),x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
+g + ylab("Largest Patch Fluctuations/Total patch area")  +scale_colour_brewer(palette="Set1",name="Region",guide=FALSE) + 
+	stat_quantile(quantiles=c(.10,.50,.90)) +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) #
+    #geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
+ggsave("figure/Delta_prop_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
 
-g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=region)) +  theme_bw() +
-		facet_wrap(~region) #geom_smooth(method = "ml",se=F)
-g + ylab(expression(Delta~Year~Max~Patch~km^2))  +scale_colour_brewer(palette="Set1",name="Region") +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_crossbar(aes(ymax = abs(delta_year_prop_patch), ymin = 0)) 
-#ggsave("figure/Annual_Delta_prop_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
+
+
+# Test if quantiles are significative
+#
+
+qu <-group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="gt1e07")
+
+qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="gt1e07"))
+
+qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="gt1e07"))
 
 
 #
 # Total patch area less than 1e07
 #
-select(ff1,total_patch_area) %>% distinct()
-ff1<-filter(pstat, total_patch_area<1e7, total_patch_area>800000) 
-g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=subregion)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region+subregion)
-g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile()
 
-ff1<-filter(pstat, total_patch_area<800000) 
-g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=subregion)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region+subregion)
-g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region") +
+ff1 <- filter(pstat,total_patch_area<1e7) %>% mutate(region1=paste0(region,subregion))
+
+#
+# Annual delta patch proportion
+#
+
+g <- ggplot(ff1, aes(y=abs(delta_year_prop_patch),x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region1)
+g + ylab("Delta year Maximun patch")  +scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + stat_quantile()
+ggsave("figure/Annual_Delta_prop_patch_year_ls1e07.png",width=8,height=8,units="in",dpi=600)
+
+
+#
+# Fluctuations around the mean 
+#
+g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=region)) +  theme_bw() +
+	geom_point(shape=19) + facet_wrap(~region1)
+g + ylab("Largest Patch Fluctuations/Total patch area") + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) +
+	stat_quantile(quantiles=c(.10,.50,.90))
+	# geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
+ggsave("figure/Delta_prop_patch_year_ls1e07.png",width=8,height=8,units="in",dpi=600)
+
+
+# Test if quantiles are significative generate table
+#
+
+qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="ls1e07"))
+
+qu <- bind_rows(qu, group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="ls1e07"))
+
+qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="ls1e07"))
+names(qu)[4]<-"StdError"
+names(qu)[5]<-"t_value"
+names(qu)[6]<-"p_value"
+
+qu <- arrange(qu,region,subregion) %>% 
+	mutate(Value=round(Value,6),StdError=round(StdError,6),t_value=round(t_value,6),p_value=round(p_value,5))
+
+pandoc.table(qu)
 
 rm(ff1,fff,ff2)
+
+
 
 save.image()
 
@@ -945,11 +981,21 @@ save.image()
 ```{r fitMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
 
 #
+# Skewness 
+#
+ff1<-filter(pstat, total_patch_area>1e7)
+require(fitdistrplus)
+ku <-do(ff1,dmp_skewness=descdist(.$delta_max_patch, discrete=FALSE, boot=500)$skewness)
+ku <-do(ff1,dmpp_skewness=descdist(.$delta_max_patch/.$total_patch_area, discrete=FALSE, boot=500)$skewness)
+
+# Evaluate Gumbel or Frechet distributions???????????????
+
+#
 # Fit to power law exponential and lognormal distributions
 #
+ff1<-filter(pstat, total_patch_area>1e7) %>%  mutate(delta_max_patch=abs(delta_year_prop_patch)) %>% filter(!is.na(delta_year_patch))
 
-ff1<-filter(pstat, total_patch_area>1e7) %>% mutate(delta_max_patch=abs(delta_year_prop_patch)) %>% filter(!is.na(delta_year_patch))
- 
+
 fit_delta<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)) %>% arrange(AICc)
 #fit_delta1<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,0.0001)) %>% arrange(AICc)
 
@@ -976,7 +1022,7 @@ g <- ggplot(ff2, aes(y=delta_year_patch,x=as.factor(year),colour=region)) +  the
 	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
 g + ylab("Annual fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=region),linetype = 2) 
-ggsave("figure/Annual_abs_Delta_max_patch_year_gt1e07.png",width=8,height=6,units="in",dpi=600)
+#ggsave("figure/Annual_abs_Delta_max_patch_year_gt1e07.png",width=8,height=6,units="in",dpi=600)
 
 g + ylab("Annual fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=region),linetype = 2) 
@@ -996,11 +1042,11 @@ g + ylab("Annual fluctuations Max Patch") + xlab("year") +scale_colour_brewer(pa
 ```{r varMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
 require(lawstat)
 
-# Regions with total patch area greater than 1e07 km2
+# All Regions 
 #
 names(pstat)
 # Split in groups of 7 years
-ff1<-filter(pstat, total_patch_area>1e7) %>% group_by(region,subregion) %>% mutate(period=rep(1:2,each=8,length.out=15))
+# 
 
 ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:2,each=8,length.out=15))
 
@@ -1013,8 +1059,9 @@ do(ff1, data.frame(matrix(aggregate(delta_year_prop_patch~period,data=.,FUN=var)
 
 # Check autocorrelations
 #
-do(ff1,data.frame(matrix(acf(.$delta_year_prop_patch,plot=F)$acf,nrow=1))
-)
+dev.off()
+do(ff1,data.frame(matrix(acf(.$delta_year_prop_patch,plot=T)$acf,nrow=1)))
+
 # p-value is 1.96/sqrt(T-lag)= 0.565803 (lag 2)
 
 # Fluctuations in max patch proportions
@@ -1080,6 +1127,32 @@ ff3<-do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,tail="left",boo
 names(ff3)[3] <- "Decrease"
 
 pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
+
+
+# Fluctuation in absolute max patch area 
+#
+ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:3,each=5,length.out=15),delta_prop_max_patch=)
+
+# Check for autocorrelations
+#
+do(ff1,data.frame(matrix(acf(.$delta_max_patch,plot=T)$acf,nrow=1)))
+
+ff2 <- do(ff1, data.frame(lnested.test(.$delta_max_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
+
+names(ff2)[3] <- "Increase"
+#   region subregion   p.value
+# 1     AF         1 0.0370370
+# 2   EUAS         1 0.0820821
+# 3     NA         1 0.9969970
+# 4   SAST         1 0.5245245
+# 5   SEAS         1 0.0270270
+
+ff3<-do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,tail="left",bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
+
+names(ff3)[3] <- "Decrease"
+
+pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
+
 
 
 ```
