@@ -93,9 +93,7 @@ The annual fluctuations of the largest patch are power law for biggest regions e
 
 The test for an increase in variance of fluctuations gives significant results only for Africa mainland (AF1) and Southeast Asia (SEAS1). In North America (NA) the variance showed a significant decrease (Figure 3, Supplementary table S7). We repeated the variance test with absolute largest patch sizes in \si{km^2} and the results where identical (Supplementary table S8). 
 
-![Annual fluctuations of largest patch for regions with total forest area greater than $10^{7}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Dashed horizontal lines are averages. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/max_patch_prop_year_gt1e7.png)
-
-![Annual fluctuations of largest patch for regions with total forest area greater than $10^{7}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Lines are 75%, 50% and 25% quantil regressions, to show if fluctuations were increasing. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/Annual_Delta_prop_patch_year_gt1e07.png)
+![Largest patch fluctuations for regions with total forest area greater than $10^{7}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Dashed lines are 90%, 50% and 10% quantil regressions, to show if fluctuations were increasing. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/Delta_prop_patch_year_gt1e07.png)
 
 
 ## Discussion
