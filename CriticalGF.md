@@ -43,7 +43,7 @@ where $n_s(p)$ is the number of patches of size $s$. The exponent $\tau$ does no
 
 ### Area definition
 
-We choose mainland zones at a continental scale to analyze based in the possibility of connection, close patches of continuous forest must connect the region, big islands like Madagascar were included as a separate regions, smaller islands where not included, we considered big islands connected to the mainland when they are at 1 km or less distance away. With this criteria we defined three regions in America, one corresponding to South America temperate forest (SAT), another to subtropical and tropical forest up to Mexico (SAST), and the last covering USA and Canada forest (NA). Europe and north Asia were all connected and they are included in one region (EUAS), the other regions are south Asia (SEAS), Africa (AF), and Australia and islands (OC) (Appendix figure S1).      
+We choose mainland zones at a continental scale to analyze based in the possibility of connection, close patches of continuous forest must connect the region, big islands like Madagascar were included as a separate regions, smaller islands where not included, we considered big islands connected to the mainland when they are at 1 km or less distance away. With this criteria we defined three regions in America, one corresponding to South America temperate forest (SAT), another to subtropical and tropical forest up to Mexico (SAST), and the last covering USA and Canada forest (NA). Europe and north Asia were all connected and they are included in one region (EUAS), the other regions are south Asia (SEAS), Africa (AF), and Australia and islands (OC) (Supplementary figure S1-S6).      
 
 To define patches we use the MODerate-resolution Imaging Spectroradiometer (MODIS) Vegetation Continuous Fields (VCF) Tree Cover dataset. This dataset is produced at 250-meters resolution, globally from 2000 to 2014, we used the version 051 [@DiMiceli2015]. There are several definition of forest [@Sexton2015], but we choose a 30% threshold to convert the percentage tree cover to a binary image of forest and non-forest pixels. This was the definition used by the United Nations’ International Geosphere-Biosphere Programme [@Belward1996], and studies of global fragmentation [@Haddad2015]. Patches of contiguous forest were determined in the binary image by grouping connected pixels using a neighborhood of 8 forest units (Moore neighborhood). We set a minimal patch size ($X_{min}$) at nine pixels to avoid artifacts at patch edges due to discretization. 
 
@@ -67,40 +67,92 @@ Image processing were done in MATLAB. All statistical analyses were done using t
 
 ### Largest patch dynamics
 
-The largest patch is the one that connects the highest number of sites in the area, it has been used extensively to indicate fragmentation [@Ochoa-Quintero2015; @Gardner2007]. The relation of the size of the largest patch $S_{max}$ with critical transitions has been extensively studied in relation to percolation phenomena [Bazant2000;Botet2004;@Stauffer1994], but seldom used in ecological studies (but see [-@Gastner2009]). When we are in a connected state ($p>p_c$) the landscape is almost insensitive to removal of a small fraction of forest, but close to the critical point the removal of small areas can have an important effects [@Sole2006; @Oborny2007]. At this point the largest patch will have a filamentary structure, thus extended forest areas will be connected by thin threads, thus small losses could produce big fluctuations. 
+The largest patch is the one that connects the highest number of sites in the area, it has been used extensively to indicate fragmentation [@Ochoa-Quintero2015; @Gardner2007]. The relation of the size of the largest patch $S_{max}$ with critical transitions has been extensively studied in relation to percolation phenomena [Bazant2000;Botet2004;@Stauffer1994], but seldom used in ecological studies (but see [-@Gastner2009]). When we are in a connected state ($p>p_c$) the landscape is almost insensitive to removal of a small fraction of forest, but close to the critical point the removal of small areas can have an important effects [@Sole2006; @Oborny2007]. At this point the largest patch will have a filamentary structure, extended forest areas will be connected by thin threads, thus small losses could produce big fluctuations. 
 
 (Figure Showing filamentary structure of patches)
 
-We first calculate the proportion of the largest patch over total patch area, dividing $S_{max}$ by the total forest area for this year. 
-We calculate the fluctuations around the mean with the absolute values $\Delta S_{max}=S_{max}(t)-\langle S_{max} \rangle$, and also using the proportions of $S_{max}$. 
+Thus one way to evaluate the fragmentation of the forest is to calculate the proportion of the largest patch against the total area, as is very difficult to evaluate the total area that the forest could potentially occupy we use the total forest area.  Thus we calculate the proportion of the largest patch, dividing $S_{max}$ by the total forest area for this year: $RS_{max} = S_{max}/\sum_{i}S_i$. When the proportion $RS_{max}$ is big (more than 60%) the largest patch structure is more compact and the critical fragmentation threshold is probably far away. When this proportion is low, 20% or less we are probably in fragmented state.  
 
-To characterize the fluctuations we fitted three empirical distributions: power-law, log-normal, and exponential; using the same methods described previously. We expect that large fluctuation near a critical point have heavy tails (log-normal or power-law) and that fluctuations far from a critical point have exponential tails, corresponds to Gaussian processes. As the data set spans 15 years we have do not have enough power to reliably detect which distribution is better [@Clauset2009]. To improve this we performed the goodness of fit test described above for all the distributions. 
+We calculate the fluctuations around the mean with the absolute values $\Delta S_{max}=S_{max}(t)-\langle S_{max} \rangle$, and also using the proportions of $RS_{max}$. To characterize the fluctuations we fitted three empirical distributions: power-law, log-normal, and exponential; using the same methods described previously. We expect that large fluctuation near a critical point have heavy tails (log-normal or power-law) and that fluctuations far from a critical point have exponential tails, corresponds to Gaussian processes. As the data set spans 15 years we have do not have enough power to reliably detect which distribution is better [@Clauset2009]. To improve this we performed the goodness of fit test described above for all the distributions. 
 
-A robust way to detect if the system is near a critical transition is to analyze the increase of variance of the forest's density [@Benedetti-Cecchi2015], the problem is that the variance increase appears when we are very close to the transition [@Corrado2014]. An alternative is to analyze the variance of the fluctuations of the largest patch $\Delta_{smax}$, a maximum is attained at the critical point but a significant increase occurs well before the system reach the threshold [@Corrado2014]. Also before the critical fragmentation the skewness of the distribution of $\Delta_{smax}$ should be negative. We characterized the increase in the variance using quantile regression: if variance is increasing the slopes of upper or/and lower quartiles should be positive or negative. Another characterization of We divide the data-set in two parts and use a non-parametric test for a monotonic increase of the variance $\sigma_{smax}$ [@Noguchi2010].  
+A robust way to detect if the system is near a critical transition is to analyze the increase of variance of the forest's density [@Benedetti-Cecchi2015], the problem is that the variance increase appears when we are very close to the transition [@Corrado2014]. An alternative is to analyze the variance of the fluctuations of the largest patch $\Delta S_{max}$, a maximum is attained at the critical point but a significant increase occurs well before the system reach the threshold [@Corrado2014]. Also before the critical fragmentation the skewness of the distribution of $\Delta_S{max}$ should be negative. We characterized the increase in the variance using quantile regression: if variance is increasing the slopes of upper or/and lower quartiles should be positive or negative.   
 
 ## Results
 
-The power law model was selected as the best model in most of the cases (Supplementary Figure S1). In a small number of cases the power law with exponential cutoff were selected but the value of the parameter $\alpha$ was identical to the pure power law (Supplementary table S2). In finite-size systems the power law with exponential cutoff should be the favored model because the power-law is truncated to the size of the system, but here the size of the regions is so large that the cutoff are practically not observed.
+The power law distribution was selected as the best model in most of the cases (Supplementary Figure S7). In a small number of cases (4 of 300) the power law with exponential cutoff was selected but the value of the parameter $\alpha$ was similar by $\pm 0.02$ to the pure power law so we use the power law parameters (See Supplementary data, region EUAS3). In finite-size systems the power law with exponential cutoff should be the favored model because the power-law is truncated to the size of the system [@Stauffer1994], but here the size of the regions is so large that the cutoff are practically not observed .
 
-There is only one region that does not follow a power law: Eurasia mainland, and it follows a log-normal distribution. The log-normal and power law are both heavy tailed distributions, so they are difficult to distinguish, in our case there are no doubts Akaike weights selected it and the goodness of fit test clearly rejected power laws in all cases (Supplementary table S2). In general the power law model was not rejected in more than 90% of cases by the goodness of fit test. In large forest areas like Africa mainland or South America tropical-subtropical, larger deviations are expected and the rejections rates are higher so the proportion is near 60% (Supplementary Table S3).
+There is only one region that does not follow a power law: Eurasia mainland, and it follows a log-normal distribution. The log-normal and power law are both heavy tailed distributions, so they are difficult to distinguish, in our case there are no doubts: Akaike weights have values near 1, this means that this is the only possible model. Additionally the goodness of fit tests clearly rejected the power law model in all cases (Supplementary table S1). In general the power law model was  rejected by the goodness of fit test in less than 10% of cases. In large forest areas like Africa mainland (AF1) or South America tropical-subtropical (SAST1), larger deviations are expected and the rejections rates are higher so the proportion is 30% or less (Supplementary Table S1).
 
-Taking into account the bootstrapped confidence intervals of each power law exponent ($\alpha$) and the temporal autocorrelation, there is no significant differences between $\alpha$ of the regions with biggest forest areas---greater than $10^{7}$ \si{km^2} (Figure 1 and Supplementary figure S2). And also there is no differences between these regions and the ones with forest areas smaller than $10^{7}$ \si{km^2}(Supplementary Table S4 & S5). Thus we can talk about global average $\alpha=1.908$ with a bootstrapped 95% confidence interval 1.898 - 1.920.
-
+Taking into account the bootstrapped confidence intervals of each power law exponent ($\alpha$) and the temporal autocorrelation, there is no significant differences between $\alpha$ for the regions with biggest forest areas---greater than $10^{7}$ \si{km^2} (Figure 1 and Supplementary figure S8). And also there is no differences between these regions and the ones with forest areas smaller than $10^{7}$ \si{km^2}(Supplementary Table S2 & S3). Thus we can talk about global average $\alpha=1.908$ with a bootstrapped 95% confidence interval between 1.898 and 1.920.
 
 ![Power law exponents for forest patch distributions for regions with total forest area greater than $10^{7}$ \si{km^2}. Dashed horizontal lines are the fitted generalized least squares linear model, error bars are 95% confidence intervals estimated by bootstrap resampling. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. For EUAS the best model is log-normal but the exponents are included here for comparison.](figure/PowerExp_gt10e7_year.png)
 
-The annual fluctuations of the largest patch are power law for biggest regions except for Eurasia, that follows an exponential distribution (Supplementary Table S6). This is coincident with the facts that the patch size distribution for Eurasia is log-normal, and with the fact that Eurasia has smaller fluctuations than the other regions (Figure 2). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. Other regions with exponential fluctuations are Japan (EUAS2), the Northern Island of New Zealand (OC8) and the Philippines (SEAS2), but in all these cases the patch size distributions are power law. In these cases the power law distributions could be caused by a different mechanism than percolation, probably a facilitation process is acting [@Manor2008a].  
 
-The test for an increase in variance of fluctuations gives significant results only for Africa mainland (AF1) and Southeast Asia (SEAS1). In North America (NA) the variance showed a significant decrease (Figure 3, Supplementary table S7). We repeated the variance test with absolute largest patch sizes in \si{km^2} and the results where identical (Supplementary table S8). 
+We made all the analysis of the fluctuations of the largest patch relative to total forest area $\Delta RS_{max}$ and absolute fluctuations $\Delta S_{max}$. The model selection for $\Delta S_{max}$ results in power laws distributions for all regions (Supplementary table S6). The goodness of fit test (GOF) did not reject power laws in any case, but either can not reject the other models except in a few cases, this is due to the small number of observation we have for this analysis. Analyzing the relative fluctuations there are some differences: Eurasia mainland (EUAS1), New Guinea (OC2), Malaysia (OC3), New Zealand (OC6, OC8) and Java (OC7) all follow an exponential distribution (Supplementary Table S7). We only considered that fluctuations follows a power law when this distribution is selected for both absolute and relative fluctuations. 
 
-![Largest patch fluctuations for regions with total forest area greater than $10^{7}$ \si{km^2}. The patch sizes are relativized to the total forest area for that year. Dashed lines are 90%, 50% and 10% quantil regressions, to show if fluctuations were increasing. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/Delta_prop_patch_year_gt1e07.png)
+The patch size distribution for Eurasia is log-normal and has smaller fluctuations than the other regions (Figure 2). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. The other regions with exponential fluctuations have all a power law patch size distribution. In these could be hypothesized that they are far from the fragmentation threshold thus the largest patch have a more compact structure and small losses do not affect its size so much.  
+
+![Largest patch proportion relative to total forest area for regions with total forest area greater than $10^{7}$ \si{km^2}. The critical point for a random forest is 0.407, The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/max_patch_prop_year_gt1e7.png)
+
+The results of quantile regressions are very similar for $\Delta RS_{max}$ fluctuations and $\Delta S_{max}$ (supplementary table S4). In the biggest regions Africa (AF1) have the upper and lower quantiles significant with negative slopes, but the lower quantile slope is lower so we conclude that negative fluctuations are increasing and this will also increase variance (Figure 2). Eurasia 
+
+![Largest patch fluctuations for regions with total forest area greater than $10^{7} \si{km^2}$. The patch sizes are relativized to the total forest area for that year. Dashed lines are 90%, 50% and 10% quantile regressions, to show if fluctuations were increasing. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/Delta_prop_patch_year_gt1e07.png)
+
+
+-----------------------------------------------------------------------------------------------------------------------
+                                                     Average        Patch      $\Delta RS_{max}$             
+Region   Sub    Description                          $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
+------  ------  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
+AF        1     Africa mainland                        0.36       Power          Power             -1.8630     Incr.
+
+          2     Madagascar                             0.65       Power          Power             -0.2478     No
+
+EUAS      1     Eurasia, Mainland                      0.36       LogNormal      Exp                0.4016     Incr.
+
+          2     Japan                                  0.94       Power          Power              0.0255     No
+
+          3     United Kingdom                         0.07       Power          Power              2.1330     No
+
+NA        1     North America                          0.71       Power          Power             -1.5690     Decr.
+
+          5     Newfoundland                           0.87       Power          Power             -0.7411     No
+
+OC        1     Australia, Mainland                    0.28       Power          Power             0.0685      Incr.
+
+          2     New Guinea                             0.97       Power          Exp               0.1321      Decr.
+
+          3     Malaysia/Kalimantan                    0.97       Power          Exp               -0.9633     No
+
+          4     Sumatra                                0.92       Power          Power             1.3150      Incr.
+
+          5     Celebes                                0.87       Power          Power             -0.3863     No
+
+          6     New Zealand south island               0.76       Power          Exp               -0.6683     No
+
+          7     Java                                   0.38       Power          Exp               -0.1948     No
+
+          8     New Zealand north island               0.75       Power          Exp               0.2940      No
+
+SAST      1     South America, Tropical and            0.68       Power          Power             -2.7760     Incr.
+                subtropical forest up to Mexico
+
+          2     Cuba                                   0.21       Power          Power             0.2751      No
+
+SAT       1     South America, Temperate forest.       0.60       Power          Power            -1.5070      Decr.
+
+SEAS      1     Southeast Asia, Mainland               0.40       Power          Power             3.0030      No
+
+          2     Philippines                            0.54       Power          Power             0.3113      Incr.
+---------------------------------------------------------------------------------------------------------------------
+
+Table: Regions and subregions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, Skewnees was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantil regressions. 
 
 
 ## Discussion
 
 We found that the tropical forest of Africa and the southeast Asia are near a critical fragmentation threshold, this means that the combined influence of human pressures and climate forcings can trigger all the undesired effects of fragmentation in these extended areas. An small but continuous increase in forest loss could produce a biodiversity collapse [@Sole2004c]. When habitat is reduced species population will decline proportionally [@Brook2013]. This happens while the habitat fragments retain connectivity but as habitat reduction continues, the critical threshold is approached and as happens with the largest patch, connectivity will have large fluctuations. This could trigger several effects that act synergically: will enhance populations fluctuations and the possibility of extinctions will raise, this in turn will increase patch isolation that decrease connectivity [@Brook2013]. This positive feedback mechanism will be enhanced when the fragmentation threshold is reached with the result of the loss of most habitat specialist species at a landscape scale [@Pardini2010]. Some authors argue that as species have heterogeneous responses to habitat loss and fragmentation and that as biotic dispersal is limited, the importance of thresholds is limited to local scales or even its existence is defied [@Brook2013]. Fragmentation is by definition a local process that at some point produces an emergent phenomena that spreads over the entire landscape and this could happen even if the area considered is infinite [@Oborny2005]. Thus limited dispersal is no a barrier to a fragmentation threshold that extends its influence to the continental areas considered in this study. To know if these thresholds will sum up and produce a cascading effect to reach a planetary tipping point [@Barnosky2012], we should extend the effects of these changes to know how it will feedback on global land-atmosphere that affect climate change.    
 
-
+Why exponential cut-off are not observed?
 
 End discussing why fragmentation thresholds matters for the application of management efforts. 
 
