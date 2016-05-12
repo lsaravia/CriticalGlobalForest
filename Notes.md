@@ -513,3 +513,26 @@ distribution.
 @Ochoa-Quintero2015
 
 Our most striking finding was evidence of a threshold response in the relationship between levels of forest cover and species richness of sampled taxa. Although the existence of thresholds in ecological responses to landscape change has been contested (Lindenmayer & Luck 2005), the existence of a similar nonlinear pattern in both direct observation and interview-based data strengthens the case for our result being a real effect. We also found very similar results when analyzing a subset of individual threatened species (Supporting Information). Nonlinear responses of biodiversity to landscape-level deforestation have also been found by others. For example, working in an already heavily fragmented region of southeast Australia, Radford et al. (2005) found a threshold change in species richness at about 10% forest cover, and Pardini et al. (2010) and Martensen et al. (2012) reported thresholds comparable to our findings from Rondonia of about 30% forest cover in studies of small mammals and ant-birds in the Atlantic Forest.
+
+
+--------------------
+
+@McKenzie2012
+
+Nature displays power laws in frequency distributions of
+diverse phenomena 1,2 and critical exponents associated with
+phase transitions 3,4 . The latter are well known in thermody-
+namic and other physical systems, but in ecological systems they
+are more problematic to specify because of the complex dependen-
+cies associated with ecological dynamics 5 . Analyses of power-law
+behaviour in ecosystems frequently invoke self-organized criticality
+(SOC) 6,7 to explain how systems evolve to critical points. SOC has
+been suggested as an overarching mechanism for wildfire dynam-
+ics, as realized in a Forest Fire Model 8 (but see Loreto et al. 9 ), but
+it depends entirely on endogenous processes. In contrast, environ-
+mental controls on wildfires are thought to involve both fine-scale
+endogenous controls such as topography and spatial patterns of fuels
+and broader-scale (exogenous) drivers such as climate. We seek here
+to reconcile the potential for criticality to arise in wildfire regimes
+with the need to account for both endogenous and exogenous
+controls on fire spread

@@ -47,6 +47,7 @@ options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit
 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
 options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
+
 ```
 
 
@@ -350,7 +351,7 @@ ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>%
 
 options("scipen"=999, "digits"=4)
 
-#write.table(pandoc.table.return(ta),file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
+write.table(pandoc.table.return(ta),file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
 
 # pandoc.table(ta)
 # 
@@ -1068,11 +1069,16 @@ g + ylab("Fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="
 
 # Check for monotonic increase in variance
 
-I did not report this test due to the presence of autocorrelations
-
+The fligner test and other test for monotonic trends in variances have less power than quantile regression
+Fligner 23%
+monotonic 51%
+quantile 83%
 
 ```{r varMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
 require(lawstat)
+require(quantreg)
+
+
 
 # All Regions 
 #
@@ -1080,7 +1086,7 @@ names(pstat)
 # Split in groups of 7 years
 # 
 
-ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:2,each=8,length.out=15))
+ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:3,each=5,length.out=15))
 
 #ff1<-filter(ff1, !is.na(delta_year_prop_patch))
 
@@ -1127,13 +1133,13 @@ pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=
 
 # Fluctuation in absolute max patch area 
 #
-ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:3,each=5,length.out=15),delta_prop_max_patch=)
+ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:5,each=3,length.out=15))
 
 # Check for autocorrelations
 #
 do(ff1,data.frame(matrix(acf(.$delta_max_patch,plot=T)$acf,nrow=1)))
 
-ff2 <- do(ff1, data.frame(lnested.test(.$delta_max_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
+ff2 <- do(ff1, data.frame(lnested.test(.$delta_prop_max_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
 
 names(ff2)[3] <- "Increase"
 
@@ -1142,8 +1148,6 @@ ff3<-do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,tail="left",boo
 names(ff3)[3] <- "Decrease"
 
 pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
-
-
 
 ```
 
