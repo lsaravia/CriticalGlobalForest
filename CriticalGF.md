@@ -87,10 +87,10 @@ Taking into account the bootstrapped confidence intervals of each power law expo
 
 ![Power law exponents for forest patch distributions for regions with total forest area greater than $10^{7}$ \si{km^2}. Dashed horizontal lines are the fitted generalized least squares linear model, error bars are 95% confidence intervals estimated by bootstrap resampling. The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. For EUAS the best model is log-normal but the exponents are included here for comparison.](figure/PowerExp_gt10e7_year.png)
 
+Proportion of largest patch relative to total forest area $RS_{max}$
 
 We made all the analysis of the fluctuations of the largest patch relative to total forest area $\Delta RS_{max}$ and absolute fluctuations $\Delta S_{max}$. The model selection for $\Delta S_{max}$ results in power laws distributions for all regions (Supplementary table S6). The goodness of fit test (GOF) did not reject power laws in any case, but either can not reject the other models except in a few cases, this is due to the small number of observation we have for this analysis. Analyzing the relative fluctuations there are some differences: Eurasia mainland (EUAS1), New Guinea (OC2), Malaysia (OC3), New Zealand (OC6, OC8) and Java (OC7) all follow an exponential distribution (Supplementary Table S7). We only considered that fluctuations follows a power law when this distribution is selected for both absolute and relative fluctuations. 
 
-The patch size distribution for Eurasia is log-normal and has smaller fluctuations than the other regions (Figure 2). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. The other regions with exponential fluctuations have all a power law patch size distribution. In these could be hypothesized that they are far from the fragmentation threshold thus the largest patch have a more compact structure and small losses do not affect its size so much.  
 
 ![Largest patch proportion relative to total forest area for regions with total forest area greater than $10^{7}$ \si{km^2}. The critical point for a random forest is 0.407, The regions are AF: Africa, EUAS: Eurasia, NA: North America, SAST: South America Subtropical and tropical, SEAS: Southeast Asia. ](figure/max_patch_prop_year_gt1e7.png)
 
@@ -101,29 +101,29 @@ The results of quantile regressions are very similar for $\Delta RS_{max}$ fluct
 
 -----------------------------------------------------------------------------------------------------------------------
                                                      Average        Patch      $\Delta RS_{max}$             
-Region   Sub    Description                          $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
-------  ------  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
-AF        1     Africa mainland                        0.36       Power          Power             -1.8630     Incr.
+Region          Description                          $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
+-------- -----  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
+AF        1     Africa mainland                        0.36       Power          Power             -1.8630     Increase
 
           2     Madagascar                             0.65       Power          Power             -0.2478     No
 
-EUAS      1     Eurasia, Mainland                      0.36       LogNormal      Exp                0.4016     Incr.
+EUAS      1     Eurasia, Mainland                      0.36       LogNormal      Exp                0.4016     Increase
 
           2     Japan                                  0.94       Power          Power              0.0255     No
 
           3     United Kingdom                         0.07       Power          Power              2.1330     No
 
-NA        1     North America                          0.71       Power          Power             -1.5690     Decr.
+NA        1     North America                          0.71       Power          Power             -1.5690     Decrease
 
           5     Newfoundland                           0.87       Power          Power             -0.7411     No
 
-OC        1     Australia, Mainland                    0.28       Power          Power             0.0685      Incr.
+OC        1     Australia, Mainland                    0.28       Power          Power             0.0685      Increase
 
-          2     New Guinea                             0.97       Power          Exp               0.1321      Decr.
+          2     New Guinea                             0.97       Power          Exp               0.1321      Decrease
 
           3     Malaysia/Kalimantan                    0.97       Power          Exp               -0.9633     No
 
-          4     Sumatra                                0.92       Power          Power             1.3150      Incr.
+          4     Sumatra                                0.92       Power          Power             1.3150      Increase
 
           5     Celebes                                0.87       Power          Power             -0.3863     No
 
@@ -133,19 +133,19 @@ OC        1     Australia, Mainland                    0.28       Power         
 
           8     New Zealand north island               0.75       Power          Exp               0.2940      No
 
-SAST      1     South America, Tropical and            0.68       Power          Power             -2.7760     Incr.
+SAST      1     South America, Tropical and            0.68       Power          Power             -2.7760     Increase
                 subtropical forest up to Mexico
 
           2     Cuba                                   0.21       Power          Power             0.2751      No
 
-SAT       1     South America, Temperate forest.       0.60       Power          Power            -1.5070      Decr.
+SAT       1     South America, Temperate forest        0.60       Power          Power            -1.5070      Decrease
 
 SEAS      1     Southeast Asia, Mainland               0.40       Power          Power             3.0030      No
 
-          2     Philippines                            0.54       Power          Power             0.3113      Incr.
----------------------------------------------------------------------------------------------------------------------
+          2     Philippines                            0.54       Power          Power             0.3113      Increase
+------------------------------------------------------------------------------------------------------------------------
 
-Table: Regions and subregions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, Skewnees was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantil regressions. 
+Table: Regions and subregions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, skewness was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantile regressions. 
 
 
 ## Discussion
@@ -153,6 +153,8 @@ Table: Regions and subregions and indicators of closeness to a critical fragment
 We found that the tropical forest of Africa and the southeast Asia are near a critical fragmentation threshold, this means that the combined influence of human pressures and climate forcings can trigger all the undesired effects of fragmentation in these extended areas. An small but continuous increase in forest loss could produce a biodiversity collapse [@Sole2004c]. When habitat is reduced species population will decline proportionally [@Brook2013]. This happens while the habitat fragments retain connectivity but as habitat reduction continues, the critical threshold is approached and as happens with the largest patch, connectivity will have large fluctuations. This could trigger several effects that act synergically: will enhance populations fluctuations and the possibility of extinctions will raise, this in turn will increase patch isolation that decrease connectivity [@Brook2013]. This positive feedback mechanism will be enhanced when the fragmentation threshold is reached with the result of the loss of most habitat specialist species at a landscape scale [@Pardini2010]. Some authors argue that as species have heterogeneous responses to habitat loss and fragmentation and that as biotic dispersal is limited, the importance of thresholds is limited to local scales or even its existence is defied [@Brook2013]. Fragmentation is by definition a local process that at some point produces an emergent phenomena that spreads over the entire landscape and this could happen even if the area considered is infinite [@Oborny2005]. Thus limited dispersal is no a barrier to a fragmentation threshold that extends its influence to the continental areas considered in this study. To know if these thresholds will sum up and produce a cascading effect to reach a planetary tipping point [@Barnosky2012], we should extend the effects of these changes to know how it will feedback on global land-atmosphere that affect climate change.    
 
 Why exponential cut-off are not observed?
+
+The patch size distribution for Eurasia is log-normal and has smaller fluctuations than the other regions of comparable size (Figure 3). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. The other regions with exponential fluctuations have all power law patch size distributions. From these, the ones that have $RS_{max}$ greater than 60% (Table 1) are above the fragmentation threshold thus the largest patch have a more compact structure and small losses do not affect its size so much. There is only one region (OC7, Java) that has $RS_{max}$ below 40%, this is probably in a fragmented state 
 
 End discussing why fragmentation thresholds matters for the application of management efforts. 
 
