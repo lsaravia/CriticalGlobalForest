@@ -26,11 +26,13 @@ One of the most important changes produced in the biosphere is the replacement o
 
 		Fits heavy tail distributions to patch sizes, each chunk takes 3 or 4 days in  AMD FX(tm)-8350 8 processors 3.6Ghz.
 		Makes plots of exponents and Xmin
+		Test a linear model for alpha using generalized least squares (GLS)
 		Extracts maximum patches and fit distributions to the fluctuations. 
 
 
 * Download_modis.Rmd : Code to download and convert to geotiff the MODIS files (MOD44B version 051) 
 
+* Map_study_areas.Rmd : Include study areas in google maps for visualization 
 
 
 ## Folders
