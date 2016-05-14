@@ -1,0 +1,384 @@
+# Generate maps of study areas 
+
+## Setup
+
+```{r setup, eval=T }
+
+oldcd <-getwd()
+require(plyr)
+require(dplyr)
+require(rgdal)
+require(raster)
+require(rworldmap)
+require(dismo)
+rasterOptions(tmpdir="~/Academicos/tmp")
+source("R/map_fun.r")
+
+```
+
+# Generate maps for OC region = Austraila Malasya ...
+
+```{r mapSmaxAF, eval=F }
+
+# Set folder with results for the region 
+#
+options.glo$resultsDir <- "Results/africa"
+options.glo$sample_data <- 0                 # Set >0 For testing
+setwd(options.glo$resultsDir)
+# Generate 10 times aggregated raster files with values=subregion
+#
+oc_reg<-aggregate_top_200_patch()
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^OC.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+oc <-cover(oc,ra_list[[3]])
+oc <-cover(oc,ra_list[[4]])
+oc <-cover(oc,ra_list[[5]])
+oc <-cover(oc,ra_list[[6]])
+oc <-cover(oc,ra_list[[7]])
+oc <-cover(oc,ra_list[[8]])
+writeRaster(oc,filename=("oceania_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+# Load the regions
+oc <-raster("oceania_regions.tif")
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(8,"Dark2")
+plot(oc,col=colvec,legend=F)
+
+crs.si<- crs(oc)
+country.si <- spTransform(countriesLow, crs.si)
+plot(country.si,add=T)
+labelCountries(country.si)
+
+
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+oc_go<-gmap(extent(c(10042219 ,19646634,-7110934,1881964)),type='terrain')
+plot(oc_go)
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# legend outside the plot using a overlay your plot with a transparent plot over the entire device
+#
+# png("oceania_subreg.png",width=6,height=4,units="in",res=600)
+# plot(oc_go)
+# plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+# par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
+# plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+# legend("bottom", legend = c(" 1", " 2"," 3"," 4"," 5"," 6"," 7"," 8"), fill = colvec, 
+# 	   cex = 0.7, inset = 0.9,xpd=T,horiz = T)
+# 
+# dev.off()
+
+# Add legend adding space to the plot 
+#
+png("oceania_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-1900000 ,2000000, legend = c(" 1", " 2"," 3"," 4"," 5"," 6"," 7"," 8"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+```
+
+# Generate maps for Eurasia EUAS
+
+```{r euas_map, eval=T }
+
+# aggregate regions
+oc_reg<-read_region_aggr("EUAS")
+
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^EUAS.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+oc <-cover(oc,ra_list[[3]])
+writeRaster(oc,filename=("eurasia_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+# Load the regions
+oc <-raster("eurasia_regions.tif")
+
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(3,"Dark2")
+plot(oc,col=colvec,legend=F)
+
+crs.si<- crs(oc)
+country.si <- spTransform(countriesLow, crs.si)
+plot(country.si,add=T)
+labelCountries(country.si)
+
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+oc_go<-gmap('europa,rusia',type='terrain')
+#drawExtent()
+oc_go<-gmap(extent(c(-543502,20862421 ,4191507,14161390)),type='terrain')
+plot(oc_go)
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# Add legend adding space to the plot 
+#
+png("eurasia_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-4300000 ,7000000, legend = c(" 1", " 2"," 3"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+
+
+
+```
+
+# Generate maps for Northamerica NA
+
+```{r na_map, eval=F }
+
+oc_reg<-read_region_aggr("NA")
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(5,"Dark2")
+plot(oc,col=colvec,legend=F)
+
+crs.si<- crs(oc)
+country.si <- spTransform(countriesLow, crs.si)
+plot(country.si,add=T)
+labelCountries(country.si)
+
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^NA.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+oc <-cover(oc,ra_list[[3]])
+oc <-cover(oc,ra_list[[4]])
+oc <-cover(oc,ra_list[[5]])
+writeRaster(oc,filename=("northamerica_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+# Load the regions
+oc <-raster("northamerica_regions.tif")
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+#oc_go<-gmap('united states, canada',type='terrain')
+#drawExtent()
+oc_go<-gmap(extent(c(-18588694,-3801013 ,1974620,14898812)),type='terrain')
+plot(oc_go,ext=extent(c(-18588694,-3801013 ,1974620,14898812)))
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# Add legend adding space to the plot 
+#
+png("northamerica_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-3900000 ,10000000, legend = c(" 1", " 2"," 3"," 4"," 5"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+
+
+
+```
+
+# South america SAST/SAT?
+
+```{r sa_map, eval=F }
+
+
+oc_reg<-read_region_aggr("SAT")
+oc_reg<-read_region_aggr("SAST")
+
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^SA.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+ra_list[[3]] <-subs(ra_list[[3]],data.frame(1,3)) # Change the color of the SAT 
+
+oc <-cover(oc,ra_list[[3]])
+writeRaster(oc,filename=("southamerica_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+
+# Load the regions
+oc <-raster("southamerica_regions.tif")
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(3,"Dark2")
+plot(oc,col=colvec,legend=F)
+
+crs.si<- crs(oc)
+country.si <- spTransform(countriesLow, crs.si)
+plot(country.si,add=T)
+labelCountries(country.si)
+
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+oc_go<-gmap('South america',type='terrain')
+plot(oc_go)
+#drawExtent()
+# oc_go<-gmap(extent(c(-18588694,-3801013 ,1974620,14898812)),type='terrain')
+# plot(oc_go,ext=extent(c(-18588694,-3801013 ,1974620,14898812)))
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# Add legend adding space to the plot 
+#
+png("southamerica_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-3000000 ,-4000000, legend = c("SAST 1", "SAST 2","SAS 1"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+
+
+```
+
+# South Asia SEAS
+
+```{r seas_map, eval=F }
+
+oc_reg<-read_region_aggr("SEAS")
+
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^SEAS.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+#ra_list[[3]] <-subs(ra_list[[3]],data.frame(1,3)) # Change the color of the SAT 
+
+writeRaster(oc,filename=("southasia_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+
+# Load the regions
+oc <-raster("southasia_regions.tif")
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(3,"Dark2")
+colvec <- colvec[1:2]
+
+plot(oc,col=colvec,legend=F)
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+#oc_go<-gmap('South asia',type='terrain')
+oc_go<-gmap(extent(c(6915872,13858389 ,-174541,5904657)),type='terrain')
+
+plot(oc_go)
+#drawExtent()
+# plot(oc_go,ext=extent(c(-18588694,-3801013 ,1974620,14898812)))
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# Add legend adding space to the plot 
+#
+png("southasia_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-3000000 ,0, legend = c("1", "2"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+
+setwd(oldcd)
+```
+
+# Africa
+
+```{r af_map, eval=F }
+
+oc_reg<-read_region_aggr("AF")
+
+
+# Generate a composite with all the regions 
+#
+a_files <-list.files(pattern="^AF.*\\.tif$")
+ra_list <- lapply(a_files,raster)
+oc <-cover(ra_list[[1]],ra_list[[2]])
+#ra_list[[3]] <-subs(ra_list[[3]],data.frame(1,3)) # Change the color of the SAT 
+
+writeRaster(oc,filename=("africa_regions.tif"),format='GTiff',datatype='INT1U',overwrite=TRUE)
+
+
+# Load the regions
+oc <-raster("africa_regions.tif")
+
+# Plot in sinusoidal crs
+#
+require(RColorBrewer)
+colvec <- brewer.pal(3,"Dark2")
+colvec <- colvec[1:2]
+
+plot(oc,col=colvec,legend=F)
+
+# Get the base map from google the extent was obtained with drawExtent()
+#
+oc_go<-gmap('Africa',type='terrain')
+#oc_go<-gmap(extent(c(6915872,13858389 ,-174541,5904657)),type='terrain')
+
+plot(oc_go)
+#drawExtent()
+# plot(oc_go,ext=extent(c(-18588694,-3801013 ,1974620,14898812)))
+
+# reproject the regions to mercator
+#
+crs.me<-crs(oc_go)
+oc_me <- projectRaster(oc,crs=crs.me)
+
+# Add legend adding space to the plot 
+#
+png("africa_subreg.png",width=6,height=6,units="in",res=600)
+par(xpd = FALSE,mar=c(5.1, 4.1, 4.1, 4.5))
+plot(oc_go)
+plot(oc_me,col=colvec,legend=F,add=T,alpha=0.8)
+par(xpd = TRUE)
+legend(par()$usr[2]-3000000 ,-4000000, legend = c("1", "2"), fill = colvec, 
+	   cex = 0.7, inset = 0.9)
+dev.off()
+
+setwd(oldcd)
+```
