@@ -14,6 +14,8 @@ Besides in several systems the observation of power laws in the patch distributi
 
 
 Power-law ($\alpha$) exponents less than 2 have infinite variance, in practice this means that the variance will rise with time, and the system is prone to big fluctuations. When $\alpha$ is greater than 2 variance becomes finite and the system, is more stable. If the distribution is lognormal variance is always finite and fluctuations are even less pronounced. 
+
+Another characterization of the phase transition is to consider the probability of finding a percolation patch $P All percolation theory was developed for infinite lattices thus at the critical point $\xi$ becomes infinite, in finite systems  $\xi$ is in the order of the size of the lattice.
   
 If fluctuations of patch dynamics are linear with its size, indicates that positive feedbacks are the most important factor in the patch formation process. A logarithmic dependence indicates that grazing deforestation or other random mortality processes. If fluctuations vary exponentially with their size, is most probable that the patch structure reflects habitat spatial heterogeneity [@Manor2008]
 
