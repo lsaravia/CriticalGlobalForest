@@ -569,3 +569,19 @@ the identification of new transition indicators, including very
 early ones
 
 
+--------------------
+@Hantson2015
+
+At least in some cases, the fire size distribution is better
+described by a log-normal distribution than a power law (Corral
+et al., 2008). It is, however, hard to obtain stable estimates for the
+two parameters of the log-normal distribution from noisy,
+coarse-resolution data over just the upper range of fire sizes. We
+therefore continued to use the power-law, which should not be
+problematic because we only use the upper range of fire sizes for
+our analysis, and small ranges in a log-normal distribution can
+be described by a power law (Pueyo, 2006). 
+Natural landscape fragmentation has also been
+shown to affect fire size distribution, by decreasing the fre-
+quency of large fires (McKenzie & Kennedy, 2012), which is
+probably also the case under human landscape fragmentation.	

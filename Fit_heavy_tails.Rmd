@@ -600,7 +600,10 @@ summary(m1.gls)
 plot(m1.gls, which=1)
 pred <- predict(m1.gls)
 
+pandoc.table(anova(m1.gls))
+
 pandoc.table(summary(m1.gls)$tTable)
+
 # Contrast with relevel
 #
 # ff$region<-as.factor(ff$region)
@@ -635,8 +638,8 @@ ff1<-filter(ff,subregion==1,region!="SAT1",region!="OC1")
 
 g <- ggplot(ff1, aes(x=year,y=par1,colour=region),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
-	scale_colour_brewer(palette="Set1",name="Region",labels=c("AF", "EUAS", "NA","SAST","SEAS")) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0)) + scale_x_continuous(breaks=2000:2014)
-PowerExp_Xmin_year
+	scale_colour_brewer(palette="Set1",name="Region",labels=c("AF1", "EUAS1", "NA1","SAST1","SEAS1")) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0)) + scale_x_continuous(breaks=2000:2014)
+
 g +  geom_line(aes(y=pred),linetype = 2)
 
 ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
@@ -663,7 +666,7 @@ rownames(K)[1] <-"regionAF1"
 
 # All coefficients = 0
 #
-summary(glht(m1.gls, linfct = K) )
+summary(glht(m1.gls, linfct = K))
 
 # Build specific contrasts
 #
@@ -811,14 +814,14 @@ pandoc.table(ff2)
 #
 # Max patch proportion plot greater than 1e7 Km2
 #
-ff1 <- filter(pstat,total_patch_area>1e7)
+ff1 <- filter(pstat,total_patch_area>1e7) 
 pd <-position_dodge(.3)
 g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=region)) +  theme_bw() +
 	geom_point(shape=19,position=pd) 
 
 ff2<- group_by(ff1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
 
-g + ylab(expression(RS[max]))  +scale_colour_brewer(palette="Set1",name="Region") +
+g + ylab(expression(RS[max]))  +scale_colour_brewer(palette="Set1",name="Region",labels=c("AF1", "EUAS1", "NA1","SAST1","SEAS1")) + 
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
 
 ggsave("figure/max_patch_prop_year_gt1e7.png",width=6,height=6,units="in",dpi=600)
@@ -864,7 +867,7 @@ ggsave("figure/total_patch_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
 # Areas greater than 10000000 km2
 #
 
-ff1<-filter(pstat, total_patch_area>1e7) 
+ff1<-filter(pstat, total_patch_area>1e7) %>% ungroup() %>% mutate(region=paste0(region,subregion))
 
 #
 # Fluctuation around the mean relative to total patch area

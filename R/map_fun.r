@@ -153,9 +153,11 @@ gif_top_2_patch_aux_gmap<-function(a_files,df,subreg_ee)
 }
 	
 
-reproject_top_2<-function(rsys)
+reproject_top_2<-function(rsys,a_files="")
 {
-	a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
+	if(a_files=="")
+		a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
+
 	for(i in 1:length(a_files)){
 		a_area <-raster(a_files[i])
 		r_area <- projectRaster(a_area,crs=rsys)

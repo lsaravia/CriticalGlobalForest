@@ -40,7 +40,7 @@
 
 
 
-**Supplementary data Table**: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
+**Supplementary data**: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
 The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions.
 
 
@@ -213,9 +213,49 @@ NA1:year vs SEAS1:year == 0                        -0.0027       0.0014       1.
 SEAS1:year vs SAST1:year == 0                       0.0001       0.0014       0.09     1.00
 
 Regions>1e07 km vs Regions<1e07 ==0                64.3473      30.2796       2.13     0.16
+
+regionAF1:year == 0                                -0.0012       0.0009      -1.28     0.97
+
+regionAF2:year == 0                                 0.0056       0.0022       2.58     0.16
+
+regionEUAS1:year == 0                               0.0023       0.0013       1.74     0.74
+
+regionEUAS2:year == 0                               0.0009       0.0024       0.40     1.00
+
+regionEUAS3:year == 0                              -0.0000       0.0020      -0.01     1.00
+
+regionNA1:year == 0                                -0.0005       0.0013      -0.43     1.00
+
+regionNA5:year == 0                                 0.0021       0.0026       0.79     1.00
+
+regionOC1:year == 0                                 0.0024       0.0017       1.43     0.93
+
+regionOC2:year == 0                                -0.0016       0.0023      -0.68     1.00
+
+regionOC3:year == 0                                 0.0011       0.0022       0.50     1.00
+
+regionOC4:year == 0                                 0.0015       0.0022       0.66     1.00
+
+regionOC5:year == 0                                 0.0036       0.0027       1.31     0.97
+
+regionOC6:year == 0                                -0.0008       0.0022      -0.36     1.00
+
+regionOC7:year == 0                                 0.0049       0.0023       2.08     0.46
+
+regionOC8:year == 0                                 0.0059       0.0025       2.28     0.31
+
+regionSAST1:year == 0                               0.0019       0.0013       1.44     0.92
+
+regionSAST2:year == 0                               0.0018       0.0021       0.85     1.00
+
+regionSAT1:year == 0                               -0.0013       0.0019      -0.71     1.00
+
+regionSEAS1:year == 0                               0.0021       0.0014       1.51     0.89
+
+regionSEAS2:year == 0                               0.0068       0.0026       2.62     0.14
 --------------------------------------------------------------------------------------------
 
-Table: Simultaneous Tests for General Linear Hypotheses, for regions with forest areas greater than $10^{7}$ km^2^, and all regions greater than $10^{7}$ km^2^ versus regions with less forest area. These big regions are AF1, NA1, SAST1, and SEAS1; EUAS1 is excluded because power law was not the best model.  The region's labels are as in table S1.
+Table: Simultaneous Tests for General Linear Hypotheses, for regions with forest areas greater than $10^{7}$ km^2^, all regions greater than $10^{7}$ km^2^ versus regions with less forest area, and if the slopes of $\alpha$s are different from 0 . These big regions are AF1, NA1, SAST1, and SEAS1.  The region's labels are as in table S1.
  
 \newpage
 
@@ -640,7 +680,7 @@ Table: Unbiased estimation of skewness for absolute largest patch fluctuations a
   SEAS        2          Exp        0.001     NA    70895     10      0.000   0.1682
 ------------------------------------------------------------------------------------
 
-Table: Model selection using Akaike criterion for largest patch fluctuations in absolute values (km^2^). The goodness of fit test was made using bootstraping with 999 repetitions, a p-value less than 0.1 is assumed to reject the distribution. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
+Table: Model selection using Akaike criterion for largest patch fluctuations in absolute values (km^2^). The goodness of fit test was made using bootstraping with 999 repetitions, a p-value less than 0.1 is assumed to reject the distribution. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
 
 \newpage
 
@@ -769,7 +809,7 @@ Table: Model selection using Akaike criterion for largest patch fluctuations in 
   SEAS        2        LogNorm     -1.159   0.069   0.2973      5    0.078      0.5215
 --------------------------------------------------------------------------------------
 
-Table: Model selection for fluctuation of largest patch in relative to total forest area. The largest patch area was divided by total patch area to discard external factors that affect the forest patches. The goodness of fit test was made using bootstraping with 999 repetitions, a p-value less than 0.1 is assumed to reject the distribution. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
+Table: Model selection for fluctuation of largest patch in relative to total forest area. The largest patch area was divided by total patch area to discard external factors that affect the forest patches. The goodness of fit test was made using bootstraping with 999 repetitions, a p-value less than 0.1 is assumed to reject the distribution. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
 
 \newpage
 
@@ -781,21 +821,21 @@ Table: Model selection for fluctuation of largest patch in relative to total for
 
 ![Regions and subregions for North America (NA), 1 Mainland, 5 Newfoundland. The other regions have a very small forest cover and were discarded for the analysis](figure/northamerica_subreg.png)
 
-![Regions and subregions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Celebes; 6 New Zealand south island; 7 Java; 8 New Zealand north island](figure/oceania_subreg.png)
+![Regions and subregions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Sulawesi; 6 New Zealand south island; 7 Java; 8 New Zealand north island](figure/oceania_subreg.png)
 
 ![Regions and subregions for South America, SAST1 Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest](figure/southamerica_subreg.png)
 
 ![Regions and subregions for Southeast Asia (SEAS), 1  Mainland; 2 Philippines](figure/southasia_subreg.png)
 
 
-![Proportion of best models selected for patch size distributions using the Akaike criterion. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/ProportionSelModel.png)
+![Proportion of best models selected for patch size distributions using the Akaike criterion. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/ProportionSelModel.png)
 
-![Power law exponents for forest patch distributions by year, The plot shows the fitted parameter and 95% confidence intervals estimated by bootstrap resampling. Dashed lines are the fitted generalized least squares linear model. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/PowerExp_Xmin_year.png)
+![Power law exponents for forest patch distributions by year, The plot shows the fitted parameter and 95% confidence intervals estimated by bootstrap resampling. Dashed lines are the fitted generalized least squares linear model. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/PowerExp_Xmin_year.png)
 
-![Largest patch proportion relative to total forest area $RS_{max}$, for regions with total forest area less than $10^{7}$ km^2^. Dashed lines are averages. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/max_patch_prop_year_ls1e7.png)
+![Largest patch proportion relative to total forest area $RS_{max}$, for regions with total forest area less than $10^{7}$ km^2^. Dashed lines are averages. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/max_patch_prop_year_ls1e7.png)
 
 
-![Fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year. Dashed lines are quantil regressions for 90%, 50% and 10% quantils. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Celebes; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/Delta_prop_patch_year_ls1e07.png)
+![Fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year. Dashed lines are quantil regressions for 90%, 50% and 10% quantils. The regions are the same as table S1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/Delta_prop_patch_year_ls1e07.png)
 
 
 # References

@@ -1,4 +1,4 @@
-# Generate maps of study areas 
+# Generate GIF animations of maximun patch dynamics 
 
 ## Setup
 
@@ -17,7 +17,7 @@ source("R/map_fun.r")
 
 ```
 
-# Generate top 2 patches for africa
+## Generate top 2 patches for africa
 
 ```{r AF_Smax, eval=F }
 
@@ -35,15 +35,30 @@ aggregate_top_200_patch()
 bk<-gmap("Africa")
 plot(bk)
 
+# Reproject the aggregated rasters to mercator
+#
 reproject_top_2(crs(bk))
 
 
 # Generate a list with the extent of subregions
-bk<-gmap(c(" DR Congo"))
+# Interactive crop of the extent
+#
+bk<-gmap("DR Congo",ext=3)
 plot(bk)
 ee <-list(extent(bk))
+
 bk<-gmap("Madagascar")
+plot(bk)
+de<-drawExtent()
+bk <-crop(bk,de)
+plot(bk)
 ee <-c(ee,extent(bk))
+
+# Save region extent for posterior use
+#saveRDS(ee,"extent_na.rds")
+
+# Read regions extent
+ee<-readRDS("extent_na.rds")
 
 gif_top_2_patch(ee)
 
@@ -91,13 +106,17 @@ setwd(options.glo$resultsDir)
 aggregate_top_200_patch()
 
 bk<-gmap("Rusia")
+reproject_top_2(crs(bk))
+
+# Generate regions for GIFs
+#
+bk<-gmap("Rusia")
 plot(bk)
-crs(bk)
 ee<-drawExtent()
 bk<-crop(bk,ee)
+plot(bk)
 ee <-list(extent(bk))
 
-reproject_top_2(crs(bk))
 
 # Generate a list with the extent of subregions
 bk<-gmap("Japan")
@@ -113,6 +132,11 @@ de<-drawExtent()
 bk<-crop(bk,de)
 plot(bk)
 ee <-c(ee,extent(bk))
+
+#saveRDS(ee,"extent_euas.rds")
+
+ee<-readRDS("extent_euas.rds")
+
 
 gif_top_2_patch(ee)
 
@@ -160,14 +184,16 @@ ee<-readRDS("extent_na.rds")
 # subregion 5 need a extent object in position 5 
 ee <-c(ee,ee[[2]],ee[[2]],ee[[2]])
 
-gif_top_2_patch(ee,"c",5)
+gif_top_2_patch(ee,"c")
+
+#gif_top_2_patch(ee,"c",5)
 
 gif_top_2_patch(ee,"g")
 
 # a_files <-list.files(pattern="^.*Percent_Tree_Cover\\.tif_Top_200_forest_patches\\.tif$")
 # a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
 # 
-# r1 <-raster(a_files[16])
+# r1 <-raster(a_files[1])
 # r1 <-crop(r1,ee[[2]])
 # plot(r1)
 
@@ -194,6 +220,89 @@ bk<-gmap("Australia")
 
 reproject_top_2(crs(bk))
 
+# Recover from crash
+# a_f <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
+# 
+# a_f <- a_f[58:length(a_f)]
+# reproject_top_2(crs(bk),a_f)
+
+
+# OC 1
+bk<-gmap("Australia")
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+ee <-list(extent(bk))
+
+# OC 2
+bk<-gmap("Papua New Guinea",exp=2)
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+# OC 3
+bk<-gmap("Kalimantan",exp=2)
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+
+# OC 4
+bk<-gmap("Sumatra",exp=2)
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+# OC 5
+bk<-gmap("Sulawesi",exp=2)
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+
+# OC 6
+bk<-gmap("New Zealand")
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+# OC 7
+bk<-gmap("Java Indonesia")
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+# OC 8 == OC 6 New Zealand
+ee <-c(ee,ee[[6]])
+
+
+#saveRDS(ee,"extent_oc.rds")
+
+ee<-readRDS("extent_oc.rds")
+
+# Generate GIF 
+gif_top_2_patch(ee)
+
+gif_top_2_patch(ee,"g")
+
+# a_files <-list.files(pattern="^.*Percent_Tree_Cover\\.tif_Top_200_forest_patches\\.tif$")
+# a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
+# 
+# r1 <-raster(a_files[106])
+# r1 <-crop(r1,ee[[8]])
+# plot(r1,col=rainbow(2))
 
 setwd(oldcd)
 ```
