@@ -32,19 +32,18 @@
 
 \newpage
 
-## Tables
 
-
-
-\newpage
-
-
+## Data
 
 **Supplementary data**: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
 The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions.
 
+**Gif Animations of largest patch**: These show the temporal dynamics of the two largest patchs for all the regions studied.
 
-\newpage
+
+
+## Tables
+
 
 
 -------------------------------------------

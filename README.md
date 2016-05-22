@@ -32,7 +32,9 @@ One of the most important changes produced in the biosphere is the replacement o
 
 * Download_modis.Rmd : Code to download and convert to geotiff the MODIS files (MOD44B version 051) 
 
-* Map_study_areas.Rmd : Include study areas in google maps for visualization 
+* Map_study_areas.Rmd : Map study areas over google maps for visualization 
+
+* Map_Max_patches.Rmd : Generate gif animations of largest patch dynamics
 
 
 ## Folders

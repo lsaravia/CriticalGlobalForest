@@ -585,3 +585,8 @@ Natural landscape fragmentation has also been
 shown to affect fire size distribution, by decreasing the fre-
 quency of large fires (McKenzie & Kennedy, 2012), which is
 probably also the case under human landscape fragmentation.	
+
+
+-------------------
+
+

@@ -78,7 +78,7 @@ A robust way to detect if the system is near a critical transition is to analyze
 
 ## Results
 
-The power law distribution was selected as the best model in most of the cases (Supplementary Figure S7). In a small number of cases (4 of 300) the power law with exponential cutoff was selected but the value of the parameter $\alpha$ was similar by $\pm 0.02$ to the pure power law so we use the power law parameters (See Supplementary data, region EUAS3). In finite-size systems the power law with exponential cutoff should be the favored model because the power-law is truncated to the size of the system [@Stauffer1994], but here the size of the regions are so large that the cutoff are practically not observed .
+The power law distribution was selected as the best model in most of the cases (Supplementary Figure S7). In a small number of cases (4 of 300) the power law with exponential cutoff was selected but the value of the parameter $\alpha$ was similar by $\pm 0.02$ to the pure power law. Moreover the patch size where the exponential tail begins is very large (determined by the inverse of the exponential decay parameter), thus we use the power law parameters (See Supplementary data, region EUAS3). In finite-size systems the power law with exponential cutoff should be the favored model because the power-law is truncated to the size of the system [@Stauffer1994], but here the size of the regions are so large that the cutoff are practically not observed.
 
 There is only one region that does not follow a power law: Eurasia mainland, and it follows a log-normal distribution. The log-normal and power law are both heavy tailed distributions, so they are difficult to distinguish, in our case there are no doubts: Akaike weights have values near 1, this means that this is the only possible model. Additionally the goodness of fit tests clearly rejected the power law model in all cases (Supplementary table S1). In general the power law model was  rejected by the goodness of fit test in less than 10% of cases. In large forest areas like Africa mainland (AF1) or South America tropical-subtropical (SAST1), larger deviations are expected and the rejections rates are higher so the proportion is 30% or less (Supplementary Table S1).
 
@@ -152,7 +152,7 @@ Table: Regions and subregions and indicators of closeness to a critical fragment
 
 ## Discussion
 
-
+We find that the patch distribution of most of forests of the world including tropical rainforest, boreal and temperate, follow power laws extending to seven orders of magnitude. Power laws have been found for vegetation patches, but never at global scales as we find in this study. Several mechanisms have been proposed for this: the first was related to critical transitions when a system is at the critical point power law structures arises. As this requires the tunning of external environmental conditions to carry the system to this point, and the power laws have been observed in a wide array of conditions other mechanisms have been formulated. One possibility is that the forest exhibits self organized criticality,       
 
 First talk about power laws, the range of our fits, and the generality of our findings. The power law exponent $\tau$ is not in the theoretical range for percolation (2.05).  Percolation is an approximation, the forest at these scales are not distributed at random, forest patches does have shapes that are influenced by the underling environmental heterogeneity. 
 
