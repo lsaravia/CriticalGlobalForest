@@ -204,7 +204,7 @@ setwd(oldcd)
 
 # Australia Oceania OC 
 
-```{r oc_Smax, eval=T }
+```{r oc_Smax, eval=F }
 
 # Set folder with results for the region 
 #
@@ -325,11 +325,57 @@ bk<-gmap("South America")
 
 reproject_top_2(crs(bk))
 
+# SAST 1
+bk<-gmap("South America")
+plot(bk)
+#de<-drawExtent()
+#bk<-crop(bk,de)
+ee <-list(extent(bk))
+
+# SAST 2
+bk<-gmap("Cuba")
+plot(bk)
+#de<-drawExtent()
+#bk<-crop(bk,de)
+#plot(bk)
+ee <-c(ee,extent(bk))
+
+# SAT 1
+bk<-gmap("South america")
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+#saveRDS(ee,"extent_sa.rds")
+
+#ee<-readRDS("extent_sa.rds")
+
+# Generate GIF 
+gif_top_2_patch(ee)
+
+gif_top_2_patch(ee,"g")
+
 setwd(oldcd)
 ```
 
 # South Asia SEAS
 
-```{r seas_map, eval=F }
+```{r seas_map, eval=T }
+
+# Set folder with results for the region 
+#
+options.glo$resultsDir <- "Results/southasia"
+setwd(options.glo$resultsDir)
+
+# Generate 10 times aggregated raster files with values=subregion
+#
+aggregate_top_200_patch()
+
+bk<-gmap("China")
+plot(bk)
+
+reproject_top_2(crs(bk))
 
 ```

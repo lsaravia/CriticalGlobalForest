@@ -510,7 +510,7 @@ resiliency and others 1–6
 ---------------------
 @Klaus2011
 
-For the cluster size distributions in neuronal avalanches, we
+For the cluster size distributions in neuronal avalanches, werobust
 tested the power law model – indicative of long-range spatiotem-
 poral correlations – against the alternative of an exponential
 distribution, which would be expected from uncorrelated, random
