@@ -12,7 +12,7 @@
 
     $$n_s(p_c) \propto s^{-\tau}$$
 
-    Theoretically $\tau = 187/91 = 2.05495$
+    Theoretically $\tau = 187/91 = 2.05495$ and for Isotropic percolation and for dynamic percolation is  $\tau = 96/91 = 1.05495$ [@Munoz1999]
 
 * The largest cluster $S_{max}$, at the critical point $p=p_c$ :
 
@@ -29,6 +29,7 @@
 
     with $\nu=4/3=1.333$
 
+## 
 
 \newpage
 
