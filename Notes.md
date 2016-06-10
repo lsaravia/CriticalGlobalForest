@@ -112,14 +112,12 @@ size s shrinks or grows by a number proportional to s
 (multiplicative random walk; see Manor and Shnerb
 2008a, 2008b).
 
-As further evidence against the niche assembly hypoth-
-esis, we measured the average displacement of the center
+As further evidence against the niche assembly hypothesis, we measured the average displacement of the center
 of mass of patches as a function of time. The movement
 of the patches appears similar to a simple random walk
 (fig. 4), because Dr, the distance of the center of mass from
 its initial position, grows like t1/2. This implies that clusters
-are not trapped in small patches with favorable environ-
-mental conditions but move (through the birth-death pro-
+are not trapped in small patches with favorable environmental conditions but move (through the birth-death pro-
 cess) randomly within the plot.
 
 
@@ -533,7 +531,7 @@ Our most striking finding was evidence of a threshold response in the relationsh
 
 @McKenzie2012
 
-Nature displays power laws in frequency distributions of
+Nature displays power laws in frequency distributions of 
 diverse phenomena 1,2 and critical exponents associated with
 phase transitions 3,4 . The latter are well known in thermody-
 namic and other physical systems, but in ecological systems they
@@ -590,6 +588,15 @@ probably also the case under human landscape fragmentation.
 -------------------
 
 @Scanlon2007 
+
+Power-law clustering has been observed in nature for a variety of phenomena, including mussel beds 18 , forest gaps 19 and forest fires 20 , and the pattern-formation processes for these systems have been
+evaluated through the implementation of lattice-based cellular automata models, in which complex system dynamics are represented by simple rules of interaction. What makes the present study distinct
+from these earlier findings is that the observed statistical pattern is maintained over an environmental gradient for a wide range of vegetation densities. Any model capable of simulating the pattern-
+formation processes must meet the rigorous criteria of being strictly self-organizing (that is, no ‘fine tuning’ of parameters) and robust with respect to external environmental forcing. A recent survey of
+models used to produce power-law cluster size distributions in ecological systems 14 did not identify a general type that could satisfy the above conditions for a two-phase system (for example, presence/
+absence of trees). Disturbance-based models such as those typically used to describe power-law cluster formation do not seem to be realistic for the Kalahari setting. For instance, forest fire models 21 ,
+although capable of producing power-law cluster sizes, are not physically realistic because fire in this region is generally low-intensity and does not cause widespread mortality of trees 22
+
 
 This raises the question: is the Kalahari ecosystem in a critical state such that small perturbations could result in rapid phase change (for example, desertification) from local interactions? This is highly unlikely, because disturbance propagation is required over relatively short timescales, and there is no physically based mechanism for this in the Kalahari. Furthermore, the model presented here exemplifies power-law formation in the absence of threshold behaviour and large, temporally intermittent fluctuations. If the dynamics were to be consistent at all with a critical state it would be with the kind of ‘robust’ criticality recently described 14 . Climate-driven phase transitions are possible in the Kalahari, but most likely are due to the global properties of the system through positive vegetation–climate feedbacks, as reported in the Sahel region of Africa 26 . We infer that the emergent spatial pattern in the Kalahari results from positive spatial feedbacks, in which the probability of establish-
 ment increases with local tree density, and the probability of mortality increases with greater open space in the vicinity of the tree. Water availability is hypothesized to be the main driver of these positive feedbacks, as below-canopy areas remain wetter in savanna ecosystems 27 owing to reduced bare soil evaporation from shading. Direct measurements of soil moisture at a number of locations along the Kalahari Transect have confirmed this general finding. Establishment is thus favoured in areas surrounded by trees, but this positive den- sity-dependence can also be accounted for by seed dispersal 28 and nutrient availability 29 , both of which are enhanced near existing tree canopies. Mortality brought on by water stress during dry years would be more pronounced for trees that do not have the benefit of neighbourhood shading, and increased lateral hydraulic gradients would deplete the soil moisture even further for these isolated individuals. Positive feedbacks of this type could lead to either desert or fully forested conditions 30 , were it not for the density-independent global effect of rainfall. This, together with the distance-weighted local effects, leads to stable power-law cluster size distributions over
