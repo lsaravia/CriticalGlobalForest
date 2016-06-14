@@ -378,4 +378,28 @@ plot(bk)
 
 reproject_top_2(crs(bk))
 
+
+# SEAS1
+plot(bk)
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-list(extent(bk))
+
+# SEAS2
+de<-drawExtent()
+bk<-crop(bk,de)
+plot(bk)
+ee <-c(ee,extent(bk))
+
+#saveRDS(ee,"extent_seas.rds")
+
+#ee<-readRDS("extent_seas.rds")
+
+gif_top_2_patch(ee)
+
+gif_top_2_patch(ee,"g")
+
+setwd(oldcd)
+
 ```

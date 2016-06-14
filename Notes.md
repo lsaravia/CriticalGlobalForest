@@ -1,10 +1,11 @@
 
+# Lost phrases 
 
 Science search for universal principles [@Marquet2005; @Harte2014], and one of these universal principles are scaling laws, These scaling laws are a of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
 
-Power laws are asociated with two properties: scale invariance and universality [@Marquet2005]
+Power laws are associated with two properties: scale invariance and universality [@Marquet2005]
 
-Most patterns in biological and ecological systems are produced by the agregation of many small processes, thus the logical expectation is that they result in a Gaussian probability distribution according to the central limit theorem [@Frank2009]. Thus the finding that patch distribution follows a scale-free power law distribution is surprising, if the small scale process are in fact correlated we also obtain a Gausian distribution, so we need more than correlation to obtain the scale free distribution. 
+Most patterns in biological and ecological systems are produced by the aggregation of many small processes, thus the logical expectation is that they result in a Gaussian probability distribution according to the central limit theorem [@Frank2009]. Thus the finding that patch distribution follows a scale-free power law distribution is surprising, if the small scale process are in fact correlated we also obtain a Gausian distribution, so we need more than correlation to obtain the scale free distribution. 
 
 Both habitat fragmentation and population fragmentation are critical transitions. Tuning a control parameter we can find a critical value (hc or lc) at which the order parameter (P or n ) declines abruptly to zero, the combination of both processes is also a critical system only if fragmentation is a dynamical process, that means that degraded patches can recover [@Oborny2007].
 
@@ -21,6 +22,14 @@ If fluctuations of patch dynamics are linear with its size, indicates that posit
 
 The dynamical law presented here allows one to identify the transition between these states when the total population is still fixed; qualitative changes in the stability of large patches—from linear to logarithmic—may thus serve as an important precursor of catastrophic shifts [24]
 
+The patch size distribution for Eurasia is log-normal and has smaller fluctuations than the other regions of comparable size (Figure 3). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. The other regions with exponential fluctuations have all power law patch size distributions. From these, the ones that have $RS_{max}$ greater than 60% (Table 1) are above the fragmentation threshold thus the largest patch have a more compact structure and small losses do not affect its size so much. There is only one region (OC7, Java) that has $RS_{max}$ below 40%, this is probably in a fragmented state 
+
+# Possible Referees
+
+http://staverlab.yale.edu/
+carla.staver@yale.edu
+
+
 
 ---------------------
 
@@ -31,7 +40,7 @@ Another possible paper -> Mechanisms of Forest savanna transition:
 We can tell which is the mechanism at work using Weisman Shnerb methods of patch growth analysis
 
 
-
+# From papers
 ------------------
 
 [@Haddad2015] Habitat fragmentation and its lasting impact on Earth’s ecosystems
