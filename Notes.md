@@ -610,3 +610,17 @@ although capable of producing power-law cluster sizes, are not physically realis
 This raises the question: is the Kalahari ecosystem in a critical state such that small perturbations could result in rapid phase change (for example, desertification) from local interactions? This is highly unlikely, because disturbance propagation is required over relatively short timescales, and there is no physically based mechanism for this in the Kalahari. Furthermore, the model presented here exemplifies power-law formation in the absence of threshold behaviour and large, temporally intermittent fluctuations. If the dynamics were to be consistent at all with a critical state it would be with the kind of ‘robust’ criticality recently described 14 . Climate-driven phase transitions are possible in the Kalahari, but most likely are due to the global properties of the system through positive vegetation–climate feedbacks, as reported in the Sahel region of Africa 26 . We infer that the emergent spatial pattern in the Kalahari results from positive spatial feedbacks, in which the probability of establish-
 ment increases with local tree density, and the probability of mortality increases with greater open space in the vicinity of the tree. Water availability is hypothesized to be the main driver of these positive feedbacks, as below-canopy areas remain wetter in savanna ecosystems 27 owing to reduced bare soil evaporation from shading. Direct measurements of soil moisture at a number of locations along the Kalahari Transect have confirmed this general finding. Establishment is thus favoured in areas surrounded by trees, but this positive den- sity-dependence can also be accounted for by seed dispersal 28 and nutrient availability 29 , both of which are enhanced near existing tree canopies. Mortality brought on by water stress during dry years would be more pronounced for trees that do not have the benefit of neighbourhood shading, and increased lateral hydraulic gradients would deplete the soil moisture even further for these isolated individuals. Positive feedbacks of this type could lead to either desert or fully forested conditions 30 , were it not for the density-independent global effect of rainfall. This, together with the distance-weighted local effects, leads to stable power-law cluster size distributions over
 a wide range of vegetation densities.
+
+
+--------------------
+
+Bregman TP, Lees AC, Seddon N, Macgregor HE, Darski B, Aleixo A, Bonsall MB, Tobias JA
+Species interactions regulate the collapse of biodiversity and ecosystem function in tropical forest fragments.
+Ecology. 2015
+http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=Retrieve&db=PubMed&list_uids=26649390
+
+Bowman DM, Perry GL, Marston JB
+Feedbacks and landscape-level vegetation dynamics.
+Trends in ecology & evolution. 2015
+http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=Retrieve&db=PubMed&list_uids=25837918
+
