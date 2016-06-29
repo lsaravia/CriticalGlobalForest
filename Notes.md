@@ -624,3 +624,20 @@ Feedbacks and landscape-level vegetation dynamics.
 Trends in ecology & evolution. 2015
 http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=Retrieve&db=PubMed&list_uids=25837918
 
+
+
+--------------------
+
+
+@Campos2013 Effect of Landscape Structure on Species Diversity
+
+The species–area relationship is one of
+the most fundamental laws in ecology, considered as a central tool in conservation biology, and is used to predict species
+loss following habitat disturbances. Our simulation results indicate that the level of clumping has a major role in shaping the
+species–area relationship. For instance, more compact landscapes are more sensitive to the effects of habitat loss and
+speciation rate. Besides, the level of clumping determines the existence and extension of the power-law regime which is
+expected to hold at intermediate scales. The distributions of species abundance are strongly influenced by the degree of
+fragmentation. We also show that the first and second commonest species have approximately self-similar spatial
+distributions across scales, with the fractal dimensions of the support of the first and second commonest species being very
+robust to changes in the spatial patterns of the landscape.
+
