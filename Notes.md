@@ -24,6 +24,8 @@ The dynamical law presented here allows one to identify the transition between t
 
 The patch size distribution for Eurasia is log-normal and has smaller fluctuations than the other regions of comparable size (Figure 3). Exponential fluctuations are compatible with a combination of independent Poisson or Gaussian processes [@VanRooij2013]. The other regions with exponential fluctuations have all power law patch size distributions. From these, the ones that have $RS_{max}$ greater than 60% (Table 1) are above the fragmentation threshold thus the largest patch have a more compact structure and small losses do not affect its size so much. There is only one region (OC7, Java) that has $RS_{max}$ below 40%, this is probably in a fragmented state 
 
+The model with three states has both continuous and discontinuous critical transitions, it includes local facilitation and the influence of environmental variables could also be added, thus this seems to be the most general way of modeling forest with a spatially explicit structure at global scales. In this case... 
+
 # Possible Referees
 
 http://staverlab.yale.edu/
@@ -641,3 +643,37 @@ fragmentation. We also show that the first and second commonest species have app
 distributions across scales, with the fractal dimensions of the support of the first and second commonest species being very
 robust to changes in the spatial patterns of the landscape.
 
+--------------------
+
+@Kefi2007a Local facilitation, bistability and transitions in arid ecosystems
+
+On the other hand, the link between self-organized pattern formation and dis-
+continuous transitions in case of coupled scale-dependent
+feedback remains an area of future research. Studies
+remain to be done on which facilitative mechanism occurs
+where and under which conditions in arid ecosystems.
+
+
+-------------------
+@Kefi2007b Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems
+
+The model simulation results also showed that transitions from a
+vegetated to a desert state could be continuous or discontinuous
+(Fig. 3). At low grazing pressure, the density of vegetation gradually
+decreases towards zero with increasing aridity (Fig. 3a). The trans-
+ition is then called continuous. However, if the grazing pressure is
+high, the density of vegetation undergoes discontinuous transitions
+with increasing aridity (Fig. 3b). This is because the system becomes
+bistable close to transition (Fig. 3b). Indeed, when mortality is higher
+because of grazing, vegetation cells might not have time to form
+viable patches before they die. Whether vegetation can survive in
+the system may then depend on the initial vegetation density, leading
+to bistability. In this case, a decrease in aridity to the values for which
+the transition occurred does not necessarily lead to a recovery of the
+vegetation (hysteresis). Both along continuous and discontinuous
+transitions, our model simulations showed that the patch-size distri-
+bution deviates from a power law just before the transition point to a
+desert (Fig. 3). Thus, these deviations from a power law are a general
+behaviour of the model system close to transition, independent of
+the type of transition (Fig. 3), and regardless of the vegetation cover
+(Fig. 2c, f).

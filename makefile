@@ -1,4 +1,4 @@
-OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=plos.csl 
+OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=plos.csl --latex-engine=xelatex
 
 all: Appendices.pdf CriticalGF.pdf Outline.pdf test_tbl.pdf 
 
