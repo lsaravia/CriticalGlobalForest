@@ -1006,3 +1006,68 @@ extract_fit_ht_mdls <-function(e)
 	}
 	
 }
+
+
+# Fit all the images patch sizes for a region with maybe different areas 
+#
+#
+merge2_region_fit_con_heavy_tail <-function(options,region,new_region){
+
+	# Change to results folder  
+	#
+	setwd(options$resultsDir)
+
+	# If new_region files already exist don't merge
+	#
+	if(list.files(pattern=paste0("^.*",new_region,".*\\.bin$"))=="") {
+		
+		# Get the original files nameswith patch sizes (*.bin) and image file names *.tif (data_set_name)
+		#
+		options$original_bin_files <- list.files(pattern=paste0("^.*",region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
+	
+		options$data_set_name <- unlist(strsplit(options$original_bin_files,".bin")) 
+		
+		# Merge the two largest patches
+		#
+		for(i in 1:length(options$data_set_name))
+		{ 
+			connection_file <- file(options$original_bin_files[i], "rb")
+			data_set <- sort(readBin(connection_file, "double", n = 10^6),decreasing=TRUE)
+			data_set[2] <- data_set[1]+data_set[2]
+			data_set <- data_set[2:length(data_set)]
+			close(connection_file)
+	
+			# Change the name of the file to new_region
+			#
+			options$original_bin_files[i] <- sub(region,new_region,options$original_bin_files[i])
+			connection_file <- file(options$original_bin_files[i], "wb")
+			writeBin(data_set,connection_file)
+			close(connection_file)
+		}		
+	}
+	
+	# Get the new files names with merged patches
+	#
+	
+	options$original_bin_files <- list.files(pattern=paste0("^.*",new_region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
+	
+	options$data_set_name <- unlist(strsplit(options$original_bin_files,".bin")) 
+
+	fit <- data_frame()
+	
+	for(i in 1:length(options$data_set_name))
+	{ 
+		if(options$fit)
+		{
+		  	fit <- rbind(fit,call_fit_con_heavy_tail(options,i))	# Fit models
+		} else {
+		 	fit <- rbind(fit,data_con_heavy_tail(options,i)) 		# calculate patch stats
+		}
+	}
+
+	# Change to base folder  
+	#
+	setwd(oldcd)
+	
+	return(fit)
+}

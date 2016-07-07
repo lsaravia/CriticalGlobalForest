@@ -328,6 +328,33 @@ plot_size_dist_by_region("SAST_1","Results/southamerica")
 
 ```
 
+
+# Fit again heavy tailed distributions EUAS 1  with the two largest patches merged
+
+```{r conheavytailfitEUAS1_merged, eval=T,echo=T,message=T,warning=T}
+
+
+
+
+options.glo$resultsDir <- "Results/eurasia"
+options.glo$xmins <- seq(1:600)				# Range of xmins (minimun patch sizes) to fit 
+options.glo$sample_data <- 0                 # Set >0 For testing
+
+
+
+fit <- merge2_region_fit_con_heavy_tail(options.glo,"EUAS_1","EUAS_1M")
+
+all_fit <- bind_rows(all_fit,fit)
+
+setwd(oldcd)
+
+save.image()
+
+plot_size_dist_by_region("EUAS_1M","Results/eurasia")
+
+```
+
+
 # Tables of parameters by region/subregion and means 
 
 ```{r poweLawRegiontables, eval=F,echo=F,message=T,warning=T}
