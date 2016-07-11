@@ -47,6 +47,12 @@ options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit
 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
 options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
+# IMPORTANT!
+#
+# The two classes of distribution models are fitted one with fixed Xmin=9 and another with estimated Xmin
+# the models with fixed Xmin were not used in the paper, we can save a lot of cumputing time if we delete
+# the fixed Xmin estimation.
+#
 
 ```
 
@@ -331,7 +337,7 @@ plot_size_dist_by_region("SAST_1","Results/southamerica")
 
 # Fit again heavy tailed distributions EUAS 1  with the two largest patches merged
 
-```{r conheavytailfitEUAS1_merged, eval=T,echo=T,message=T,warning=T}
+```{r conheavytailfitEUAS1_merged, eval=F,echo=T,message=T,warning=T}
 
 
 
@@ -348,9 +354,15 @@ all_fit <- bind_rows(all_fit,fit)
 
 setwd(oldcd)
 
+# remove from all_fit
+#
+euas_merged2patch <- all_fit  %>% filter(subregion=="1M")
+
+all_fit <- all_fit  %>% filter(subregion!="1M")
+
 save.image()
 
-plot_size_dist_by_region("EUAS_1M","Results/eurasia")
+#plot_size_dist_by_region("EUAS_1M","Results/eurasia")
 
 ```
 
@@ -366,6 +378,8 @@ ta <- mutate(all_fit,Data_Set=nn[match(model_set,c("Xmin=9", "Estimated Xmin"))]
 
 select <- dplyr::select 
 
+# Format for table display
+#
 ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
   select(region,subregion,year,xmin,model_name,par1,par2,n,AICc_weight,GOFp) %>%  # delta_AICc,
   mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
@@ -378,7 +392,6 @@ ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>%
 
 options("scipen"=999, "digits"=4)
 
-write.table(pandoc.table.return(ta),file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
 
 # pandoc.table(ta)
 # 
@@ -396,8 +409,11 @@ write.table(pandoc.table.return(ta),file='Fitted_Patch_models.txt',quote = F,sep
 # 
 # pandoc.table(filter(ta,region=="SEAS"))
 # 
+
 # Write fitted parameters and AIC comparison to ascii tab separated file
 # 
+#  Only Estimated Xmin models and not EUAS 1M (Eurasia with merged top 2 patches)
+#
 ta <- all_fit  %>% filter(model_set=="Estimated Xmin") %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>%
   	select(region,subregion,year,model_name,xmin,par1,par2,n,LL,AICc,delta_AICc,AICc_weight,GOFp) %>%
 	mutate(par1=round(par1,5),
@@ -533,7 +549,7 @@ pandoc.table(ta)
 # 
 
 tot_fit_by_model <- all_fit %>% group_by(region,subregion,model_set,model_name) %>% mutate(tot_by_model=n()) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) >% filter(model_set=="Estimated Xmin") 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) %>% filter(model_set=="Estimated Xmin") 
 
 # ggplot(tot_fit_by_model, aes(x=model_set,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity", position=position_dodge()) + facet_wrap(region~subregion) + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Best models proportion")   
 
