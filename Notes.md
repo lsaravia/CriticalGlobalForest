@@ -31,7 +31,13 @@ The model with three states has both continuous and discontinuous critical trans
 http://staverlab.yale.edu/
 carla.staver@yale.edu
 
+# Pedir opinion
 
+Banks-Leite, Cristina
+c.banks@imperial.ac.uk
+
+Renata Pardini
+renatapardini@uol.com.br
 
 ---------------------
 
@@ -647,11 +653,23 @@ robust to changes in the spatial patterns of the landscape.
 
 @Kefi2007a Local facilitation, bistability and transitions in arid ecosystems
 
+
+
 On the other hand, the link between self-organized pattern formation and dis-
 continuous transitions in case of coupled scale-dependent
 feedback remains an area of future research. Studies
 remain to be done on which facilitative mechanism occurs
 where and under which conditions in arid ecosystems.
+
+Vegetation patches were followed along both continuous
+and discontinuous transitions using the full spatial model.
+Vegetation patches arise along continuous and discontin-
+uous transitions. The sequences of patch shape along
+continuous as compared to discontinuous transition look
+similar when inspected by eye
+
+Moreover, for arid ecosystems where local facilitation is a driving process, vegetation patchiness indicates proximity to a
+transition point, but does not allow distinguishing between continuous and discontinuous transitions.
 
 
 -------------------
@@ -677,3 +695,17 @@ desert (Fig. 3). Thus, these deviations from a power law are a general
 behaviour of the model system close to transition, independent of
 the type of transition (Fig. 3), and regardless of the vegetation cover
 (Fig. 2c, f).
+
+
+
+--------------
+Dantas2013 Fire drives functional thresholds on the savanna-forest transition
+
+In tropical landscapes, vegetation patches with contrasting tree densities are distributed as mosaics. However, the locations of patches and densities of trees within them cannot be predicted by climate models alone. It has been proposed that plant-fire feedbacks drive functional thresholds at a landscape scale, thereby maintaining open (savanna) and closed (forest) communities as two distinct stable states. However, there is little rigorous field evidence for this threshold model.
+
+
+---------------
+
+
+Bestelmeyer2011 Analysis of abrupt transitions in ecological systems
+
