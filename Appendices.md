@@ -1,8 +1,6 @@
 # Appendices
 
-## Scaling laws
-
-### Isotropic percolation
+### Apendix 1: Some results about scaling laws from percolation theory 
 
 * The distribution of patch sizes has in general the following distribution:
 
@@ -12,7 +10,7 @@
 
     $$n_s(p_c) \propto s^{-\tau}$$
 
-    Theoretically $\tau = 187/91 = 2.05495$ and for Isotropic percolation and for dynamic percolation is  $\tau = 96/91 = 1.05495$ [@Munoz1999]
+    Theoretically $\tau = 187/91 = 2.05495$ and for Isotropic percolation and for dynamic percolation is  $\tau = 96/91 = 1.05495$ (Muñoz et al. 1999).
 
 * The largest cluster $S_{max}$, at the critical point $p=p_c$ :
 
@@ -20,23 +18,28 @@
 
     Where $L$ is the side of the lattice with $L^d$ sites, $d=2$ for two-dimensional systems considered here, and the fractal dimension is $D=91/48=1.897$. 
 
-    Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above [@Stauffer1994, pp 65-66].
+    Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above (Stauffer & Aharony, 1994, pp 65-66).
 
   
 * The correlation length $\xi$ is defined as the mean distance between two sites of the same patch, near the critical point
 
     $$\xi \propto |h-h_c|^{-\nu}$$
 
-    with $\nu=4/3=1.333$
+    with $\nu=4/3=1.333$ for isotropic percolation (Stauffer & Aharony, 1994)
 
-## 
+### References
+
+Stauffer D, Aharony A (1994) Introduction To Percolation Theory. Tayor & Francis, London, 179 pp. 
+
+Muñoz, M.A., Dickman, R., Vespignani, A. & Zapperi, S. (1999). Avalanche and spreading exponents in systems with absorbing states. Phys. Rev. E, 59, 6175–6179
+
 
 \newpage
 
 
 ## Data
 
-**Supplementary data**: Model selection for all the region and subregions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
+**Supplementary data**: Model selection for all the regions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
 The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions.
 
 **Gif Animations of largest patch**: These show the temporal dynamics of the two largest patchs for all the regions studied.
@@ -48,9 +51,9 @@ The field are: Xmin the minimun value for the power law distribution; par1 & par
 
 
 -------------------------------------------
- Region   Subregion    Proportion of 
+ Region               Proportion of 
                       Power Law models 
--------- ----------- ----------------------
+-------------------- ----------------------
    AF         1             0.67       
 
    AF         2             1.00       
@@ -260,8 +263,8 @@ Table: Simultaneous Tests for General Linear Hypotheses of the power law exponen
 \newpage
 
 ---------------------------------------------------------------------------------
- region   subregion      Value       StdError    t_value   p_value   tau   group 
--------- ----------- ------------- ------------ --------- --------- ----- -------
+ Region                  Value       StdError    t_value   p_value   tau   group 
+-------------------- ------------- ------------ --------- --------- ----- -------
    AF         1      -121965       48357         -2.5222   0.0255    0.9    Abs  
 
    AF         1      -63736        101243        -0.6295   0.5399    0.5    Abs  
@@ -509,8 +512,8 @@ Table: Quantile regressions of the proportion of largest patch area vs year, for
 
 ---------------------------------------------------
                         Absolute       Relative
- region   subregion     skewness       skewness 
--------- ----------- -------------- ---------------
+ region                 skewness       skewness 
+-------------------- -------------- ---------------
    AF         1          -1.688         -1.863     
 
    AF         2         -0.1374         -0.2478    
@@ -556,9 +559,9 @@ Table: Unbiased estimation of skewness for absolute largest patch fluctuations a
 
 
 -------------------------------------------------------------------------------------
- region         sub       model        par1   par2  $x_{min}$   n      AICc       GOF
-           region        name                                        weight   p-value 
--------- ----------- ------------ --------- ------ ---------- --- ----------- -------
+ region                   model        par1   par2  $x_{min}$   n      AICc       GOF
+                         name                                        weight   p-value 
+-------------------- ------------ --------- ------ ---------- --- ----------- -------
    AF         1         Power       1.969     NA   201938     14      0.791   0.7427
 
    AF         1        LogNorm     11.510   1.677  201938     14      0.209   0.8358
@@ -685,8 +688,8 @@ Table: Model selection using Akaike criterion for largest patch fluctuations in 
 \newpage
 
 --------------------------------------------------------------------------------------
- region         sub       model        par1   par2  $x_{min}$    n     AICc       GOF
-           region        name                                        weight    p-value 
+ region                   model        par1   par2  $x_{min}$    n     AICc       GOF
+                         name                                        weight    p-value 
 -------- ----------- ------------ --------- ------- ---------- --- ----------- -------
    AF         1         Power       1.988     NA    0.0109     14    0.734      0.6757
 
@@ -815,17 +818,17 @@ Table: Model selection for fluctuation of largest patch in relative to total for
 
 ## Supplementary figures
 
-![Regions and subregions for Africa (AF), 1 Mainland, 2 Madagascar](figure/africa_subreg.png)
+![Regions for Africa (AF), 1 Mainland, 2 Madagascar](figure/africa_subreg.png)
 
-![Regions and subregions for Eurasia (EUAS), 1 Mainland, 2 Japan, 3 United Kingdom](figure/eurasia_subreg.png)
+![Regions for Eurasia (EUAS), 1 Mainland, 2 Japan, 3 United Kingdom](figure/eurasia_subreg.png)
 
-![Regions and subregions for North America (NA), 1 Mainland, 5 Newfoundland. The other regions have a very small forest cover and were discarded for the analysis](figure/northamerica_subreg.png)
+![Regions for North America (NA), 1 Mainland, 5 Newfoundland. The other regions have a very small forest cover and were discarded for the analysis](figure/northamerica_subreg.png)
 
-![Regions and subregions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Sulawesi; 6 New Zealand south island; 7 Java; 8 New Zealand north island](figure/oceania_subreg.png)
+![Regions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Sulawesi; 6 New Zealand south island; 7 Java; 8 New Zealand north island](figure/oceania_subreg.png)
 
-![Regions and subregions for South America, SAST1 Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest](figure/southamerica_subreg.png)
+![Regions for South America, SAST1 Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest](figure/southamerica_subreg.png)
 
-![Regions and subregions for Southeast Asia (SEAS), 1  Mainland; 2 Philippines](figure/southasia_subreg.png)
+![Regions for Southeast Asia (SEAS), 1  Mainland; 2 Philippines](figure/southasia_subreg.png)
 
 
 ![Proportion of best models selected for patch size distributions using the Akaike criterion. The regions are the same as table 1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/ProportionSelModel.png)

@@ -562,12 +562,22 @@ ggplot(tot_fit_by_model, aes(x=region,y=best_model_prop,fill=model_name)) + geom
 
 ggsave("figure/ProportionSelModel.png",width=6,height=6,units="in",dpi=600)
 
+
+#
+# Total Proportion of best fit models
+#
+all_fit %>% group_by(model_set,model_name) %>% mutate(tot_by_model=n()) %>% 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) %>% filter(model_set=="Estimated Xmin") 
+
+
+
 #
 # Proportion of best fit not rejected with GOF p>0.05
 #
 tot_fit_by_model <- all_fit %>% group_by(region,subregion,model_set,model_name) %>%	filter(model_name=="Power", model_set=="Estimated Xmin") %>% mutate(tot_power=n()) %>% filter(GOFp>0.05) %>% summarize(gof_power_model_prop=n()/max(tot_power))
 
 pandoc.table(tot_fit_by_model)
+
 
 ```
 
@@ -851,8 +861,8 @@ pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_pat
 
 # Average RSmax 
 #
-ff2<- group_by(pstat,region,subregion) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
-pandoc.table(ff2)
+ff2<- group_by(pstat,region,subregion) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=round(mmaxpatch/mtotpatch,2))
+pandoc.table(ff2,round=2)
 
 #
 # Max patch proportion plot greater than 1e7 Km2

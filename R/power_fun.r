@@ -317,7 +317,7 @@ freq_plot_con_ht <- function(x,fit_ht,tit="") # PLOT ALL FROM X=1 ??????????????
 	xx$pexp <-dpowerexp(xx$x,1,ff$par1,ff$par2)
 	
 	ff <- filter(fit_ht,model_name=="Power")
-	xx$pow  <-dpareto(xx$x,1,ff$par1)
+	xx$pow  <-dpareto(xx$x,xmin,ff$par1)
 
 	ff <- filter(fit_ht,model_name=="Exp")
 	xx$exp  <-dexp(xx$x,ff$par1)	
