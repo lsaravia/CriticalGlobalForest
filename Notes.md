@@ -351,6 +351,12 @@ Furthermore—and differently for the two previous cases—spatial disorder indu
 
 Thus, catastrophic shifts can actually appear in noisy systems. However, we also show that adding any of the following ingredients, (i) enhanced demographic variability, (ii) limited dispersal/diffusivity, and/or (iii) spatial (quenched) heterogeneity, suffices to alter the nature of the phase transition, giving rise to a second-order (continuous) one.
 
+---------------------
+
+@Odor2004
+
+OUT-OF-EQUILIBRIUM CLASSES: It is important to note that scaling behavior can be
+observed far away from criticality, as well.
 
 ---------------------
 
