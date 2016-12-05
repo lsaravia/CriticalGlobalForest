@@ -403,3 +403,72 @@ gif_top_2_patch(ee,"g")
 setwd(oldcd)
 
 ```
+
+# Generate animations for percolation of the forest non-forest model
+
+```{r percolation_anim, echo=FALSE,eval=FALSE}
+
+
+source("R/Neutral_fun.r")
+oldcd<- getwd()
+neuBin <- "~/Dropbox/cpp/CaNew/Neutral/ipsNeutralPow"
+neuBin64<- "~/Dropbox/cpp/CaNew/Neutral/ipsNeutralP64"
+
+setwd("figure")
+
+alfa=2.17641 # 6.6
+side <- 256
+nsp <- 1
+nSimul <- 1
+ReplRate <- 0.0
+time <- 100
+
+# Near critical fragmentation
+#
+
+deathRate <- 0.4  #0.606502
+birthRate <-1
+m =  0.0
+#
+# lambda critical = 1.6488
+lambda <- round(birthRate/deathRate,4)
+
+# Make simulations
+#
+simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+
+# Make animations
+#
+require(animation)
+  saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+          interval = .5,
+          movie.name="dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+  )
+
+
+# Super-critical 
+#
+deathRate <- 0.2
+lambda <- round(birthRate/deathRate,4)
+simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+
+saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+          interval = .5,
+          movie.name=paste0("dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+  )
+
+# Sub-critical
+#
+deathRate <- 0.5
+lambda <- round(birthRate/deathRate,4)
+simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+
+saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+          interval = .5,
+          movie.name=paste0("dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+  )
+
+
+setwd(oldcd)
+
+```
