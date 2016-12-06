@@ -1,3 +1,6 @@
+
+
+
 # Critical transitions and the fragmenting of global forests
 
 **Leonardo A. Saravia** ^1^ ^3^, **Santiago R. Doyle** ^1^, **Benjamin Bond-Lamberty**^2^ 
@@ -8,12 +11,22 @@ Los Polvorines, Buenos Aires, Argentina.
 2. Pacific Northwest National Laboratory, Joint Global Change Research Institute at the University
 of Maryland–College Park, 5825 University Research Court #3500, College Park, MD 20740, USA
 
-3. E-mail: <lsaravia@ungs.edu.ar>
+3. Corresponding author e-mail: <lsaravia@ungs.edu.ar>
 
 
 ## Abstract
 
-Global forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. These areas contain many fewer species than the natural ecosystem they replaced, and this change is one of the main drivers of extinctions in the Anthropocene. Another effect is that habitat replacement leads to fragmentation, altering the sizes of patches, the structure and function of the forest. In different kinds of vegetation, including forests, the patch size distributions follow power laws. These have been used as a signal of critical phase transitions, where the system state changes suddenly at a critical point; in the case of forest patches, this implies an abrupt change in connectivity that causes a increased fragmentation level, posing an additional risk to forest function as an habitat and ecosystem. All these patterns have been observed only at relatively small scales, however. Here we studied the distribution of forest patch sizes at a global level---wide regions of connected forest across continents and big islands---examining their changes over the last fourteen years and different signals of a critical transition. The conditions that indicate that a region is near a critical fragmentation threshold are: a patch size distribution following a power law; temporal fluctuations of the largest patch following a power law; variance of largest patch fluctuations increasing in time; and a negative skewness of the largest patch fluctuations. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the five criteria and thus seemed to be near a critical fragmentation threshold. This implies that the combined influence of human pressures and climate forcings might trigger undesired effects of fragmentation, such as species loss and degradation of ecosystems services, in these regions. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe, and provide a guide to direct conservation efforts at a continental level. 
+Global forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. Habitat replacement usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. The shape of the patch size distribution have been used as a signal of critical phase transitions, where the system state changes suddenly at a critical point; in the case of forest patches, this implies an abrupt change in connectivity that causes a increased fragmentation level, posing an additional risk to forest function as an habitat and ecosystem. All these patterns have been observed only at relatively small scales, however. Here we studied the distribution of forest patch sizes at a global level---wide regions of connected forest across continents and big islands---examining their changes over the last fourteen years and five different signals of a critical transition. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the five criteria and thus seemed to be near a critical fragmentation threshold. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe, and provide a guide to direct conservation efforts at a continental level. 
+
+
+## Significance statement
+
+The fragmentation of forest is a global problem, produced mainly by anthropogenic activities, like the replacement of forest by agricultural or urban areas. This can trigger species extinctions and degradation of ecosystems services between other undesired effects. The level of fragmentation have thresholds, called critical points, that when surpassed can produce an increased rate of negative effects, that may be unnoticed before the critical point. Here we investigate the fragmentation of forest at a global scale searching for clues about the closeness of the critical point. This could help to identify which continental forest areas are at risk and need more attention from a conservation point of view.   
+
+**Classification: ** Biological Sciences, ecology
+
+**keywords**: Forest fragmentation, early warning signals, percolation, power-laws, MODIS
+
 
 \newpage
 
@@ -63,7 +76,7 @@ The value of the critical point $p_c$ depends on the geometry of the lattice and
 
 where $n_s(p)$ is the number of patches of size $s$. The exponent $\alpha$ does not depend on the details of the model and it is called universal [@Stauffer1994]. These scaling laws can be applied for landscape structures that are approximately random, or at least only correlated over short distances [@Gastner2009]. In physics this is called "isotropic percolation universality class", and corresponds to an exponent $\alpha=2.05495$. If we observe that the patch size distribution has another exponent it will not belong to this universality class and some other mechanism should be invoked to explain it. Percolation thresholds can also be generated by models that have some kind of memory [@Odor2004; @Hinrichsen2000]: for example, a patch that has been exploited for many years will recover differently than a recently deforested forest patch. In this case, the system could belong to a different universality class, or in some cases there is no universality, in which case the value of $\alpha$ will depend on the parameters and details of the model [@Corrado2014]. 
 
-To illustrate the concepts we made simulations with a simple forest model with two states: forest and non-forest. This model was called the contact process and was introduced for epidemics [@Harris1974], but has many applications in ecology [@Sole2006; @Gastner2009]. A site with forest could become extinct with probability $e$, and produce another forest site in a neighborhood with probability $c$. We used a neighborhood defined by an isotropic power law probability distribution. We defined a single control parameter as $\lambda=c/e$ and we made simulations for the subcritical fragmentation state $\lambda < \lambda_c$, with $\lambda=2$, near the critical point for $\lambda=2.5$ and for the supercritical state with $\lambda=5$ (see supplementary percolation animations). 
+To illustrate these concepts, we conducted simulations with a simple forest model with only two states: forest and non-forest. This type of model is called a "contact process" and was introduced for epidemics [@Harris1974], but has many applications in ecology [@Sole2006; @Gastner2009]. A site with forest can become extinct with probability $e$, and produce another forest site in a neighborhood with probability $c$. We use a neighborhood defined by an isotropic power law probability distribution. We defined a single control parameter as $\lambda=c/e$ and ran simulations for the subcritical fragmentation state $\lambda < \lambda_c$, with $\lambda=2$, near the critical point for $\lambda=2.5$, and for the supercritical state with $\lambda=5$ (see supplementary percolation animations).
 
 ### Patch size distributions
 
