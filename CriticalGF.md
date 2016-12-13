@@ -19,11 +19,8 @@ of Maryland–College Park, 5825 University Research Court #3500, College Park, 
 Global forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. Habitat replacement usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. The shape of the patch size distribution have been used as a signal of critical phase transitions, where the system state changes suddenly at a critical point; in the case of forest patches, this implies an abrupt change in connectivity that causes a increased fragmentation level, posing an additional risk to forest function as an habitat and ecosystem. All these patterns have been observed only at relatively small scales, however. Here we studied the distribution of forest patch sizes at a global level---wide regions of connected forest across continents and big islands---examining their changes over the last fourteen years and five different signals of a critical transition. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the five criteria and thus seemed to be near a critical fragmentation threshold. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe, and provide a guide to direct conservation efforts at a continental level. 
 
 
-## Significance statement
 
-The fragmentation of forest is a global problem, produced mainly by anthropogenic activities, like the replacement of forest by agricultural or urban areas. This can trigger species extinctions and degradation of ecosystems services between other undesired effects. The level of fragmentation have thresholds, called critical points, that when surpassed can produce an increased rate of negative effects, that may be unnoticed before the critical point. Here we investigate the fragmentation of forest at a global scale searching for clues about the closeness of the critical point. This could help to identify which continental forest areas are at risk and need more attention from a conservation point of view.   
-
-**Classification: ** Biological Sciences, ecology
+**Type:**  Primary Research Article
 
 **keywords**: Forest fragmentation, early warning signals, percolation, power-laws, MODIS
 
@@ -140,7 +137,7 @@ EUAS      1     Eurasia, mainland                      0.36       LogNormal     
 
           3     United Kingdom                         0.07       Power          Power              2.1330     NS
 
-NA        1     North America, mainland                          0.71       Power          Power             -1.5690     Decrease
+NA        1     North America, mainland                0.71       Power          Power             -1.5690     Decrease
 
           5     Newfoundland                           0.87       Power          Power             -0.7411     NS
 
@@ -195,5 +192,9 @@ The effectiveness of landscape management is related to the degree of fragmentat
 
 Crossing the fragmentation critical point in forests could have negative effects on biodiversity and ecosystem services [@Haddad2015], but it could also produce feedback loops at different levels of the biological hierarchy. This means that a critical transition produced at a continental scale could have effects at the level of communities, food webs, populations, phenotypes and genotypes [@Barnosky2012]. All these effects interact with climate change, thus there is a potential production of cascading effects that could lead to a global collapse.
 Therefore, even if critical thresholds are reached only in some forest regions at a continental scale, a cascading effect with global consequences could still be produced, and may contribute to reach a planetary tipping point [@Reyer2015]. The risk of such event will be higher if the dynamics of separate continental regions are coupled [@Lenton2013]. Using the time series obtained in this work the coupling of the continental could be further investigated. It has been proposed that to assess the probability of a global scale shift, different small scale ecosystems should be studied in parallel [@Barnosky2012]. As forest comprises a major proportion of such ecosystems, we think that the transition of forests could be used as a proxy for all the underling changes and as a successful predictor of a planetary tipping point.
+
+# Acknowledgments
+
+LAS and SRD are grateful to the National University of General Sarmiento for financial support. This work was partially supported by a grant from CONICET (PIO 144-20140100035-CO). 
 
 ## References

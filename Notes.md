@@ -1,3 +1,37 @@
+# Reviewers
+
+Ricard Solé
+ricard.sole@upf.edu
+Universitat Pompeu Fabra
+	
+Gregory Asner
+gpa@stanford.edu
+Department of Global Ecology
+Carnegie Institution for Science
+	
+Jordi Bascompte
+jordi.bascompte@ieu.uzh.ch
+University of Zurich
+	
+Lisandro Benedetti-Cecchi
+lisandro.benedetti.cecchi@unipi.it
+University of Pisa
+	
+Sergio Cannas
+cannas@famaf.unc.edu.ar
+Universidad Nacional de Córdoba
+	
+Fangliang He
+fhe@ualberta.ca
+University of Alberta
+	
+Marina Hirota
+marina.hirota@gmail.com
+Federal University of Santa Catarina
+
+## Significance statement
+
+The fragmentation of forest is a global problem, produced mainly by anthropogenic activities, like the replacement of forest by agricultural or urban areas. This can trigger species extinctions and degradation of ecosystems services between other undesired effects. The level of fragmentation have thresholds, called critical points, that when surpassed can produce an increased rate of negative effects, that may be unnoticed before the critical point. Here we investigate the fragmentation of forest at a global scale searching for clues about the closeness of the critical point. This could help to identify which continental forest areas are at risk and need more attention from a conservation point of view.   
 
 # Lost phrases 
 
@@ -26,18 +60,6 @@ The patch size distribution for Eurasia is log-normal and has smaller fluctuatio
 
 The model with three states has both continuous and discontinuous critical transitions, it includes local facilitation and the influence of environmental variables could also be added, thus this seems to be the most general way of modeling forest with a spatially explicit structure at global scales. In this case... 
 
-# Possible Referees
-
-http://staverlab.yale.edu/
-carla.staver@yale.edu
-
-# Pedir opinion
-
-Banks-Leite, Cristina
-c.banks@imperial.ac.uk
-
-Renata Pardini
-renatapardini@uol.com.br
 
 ---------------------
 
