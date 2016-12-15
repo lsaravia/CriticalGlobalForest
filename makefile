@@ -1,4 +1,4 @@
-OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=global-change-biology.csl --latex-engine=xelatex
+OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=global-ecology-and-biogeography.csl --latex-engine=xelatex
 
 all: Appendices.pdf CriticalGF.pdf GraphicalAbstract.pdf
 

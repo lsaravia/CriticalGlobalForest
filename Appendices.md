@@ -1,41 +1,5 @@
 # Appendices
 
-### Apendix 1: Some results about scaling laws from percolation theory 
-
-* The distribution of patch sizes has in general the following distribution:
-
-    $$n_s(p) \propto s^{-\tau} e^{-cs}$$
-
-    where $n_s(p)$ is the number of patches and $s$ is the patch size. And at the critical point:
-
-    $$n_s(p_c) \propto s^{-\tau}$$
-
-    Theoretically $\tau = 187/91 = 2.05495$ and for Isotropic percolation and for dynamic percolation is  $\tau = 96/91 = 1.05495$ (Muñoz et al. 1999).
-
-* The largest cluster $S_{max}$, at the critical point $p=p_c$ :
-
-    $$S_{max}  \propto L^D$$
-
-    Where $L$ is the side of the lattice with $L^d$ sites, $d=2$ for two-dimensional systems considered here, and the fractal dimension is $D=91/48=1.897$. 
-
-    Thus the largest cluster at $p = p_c$ has fractal dimension $D < d$, which results from the transition from $S_{max} \propto log(L)$ just below $p_c$ to $S_{max} \propto L^d$ just above (Stauffer & Aharony, 1994, pp 65-66).
-
-  
-* The correlation length $\xi$ is defined as the mean distance between two sites of the same patch, near the critical point
-
-    $$\xi \propto |h-h_c|^{-\nu}$$
-
-    with $\nu=4/3=1.333$ for isotropic percolation (Stauffer & Aharony, 1994)
-
-### References
-
-Stauffer D, Aharony A (1994) Introduction To Percolation Theory. Tayor & Francis, London, 179 pp. 
-
-Muñoz, M.A., Dickman, R., Vespignani, A. & Zapperi, S. (1999). Avalanche and spreading exponents in systems with absorbing states. Phys. Rev. E, 59, 6175–6179
-
-
-\newpage
-
 
 ## Data
 
@@ -43,14 +7,12 @@ Muñoz, M.A., Dickman, R., Vespignani, A. & Zapperi, S. (1999). Avalanche and sp
 The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions. Available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>
 
 
-## Percolation Animations
+## Gif Animations
 
-**Gif Animations of a forest model percolation**: These are animations of a simple contact process in which an occupied site (green) represent forest. The largest forest patch is represented in black and empty sites are white. The simulations were made with a lattice of 256x256, the exponent of the power law dispersal kernel was 2.18, and $\lambda=c/e$ has the following values, 2 for the subcritical state, 2.5 near the critical state, and 5 for the supercritical state. Available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
+**Gif Animations of a forest model percolation**: These are animations of a simple contact process in which an occupied site (green) represent forest. The largest forest patch is represented in black and empty sites are white. The simulations were made with a lattice of 256x256, the exponent of the power law dispersal kernel was 2.18, and $\lambda=c/e$ has the following values, 2 for the subcritical state, 2.5 near the critical state, and 5 for the supercritical state. File PercolationAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
 
-## Largest Patch Animations
-
-**Gif Animations of largest patch**: These show the temporal dynamics of the two largest patchs for all the regions studied at a coarse resolution. Available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
+**Gif Animations of largest patch**: These show the temporal dynamics of the two largest patchs for all the regions studied at a coarse resolution. File LargestPatchAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
 
 

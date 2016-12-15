@@ -13,16 +13,40 @@ of Maryland–College Park, 5825 University Research Court #3500, College Park, 
 
 3. Corresponding author e-mail: <lsaravia@ungs.edu.ar>
 
+**keywords**: Forest fragmentation, early warning signals, percolation, power-laws, MODIS, critical transitions
+
+**Running title**: Critical fragmentation in global forest 
+
+**number of words in abstract**: 298 
+
+**number of words in the article**: 5568
+
+**number of references**: 84
 
 ## Abstract
 
-Global forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. Habitat replacement usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. The shape of the patch size distribution have been used as a signal of critical phase transitions, where the system state changes suddenly at a critical point; in the case of forest patches, this implies an abrupt change in connectivity that causes a increased fragmentation level, posing an additional risk to forest function as an habitat and ecosystem. All these patterns have been observed only at relatively small scales, however. Here we studied the distribution of forest patch sizes at a global level---wide regions of connected forest across continents and big islands---examining their changes over the last fourteen years and five different signals of a critical transition. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the five criteria and thus seemed to be near a critical fragmentation threshold. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe, and provide a guide to direct conservation efforts at a continental level. 
+Aim: 
+
+Forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. This usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. Here we studied the distribution and dynamics of forest patch sizes at a global level, examining signals of a critical transition from an unfragmented to a fragmented state.
+
+Location:
+
+Forest across continents and big islands. 
+
+Methods:
+
+We used MODIS vegetation continuous field to estimate the forest patches at a global level and defined wide regions of connected forest across continents and big islands. We search for critical phase transitions, where the system state of the forest changes suddenly at a critical point; this implies an abrupt change in connectivity that causes a increased fragmentation level. We studied the distribution of forest patch sizes and the dynamics of the largest patch over the last fourteen years. The conditions that indicate that a region is near a critical fragmentation threshold are related to patch size distribution and temporal fluctuations of the largest patch.
+
+Results:
+
+We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the criteria to be near a critical fragmentation threshold. 
+
+Conclusion:
+
+This implies that human pressures and climate forcings might trigger undesired effects of fragmentation, such as species loss and degradation of ecosystems services, in these regions. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe, and provide a guide to direct conservation efforts at a continental level. 
 
 
 
-**Type:**  Primary Research Article
-
-**keywords**: Forest fragmentation, early warning signals, percolation, power-laws, MODIS
 
 
 \newpage
