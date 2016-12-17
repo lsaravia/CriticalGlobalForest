@@ -1,6 +1,6 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=global-ecology-and-biogeography.csl --latex-engine=xelatex
 
-all: Appendices.pdf CriticalGF.pdf GraphicalAbstract.pdf
+all: Appendices.pdf CriticalGF.pdf GraphicalAbstract.pdf 
 
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty

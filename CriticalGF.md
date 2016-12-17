@@ -217,8 +217,65 @@ The effectiveness of landscape management is related to the degree of fragmentat
 Crossing the fragmentation critical point in forests could have negative effects on biodiversity and ecosystem services [@Haddad2015], but it could also produce feedback loops at different levels of the biological hierarchy. This means that a critical transition produced at a continental scale could have effects at the level of communities, food webs, populations, phenotypes and genotypes [@Barnosky2012]. All these effects interact with climate change, thus there is a potential production of cascading effects that could lead to a global collapse.
 Therefore, even if critical thresholds are reached only in some forest regions at a continental scale, a cascading effect with global consequences could still be produced, and may contribute to reach a planetary tipping point [@Reyer2015]. The risk of such event will be higher if the dynamics of separate continental regions are coupled [@Lenton2013]. Using the time series obtained in this work the coupling of the continental could be further investigated. It has been proposed that to assess the probability of a global scale shift, different small scale ecosystems should be studied in parallel [@Barnosky2012]. As forest comprises a major proportion of such ecosystems, we think that the transition of forests could be used as a proxy for all the underling changes and as a successful predictor of a planetary tipping point.
 
-# Acknowledgments
+
+
+## Supporting information
+
+**Supplementary data**: Csv text file with model fits for patch size distribution, and model selection for all the regions.
+
+**Gif Animations of a forest model percolation**: These are animations showing the subcritical, critical, and super critical states.
+
+**Gif Animations of largest patches**: These show the temporal dynamics of the two largest patches.
+
+**Table 1**: Proportion of Power law models not rejected by the goodness of fit test at $p\le0.05$ level. 
+
+**Table 2**: Generalized least squares fit by maximizing the restricted log-likelihood.
+
+**Table 3**: Simultaneous Tests for General Linear Hypotheses of the power law exponent. 
+
+**Table 4**: Quantile regressions of the proportion of largest patch area vs year.
+
+**Table 5**: Unbiased estimation of skewness for absolute largest patch fluctuations and relative fluctuations.
+
+**Table 6**: Model selection using Akaike criterion for largest patch fluctuations in absolute values
+
+**Table 7**: Model selection for fluctuation of largest patch in relative to total forest area.
+
+**figure 1**: Regions for Africa (AF), 1 Mainland, 2 Madagascar.
+
+**figure 2**: Regions for Eurasia (EUAS), 1 Mainland, 2 Japan, 3 United Kingdom.
+
+**figure 3**: Regions for North America (NA), 1 Mainland, 5 Newfoundland.
+
+**figure 4**: Regions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Sulawesi; 6 New Zealand south island; 7 Java; 8 New Zealand north island.
+
+**Figure 5**: Regions for South America, SAST1 Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest.
+
+**Figure 6**: Regions for Southeast Asia (SEAS), 1  Mainland; 2 Philippines.
+
+
+**figure 7**: Proportion of best models selected for patch size distributions using the Akaike criterion.
+
+**Figure 8**: Power law exponents for forest patch distributions by year.
+
+**Figure 9**: Largest patch proportion relative to total forest area $RS_{max}$, for regions with total forest area less than $10^{7}$ km^2^. 
+
+
+**figure 10**: Fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year.
+
+
+## Data Accessibility
+
+The patch size files for all years and regions used here, and all the R and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
+
+## BioSketch
+
+Leonardo A. Saravia is a professor of the University of General Sarmiento (UNGS), Buenos Aires, Argentina. He works with the Ecology group at the university with emphasis on community ecology and different kinds of ecological networks focusing both on macroecological patterns and local processes. He is the leader of the complex systems group of the UNGS institute of sciences, where the investigations are discussed with an interdisciplinary point of view. The tools he uses are mainly computational, programming in C++ and R statistical language.  
+
+
+## Acknowledgments
 
 LAS and SRD are grateful to the National University of General Sarmiento for financial support. This work was partially supported by a grant from CONICET (PIO 144-20140100035-CO). 
+
 
 ## References

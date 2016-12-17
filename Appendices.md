@@ -9,10 +9,10 @@ The field are: Xmin the minimun value for the power law distribution; par1 & par
 
 ## Gif Animations
 
-**Gif Animations of a forest model percolation**: These are animations of a simple contact process in which an occupied site (green) represent forest. The largest forest patch is represented in black and empty sites are white. The simulations were made with a lattice of 256x256, the exponent of the power law dispersal kernel was 2.18, and $\lambda=c/e$ has the following values, 2 for the subcritical state, 2.5 near the critical state, and 5 for the supercritical state. File PercolationAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
+**Gif Animations of a forest model percolation**: These are animations showing the subcritical, critical, and super critical states. We use a a simple contact process in which an occupied site (green) represent forest. The largest forest patch is represented in black and empty sites are white. The simulations were made with a lattice of 256x256, the exponent of the power law dispersal kernel was 2.18, and $\lambda=c/e$ has the following values, 2 for the subcritical state, 2.5 near the critical state, and 5 for the supercritical state. File PercolationAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
 
-**Gif Animations of largest patch**: These show the temporal dynamics of the two largest patchs for all the regions studied at a coarse resolution. File LargestPatchAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
+**Gif Animations of largest patches**: These show the temporal dynamics of the two largest patches for all the regions studied at a coarse resolution (2 km pixel). File **LargestPatchAnimations.zip**, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
 
 
@@ -811,4 +811,3 @@ Table: Model selection for fluctuation of largest patch in relative to total for
 ![Fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year. Dashed lines are quantil regressions for 90%, 50% and 10% quantils. The regions are the same as table 1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/Delta_prop_patch_year_ls1e07.png)
 
 
-# References
