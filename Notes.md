@@ -1,3 +1,17 @@
+# GEB - JEcol Abstract
+
+1. Forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. This usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. Here we studied the distribution and dynamics of forest patch sizes at a global level, examining signals of a critical transition from an unfragmented to a fragmented state.
+
+2. We used MODIS vegetation continuous field to estimate the forest patches at a global level and defined wide regions of connected forest across continents and big islands. We search for critical phase transitions, where the system state of the forest changes suddenly at a critical point; this implies an abrupt change in connectivity that causes a increased fragmentation level. We studied the distribution of forest patch sizes and the dynamics of the largest patch over the last fourteen years. The conditions that indicate that a region is near a critical fragmentation threshold are related to patch size distribution and temporal fluctuations of the largest patch.
+
+3. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the criteria to be near a critical fragmentation threshold. 
+
+4. This implies that human pressures and climate forcings might trigger undesired effects of fragmentation, such as species loss and degradation of ecosystems services, in these regions. The simple criteria proposed here could be used as early warning to estimate the distance to a fragmentation threshold in forest around the globe and could be used as a predictor of a planetary tipping point. 
+
+# Proc B  Abstract 
+
+Forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. This usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. The shape of the patch size distribution have been used as a signal of critical phase transitions, where the system state changes suddenly at a critical point; in the case of forest patches, this implies an abrupt change in connectivity that causes an increased fragmentation level, posing an additional risk to forest function as a habitat and ecosystem. All these patterns have been observed only at relatively small scales, however. Here we studied the distribution of forest patch sizes at a global level---wide regions of connected forest across continents and big islands---examining their changes over the last fourteen years and five different signals of a critical transition. We found that most regions, except the Eurasian mainland, followed a power-law distribution. Only the tropical forest of Africa and South America met the five criteria and thus seemed to be near a critical fragmentation threshold. The simple criteria proposed here could be used as an early warning to estimate the distance to a fragmentation threshold in forest around the globe and provide a guide to direct conservation efforts at a continental level. 
+
 # Reviewers
 
 Ricard Solé
@@ -74,6 +88,8 @@ Muñoz, M.A., Dickman, R., Vespignani, A. & Zapperi, S. (1999). Avalanche and sp
 
 
 # Lost phrases 
+
+A similar biodiversity collapse was observed for community models with habitat destruction [@Sole2004]. 
 
 Science search for universal principles [@Marquet2005; @Harte2014], and one of these universal principles are scaling laws, These scaling laws are a of the nonequilibrium conditions under which structures at different levels are created and how large-scale patterns are generated from local interactions.
 
@@ -262,16 +278,28 @@ to the nearest integer.
 
 @Barnosky2012
 
+
+First, to minimize biological surprises that
+would adversely impact humanity, it is essential to improve biological
+forecasting by anticipating critical transitions that can emerge on a
+planetary scale and understanding how such global forcings cause local
+changes.
+
+
 In the context of forecasting biological change, the realization that 
 critical transitions and state shifts can occur on the global scale3,12,15–18, as
 well as on smaller scales, is of great importance. One key question is how
 to recognize a global-scale state shift
+
 
 Finally, because the global-scale ecosystem comprises many smaller-
 scale, spatially bounded complex systems (for instance the community
 within a given physiographic region), each of which overlaps and interacts
 with others, state shifts of the small-scale components can propagate to
 cause a state shift of the entire system21.
+
+Impending state shifts can also sometimes be determined by parameterizing relatively
+simple models 20,21 .
 
 
 --------
@@ -776,4 +804,29 @@ In tropical landscapes, vegetation patches with contrasting tree densities are d
 
 
 Bestelmeyer2011 Analysis of abrupt transitions in ecological systems
+
+
+
+---------------
+@Yin2017
+
+Habitat loss and fragmentation are two intimately
+related forms of habitat destruction. Although it is possible
+to separate their respective effects under some specific cir-
+cumstances (Yaacobi et al. 2007), the effects of habitat loss
+and fragmentation in general are compounded and are not
+separable because losing habitat almost always accompanies
+fragmentation and vice versa (Bascompte and Solé 1996,
+Fahrig 2003, Swift and Hannon 2010, Haddad et al. 2017).
+
+
+---------------
+Hastings2010b Regime shifts in ecological systems can occur with no
+warning
+
+We suggest that real systems only present one
+case history for study, so any successful leading indicator
+that would be used in practice must be able to accurately
+predict a regime shift from the results using only one initial
+condition in a single model simulation.
 

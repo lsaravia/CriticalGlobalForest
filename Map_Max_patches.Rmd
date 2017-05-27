@@ -4,20 +4,31 @@
 
 ```{r setup, eval=T }
 
+if (!require(pacman)) {
+	install.packages("pacman") 
+	require(pacman)
+}
+p_load(plyr, dplyr, rgdal, raster, rworldmap, dismo, RColorBrewer)
 oldcd <-getwd()
-require(plyr)
-require(dplyr)
-require(rgdal)
-require(raster)
-require(rworldmap)
-require(dismo)
+# require(plyr)
+# require(dplyr)
+# require(rgdal)
+# require(raster)
+# require(rworldmap)
+# require(dismo)
+# library(maps)
+# library(mapdata)
+# library(maptools)
+
 #require(gdalUtils)
 rasterOptions(tmpdir="~/Academicos/tmp")
 source("R/map_fun.r")
 
+interactive_ext<- FALSE # set the extent of the regions 
+
 ```
 
-## Generate top 2 patches for africa
+## Generate top 200/2 patches for africa
 
 ```{r AF_Smax, eval=F }
 
@@ -37,57 +48,45 @@ plot(bk)
 
 # Reproject the aggregated rasters to mercator
 #
-reproject_top_2(crs(bk))
+reproject_top_200(crs(bk))
 
 
 # Generate a list with the extent of subregions
 # Interactive crop of the extent
 #
-bk<-gmap("DR Congo",ext=3)
-plot(bk)
-ee <-list(extent(bk))
+if(interactive_ext) {
 
-bk<-gmap("Madagascar")
-plot(bk)
-de<-drawExtent()
-bk <-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
+	bk<-gmap("Africa",ext=3)
+	plot(bk)
+	de<-drawExtent()
+	bk <-crop(bk,de)
+	plot(bk)
+	ee <-list(extent(bk))
+	
+	bk<-gmap("Madagascar")
+	plot(bk)
+	de<-drawExtent()
+	bk <-crop(bk,de)
+	ee <-c(ee,extent(bk))
+	# Save region extent for posterior use
+	saveRDS(ee,"extent_na.rds")
+}
 
-# Save region extent for posterior use
-#saveRDS(ee,"extent_na.rds")
+
 
 # Read regions extent
 ee<-readRDS("extent_na.rds")
 
-gif_top_2_patch(ee)
+gif_top_200_patch(ee)
 
-gif_top_2_patch(ee,"g")
+gif_top_200_patch(ee,"g")
+
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
 
 setwd(oldcd)
 
-# # Generate a composite with all the regions 
-# #
-# a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
-# r_1 <- raster(a_files[16])
-# crs(r_1)
-# crs(bk)
-# extent(r_1)
-# ee <-extent(bk)
-# r_1 <- crop(r_1,extent(bk))
-# 
-# require(RColorBrewer)
-# colvec <- brewer.pal(4,"Dark2")
-# plot(bk, legend=FALSE, axes=FALSE, box=FALSE,main="2010")	
-# text(10,10,"2010")
-# plot(r_1,legend=F,col=colvec,add=T,main="2001")
-# country.si <- spTransform(countriesLow, crs(r_1))
-# plot(country.si,add=T)
-# 
-# c.layer <- list("sp.lines", country.si)
-# 
-# spplot(r_1,at=c(0,1,2),colorkey= list(labels = list( labels = c("1","2"),at=c(0,1,2),height = 0.2))
-# 	   	,sp.layout=c.layer, col.regions = colvec[1:2])
+
 
 ```
 
@@ -106,35 +105,41 @@ setwd(options.glo$resultsDir)
 aggregate_top_200_patch()
 
 bk<-gmap("Rusia")
-reproject_top_2(crs(bk))
+# Top 2 files
+#reproject_top_200(crs(bk),npatch=2)
+
+# Top 200
+reproject_top_200(crs(bk),npatch=200)
 
 # Generate regions for GIFs
 #
-bk<-gmap("Rusia")
-plot(bk)
-ee<-drawExtent()
-bk<-crop(bk,ee)
-plot(bk)
-ee <-list(extent(bk))
-
-
-# Generate a list with the extent of subregions
-bk<-gmap("Japan")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-bk<-gmap("United Kingdom")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-#saveRDS(ee,"extent_euas.rds")
-
+if(interactive_ext) {
+	
+	bk<-gmap("Rusia")
+	plot(bk)
+	ee<-drawExtent()
+	bk<-crop(bk,ee)
+	plot(bk)
+	ee <-list(extent(bk))
+	
+	
+	# Generate a list with the extent of subregions
+	bk<-gmap("Japan")
+	plot(bk)
+	de<-drawExtent()
+	bk<-crop(bk,de)
+	plot(bk)
+	ee <-c(ee,extent(bk))
+	
+	bk<-gmap("United Kingdom")
+	plot(bk)
+	de<-drawExtent()
+	bk<-crop(bk,de)
+	plot(bk)
+	ee <-c(ee,extent(bk))
+	
+	saveRDS(ee,"extent_euas.rds")
+}
 ee<-readRDS("extent_euas.rds")
 
 
@@ -142,7 +147,8 @@ gif_top_2_patch(ee)
 
 gif_top_2_patch(ee,"g")
 
-setwd(oldcd)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
 
 
 #a_files <-list.files(pattern="^EUAS.*\\.tif$")
@@ -165,20 +171,23 @@ aggregate_top_200_patch()
 
 bk<-gmap("North America")
 plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-ee <-list(extent(bk))
 
 reproject_top_2(crs(bk))
 
-bk<-gmap("Newfoundland")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-#saveRDS(ee,"extent_na.rds")
+if(interactive_ext) {
 
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  ee <-list(extent(bk))
+
+  bk<-gmap("Newfoundland")
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
+  saveRDS(ee,"extent_na.rds")
+}
 ee<-readRDS("extent_na.rds")
 
 # subregion 5 need a extent object in position 5 
@@ -196,6 +205,9 @@ gif_top_2_patch(ee,"g")
 # r1 <-raster(a_files[1])
 # r1 <-crop(r1,ee[[2]])
 # plot(r1)
+
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
 
 setwd(oldcd)
 
@@ -220,82 +232,79 @@ bk<-gmap("Australia")
 
 reproject_top_2(crs(bk))
 
-# Recover from crash
-# a_f <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
-# 
-# a_f <- a_f[58:length(a_f)]
-# reproject_top_2(crs(bk),a_f)
+
+if(interactive_ext) {
+
+  # OC 1
+  bk<-gmap("Australia")
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  ee <-list(extent(bk))
+
+  # OC 2
+  bk<-gmap("Papua New Guinea",exp=2)
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
+
+  # OC 3
+  bk<-gmap("Kalimantan",exp=2)
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
 
-# OC 1
-bk<-gmap("Australia")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-ee <-list(extent(bk))
+  # OC 4
+  bk<-gmap("Sumatra",exp=2)
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
-# OC 2
-bk<-gmap("Papua New Guinea",exp=2)
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-# OC 3
-bk<-gmap("Kalimantan",exp=2)
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
+  # OC 5
+  bk<-gmap("Sulawesi",exp=2)
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
 
-# OC 4
-bk<-gmap("Sumatra",exp=2)
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
+  # OC 6
+  bk<-gmap("New Zealand")
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
-# OC 5
-bk<-gmap("Sulawesi",exp=2)
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
+  # OC 7
+  bk<-gmap("Java Indonesia")
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
-
-# OC 6
-bk<-gmap("New Zealand")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-# OC 7
-bk<-gmap("Java Indonesia")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-# OC 8 == OC 6 New Zealand
-ee <-c(ee,ee[[6]])
+  # OC 8 == OC 6 New Zealand
+  ee <-c(ee,ee[[6]])
 
 
-#saveRDS(ee,"extent_oc.rds")
+  saveRDS(ee,"extent_oc.rds")
+}
 
 ee<-readRDS("extent_oc.rds")
 
 # Generate GIF 
-gif_top_2_patch(ee)
+gif_top_200_patch(ee)
 
-gif_top_2_patch(ee,"g")
+gif_top_200_patch(ee,"g")
 
 # a_files <-list.files(pattern="^.*Percent_Tree_Cover\\.tif_Top_200_forest_patches\\.tif$")
 # a_files <-list.files(pattern="^.*Percent_Tree_Cover_Top_2\\.tif$")
@@ -303,6 +312,9 @@ gif_top_2_patch(ee,"g")
 # r1 <-raster(a_files[106])
 # r1 <-crop(r1,ee[[8]])
 # plot(r1,col=rainbow(2))
+
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
 
 setwd(oldcd)
 ```
@@ -323,39 +335,45 @@ aggregate_top_200_patch()
 bk<-gmap("South America")
 #plot(bk)
 
-reproject_top_2(crs(bk))
+reproject_top_200(crs(bk))
 
-# SAST 1
-bk<-gmap("South America")
-plot(bk)
-#de<-drawExtent()
-#bk<-crop(bk,de)
-ee <-list(extent(bk))
+if(interactive_ext) {
+	
+	# SAST 1
+	bk<-gmap("South America")
+	plot(bk)
+	#de<-drawExtent()
+	#bk<-crop(bk,de)
+	ee <-list(extent(bk))
+	
+	# SAST 2
+	bk<-gmap("Cuba")
+	plot(bk)
+	#de<-drawExtent()
+	#bk<-crop(bk,de)
+	#plot(bk)
+	ee <-c(ee,extent(bk))
+	
+	# SAT 1
+	bk<-gmap("South america")
+	plot(bk)
+	de<-drawExtent()
+	bk<-crop(bk,de)
+	plot(bk)
+	ee <-c(ee,extent(bk))
+	
+	saveRDS(ee,"extent_sa.rds")
+}
 
-# SAST 2
-bk<-gmap("Cuba")
-plot(bk)
-#de<-drawExtent()
-#bk<-crop(bk,de)
-#plot(bk)
-ee <-c(ee,extent(bk))
-
-# SAT 1
-bk<-gmap("South america")
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
-
-#saveRDS(ee,"extent_sa.rds")
-
-#ee<-readRDS("extent_sa.rds")
+ee<-readRDS("extent_sa.rds")
 
 # Generate GIF 
 gif_top_2_patch(ee)
 
 gif_top_2_patch(ee,"g")
+
+plot_top_200_patch(ee,subreg=1,Year=2014)
+plot_top_200_patch(ee,subreg=1,Year=2000)
 
 setwd(oldcd)
 ```
@@ -375,32 +393,74 @@ aggregate_top_200_patch()
 
 bk<-gmap("China")
 plot(bk)
+reproject_top_200(crs(bk))
 
-reproject_top_2(crs(bk))
+if(interactive_ext) {
 
+  # SEAS1
+  plot(bk)
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-list(extent(bk))
 
-# SEAS1
-plot(bk)
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-list(extent(bk))
+  # SEAS2
+  de<-drawExtent()
+  bk<-crop(bk,de)
+  plot(bk)
+  ee <-c(ee,extent(bk))
 
-# SEAS2
-de<-drawExtent()
-bk<-crop(bk,de)
-plot(bk)
-ee <-c(ee,extent(bk))
+  saveRDS(ee,"extent_seas.rds")
+}
 
-#saveRDS(ee,"extent_seas.rds")
+ee<-readRDS("extent_seas.rds")
 
-#ee<-readRDS("extent_seas.rds")
+gif_top_200_patch(ee,npatch = 2)
 
-gif_top_2_patch(ee)
+gif_top_200_patch(ee,"g",npatch = 2)
 
-gif_top_2_patch(ee,"g")
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
+plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
 
 setwd(oldcd)
+
+```
+
+# Generate a mosaic with the continental level 200 patchs
+
+```{r 200patchFigures, echo=FALSE,eval=FALSE}
+
+images <- c("Results/southasia/southasia_SEAS_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/southasia/southasia_SEAS_1_30_perc_threshold_in_MOD44B_top_200_2014.png",
+			"Results/southamerica/southamerica_SAST_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/southamerica/southamerica_SAST_1_30_perc_threshold_in_MOD44B_top_200_2014.png",
+			"Results/africa/africa_AF_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/africa/africa_AF_1_30_perc_threshold_in_MOD44B_top_200_2014.png",
+			"Results/oceania/oceania_OC_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/oceania/oceania_OC_1_30_perc_threshold_in_MOD44B_top_200_2014.png",
+			"Results/northamerica/northamerica_NA_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/northamerica/northamerica_NA_1_30_perc_threshold_in_MOD44B_top_200_2014.png",
+			"Results/eurasia/eurasia_EUAS_1_30_perc_threshold_in_MOD44B_top_200_2000.png",
+			"Results/eurasia/eurasia_EUAS_1_30_perc_threshold_in_MOD44B_top_200_2014.png")
+
+# Trim images blank borders
+#
+lapply(paste("convert ", images, "-fuzz 1% -trim +repage",images), system)
+
+system(paste("montage", paste(images[1:6], collapse=" "),"-tile 2x3 -geometry 1200x1200+2+2 figure/top200_patch_continent.png"))
+
+system(paste("montage", paste(images[11:12], collapse=" "),"-tile 1x2 -geometry +2+2 figure/top200_patch_eurasia.png"))
+
+system(paste("montage", paste(images[9:10], collapse=" "),"-tile 1x2 -geometry +2+2 figure/top200_patch_northamerica.png"))
+
+system(paste("montage", paste(images[7:8], collapse=" "),"-tile 1x2 -geometry +2+2 figure/top200_patch_oceania.png"))
+
+system(paste("montage", paste(images[5:6], collapse=" "),"-tile 2x1 -geometry +2+2 figure/top200_patch_africa.png"))
+
+system(paste("montage", paste(images[3:4], collapse=" "),"-tile 2x1 -geometry +2+2 figure/top200_patch_southamerica.png"))
+
+system(paste("montage", paste(images[1:2], collapse=" "),"-tile 1x2 -geometry +2+2 figure/top200_patch_southasia.png"))
+
 
 ```
 
@@ -439,7 +499,7 @@ simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate
 
 # Make animations
 #
-require(animation)
+p_load(animation)
   saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
           interval = .5,
           movie.name="dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
