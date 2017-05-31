@@ -17,11 +17,6 @@ of Maryland–College Park, 5825 University Research Court #3500, College Park, 
 
 **Running title**: Critical fragmentation in global forest 
 
-**number of words in abstract**: 298 
-
-**number of words in the article**: 5568
-
-**number of references**: 84
 
 ## Abstract
 
@@ -44,7 +39,7 @@ Another global scale forcing that is tied to habitat destruction is fragmentatio
 
 Ecosystems have complex interactions between species and present feedbacks at different levels of organization [@Gilman2010], and external forcings can produce abrupt changes from one state to another, called critical transitions [@Scheffer2009]. These abrupt state shifts cannot be linearly forecasted from past changes, and are thus difficult to predict and manage [@Scheffer2009]. Critical transitions have been detected mostly at local scales [@Carpenter2011; @Drake2010], but the accumulation of changes in local communities that overlap geographically can propagate and theoretically cause an abrupt change of the entire system at larger scales [@Barnosky2012]. Coupled with the existence of global scale forcings, this implies the possibility that a critical transition could occur at a global scale [@Rockstrom2009; @Folke2011].
 
-Complex systems can experience two general classes of critical transitions [@Sole2011]. In so-called first order transitions, a catastrophic regime shift that is mostly irreversible occurs because of the existence of alternative stable states [@Scheffer2001]. This class of transitions is suspected to be present in a variety of ecosystems such as lakes, woodlands, coral reefs [@Scheffer2001], semi-arid graslands [@Bestelmeyer2011], and fish populations [@Vasilakopoulos2015]. They can be the result of positive feedback mechanisms [@Martin2015]; for example, fires in some forest ecosystems were more likely to occur in previously burned areas than in unburned places [@Kitzberger2012].
+Complex systems can experience two general classes of critical transitions [@Sole2011]. In so-called first order transitions, a catastrophic regime shift that is mostly irreversible occurs because of the existence of alternative stable states [@Scheffer2001]. This class of transitions is suspected to be present in a variety of ecosystems such as lakes, woodlands, coral reefs [@Scheffer2001], semi-arid grasslands [@Bestelmeyer2011], and fish populations [@Vasilakopoulos2015]. They can be the result of positive feedback mechanisms [@Martin2015]; for example, fires in some forest ecosystems were more likely to occur in previously burned areas than in unburned places [@Kitzberger2012].
 
 The other class of critical transitions are continuous or second order transitions [@Sole2006]. In these cases, there is a narrow region where the system suddenly changes from one domain to another, with the change being  continuous and in theory reversible. This kind of transitions were suggested to be present in tropical forest [@Pueyo2010], semi-arid mountain ecosystems [@McKenzie2012], tundra shrublands [@Naito2015]. The transition happens at critical point where we can observe a distinctive spatial pattern: scale invariant fractal structures characterized by power law patch distributions [@Stauffer1994].
 
@@ -108,7 +103,7 @@ All statistical analyses were performed using the GNU R version 3.3.0 [@RCoreTea
 
 ## Results
 
-The figure 1 shows an example of the distribution of the biggest 200 patches for years 2000 and 2014, this distribution is highly variable. The visual inspection could be used to detect the increase or decrease of fragmentation in different areas of interest. The biggest patch usually maintain its location (but see animations Appendix S3), smaller patches can merge or break more easily so they enter or leave the list of 200, and this is why there is a color change across years.   
+The figure 1 shows an example of the distribution of the biggest 200 patches for years 2000 and 2014, this distribution is highly variable, but the biggest patch usually maintains its place. Sometimes the biggest patch breaks and then big fluctuations in its size are observed, as we will analyze below.  Smaller patches can merge or break more easily so they enter or leave the list of 200, and this is why there is a color change across years.   
 
 ![Forest patch distributions for continental regions for the years 2000 and 2014. The images are the 200 biggest patches, showed at a coarse pixel scale of 2.5 Km.  The regions are: a) & b) southeast Asia; c) & d) South America subtropical and tropical and  e) & f) Africa mainland, for the years 2000 and 2014 respectively.](figure/top200_patch_continent.png)
 
@@ -136,54 +131,57 @@ The conditions that indicate that a region is near a critical fragmentation thre
 
 \newpage
 
+\scriptsize
+
 -----------------------------------------------------------------------------------------------------------------------
-                                                     Average        Patch      $\Delta RS_{max}$             
-Region          Description                          $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
--------- -----  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
-AF        1     Africa mainland                        0.36       Power          Power             -1.8630     Increase
+                                              Average        Patch      $\Delta RS_{max}$             
+Region          Description                   $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
+-------  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
+AF1      Africa mainland                        0.36       Power          Power             -1.8630     Increase
 
-          2     Madagascar                             0.65       Power          Power             -0.2478     NS
+AF2      Madagascar                             0.65       Power          Power             -0.2478     NS
 
-EUAS      1     Eurasia, mainland                      0.36       LogNormal      Exp                0.4016     Increase
+EUAS1    Eurasia, mainland                      0.36       LogNormal      Exp                0.4016     Increase
 
-          2     Japan                                  0.94       Power          Power              0.0255     NS
+EUAS2    Japan                                  0.94       Power          Power              0.0255     NS
 
-          3     United Kingdom                         0.07       Power          Power              2.1330     NS
+EUAS3    United Kingdom                         0.07       Power          Power              2.1330     NS
 
-NA        1     North America, mainland                0.71       Power          Power             -1.5690     Decrease
+NA1      North America, mainland                0.71       Power          Power             -1.5690     Decrease
 
-          5     Newfoundland                           0.87       Power          Power             -0.7411     NS
+NA5      Newfoundland                           0.87       Power          Power             -0.7411     NS
 
-OC        1     Australia, Mainland                    0.28       Power          Power             0.0685      Decrease
+OC1      Australia, Mainland                    0.28       Power          Power             0.0685      Decrease
 
-          2     New Guinea                             0.97       Power          Exp               0.1321      Decrease
+OC2   	 New Guinea                             0.97       Power          Exp               0.1321      Decrease
 
-          3     Malaysia/Kalimantan                    0.97       Power          Exp               -0.9633     NS
+OC3   	 Malaysia/Kalimantan                    0.97       Power          Exp               -0.9633     NS
 
-          4     Sumatra                                0.92       Power          Power             1.3150      Increase
+OC4   	 Sumatra                                0.92       Power          Power             1.3150      Increase
 
-          5     Sulawesi                               0.87       Power          Power             -0.3863     NS
+OC5   	 Sulawesi                               0.87       Power          Power             -0.3863     NS
 
-          6     New Zealand South Island               0.76       Power          Exp               -0.6683     NS
+OC6   	 New Zealand South Island               0.76       Power          Exp               -0.6683     NS
 
-          7     Java                                   0.38       Power          Exp               -0.1948     NS
+OC7   	 Java                                   0.38       Power          Exp               -0.1948     NS
 
-          8     New Zealand North Island               0.75       Power          Exp               0.2940      NS
+OC8   	 New Zealand North Island               0.75       Power          Exp               0.2940      NS
 
-SAST      1     South America, Tropical and            0.68       Power          Power             -2.7760     Increase
-                subtropical forest up to Mexico
+SAST1    South America, Tropical and            0.68       Power          Power             -2.7760     Increase
+         subtropical forest up to Mexico
 
-          2     Cuba                                   0.21       Power          Power             0.2751      NS
+SAST2    Cuba                                   0.21       Power          Power             0.2751      NS
 
-SAT       1     South America, Temperate forest        0.60       Power          Power            -1.5070      Decrease
+SAT1     South America, Temperate forest        0.60       Power          Power            -1.5070      Decrease
 
-SEAS      1     Southeast Asia, Mainland               0.40       Power          Power             3.0030      NS
+SEAS1    Southeast Asia, Mainland               0.40       Power          Power             3.0030      NS
 
-          2     Philippines                            0.54       Power          Power             0.3113      Increase
-------------------------------------------------------------------------------------------------------------------------
+SEAS2    Philippines                            0.54       Power          Power             0.3113      Increase
+-----------------------------------------------------------------------------------------------------------------
 
-Table: Regions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, skewness was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantile regressions, NS means the results were non-significant. 
+Table: Regions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, skewness was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantile regressions, NS means the results were non-significant. The conditions that determine the closeness to a threshold are 
 
+\normalsize
 
 ## Discussion
 
@@ -191,17 +189,20 @@ We found that the forest patch distribution of most regions of the world followe
 
 Several mechanisms have been proposed for the emergence of power laws in forest: the first is related self organized criticality (SOC), when the system is driven by its internal dynamics to a critical state; this has been suggested mainly for fire-driven forests [@Zinck2009; @Hantson2015].  Real ecosystems do not seem to meet the requirements of SOC dynamics: their dynamics are influenced by external forces, and interactions are non-homogeneous (i.e. vary from place to place) [@Sole2002a]. Moreover, SOC requires a memory effect: fire scars in a site should accumulate and interfere with the propagation of a new fire. Pueyo et al. [-@Pueyo2010] did not find such effect for tropical forests, and suggest that other mechanisms might produce the observed power laws. Other studies have also found that SOC models do not reproduce the patterns of observed fires [@McKenzie2012]. Thus a mechanism which resembles SOC, i.e. with a double separation of scales, does not seem a plausible explanation for the global forest dynamics.
 
-The mechanism suggested by Pueyo et al. [-@Pueyo2010] is isotropic percolation, when a system is near the critical point power law structures arise. This is equivalent to the random forest model that we explained previously, and requires the tuning of an external environmental condition to carry the system to this point. We did not expect forest growth to be a random process at local scales, but it is possible that combinations of factors cancel out to produce seemingly random forest dynamics at large scales. If this is the case the power law exponent should be theoretically near $\alpha=2.055$, but this value is outside the confidence interval we observed, and thus other explanations are needed. 
+The mechanism suggested by Pueyo et al. [-@Pueyo2010] is isotropic percolation, when a system is near the critical point power law structures arise. This is equivalent to the random forest model that we explained previously, and requires the tuning of an external environmental condition to carry the system to this point. We did not expect forest growth to be a random process at local scales, but it is possible that combinations of factors cancel out to produce seemingly random forest dynamics at large scales. If this is the case the power law exponent should be theoretically near $\alpha=2.055$, this is close but outside the confidence interval we observed (1.898 - 1.920), and thus other explanations are needed. 
 
 The third mechanism suggested as the cause of pervasive power laws in patch size distribution is facilitation [@Manor2008a;@Irvine2016]: a patch surrounded by forest will have a smaller probability of been deforested or degraded than an isolated patch. We hypothesize that models that include facilitation could explain the patterns observed here. The model of Scanlon et al. [-@Scanlon2007] represented the dynamics of savanna trees includes a global constraint (mean rainfall), a local facilitation mechanism, and two states (tree/non-tree), producing power laws across a rainfall gradient without the need for tuning an external parameter. The results for this model showed an $\alpha=1.34$ which is also different from our results. Another model but with three states (tree/non-tree/degraded), including local facilitation and grazing, was also used to obtain power laws patch distributions without external tuning, and exhibited deviations from power laws at high grazing pressures [@Kefi2007b]. The values of the power law exponent $\alpha$ obtained for this model are dependent on the intensity of facilitation, when facilitation is more intense the exponent is higher, but the maximal values they obtained are still lower than the ones we observed. The interesting point is that the value of the exponent is dependent on the parameters, and thus the observed $\alpha$ might be obtained with some parameter combination.  Kefi et al. [-@Kefi2007b] proposed that a deviation in power law behavior with the form of an exponential decay or cut-off could be a signal of a critical transition. At the continental scales studied here, we did not observe exponential cut-offs, but did observe other signals of a transition. This confirms previous results [@Weerman2012;@Kefi2014] showing that different mechanisms can produce seemingly different spatial patterns near the transition, and that early warnings based only on spatial patterns are not universal for all systems. 
 
 It has been suggested that a combination of spatial and temporal indicators could more reliably detect critical transitions [@Kefi2014]. In this study, we combined five criteria to detect the closeness to a fragmentation threshold. Two of them were spatial: the forest patch size distribution, and the proportion of the largest patch relative to total forest area ($RS_{max}$). The other three were the distribution of temporal fluctuations in the largest patch size, the trend in the variance, and the skewness of the fluctuations. Each one of these is not a strong individual predictor, but their combination gives us an increased degree of confidence about the system being close to a critical transition. 
 
-We found that only the tropical forest of Africa and South America met all five criteria, and thus seem to be near a critical fragmentation threshold. This means that the combined influence of human pressures and climate forcings might trigger all the undesired effects of fragmentation in these extended areas. A small but continuous increase in forest loss could produce a biodiversity collapse [@Sole2004]. This threshold effect has been observed in different kind of models, experimental microcosms [@Starzomski2007], field studies [@Pardini2010;@Martensen2012] and food webs [@Martinson2012]. Of these two areas, Africa seems to be more affected, because the proportion of the largest patch relative to total forest area ($RS_{max}$) is near 30%, which could indicate that the transition is already started. Moreover, this region was estimated to be potentially bistable, with the possibility to completely transform into a savanna [@Staver2011]. The region of South America tropical forest has a $RS_{max}$ of more than 60% suggesting that the fragmentation transition is approaching but not yet started. The island of Philippines (SEAS2) seems to be an example of a critical transition from an unconnected to a connected state, the early warning signals can be qualitatively observed: a big fluctuation in a negative direction precedes the transition and then $RS_{max}$ stabilizes over 60%. This confirms that the early warning indicators proposed here work in the correct direction.  
+We found that only the tropical forest of Africa and South America met all five criteria, and thus seem to be near a critical fragmentation threshold. This confirms previous studies that point to this two tropical areas as the most affected by deforestation [@Hansen2013], but our method fails to detect that Southeast Asia was also in the first places of deforestation. One of the reasons would be that the MODIS dataset does not detect if native forest is replaced by agroindustrial tree plantations like oil palms, that is the principal driver of deforestation in this area [@Malhi2014]. Thus a refined dataset to determine forest patches which integrates different kinds of information about land use, protected areas, forest type, is needed [@Hansen2014].
 
-At low levels of habitat reduction, species population will decline proportionally; this can happen even when the habitat fragments retain connectivity. As habitat reduction continues, the critical threshold is approached and connectivity will have large fluctuations [@Brook2013]. This could trigger several synergistic effects: populations fluctuations and the possibility of extinctions will rise, increasing patch isolation and decreasing connectivity [@Brook2013]. This positive feedback mechanism will be enhanced when the fragmentation threshold is reached, resulting in the loss of most habitat specialist species at a landscape scale [@Pardini2010]. Some authors argue that since species have heterogeneous responses to habitat loss and fragmentation, and biotic dispersal is limited, the importance of thresholds is restricted to local scales or even that its existence is questionable [@Brook2013]. Fragmentation is by definition a local process that at some point produces emergent phenomena over the entire landscape, even if the area considered is infinite [@Oborny2005]. In addition, after a region's fragmentation threshold connectivity decreases, there is still a large and internally well connected patch that can maintain sensitive species [@Martensen2012]. What is the time needed for these large patches to become fragmented, and pose a real danger of extinction to a myriad of sensitive species? If a forest is already in a fragmented state, a second critical transition from forest to non-forest could happen,  this was called the desertification transition [@Corrado2014]. Considering the actual trends of habitat loss, and studying the dynamics of non-forest patches---instead of the forest patches as we did here---the risk of this kind of transition could be estimated. To improve the estimation of non-forest patches other data set as the MODIS cropland probability should be incorporated [@Sexton2015]. The simple models proposed previously could also be used to estimate if these thresholds are likely to be continuous and reversible or discontinuous and irreversible, and the degree of protection (e.g. using the set-asides strategy @Banks-Leite2014) than would be necessary to stop this trend.  
+Of these two areas, Africa seems to be more affected, because the proportion of the largest patch relative to total forest area ($RS_{max}$) is near 30%, which could indicate that the transition is already started. Moreover, this region was estimated to be potentially bistable, with the possibility to completely transform into a savanna [@Staver2011]. The region of South America tropical forest has a $RS_{max}$ of more than 60% suggesting that the fragmentation transition is approaching but not yet started. The island of Philippines (SEAS2) seems to be an example of a critical transition from an unconnected to a connected state, the early warning signals can be qualitatively observed: a big fluctuation in a negative direction precedes the transition and then $RS_{max}$ stabilizes over 60%. This confirms that the early warning indicators proposed here work in the correct direction.  
 
-The effectiveness of landscape management is related to the degree of fragmentation, and the criteria to direct reforestation efforts could be focused on regions near a transition [@Oborny2007]. Regions that are in an unconnected state require large efforts to recover a connected state, but regions that are near a transition could be easily pushed to a connected state; feedbacks due to facilitation mechanisms might help to maintain this state. If the largest patch is always the same patch over time, the forest is probably not fragmented. This patch could represent a core area for conservation, because it maintains the connectivity of the whole region. 
+
+At low levels of habitat reduction, species population will decline proportionally; this can happen even when the habitat fragments retain connectivity. As habitat reduction continues, the critical threshold is approached and connectivity will have large fluctuations [@Brook2013]. This could trigger several synergistic effects: populations fluctuations and the possibility of extinctions will rise, increasing patch isolation and decreasing connectivity [@Brook2013]. This positive feedback mechanism will be enhanced when the fragmentation threshold is reached, resulting in the loss of most habitat specialist species at a landscape scale [@Pardini2010]. Some authors argue that since species have heterogeneous responses to habitat loss and fragmentation, and biotic dispersal is limited, the importance of thresholds is restricted to local scales or even that its existence is questionable [@Brook2013]. Fragmentation is by definition a local process that at some point produces emergent phenomena over the entire landscape, even if the area considered is infinite [@Oborny2005]. In addition, after a region's fragmentation threshold connectivity decreases, there is still a large and internally well connected patch that can maintain sensitive species [@Martensen2012]. What is the time needed for these large patches to become fragmented, and pose a real danger of extinction to a myriad of sensitive species? If a forest is already in a fragmented state, a second critical transition from forest to non-forest could happen,  this was called the desertification transition [@Corrado2014]. Considering the actual trends of habitat loss, and studying the dynamics of non-forest patches---instead of the forest patches as we did here---the risk of this kind of transition could be estimated. To improve the estimation of non-forest patches other data set as the MODIS cropland probability should be incorporated [@Sexton2015]. The simple models proposed previously could also be used to estimate if these thresholds are likely to be continuous and reversible or discontinuous and often irreversible [@Weissmann2016], and the degree of protection (e.g. using the set-asides strategy @Banks-Leite2014) than would be necessary to stop this trend.  
+
+The effectiveness of landscape management is related to the degree of fragmentation, and the criteria to direct reforestation efforts could be focused on regions near a transition [@Oborny2007]. Regions that are in an unconnected state require large efforts to recover a connected state, but regions that are near a transition could be easily pushed to a connected state; feedbacks due to facilitation mechanisms might help to maintain this state. If the largest patch is always the same patch over time, the forest is probably not fragmented. This patch could represent a core area for conservation, because it maintains the connectivity of the whole region. The dynamical fragmentation analysis that we did could be performed at smaller scales that would be more amenable to be managed for conservation, and their results could be readily applicable to modify the fragmentation of an area. 
 
 Crossing the fragmentation critical point in forests could have negative effects on biodiversity and ecosystem services [@Haddad2015], but it could also produce feedback loops at different levels of the biological hierarchy. This means that a critical transition produced at a continental scale could have effects at the level of communities, food webs, populations, phenotypes and genotypes [@Barnosky2012]. All these effects interact with climate change, thus there is a potential production of cascading effects that could lead to a global collapse.
 Therefore, even if critical thresholds are reached only in some forest regions at a continental scale, a cascading effect with global consequences could still be produced, and may contribute to reach a planetary tipping point [@Reyer2015]. The risk of such event will be higher if the dynamics of separate continental regions are coupled [@Lenton2013]. Using the time series obtained in this work the coupling of the continental could be further investigated. It has been proposed that to assess the probability of a global scale shift, different small scale ecosystems should be studied in parallel [@Barnosky2012]. As forest comprises a major proportion of such ecosystems, we think that the transition of forests could be used as a proxy for all the underling changes and as a successful predictor of a planetary tipping point.
@@ -256,11 +257,6 @@ Therefore, even if critical thresholds are reached only in some forest regions a
 ## Data Accessibility
 
 The patch size files for all years and regions used here, and all the R and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
-
-## BioSketch
-
-Leonardo A. Saravia is a professor of the University of General Sarmiento (UNGS), Buenos Aires, Argentina. He works with the Ecology group at the university with emphasis on community ecology and different kinds of ecological networks focusing both on macroecological patterns and local processes. He is the leader of the complex systems group of the UNGS institute of sciences, where the investigations are discussed with an interdisciplinary point of view. The tools he uses are mainly computational, programming in C++ and R statistical language.  
-
 
 ## Acknowledgments
 

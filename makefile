@@ -1,6 +1,6 @@
-OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=journal-of-ecology.csl --latex-engine=xelatex
+OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=journal-of-ecology.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGF.pdf GraphicalAbstract.pdf CriticalGF_bioRxiv.pdf
+all: Appendices.pdf CriticalGF.pdf
 
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty
@@ -19,7 +19,7 @@ CriticalGF.docx: CriticalGF.md margins.sty CriticalGF.bib makefile
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 			
-CriticalGF_bioRxiv.pdf: CriticalGF_bioRxiv.md nolineno.sty CriticalGF.bib
+CriticalGF_bioRxiv.pdf: CriticalGF.md nolineno.sty CriticalGF.bib
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc -H nolineno.sty --bibliography CriticalGF.bib --latex-engine=xelatex --csl=global-change-biology.csl CriticalGF_bioRxiv.md -o CriticalGF_bioRxiv.pdf 
 	evince CriticalGF_bioRxiv.pdf		

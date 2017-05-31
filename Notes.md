@@ -14,34 +14,20 @@ Forests provide critical habitat for many species, essential ecosystem services,
 
 # Reviewers
 
+
+Juan Carlos Rocha1
+Stockholm Resilience Centre, Stockholm University, Kräftriket 2B, 10691, Stockholm, Sweden,
+juan.rocha@su.se 
+
+
 Ricard Solé
 ricard.sole@upf.edu
 Universitat Pompeu Fabra
-	
-Gregory Asner
-gpa@stanford.edu
-Department of Global Ecology
-Carnegie Institution for Science
 	
 Jordi Bascompte
 jordi.bascompte@ieu.uzh.ch
 University of Zurich
 	
-Lisandro Benedetti-Cecchi
-lisandro.benedetti.cecchi@unipi.it
-University of Pisa
-	
-Sergio Cannas
-cannas@famaf.unc.edu.ar
-Universidad Nacional de Córdoba
-	
-Fangliang He
-fhe@ualberta.ca
-University of Alberta
-	
-Marina Hirota
-marina.hirota@gmail.com
-Federal University of Santa Catarina
 
 ## Significance statement
 
@@ -88,6 +74,8 @@ Muñoz, M.A., Dickman, R., Vespignani, A. & Zapperi, S. (1999). Avalanche and sp
 
 
 # Lost phrases 
+
+This means that the combined influence of human pressures and climate forcings might trigger all the undesired effects of fragmentation in these extended areas. A small but continuous increase in forest loss could produce a biodiversity collapse [@Sole2004]. This threshold effect has been observed in different kind of models, experimental microcosms [@Starzomski2007], field studies [@Pardini2010;@Martensen2012] and food webs [@Martinson2012]. 
 
 A similar biodiversity collapse was observed for community models with habitat destruction [@Sole2004]. 
 
