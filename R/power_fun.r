@@ -662,7 +662,7 @@ max_patch_size <-function(im_names,opts.out){
 
 read_random_percolation <-function(region) {
 	
-	percolation_R_files <- list.files(pattern="^.*_percolation_analysis\\.R$")
+	percolation_R_files <- list.files(pattern="^.*_randomized_p_sweep\\.R$")
 	df <- data.frame()
 	
 	for(i in 1:length(percolation_R_files)){
@@ -686,7 +686,7 @@ read_random_percolation <-function(region) {
 
 read_region_correlation<-function(region) {
 
-	r_files <- list.files(pattern="^.*_correlation_analisys\\.R$")
+	r_files <- list.files(pattern="^.*_Correlation_analisys\\.R$")
 	df <- data.frame()
 	
 	for(i in 1:length(r_files)){

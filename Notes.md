@@ -36,6 +36,11 @@ The fragmentation of forest is a global problem, produced mainly by anthropogeni
 
 ## Apendix 1: Some results about scaling laws from percolation theory 
 
+* Isotropic Percolation thresholds 
+
+    von Neumann’s neighborhood, N2 = 0.592
+    Moore’s neighborhood, N2+N3 = 0.407  
+
 * The distribution of patch sizes has in general the following distribution:
 
     $$n_s(p) \propto s^{-\tau} e^{-cs}$$
