@@ -3,6 +3,7 @@
 ## Setup
 
 ```{r setup, eval=T }
+load(".RData")
 
 if (!require(pacman)) {
 	install.packages("pacman") 
@@ -30,25 +31,18 @@ interactive_ext<- FALSE # set the extent of the regions
 
 ## Generate top 200/2 patches for africa
 
-```{r AF_Smax, eval=F }
+```{r AF_Smax, eval=T }
 
 # Set folder with results for the region 
 #
 options.glo$resultsDir <- "Results/africa"
 setwd(options.glo$resultsDir)
 
-# Generate 10 times aggregated raster files with values=subregion
-#
-aggregate_top_200_patch()
 
 # Get crs to reproject
 #
 bk<-gmap("Africa")
 plot(bk)
-
-# Reproject the aggregated rasters to mercator
-#
-reproject_top_200(crs(bk))
 
 
 # Generate a list with the extent of subregions
@@ -72,14 +66,23 @@ if(interactive_ext) {
 	saveRDS(ee,"extent_na.rds")
 }
 
-
+# # Generate 10 times aggregated raster files with values=subregion
+# #
+# aggregate_top_200_patch()
+# 
+# # Reproject the aggregated rasters to mercator
+# #
+# reproject_top_200(crs(bk))
+# 
+# 
 
 # Read regions extent
 ee<-readRDS("extent_na.rds")
 
-gif_top_200_patch(ee)
-
-gif_top_200_patch(ee,"g")
+# 
+# gif_top_200_patch(ee)
+# 
+# gif_top_200_patch(ee,"g")
 
 plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2014)
 plotRaw_top_200_patch(crs(bk),ee,subreg=1,Year=2000)
@@ -380,7 +383,7 @@ setwd(oldcd)
 
 # South Asia SEAS
 
-```{r seas_map, eval=T }
+```{r seas_map, eval=F }
 
 # Set folder with results for the region 
 #
