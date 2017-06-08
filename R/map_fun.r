@@ -224,7 +224,7 @@ plotRaw_top_200_patch <-function(rsys,subreg_ee,subreg=0,Year=0)
 	{	
 		#dee <-as.numeric(df$subregion[1])
 		
-		s_area <- aggregate(s_area,fact=10,fun=max)
+		#s_area <- aggregate(s_area,fact=10,fun=max)
 		
 		s_area <- reclassify(s_area,c(-Inf,0,NA))
 		
@@ -279,9 +279,9 @@ polygonizeR <- function(x, outshape=NULL, gdalformat = 'ESRI Shapefile',
 		pypath <- Sys.which('gdal_polygonize.py')
 	}
 	if (!file.exists(pypath)) stop("Can't find gdal_polygonize.py on your system.")
-	owd <- getwd()
-	on.exit(setwd(owd))
-	setwd(dirname(pypath))
+#	owd <- getwd()
+#	on.exit(setwd(owd))
+#	setwd(dirname(pypath))
 	if (!is.null(outshape)) {
 		outshape <- sub('\\.shp$', '', outshape)
 		f.exists <- file.exists(paste(outshape, c('shp', 'shx', 'dbf'), sep='.'))
