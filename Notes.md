@@ -1,3 +1,8 @@
+
+# Tweeteable abstract
+
+Are global forest near a critical fragmentation threshold? Five simple criteria.
+
 # GEB - JEcol Abstract
 
 1. Forests provide critical habitat for many species, essential ecosystem services, and are coupled to atmospheric dynamics through exchanges of energy, water and gases. One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. This usually leads to fragmentation, altering the sizes of patches, the structure and function of the forest. Here we studied the distribution and dynamics of forest patch sizes at a global level, examining signals of a critical transition from an unfragmented to a fragmented state.
@@ -14,11 +19,18 @@ Forests provide critical habitat for many species, essential ecosystem services,
 
 # Reviewers
 
+Bert Wuyts
+Bristol Centre for Complexity Sciences, Bristol University
+bw12158@my.bristol.ac.uk
 
-Juan Carlos Rocha1
+Naomi M. Levine
+University of Southern California
+n.levine@usc.edu
+
+
+Juan Carlos Rocha
 Stockholm Resilience Centre, Stockholm University, Kräftriket 2B, 10691, Stockholm, Sweden,
 juan.rocha@su.se 
-
 
 Ricard Solé
 ricard.sole@upf.edu
@@ -28,6 +40,13 @@ Jordi Bascompte
 jordi.bascompte@ieu.uzh.ch
 University of Zurich
 	
+Mateus Dantas De Paula
+mateus.dantas@ufz.de
+Helmholtz Centre for Environmental Research
+
+Juan M. Morales,
+Universidad Nacional del Comahue
+jm.morales@conicet.gov.ar
 
 ## Significance statement
 

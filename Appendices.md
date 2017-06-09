@@ -1,18 +1,15 @@
 # Appendices
 
 
-## Metadata for Appendix S1
+## Metadata for files available at figshare 
 
-**Supplementary data**: Csv and tab separated text files with model fits for patch size distribution, and model selection for all the regions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
-The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions. Available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>
+**Model fits**: Csv and tab separated text files with model fits for patch size distribution, and model selection for all the regions. We used the the Akaike criterion to select the best model, the goodness of fit was calculated by bootstrap. The models were fitted using maximum likelihood and the optimum Xmin was estimated from data usin Kolmogorov-Smirnov distance. The regions are the same as table S1: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 United Kingdom; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
+The field are: Xmin the minimun value for the power law distribution; par1 & par2 are the parameters of the distributions Power law and exponential have only one parameter, Lognormal and Power law with exponential cutoff have two parameters; n is the number of observations used in the fitting process; LL is the log likelihood; AICc is the Akaike criterion corrected for small n; delta_AICc is the difference with the lowest AICc; AICc_weight are the Akaike weights; GOFp is the goodness of fit test calculated only for power law distributions. Available at figshare <http://dx.doi.org/10.6084/m9.figshare.426390A>
 
 
-## Metadata for Appendix S2 
 
 **Gif Animations of a forest model percolation**: These are animations showing the subcritical, critical, and super critical states. We use a a simple contact process in which an occupied site (green) represent forest. The largest forest patch is represented in black and empty sites are white. The simulations were made with a lattice of 256x256, the exponent of the power law dispersal kernel was 2.18, and $\lambda=c/e$ has the following values, 2 for the subcritical state, 2.5 near the critical state, and 5 for the supercritical state. File PercolationAnimations.zip, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
-
-## Metadata for Appendix S3 
 
 **Gif Animations of largest patches**: These show the temporal dynamics of the two largest patches for all the regions studied at a coarse resolution (2 km pixel). File **LargestPatchAnimations.zip**, available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905> 
 
