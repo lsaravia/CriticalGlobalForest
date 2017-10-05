@@ -16,8 +16,9 @@ source("R/power_fun.r")
 
 Up to Mexico, USA is out 
 
-Bounding Box -56.170, -32.695, 33.724, -120.234
+	Bounding Box -56.170, -32.695, 33.724, -120.234
 
+    SW -56.170,-120.234 NE 33.724,-32.695
 
 ```{r SADownload, eval=F}
 

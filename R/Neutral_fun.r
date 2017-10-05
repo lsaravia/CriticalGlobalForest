@@ -40,25 +40,31 @@ genPomacParms <- function(fname,GrowthR,MortR,DispD,ColonR,ReplaceR,numRep=1)
 # Generates an initial conditions for simulations using a sed file
 # prob:  0  one square in the center filled with one individual per species 
 #        1  one square in the center filled with species 1 
+#        2  fill lattice with species 1
 #        vector of frecuencies of length >1 fill all the site with the distribution given by prob
 #
 genInitialSed<- function(fname,numSp,side,prob=0,type="SP"){
-  A = matrix( 0,
+  A <- matrix( 0,
        nrow=side,              # number of rows 
        ncol=side,              # number of columns 
        byrow = TRUE)
 
   if(length(prob)==1){
-    s1<-round(sqrt(numSp))
-    s2<-numSp/s1
-    if(prob==0)
-      ss = matrix(1:numSp,nrow=s1,ncol=s2)
-    else
-      ss = matrix(rep(1,numSp),nrow=s1,ncol=s2)
-    
-    a1<-(side - s1)/2
-    a2<-(side - s2)/2
-    A[a1:(a1+s1-1),a2:(a2+s2-1)]<-ss
+ 
+    if(prob==2)
+      A <- matrix(1,nrow=side,ncol=side)
+    else {
+      s1<-round(sqrt(numSp))
+      s2<-numSp/s1
+      if(prob==0)
+        ss = matrix(1:numSp,nrow=s1,ncol=s2)
+      else
+        ss = matrix(rep(1,numSp),nrow=s1,ncol=s2)
+      
+      a1<-(side - s1)/2
+      a2<-(side - s2)/2
+      A[a1:(a1+s1-1),a2:(a2+s2-1)]<-ss
+    }
   } else {
     n_prob <- sort(round(prob*side*side))
     if(sum(n_prob)>side*side){
@@ -3304,6 +3310,7 @@ gg_color_hue <- function(n) {
 # sedIni: 0=No initial seed
 #         1=1 individual of each species in the center of the lattice
 #         2=Filled lattice with metacommunity frequency
+#         3=Filled lattice with species 1
 #
 # 
 # 
@@ -3336,9 +3343,11 @@ simul_NeutralSpatPatB <- function(nsp,side,disp,migr,repl,clus="S",time=1000,int
       
       
       if(sedIni==1){
-        genInitialSed(paste0(neuParm,".sed"),nsp,side,0)
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,0)    # Initial 1 individual of each sp
+      } else if(sedIni==2) {
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,prob) # Filled with metacommunity sp
       } else {
-        genInitialSed(paste0(neuParm,".sed"),nsp,side,prob)
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,2) # Filled with sp 1
       }
       
       # Delete old simulations

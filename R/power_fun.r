@@ -563,6 +563,27 @@ ccdfPlots_one_region <- function(options,region)
 
 }
 
+
+# Downloada all modis granules for a year in dataDir folder 
+# 
+# Returns a data frame with file names and h v year
+# use a python module called pyModis
+# 
+down_modis_year <- function(dataDir,year) {
+  
+  setwd(dataDir)
+  hdfDir <-"hdf"
+  if(!dir.exists(hdfDir)) {
+    dir.create(hdfDir)
+  }
+  starty <- sprintf("01-01-%04d", year)
+  endy   <- sprintf("31-12-%04d", year)
+  system(paste0("modis_download.py -U lsaravia -P Octa2004 -p MOD44B.051 -f ",starty," -e ",endy," hdf"))
+  # modis_download.py -U lsaravia -P Octa2004 -p MOD44B.051 -t h18v03 -f 01-01-2015 -e 31-12-2015 -x hdf 
+  setwd(oldcd)
+  
+}
+
 # Downloada modis granules using the filenames contained in Download.txt in dataDir folder 
 # check that granules are not greater than hmax and less than hmin
 # Returns a data frame with file names and h v year
@@ -571,14 +592,18 @@ ccdfPlots_one_region <- function(options,region)
 down_modis <- function(dataDir,hmin,hmax) {
 	
 	setwd(dataDir)
-	
+  hdfDir <-"hdf"
+  if(!dir.exists(hdfDir)) {
+    dir.create(hdfDir)
+  }
+  
 	
 	dn <- read.table("Download.txt",stringsAsFactors = F)
 	
 	
 	require(stringr)
 	
-	regexpr("h[0-9]",dn[1,1])
+	#regexpr("h[0-9]",dn[1,1])
 	
 	
 	dn$h=as.numeric(str_sub(dn[,1],18,19))
@@ -590,13 +615,16 @@ down_modis <- function(dataDir,hmin,hmax) {
 	#
 	# For southamerica h in 07-15
 	#
-	dn1 <- filter(dn,h>=hmin & h<=hmax) 
-	
+	if( !(hmin==0 & hmax==0)) {
+	  dn1 <- filter(dn,h>=hmin & h<=hmax) 
+	} else {
+	  dn1 <- dn
+	}
 	str_sub(dn1$V1,28,40) <- "*"
 	
 	write.table(str_c(dn1$V1,"*"),file="MOD44BFiles",row.names = F,col.names = F,quote = F)
 	
-	system("modis_download_from_list.py -p MOD44B.051 -f MOD44BFiles hdf")
+	system("modis_download_from_list.py -U lsaravia -P Octa2004 -p MOD44B.051 -f MOD44BFiles hdf ")
 	
 	setwd(oldcd)
 	
@@ -631,11 +659,102 @@ mosaic_modis <- function(dataDir,hmin,hmax) {
 # helper function for mosaic_modis
 #
 mosaic_by_year <-function(x) {
-	write.table(x$V1,file="listfileMOD44B.051.txt",quote=F,col.names = F,row.names = F)
-	s <- paste0('modis_mosaic.py -s "1 0 0 0 0 0 0" listfileMOD44B.051.txt -o ../MOD44B.MRTWEB.A',x$year[1],'065.051.Percent_Tree_Cover.tif')
+  
+  # write list of file names to use in the mosaic
+  #
+	write.table(x$fname,file="listfileMOD44B.051.txt",quote=F,col.names = F,row.names = F)
+  
+  # Output file name 
+  #
+  gname <- paste0('MOD44B.MRTWEB.A',x$year[1],'065.051.Percent_Tree_Cover.tif')
+  
+	s <- paste0('modis_mosaic.py -s "1 0 0 0 0 0 0" listfileMOD44B.051.txt -o ', gname)
 	system(s)
-	return(s)
+	
+	return(gname)
 }
+
+# Read the h and v limits for modis hdf files to make composite images by continent 
+#
+#
+get_modis_limits <-function(region,hmin,hmax){
+  
+  setwd("MODIS_tools")
+  fn <- paste0("Download_",region,".txt")
+  dn <- read.table(fn,stringsAsFactors = F)
+  setwd(oldcd)
+  
+  require(stringr)
+  
+  # regexpr("h[0-9]",dn[1,1])
+  
+  dn$h=as.numeric(str_sub(dn[,1],18,19))
+  dn$v=as.numeric(str_sub(dn[,1],21,22))
+  dn$year=str_sub(dn[,1],9,12)
+  
+  # Generate a DF with only the h v needed for a region
+  #
+  require(dplyr)
+  dn <- filter(dn,h>=hmin & h<=hmax) 
+  m <- matrix(0,nrow=max(dn$v),ncol=max(dn$h))
+  m[dn$v,dn$h]<-1
+  print(m)  
+  mod_limits <- dn %>% filter(year==2000) %>% arrange(v,h) %>% select(h,v) %>% mutate( Region=region) 
+  
+}
+
+
+#' Make geotiff mosaic of hdf files for a region defined as h & v modis granules
+#' in a folder "hdf" within base dataDir
+#'
+#' @param dataDir Folder where the geotiff file will be generated and where there is 
+#'                a subfolder hdf with granules 
+#' 
+#' @param destDir Destination folder for the generated geotiff files
+#'               
+#' @param granules Data frame with h & v columns identifying granules to be mosaicked, with
+#'                 fields h,v,region  
+#' @param region  region defined in the data frame to generate the geotiff
+#' 
+#' @param year    year of the modis granules to generate the geotiff  
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' 
+mosaic_modis_region <- function(dataDir,destDir,granules,region,year) {
+  oldcd <-getwd()  
+  setwd(dataDir)
+  
+  # read the files in dir 'hdf'
+  #
+  dn <- list.files("hdf",pattern = "^.*\\.hdf$")
+  if(length(dn)==0) stop("The folder hdf is empty")
+  require(dplyr)
+  dn <- tibble(dn)
+  names(dn) <- "fname"
+  
+  require(stringr)
+  dn$h <- as.numeric(str_match(dn$fname, "h(\\d{2})")[,2])
+  dn$v <- as.numeric(str_match(dn$fname, "v(\\d{2})")[,2])
+  dn$year <- str_match(dn$fname, "A(\\d{4})")[,2]
+  
+
+  dn1 <- granules %>% filter(Region==region) %>% inner_join(dn) 
+  setwd("hdf")
+  
+  dn2 <- group_by(dn1,year) %>% do( gname=mosaic_by_year(.))
+  dn2$gname <-unlist(dn2$gname)
+  
+  dn2$toname <- paste0(destDir,"/",dn2$gname)
+  
+  # dn2 <- data.frame(gname="MOD44B.MRTWEB.A2015065.051.Percent_Tree_Cover.tif",stringsAsFactors = F)
+  file.rename(dn2$gname,dn2$toname)
+  
+  setwd(oldcd)
+}
+
 
 
 # Read data to call fit_con_heavy_tail and format output in a data.frame
@@ -686,7 +805,7 @@ read_random_percolation <-function(region) {
 
 read_region_correlation<-function(region) {
 
-	r_files <- list.files(pattern="^.*_Correlation_analisys\\.R$")
+	r_files <- list.files(pattern="^.*_Tree_Cover.tif_Correlation_analisys\\.R$")
 	df <- data.frame()
 	
 	for(i in 1:length(r_files)){
@@ -759,16 +878,28 @@ calc_critical_probability <- function(range,cp,corexp,regcor)
 #
 est_critical_point <- function(rndper)
 {
-	rp <-rndper %>% group_by(region,subregion) %>% mutate(max_cl = max(correlation_length_km),
-														  p_correlation_length=correlation_length_km/max_cl)
-	rfit <- rp %>% do(lfit= glm(.$p_correlation_length ~ .$p_set, family=binomial(logit), data = .), max_cl=max(.$max_cl))
-	slop <- rfit %>% mutate(beta0 = coef(lfit)[1],
-							beta1 = coef(lfit)[2],
-							pcrit = - beta0 / beta1) %>% select(-max_cl)
-	slop <-slop %>% inner_join( rp %>% summarise(max_cl=max(max_cl)))
+  # Estimate the probability of percolation as correlation_length/equivalent_diameter
+  #
+	rp <-rndper %>% group_by(region,subregion) 	%>% mutate(p_correlation_length=correlation_length_km/equivalent_diameter_km) %>% mutate(p_correlation_length=ifelse(p_correlation_length>1,1,p_correlation_length))
 	
+  # Fit a binomial model to estimate the critical point
+	#
+	rfit <- rp %>% do(lfit= glm(.$p_correlation_length ~ .$p_set, family=binomial(logit), data = .))
+	# slop <- rfit %>% mutate(beta0 = coef(lfit)[1],
+	# 						beta1 = coef(lfit)[2],
+	# 						pcrit = - beta0 / beta1) 
+	
+	# Estimate the critical point using a regression of the values around the probability of percolation =0.50
+	# p_correlation_length = 0.5
+	#
+	slop <- rp %>% do(pcrit = est_critical_point_helper(.)) %>% mutate(pcrit=unlist(pcrit))
+
+	# Calculate the predicted values of the binomial regression to plot
+	#
+	rfit <-rfit %>% inner_join(rp %>% slice(1) %>% transmute(max_cl=equivalent_diameter_km))
 	rp1 <-rfit %>% do(data.frame(fit = .$lfit$fitted*.$max_cl))
 	rp <- bind_cols(rp, rp1)
+	
 	gt <- slop %>% mutate(label = sprintf("p == %.3f", pcrit),x=0.9,y=0.1)
 	g <-ggplot(rp,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=21) + 		
 		geom_line(aes(x = p_set, y = fit), linetype = 2) +
@@ -779,6 +910,36 @@ est_critical_point <- function(rndper)
 
 	return(slop)
 }
+
+est_critical_point_helper<- function(x)
+{
+  # lf <-glm(p_correlation_length ~ p_set, family=binomial(logit), data = x)
+  # pcrit=- (lf$coefficients[1] / lf$coefficients[2])
+  # x$p <-predict(lf,x,type="resp")
+  x1 <- x %>% filter(p_correlation_length>0.50) %>% arrange(p_correlation_length) %>% slice(1:10)      
+  x1 <- bind_rows(x1, x %>% filter(p_correlation_length<=0.50) %>% arrange(desc(p_correlation_length)) %>% slice(1:10))
+  pcrit <- approx(x1$p_correlation_length,x1$p_set,xout=0.5)[["y"]]
+  
+}
+
+
+
+#' Plot estimated correlations lenght with ramdomized correlation lengths 
+#'
+#' @param cpoint Data frame with critical points
+#' @param rndcor Data frame with randomized correlation lengths
+#' @param corlen Data frame with correlation lengths
+#'
+plot_corr_length <- function(cpoint,rndcor,corlen)
+{
+  gt <- cpoint %>% mutate(label = sprintf("p == %.3f", pcrit),x=0.9,y=0.1)
+  g <-ggplot(rndcor,aes(p_set,correlation_length_km))+theme_bw() + geom_point(shape=21) + 		
+    geom_vline(aes(xintercept = pcrit),data = cpoint, color = "blue") +
+    geom_text(aes(x,y,label = label) ,data=gt,parse = TRUE ) +
+    geom_point(aes(),data=corlen)
+    facet_wrap(region ~ subregion,scales="free_y") 
+  print(g)
+}  
 
 # Calculates the percolation probability using logistic equation parms from est_critical_point
 #

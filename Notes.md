@@ -1,4 +1,11 @@
 
+# Justification
+
+We are using a percolative approach because it is a widely known framework from the physical sciences that has a estiblished theoretical body and a long history of empirical application. In the framework of ecological studies, there are several models applied to vegetation and also to forest that produce percolation phenomena [@Abades2014; @Staver2012; @McKenzie2012] and there is also several empirical studies that apply percolation to forests [@Loehle1996b; @Gastner2009; Hantson2015; @Sole2005; @Pueyo2010; @Scanlon2007]. 
+
+Our results are inline with the ongoning results about the forest savana transitions in tropical forest [@Wuyts2017]
+
+
 # Tweeteable abstract
 
 Are global forest near a critical fragmentation threshold? Five simple criteria.
