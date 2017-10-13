@@ -1,4 +1,4 @@
-# Fitting heaviy tails to modis VCF
+# Sensitivity of the Power laws and max patch metrics to the threshold value to detect forest
 
 ## Setup
 
@@ -37,7 +37,7 @@ source("R/power_fun.r")
 # Set global options and parameters 
 #
 options.glo <- vector("list", length=0)
-options.glo$GOF <- TRUE						# Estimate godness of fit for power law 
+options.glo$GOF <- 0						# Estimate godness of fit for power law 
 options.glo$ploting <- 0					# Plots of cumulative distributions
 options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
 options.glo$resultsDir <- ""        		# Folder with bin files  
@@ -59,7 +59,6 @@ options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 * all_fit: has all the fits of distributions with threshold=30, including GOF and bootstap confidence intervals of power laws
 
 * all_fit_threshold: has all the fits with differnt thresholds  no GOF no bootstrap estimation 
-
 # Fit heavy tailed distributions AF (Africa - new output)
 
 ```{r conheavytailfitAF, eval=F,echo=T,message=T,warning=T}
@@ -69,11 +68,11 @@ options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 #
 # The original analysis
 #
-options.glo$resultsDir <- "Results/africa"
+# options.glo$resultsDir <- "Results/africa"
 
 # Folder with new data sets with different thresholds
 #
-# options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/africa"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/africa"
 options.glo$sample_data <- 0                 # Set >0 For testing
 
 
@@ -89,8 +88,8 @@ toc()
 
 # add to a new global data_frame
 #
-all_fit <- data_frame()
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- data_frame()
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 save.image()
@@ -102,7 +101,7 @@ save.image()
 # The plots are saved in Results/africa folder
 #
 #
-plot_size_dist_by_region("AF","Results/africa",30)
+#plot_size_dist_by_region("AF","Results/africa",30)
 
 
 ```
@@ -113,8 +112,8 @@ plot_size_dist_by_region("AF","Results/africa",30)
 
 # Set folder with results for the region 
 
-options.glo$resultsDir <- "Results/southasia"
-#options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southasia"
+# options.glo$resultsDir <- "Results/southasia"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southasia"
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
@@ -134,14 +133,14 @@ toc()
 #
 # add to a new global data_frame
 #
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 save.image()
 
 # Plots fits
 #
-plot_size_dist_by_region("SEAS","Results/southasia")
+# plot_size_dist_by_region("SEAS","Results/southasia")
 
 ```
 
@@ -152,8 +151,8 @@ plot_size_dist_by_region("SEAS","Results/southasia")
 
 # Set folder with results for the region 
 
-options.glo$resultsDir <- "Results/oceania"
-#options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/oceania"
+#options.glo$resultsDir <- "Results/oceania"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/oceania"
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
@@ -166,12 +165,12 @@ toc()
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 save.image()
 
-plot_size_dist_by_region("OC","Results/oceania")
+# plot_size_dist_by_region("OC","Results/oceania")
 
 ```
 
@@ -183,11 +182,11 @@ plot_size_dist_by_region("OC","Results/oceania")
 
 # Set folder with results for the region 
 #
-options.glo$resultsDir <- "Results/southamerica"
+# options.glo$resultsDir <- "Results/southamerica"
 
 # Sensititivity analisis and new 2015 
 #
-#options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southamerica"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southamerica"
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
@@ -203,7 +202,7 @@ toc()
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 
@@ -211,7 +210,7 @@ save.image()
 
 # Plots HAVE TO FILTER BY THRESHOLD VALUE!!!!
 #
-plot_size_dist_by_region("SA","Results/southamerica")
+#plot_size_dist_by_region("SA","Results/southamerica")
 
 
 ```
@@ -222,9 +221,9 @@ plot_size_dist_by_region("SA","Results/southamerica")
 
 # Set folder with results for the region 
 #
-options.glo$resultsDir <- "Results/northamerica"
+#options.glo$resultsDir <- "Results/northamerica"
 #
-#options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/northamerica"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/northamerica"
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
@@ -241,15 +240,15 @@ toc()
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 
 save.image()
 
 #
-plot_size_dist_by_region("NA","Results/northamerica")
-
+#plot_size_dist_by_region("NA","Results/northamerica")
+#
 
 ```
 
@@ -261,9 +260,8 @@ plot_size_dist_by_region("NA","Results/northamerica")
 
 # Set folder with results for the region 
 #
-options.glo$resultsDir <- "Results/eurasia"
-
-#options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
+# options.glo$resultsDir <- "Results/eurasia"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
@@ -280,127 +278,14 @@ toc()
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit <- bind_rows(all_fit,fit)
+all_fit_threshold <- bind_rows(all_fit_threshold,fit)
 
 rm(fit)
 
 save.image()
 
-plot_size_dist_by_region("EUAS","Results/eurasia")
+# plot_size_dist_by_region("EUAS","Results/eurasia")
 
-
-```
-
-# Fit again heavy tailed distributions EUAS 1  
-
-```{r conheavytailfitEUAS3_SAST1, eval=F,echo=T,message=T,warning=T}
-
-
-# eliminate NA_5
-#
-#all_fit<- filter(all_fit, grepl("NA_5",data_set_name,fixed = T))
-
-# Delete duplicated 
-#all_fit <- group_by(all_fit,region, subregion) %>% unique() %>% ungroup()
-
-
-options.glo$resultsDir <- "Results/eurasia"
-options.glo$xmins <- seq(1:600)				# Range of xmins (minimun patch sizes) to fit 
-options.glo$sample_data <- 0                 # Set >0 For testing
-
-
-all_fit <-filter(all_fit, !grepl("EUAS_3",data_set_name,fixed = T))
-
-fit <- region_fit_con_heavy_tail(options.glo,"EUAS_3")
-
-all_fit <- bind_rows(all_fit,fit)
-
-setwd(oldcd)
-
-save.image()
-
-plot_size_dist_by_region("EUAS_3","Results/eurasia")
-
-
-options.glo$resultsDir <- "Results/southamerica"
-
-all_fit <-filter(all_fit, !grepl("SAST_1",data_set_name,fixed = T))
-
-fit <- region_fit_con_heavy_tail(options.glo,"SAST_1")
-
-all_fit <- bind_rows(all_fit,fit)
-
-save.image()
-
-plot_size_dist_by_region("SAST_1","Results/southamerica")
-
-```
-
-
-# Tables of parameters by region/subregion and means 
-
-```{r poweLawRegiontables, eval=F,echo=F,message=T,warning=T}
-
-# Build a dataframe for table output
-#
-ta <- mutate(all_fit,  xmin=round(xmin)) %>% filter(model_set=="Estimated Xmin")  # %>% filter(region %in% c('OC'))
-
-#select <- dplyr::select 
-
-# Format for table display
-#
-ta <- ta %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>% 
-  select(region,subregion,year,xmin,model_name,par1,par2,n,AICc_weight,GOFp) %>%  # delta_AICc,
-  mutate(xmin=ifelse(lag(xmin,1) == xmin & !is.na(lag(xmin,1)), "", xmin ),
-  	   year=ifelse(lag(year,1) == year & !is.na(lag(year,1)), "", year ),
-#  	   Data_Set=ifelse(lag(Data_Set,1) == Data_Set & !is.na(lag(Data_Set,1)), "", Data_Set ),
-  	   par1=round(par1,3),
-  	   par2=round(par2,3),
-  	   AICc_weight=round(AICc_weight,3)
-  	   )
-
-options("scipen"=999, "digits"=4)
-
-# Total table with AICc
-#
-# pandoc.table(ta)
-# 
-# pandoc.table(filter(ta,region=="AF"))
-# 
-# pandoc.table(filter(ta,region=="EUAS"))
-# 
-# pandoc.table(filter(ta,region=="NA"))
-# 
-# pandoc.table(filter(ta,region=="OC"))
-# 
-# pandoc.table(filter(ta,region=="SAST"))
-# 
-# pandoc.table(filter(ta,region=="SAT"))
-# 
-# pandoc.table(filter(ta,region=="SEAS"))
-# 
-
-# Write fitted parameters and AIC comparison to ascii tab separated file
-# 
-#  Only Estimated Xmin models and not EUAS 1M (Eurasia with merged top 2 patches)
-#
-ta <- all_fit  %>% filter(model_set=="Estimated Xmin") %>% arrange(region,subregion,model_set,year,desc(AICc_weight)) %>%
-  	select(region,subregion,year,model_name,xmin,par1,par2,n,LL,AICc,delta_AICc,AICc_weight,GOFp) %>%
-	mutate(par1=round(par1,5),
-		    par2=round(par2,8),
-		    xmin=round(xmin),
-		    LL=round(LL,3),
-		   	AICc=round(AICc,3),
-		    delta_AICc=round(delta_AICc,3),
-   	   		AICc_weight=round(AICc_weight,3)
-  	   )
-
-
-# Write table for supplementary material
-#
-write.table(ta,file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
-
-write.csv(ta,file='Fitted_Patch_models.csv',row.names = F)
 
 ```
 
@@ -412,141 +297,53 @@ setwd(oldcd)
 require(dplyr)
 require(ggplot2)
 
-ff <- filter(all_fit,model_name=="Power", model_set=="Estimated Xmin") %>% 
-	mutate(se=(par1-1)/sqrt(n))
-
-
-# Extract quantiles of alpha
-#
-ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
-ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
+ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin") %>% 
+	mutate(se=(par1-1)/sqrt(n),lPar1=par1-2*se,hPar1=par1+2*se)
 
 pd <-position_dodge(.3)
-g <- ggplot(ff, aes(x=year,y=par1,colour=subregion),shape=22) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+g <- ggplot(ff, aes(x=year,y=par1,colour=threshold),shape=22) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + 
-	scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+	scale_colour_brewer(palette="Set1",guide=F) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
 
 ff1<- group_by(ff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
 g + geom_hline(aes(yintercept=malpha,colour=subregion),ff1,linetype = 2) + facet_wrap( ~region+subregion) 
 
-#
-# I save the final figure with the fitted GLS model in next chunk 
-#
-# ggsave("figure/PowerExp_Xmin_year.png",width=6,height=8,units="in",dpi=600)
-
-# The exponent of patch size distribution is tau=2.05495 at the critical point for isotropic percolation
-#
-# For regions with total patch area greater thant 10e7 
-#
-#
 fff <-filter(ff,subregion==1,region!="SAT",region!="OC")
-g <- ggplot(fff, aes(x=year,y=par1,colour=region),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+g <- ggplot(fff, aes(x=year,y=par1,colour=threshold),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
 	scale_colour_brewer(palette="Set1",name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
 ff1<- group_by(fff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
-g + geom_hline(aes(yintercept=malpha,colour=region),ff1,linetype = 2)
+g + geom_hline(aes(yintercept=malpha),ff1,linetype = 2) + facet_wrap( ~region)
 #ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
 
-# Global mean for regions gt 10e7
-#
-ungroup(ff1) %>% summarise(malpha=mean(malpha),mxmin=mean(mxmin))
-
-# malpha   mxmin
-# 1.9384   445.947
-
-# Global mean for regions less than 10e7 km
-#
-
-ff1 <-anti_join(ff,fff,by=c("region","subregion","year") )
-
-ff1 %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
-
-#    malpha   mxmin
-#    1.89634 200.471
-
-ff %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
-
-#    malpha  mxmin
-#    1.90685 261.84
-
-# Plot of Xmin
-#
-
-# Extract quantiles of xmin
-#
-ff$lPar1 <- sapply(ff$bXminQuant, '[', 1)
-ff$hPar1 <- sapply(ff$bXminQuant, '[', 5)
-
-# The regions as facets 
-#
-g <- ggplot(ff, aes(x=year,y=xmin,colour=subregion)) +  theme_bw() + geom_point(position=pd,shape=19,size=1.5)+
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) +scale_colour_brewer(palette="Set1",name="Sub-region") + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle = 90, hjust = 0))
-
-ff1<- group_by(ff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
-
-g + ylab(expression(X[min])) + facet_wrap(~region,,ncol=2) + geom_hline(aes(yintercept=mxmin,colour=subregion),ff1,linetype = 2)
-
-ggsave("figure/EstimatedXmin_year.png",width=6,height=8,units="in",dpi=600)
-
-
-
-
-# Relationship between xmin & alpha 
-#
-g <- ggplot(ff, aes(y=par1,x=xmin,colour=subregion)) +  theme_bw() + geom_point(shape=19) + facet_wrap(~region,ncol=2)
-g + xlab(expression(X[min])) + ylab(expression(alpha))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
-ggsave("figure/Xmin_Alpha.png",plot=g,width=6,height=8,units="in",dpi=600)
-
-
-#
-# Max Xmin by region
-#
-group_by(ff,region,subregion) %>% summarise(max_xmin=max(xmin),mean_xmin=mean(xmin))
 
 #
 # Mean alpha and Xmin by region
 #
-ta <-filter(all_fit,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+ta <-filter(all_fit_threshold,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
 
 pandoc.table(ta)
 
 #
 # Proportion of Selected models 
 # 
-
-tot_fit_by_model <- all_fit %>% group_by(region,subregion,model_set,model_name) %>% mutate(tot_by_model=n()) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) %>% filter(model_set=="Estimated Xmin") 
-
-# ggplot(tot_fit_by_model, aes(x=model_set,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity", position=position_dodge()) + facet_wrap(region~subregion) + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Best models proportion")   
-
+names(all_fit_treshold)
+tot_fit_by_model <- all_fit_threshold %>% group_by(region,subregion,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
 
 #
 # Plot proportion of best models by region-subregion
 #
-tot_fit_by_model <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion))
-ggplot(tot_fit_by_model, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity", position=position_dodge()) + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models")
+unique(tot_fit_by_model$threshold)
+tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(25,27.5,30,32.5,35))
+ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
 
-ggsave("figure/ProportionSelModel.png",width=6,height=6,units="in",dpi=600)
+ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
-
-#
-# Total Proportion of best fit models
-#
-all_fit %>% group_by(model_set,model_name) %>% mutate(tot_by_model=n()) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop) %>% arrange(desc(best_model_prop)) %>% filter(model_set=="Estimated Xmin") 
-
-
-
-#
-# Proportion of best fit not rejected with GOF p>0.05
-#
-tot_fit_by_model <- all_fit %>% group_by(region,subregion,model_set,model_name) %>%	filter(model_name=="Power", model_set=="Estimated Xmin") %>% mutate(tot_power=n()) %>% filter(GOFp>0.05) %>% summarize(gof_power_model_prop=n()/max(tot_power))
-
-pandoc.table(tot_fit_by_model)
 
 
 ```
@@ -555,179 +352,28 @@ pandoc.table(tot_fit_by_model)
 
 ```{r alphaGLS, eval=F,echo=T,message=T,warning=T}
 
-require(nlme)
-
-ff <- filter(all_fit,model_name=="Power", model_set=="Estimated Xmin") 
-
-#, !(region=="EUAS" & subregion==1)) # %>%mutate(se=(par1-1)/sqrt(n))
+ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin", threshold %in% c(25,27.5,30,32.5,35)) %>% 
+	mutate(se=(par1-1)/sqrt(n),weight=se,year=as.numeric(year),region=paste0(region,subregion)  )
 
 
-# Extract quantiles of alpha
-#
-ff$lPar1 <- sapply(ff$bPar1Quant, '[', 1)
-ff$hPar1 <- sapply(ff$bPar1Quant, '[', 5)
 
-ff$year <- as.numeric(ff$year)
-ff$region <- paste0(ff$region,ff$subregion)  
-
-# lm model
-#
-# Build weights with the bootstraped 95% intervals
-
-ff$weight <- (ff$hPar1 - ff$lPar1)
-
-# Not weighted lm all interactions included
-am <-gls(par1 ~ region*year,data=ff)
-summary(am)
-re <-resid(am)
-plot(am, which=1)
-boxplot(re~ff$region)
-boxplot(re~ff$year)
-
-m.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight))
-summary(m.gls)
-AIC(m.gls,am)
-re <-resid(m.gls)
-plot(m.gls, which=1)
-boxplot(re~ff$region)
-boxplot(re~ff$year)
-plot(re~ff$year)
-# 
-ggplot(cbind(ff,re),aes(year,re)) + geom_point(shape=21) + facet_wrap(~region) + theme_bw()
-
-acf(re)
-
-# Add autocorrelation
-#
-m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region))
-anova(m1.gls,m.gls,am)
-
-# I stay with the autocorrelation, AIC is lower, besides is not significative 
-
-# Check interaction likelihood ration test with or without interaction
-
-m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
-anova(m1.gls,m.gls,am)
-plot(m1.gls, which=1)
-anova(m1.gls)
-summary(m1.gls)
-
-m0.gls <-gls(par1 ~ region+year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="ML")
-anova(m1.gls,m0.gls)
-
-# The final model is with interaction!
-#
-m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="REML")
-anova(m1.gls)
-summary(m1.gls)
-plot(m1.gls, which=1)
-pred <- predict(m1.gls)
-
-pandoc.table(anova(m1.gls))
-
-pandoc.table(summary(m1.gls)$tTable)
-
-# Contrast with relevel
-#
-# ff$region<-as.factor(ff$region)
-# ff$region <- relevel(ff$region,ref="NA1")
-# m1.gls <-gls(par1 ~ region*year,data=ff,weights = varFixed(~weight), correlation = corAR1(form=~year| region),method="REML")
-# anova(m1.gls)
-# summary(m1.gls)$tTable
-# 
-
-# add Predictions to data frame 
-#
-ff <- cbind(ff,pred)
-
-# FINAL FIGURE!!
-#
-pd <-position_dodge(.3)
-g <- ggplot(ff, aes(x=year,y=par1,colour=subregion)) +  theme_bw() + geom_point(position=pd,size=1,shape=21)+ 
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + 
-	scale_colour_brewer(palette="Set1",guide=FALSE) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
-
-g +  geom_line(aes(y=pred),linetype = 2)+facet_wrap( ~region)
-ggsave("figure/PowerExp_Xmin_year.png",width=8,height=8,units="in",dpi=600)
-
-
-# Boxplot
-#
-#ggplot(ff,aes(region,par1)) + geom_boxplot() + geom_jitter(width = 0.2) +  theme_bw() + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0))
-
-# Plot of Only regions with 1e07 Km
-#
-ff1<-filter(ff,subregion==1,region!="SAT1",region!="OC1") 
-
-g <- ggplot(ff1, aes(x=year,y=par1,colour=region),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
-	scale_colour_brewer(palette="Set1",name="Region",labels=c("AF1", "EUAS1", "NA1","SAST1","SEAS1")) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0)) + scale_x_continuous(breaks=2000:2014)
-
-g +  geom_line(aes(y=pred),linetype = 2)
-
-ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
-
-# 
-require(multcomp)
-
-# Add functions to use multcomp with gls
-#
-model.matrix.gls <- function(object, ...) {
-    model.matrix(terms(object), data = getData(object), ...)
-}
-model.frame.gls <- function(object, ...) {
-    model.frame(formula(object), data = getData(object), ...)
-}
-terms.gls <- function(object, ...) {
-    terms(model.frame(object), ...)
-}
-
-# To aid contrast matrix specification (this are main factors)
-K <- diag(length(coef(m1.gls)))[,]
-rownames(K) <- names(coef(m1.gls))[]
-rownames(K)[1] <-"regionAF1"
-
-# All coefficients = 0
-#
-summary(glht(m1.gls, linfct = K))
-
-# Build specific contrasts
-#
-contrast.matrix <- rbind("AF vs NA"=K["regionAF1",]+K["regionNA1",]*-1,
-"AF vs SAST"=K["regionAF1",]+K["regionSAST1",]*-1,
-"AF vs SEAS"=K["regionAF1",]+K["regionSEAS1",]*-1,
-"NA vs SAST"=K["regionNA1",]+K["regionSAST1",]*-1,
-"NA vs SEAS"=K["regionNA1",]+K["regionSEAS1",]*-1,
-"SAST vs SEAS"=K["regionSAST1",]+K["regionSEAS1",]*-1,
-"AFyear vs NAyear"=K["year",]+K["regionNA1:year",]*-1,
-"AFyear vs SASTyear"=K["year",]+K["regionSAST1:year",]*-1,
-"AFyear vs SEASyear"=K["year",]+K["regionSEAS1:year",]*-1,
-"NAyear vs SASTyear"=K["regionNA1:year",]+K["regionSAST1:year",]*-1,
-"NAyear vs SEASyear"=K["regionNA1:year",]+K["regionSEAS1:year",]*-1,
-"SEASyear vs SASTyear"=K["regionSEAS1:year",]+K["regionSAST1:year",]*-1,
-"AF1 NA1 SEAS1 SAST1 vs THE OTHERS"=K["regionAF1",]+K["regionNA1",]+K["regionSEAS1",]+K["regionSAST1",]+(K["regionAF2",]+ K["regionEUAS2",]+K["regionEUAS3",]+K["regionNA5",]+K["regionOC1",]+K["regionOC2",]+K["regionOC3",]+K["regionOC4",]+K["regionOC5",]+K["regionOC6",]+K["regionOC7",]+K["regionOC8",]+K["regionSAST2",]+K["regionSAT1",]+K["regionSEAS2",])*-1)
-
-summary(glht(m1.gls, contrast.matrix))
-
-
-# The global average with CI !
-#
-m1.gls <-gls(par1 ~ 1,data=ff,weights = varFixed(~weight), method="REML")
-intervals(m1.gls)
-weighted.mean(ff$par1, ff$weight)
-
-# Bootstrapped CI for the mean
-#
 require(boot)
+mymean <- function(dat,i) mean(dat[i])
 
-wemean <- function(dat,i) weighted.mean(dat$par1[i],dat$weight[i])
-myboot <- boot(ff,wemean,R=10000)
-myboot
-boot.ci(myboot)
+threshold_ci <- group_by(ff,region,threshold) %>% do( {
+				myboot <- boot(.$par1,mymean,R=10000)
+				myci <- boot.ci(myboot)
+				data_frame(malpha=myboot$t0,low=myci$bca[4],high=myci$bca[5])
+				})
+threshold_ci1 <- filter(threshold_ci,threshold %in% c(25,27.5,30,32.5,35))
+require(viridis)
+ggplot(threshold_ci1, aes(threshold,malpha,colour=region)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",alpha)))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~region)
+
+ggsave("figure/AverageAlphaByRegionThreshold.png",width=8,height=6,units="in",dpi=600)
+
+
 
 ```
-
-There is no significative differences between the 5 biggest regions AF NA SAST SEAS EUAS
 
 # Extract max patch size and patch stats  
 
@@ -737,19 +383,21 @@ There is no significative differences between the 5 biggest regions AF NA SAST S
 require(plyr)
 require(dplyr)
 require(ggplot2)
-setwd(oldcd)ff$hPar1
+setwd(oldcd)
 
 options.glo$sample_data <- 0                 # Set >0 For testing
 options.glo$fit <- FALSE                     # Calculate patch stats
 
-pstat <-data.frame()
+pstat_threshold <-data.frame()
 
 
-options.glo$resultsDir <- "Results/africa"
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"AF") )
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/africa"
+
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"AF") )
 
 
-options.glo$resultsDir <- "Results/southasia"theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0)theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0)
+options.glo$resultsDir <- "Results/southasia"
+
 pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"SEAS") )
 
 

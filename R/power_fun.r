@@ -6,7 +6,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 {
 	n <- length(unique(data_set))
 	n_models <- 4
-	n_sets <- 2 # delete set 3
+	n_sets <- 1 # delete set 3
 	# List of models
 	model_list = list(list(model=vector("list", length=0), 
 						   						GOF=vector("list", length=0),
@@ -40,19 +40,19 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 	}
 	
 	# Set xmin for set 1
-	fit_ht[[1,1]]$model$xmin <- 9
+	#fit_ht[[1,1]]$model$xmin <- 9
 	
 	# Estimate Xmin with complete data_set for power law model
-	fit_ht[[1,2]]$xmin_estimation <- estimate_xmin(fit_ht[[1,2]]$model,
+	fit_ht[[1,1]]$xmin_estimation <- estimate_xmin(fit_ht[[1,1]]$model,
 		xmins = xmins, 
 		pars = NULL, 
 		xmax = max(data_set))
 
-	fit_ht[[1,2]]$model$setXmin(fit_ht[[1,2]]$xmin_estimation)
+	fit_ht[[1,1]]$model$setXmin(fit_ht[[1,1]]$xmin_estimation)
 
 
 	model_names <- c("Power", "LogNorm","Exp","PowerExp")
-	labels_set <- c("Xmin=9","Estimated Xmin")
+	labels_set <- c("Estimated Xmin")
 
 	AICc_weight <- matrix( nrow = n_models, ncol = n_sets,
 							dimnames = list(model_names,labels_set))
@@ -95,7 +95,7 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 				#
 				# Goodness of fit via boostrap
 				#
-				# xmins is fixed at estimated value (or 9)
+				# xmins is fixed at estimated value
 				fit_ht[[i,i_set]]$GOF <- bootstrap_p(fit_ht[[i,i_set]]$model,
 											 xmins=fit_ht[[i,i_set]]$model$xmin,
 											 pars = NULL, 
@@ -106,13 +106,9 @@ fit_con_heavy_tail <- function (data_set,xmins,options.output)
 				# Uncertainty in parms estimation via bootstrap
 				#
 				# Range of xmins to make bootstrap
-				if(i_set==1) { # Xmin=9 Fixed
-					l_xmin <- fit_ht[[i,i_set]]$model$xmin
-					u_xmin <- fit_ht[[i,i_set]]$model$xmin
-				}else {
-					l_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 0.8)
-					u_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 1.2)
-				}
+				l_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 0.8)
+				u_xmin <- round(fit_ht[[i,i_set]]$model$xmin * 1.2)
+				
 				fit_ht[[i,i_set]]$uncert_estimation <- bootstrap(fit_ht[[i,i_set]]$model,
 											 xmins=l_xmin:u_xmin,
 											 pars = NULL, 
@@ -227,6 +223,7 @@ call_fit_con_heavy_tail <-function(options,i){
 		ss <- strsplit(options$data_set_name[i],"_")
 		fit_ht_df$region <- ss[[1]][2]
 		fit_ht_df$subregion <- ss[[1]][3]
+		fit_ht_df$threshold <- ss[[1]][4]
 		fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
 	}
 	
@@ -254,6 +251,7 @@ data_con_heavy_tail <-function(options,i){
 	ss <- strsplit(options$data_set_name[i],"_")
 	fit_ht_df$region <- ss[[1]][2]
 	fit_ht_df$subregion <- ss[[1]][3]
+	fit_ht_df$threshold <- ss[[1]][4]
 	fit_ht_df$year <- gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name[i])
 
 	close(connection_file)
@@ -267,7 +265,7 @@ data_con_heavy_tail <-function(options,i){
 # Fit all the images patch sizes for a region with maybe different areas 
 #
 #
-region_fit_con_heavy_tail <-function(options,region){
+region_fit_con_heavy_tail <-function(options,region,year=0){
 
 	# Change to results folder  
 	#
@@ -276,9 +274,11 @@ region_fit_con_heavy_tail <-function(options,region){
 	# Get files with patch sizes (*.bin) and image file names *.tif (data_set_name)
 	#
 	options$original_bin_files <- list.files(pattern=paste0("^.*",region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
-	
-
 	options$data_set_name <- unlist(strsplit(options$original_bin_files,".bin")) 
+	
+	if( year > 0)
+		options$data_set_name <- options$data_set_name[gsub(".*\\.A([0-9]{4}).*","\\1",options$data_set_name)==year]
+	
 	
 	fit <- data_frame()
 
@@ -960,7 +960,7 @@ calc_critical_probability_logis <- function(cripoi,regcor)
 # region
 # odir: folder with the size distribution files
 #
-plot_size_dist_by_region <-function(region,odir)
+plot_size_dist_by_region <-function(region,odir,Thres=0,Year=0)
 {
 	require(ggplot2)
 
@@ -971,6 +971,14 @@ plot_size_dist_by_region <-function(region,odir)
 	options.glo$original_bin_files <- list.files(pattern=paste0("^.*",region,".*\\.bin$")) # list.files(pattern="*.\\.bin")
 	
 	options.glo$data_set_name <- unlist(strsplit(options.glo$original_bin_files,".bin")) 
+	year <- gsub(".*\\.A([0-9]{4}).*","\\1",options.glo$data_set_name)
+	threshold <- sub("^(?:[^_]*_){3}([^_]+).*","\\1",options.glo$data_set_name)
+
+	if(Thres>0)
+		options.glo$data_set_name <- options.glo$data_set_name[threshold==thres] 
+
+	if(Year=0)
+		options.glo$data_set_name <- options.glo$data_set_name[year==Year] 
 	
 	# Read binary data
 	set.seed(seed=0)
