@@ -54,11 +54,13 @@ options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
 
 ```
+
 ## Dataframes 
 
 * all_fit: has all the fits of distributions with threshold=30, including GOF and bootstap confidence intervals of power laws
 
-* all_fit_threshold: has all the fits with differnt thresholds  no GOF no bootstrap estimation 
+* all_fit_threshold: has all the fits with differnt thresholds, no GOF, no bootstrap estimation 
+
 # Fit heavy tailed distributions AF (Africa - new output)
 
 ```{r conheavytailfitAF, eval=F,echo=T,message=T,warning=T}
@@ -289,7 +291,7 @@ save.image()
 
 ```
 
-# Plot alpha and Xmin by region and subregion
+# Plot and table of alpha by region and subregion and Threshold and proportion of best models 
 
 ```{r conheavytailplots, eval=F,echo=F,message=T,warning=T}
 setwd(oldcd)
@@ -336,23 +338,31 @@ tot_fit_by_model <- all_fit_threshold %>% group_by(region,subregion,threshold,mo
 	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
 
 #
-# Plot proportion of best models by region-subregion
+# Plot proportion of best models by region-subregion - ALL thresholds
 #
 unique(tot_fit_by_model$threshold)
-tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(25,27.5,30,32.5,35))
-ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=0),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
+tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) #%>% filter(threshold %in% c(25,27.5,30,32.5,35))
+ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
 
 ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
+#
+# Plot proportion of best models by region-subregion - 25 - 35 thresholds
+#
+unique(tot_fit_by_model$threshold)
+tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(25,27.5,30,32.5,35))
+ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
+
+ggsave("figure/BestModelByThreshold25_35.png",width=8,height=6,units="in",dpi=600)
 
 
 ```
 
-# Testing differences in alpha parameter using Generalized Least Squared linear models
+# Calculate bootstraped confidence intervals by threshold for alpha parameter 
 
 ```{r alphaGLS, eval=F,echo=T,message=T,warning=T}
 
-ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin", threshold %in% c(25,27.5,30,32.5,35)) %>% 
+ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin") %>% 
 	mutate(se=(par1-1)/sqrt(n),weight=se,year=as.numeric(year),region=paste0(region,subregion)  )
 
 
@@ -365,17 +375,29 @@ threshold_ci <- group_by(ff,region,threshold) %>% do( {
 				myci <- boot.ci(myboot)
 				data_frame(malpha=myboot$t0,low=myci$bca[4],high=myci$bca[5])
 				})
-threshold_ci1 <- filter(threshold_ci,threshold %in% c(25,27.5,30,32.5,35))
+
 require(viridis)
+
+ggplot(threshold_ci, aes(threshold,malpha,colour=region)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",alpha)))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~region)
+
+
+threshold_ci1 <- filter(threshold_ci,threshold %in% c(25,27.5,30,32.5,35))
 ggplot(threshold_ci1, aes(threshold,malpha,colour=region)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",alpha)))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~region)
 
-ggsave("figure/AverageAlphaByRegionThreshold.png",width=8,height=6,units="in",dpi=600)
+ggsave("figure/AverageAlphaByRegionThreshold25-30.png",width=8,height=6,units="in",dpi=600)
 
 
 
 ```
 
 # Extract max patch size and patch stats  
+
+## Data Frames
+
+pstat            Original patch stats 30 threshold, RSmax=prop_max_patch, Smax=max_patch
+pstat_threshold  Patch stats with variable threshold 10-40
+
+
 
 ```{r extractPatchStats, eval=F,echo=T,message=T,warning=T}
 
@@ -396,29 +418,31 @@ options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_pa
 pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"AF") )
 
 
-options.glo$resultsDir <- "Results/southasia"
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southasia"
 
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"SEAS") )
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"SEAS") )
 
 
-options.glo$resultsDir <- "Results/oceania"
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"OC") )
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/oceania"
 
-options.glo$resultsDir <- "Results/southamerica"
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"SA") )
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"OC") )
 
-options.glo$resultsDir <- "Results/northamerica"
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"NA") )
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southamerica"
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"SA") )
 
-options.glo$resultsDir <- "Results/eurasia"
-pstat <- rbind(pstat,region_fit_con_heavy_tail(options.glo,"EUAS") )
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/northamerica"
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"NA") )
 
-pstat <-filter(pstat,total_patch_area>100000)
+options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
+pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"EUAS") )
+
+pstat_threshold <-filter(pstat_threshold,total_patch_area>100000,!(region=="NA"& subregion==2))
+pstat_threshold <-mutate(pstat_threshold, regsub = paste0(region,subregion))
 #
 # Max patch plot
 #
-g <- ggplot(pstat, aes(y=max_patch,x=year,colour=subregion)) +  theme_bw() +
-	geom_point(shape=19) +  facet_wrap(~region,)
+g <- ggplot(pstat_threshold, aes(y=max_patch,x=year,colour=threshold)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~regsub,)
 g + ylab(expression(S[max]~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") + scale_y_log10() + theme(axis.text.x = element_text(angle=90,hjust=0))
 
 #ggsave("figure/max_patch_year.png",width=7,height=6,units="in",dpi=600)
@@ -432,42 +456,62 @@ save.image()
 # Add max patch with alpha
 #
 
-ta <-filter(all_fit,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+ta <-filter(all_fit_threshold,model_name=="Power",model_set=="Estimated Xmin") %>% mutate(regsub = paste0(region,subregion)) %>% group_by(regsub,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
 
-ta <-inner_join(ta,group_by(pstat,region,subregion) %>% summarise(max_patch=mean(max_patch),mean_tot_area=mean(total_patch_area),prop_max_patch=max_patch/mean_tot_area))
+require(boot)
+mymean <- function(dat,i) mean(dat[i])
+totarea_ci <- group_by(pstat_threshold,regsub,threshold) %>% do( {
+				myboot <- boot(.$total_patch_area,mymean,R=10000)
+				myci <- boot.ci(myboot)
+				data_frame(mean_tot_area=myboot$t0,low=myci$bca[4],high=myci$bca[5])
+				})
 
-ta
+ta <-inner_join(ta,totarea_ci)
+
+require(viridis)
 #
 # Total area greater than 10.000.000
 #
 
-g <- ggplot(filter(ta,mean_tot_area>1e7), aes(y=mean_tot_area,x=alpha,colour=region)) +  theme_bw() +
-	geom_point(shape=19) 
-g + ylab(expression(Total~patch~area~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
+ggplot(filter(ta,mean_tot_area>1e7)%>% mutate_if(is.numeric,funs(./1e07)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() +
+	geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^7~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + coord_flip()
+ggsave("figure/TotPatch_ByThreshold_gt1e07.png",width=6,height=6,units="in",dpi=600)
 
 #
 # Total area less than 10.000.000
 #
+ggplot(filter(ta,mean_tot_area<=1e7)%>% mutate_if(is.numeric,funs(./1e07)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() +
+	geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^7~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + coord_flip()
+ggsave("figure/TotPatch_ByThreshold_le1e07.png",width=6,height=6,units="in",dpi=600)
 
-g <- ggplot(filter(ta,mean_tot_area<1e7), aes(y=mean_tot_area,x=alpha,colour=region)) +  theme_bw() +
-	geom_point(shape=19) 
-g + ylab(expression(Total~patch~area~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") 
 
 ```
 
 # Max patch dynamics
+
+## Data Frames	     
+
+qu               Original quantile regressions of fluctuations of patch dynamics with 30 threshold
+qu_treshold      New fluctuation of patch dynamics with variable threshold
+
+
+* Calculate Fluctuations of maximun patch by year delta_RSmax = Smax - <Smax>/TotArea
+
+* Absolute Fluctuations around the mean by year   delta_Smax = Smax - <Smax>
 
 ```{r maxPatchdynamics, eval=F,echo=T,message=T,warning=T}
 
 require(dplyr)
 require(ggplot2)
 require(quantreg)
+require(viridis)
 
 
 #
 # Calculte some deltas
 # 
-pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_patch), 
+pstat_threshold<- group_by(pstat_threshold,regsub,threshold) %>%  mutate(year=as.numeric(year),
+																		 mean_max_patch=mean(max_patch), 
 											  prop_max_patch=max_patch/total_patch_area,  # Max patch proportion
 											  delta_max_patch=max_patch-mean_max_patch,   # Delta max patch
 											  delta_prop_max_patch=delta_max_patch/total_patch_area, # Delta max patch proportion
@@ -475,61 +519,63 @@ pstat<- group_by(pstat,region,subregion) %>%  mutate(mean_max_patch=mean(max_pat
 											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)
 											) %>% select(-data_set_name)
 
-#pstat$ <- mutate(pstat,delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year))
 
 # Average RSmax 
 #
-ff2<- group_by(pstat,region,subregion) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=round(mmaxpatch/mtotpatch,2))
+require(boot)
+mymean <- function(dat,i) mean(dat[i])
+
+rsmax_ci <- group_by(pstat_threshold,regsub,threshold) %>% do( {
+				myboot <- boot(.$prop_max_patch,mymean,R=10000)
+				myci <- boot.ci(myboot)
+				data_frame(mRSmax=myboot$t0,low=myci$bca[4],high=myci$bca[5])
+				})
+
+require(viridis)
+ggplot(rsmax_ci, aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub) + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) 
+ggsave("figure/RSmax_ByThreshold.png",width=6,height=6,units="in",dpi=600)
+
+ggplot(filter(rsmax_ci,threshold %in% c(25,27.5,30,32.5,35)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub)  + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5))
+ggsave("figure/RSmax_ByThreshold25-35.png",width=6,height=6,units="in",dpi=600)
+
+
+
+ff2<- group_by(pstat_threshold,regsub,threshold) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=round(mmaxpatch/mtotpatch,2))
 pandoc.table(ff2,round=2)
 
 #
 # Max patch proportion plot greater than 1e7 Km2
 #
-ff1 <- filter(pstat,total_patch_area>1e7) 
+ff1 <- filter(pstat_threshold,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"),year<2015) 
 pd <-position_dodge(.3)
-g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19,position=pd) 
+g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
 
-ff2<- group_by(ff1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
+ff2<- group_by(ff1,regsub,threshold) %>%  summarise(mprop=mean(prop_max_patch))
 
-g + ylab(expression(RS[max]))  +scale_colour_brewer(palette="Set1",name="Region",labels=c("AF1", "EUAS1", "NA1","SAST1","SEAS1")) + 
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
+g + ylab(expression(RS[max]))  +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) 
 
-ggsave("figure/max_patch_prop_year_gt1e7.png",width=6,height=6,units="in",dpi=600)
+ggsave("figure/RSmax_gt1e7_ByYearThreshold.png",width=6,height=6,units="in",dpi=600)
+
+
+plot_RSmax_yearThreshold(pstat_threshold,"AF1")
+plot_RSmax_yearThreshold(pstat_threshold,"EUAS1")
+plot_RSmax_yearThreshold(pstat_threshold,"NA1")
+plot_RSmax_yearThreshold(pstat_threshold,"SAST1")
+plot_RSmax_yearThreshold(pstat_threshold,"SEAS1")
+plot_RSmax_yearThreshold(pstat_threshold,"SEAS2")
+
 
 #
-# Total forest patch area
+# Calculate the average RSmax and the variance by threshold
 #
-g <- ggplot(ff1, aes(y=total_patch_area,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19,position=pd) 
-g + ylab(expression(Total~patch~area~km^2))  +scale_colour_brewer(palette="Set1",name="Region") +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mtotpatch,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
-ggsave("figure/total_patch_year_gt1e7.png",width=6,height=6,units="in",dpi=600)
+ff2<- mutate(pstat_threshold, RSmax= max_patch/total_patch_area) %>% group_by(regsub,threshold) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mRSmax=mean(RSmax),sdRSmax=sd(RSmax))
+
+ggplot(ff2, aes(regsub,mRSmax,colour=regsub)) + geom_point() + geom_linerange(aes(ymin = mRSmax-sdRSmax, ymax = mRSmax+sdRSmax)) +theme_bw()+coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~threshold)# + scale_y_log10()  
 
 
-#
-# Max patch/total patch area plot less than 1e7 Km2
-#
-ff1 <- filter(pstat,total_patch_area<1e7) %>% mutate(region1=paste0(region,subregion))
-
-g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19,size=1) +  facet_wrap(~region1)
-
-ff2<- group_by(ff1,region1,region) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area),mprop=mmaxpatch/mtotpatch)
-g + ylab(expression(RS[max]))  +scale_colour_brewer(palette="Set1",name="Region",guide=F) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=seq(2000,2014,2))
-
-ggsave("figure/max_patch_prop_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
-
-
-g <- ggplot(ff1, aes(y=total_patch_area,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19) +  facet_wrap(~region1) 
-g + ylab(expression(Total~patch~area~km^2))  +scale_colour_brewer(palette="Set1",name="Region",guide=F) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mtotpatch,colour=region),ff2,linetype = 2) + scale_x_continuous(breaks=2000:2014)
-
-
-ggsave("figure/total_patch_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
-
+ff2 %>% filter(sdRSmax==max(sdRSmax))
 
 #
 # Fluctuations of maximun patch vs year Smax - <Smax>/TotArea
@@ -537,116 +583,73 @@ ggsave("figure/total_patch_year_ls1e7.png",width=8,height=8,units="in",dpi=600)
 #
 # Areas greater than 10000000 km2
 #
-
-ff1<-filter(pstat, total_patch_area>1e7) %>% ungroup() %>% mutate(region=paste0(region,subregion))
-
 #
-# Fluctuation around the mean relative to total patch area
-#
-g <- ggplot(ff1, aes(y=(delta_prop_max_patch),x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
-g + ylab(expression(Delta~RS[max]))  +scale_colour_brewer(palette="Set1",name="Region",guide=FALSE) + 
-	stat_quantile(quantiles=c(.10,.50,.90),linetype=2) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) #
-    #geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
-ggsave("figure/Delta_prop_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
-
-
-
 # Test if quantiles are significative
 #
 
-qu <-group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop")
+ff1<-filter(pstat_threshold, total_patch_area>1e7,year<2015)  
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop"))
+qu_treshold <-group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..)
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Prop"))
-
-
-#
-# Absolute Fluctuation around the mean Smax - <Smax>
-#
-g <- ggplot(ff1, aes(y=(delta_max_patch),x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
-g + ylab(expression(Delta~S[max]~~~km^2))  +scale_colour_brewer(palette="Set1",name="Region",guide=FALSE) + 
-	stat_quantile(quantiles=c(.10,.50,.90),linetype=2) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) #
-    #geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
-ggsave("figure/Delta_max_patch_year_gt1e07.png",width=7,height=5,units="in",dpi=600)
-
-# Test if quantiles are significative
-#
-
-qu <-bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
-
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
-
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
-
-
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Prop")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
 
 #
 # Total patch area less than 1e07
 #
-
-ff1 <- filter(pstat,total_patch_area<1e7) %>% mutate(region1=paste0(region,subregion))
-
-#
-# Fluctuations around the mean Smax - <Smax>/TotArea
-#
-g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region1)
-g + ylab(expression(Delta~RS[max])) + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) +
-	stat_quantile(quantiles=c(.10,.50,.90),linetype=2)
-	# geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
-
-ggsave("figure/Delta_prop_patch_year_ls1e07.png",width=8,height=8,units="in",dpi=600)
-
-
 # Test if quantiles are significative generate table
 #
+ff1 <- filter(pstat_threshold,total_patch_area<1e7,year<2015)
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop"))
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu <- bind_rows(qu, group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop"))
+qu_treshold <- bind_rows(qu_treshold, group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="prop"))
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+qu1 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub)
+
+#
+# RSmax Fluctuations around the mean Smax - <Smax>/TotArea
+#
+plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "AF1")
+plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
+plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SAST1")
+
 
 
 #
 # Absolute Fluctuations around the mean Smax - <Smax>
 #
-g <- ggplot(ff1, aes(y=delta_max_patch,x=year,colour=region)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region1)
-g + ylab(expression(Delta~S[max]~~~(km^2))) + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
-	theme(axis.text.x = element_text(angle=90,hjust=0)) +
-	stat_quantile(quantiles=c(.10,.50,.90),linetype=2)
-	# geom_crossbar(aes(ymax = (delta_max_patch)/total_patch_area, ymin = 0)) 
-ggsave("figure/Delta_max_patch_year_ls1e07.png",width=8,height=8,units="in",dpi=600)
-
 
 # Test if quantiles are significative generate table
 #
+ff1<-filter(pstat_threshold, year<2015)  
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu <- bind_rows(qu, group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
+qu_treshold <- bind_rows(qu_treshold, group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu <- bind_rows(qu,group_by(ff1,region,subregion) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)))
+qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+qu2 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub,threshold)
+
+# The paterns of the quantile slopes are robust to the threshold, in the range 10-40, with one exception EUAS1 40 change to negative 
+# The fits of the distributions of patches are also robust range 25-35
+# The Skewness is less robust rante 27.2 32.5
 
 
-names(qu)[4]<-"StdError"
-names(qu)[5]<-"t_value"
-names(qu)[6]<-"p_value"
+plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "AF1")
+plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
+plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "EUAS2")
 
-qu <- arrange(qu,region,subregion,group,desc(tau)) %>% 
-	mutate(Value=round(Value,5),StdError=round(StdError,5),t_value=round(t_value,4),p_value=round(p_value,4))
 
-pandoc.table(qu)
+pandoc.table(arrange(qu_treshold,regsub,group,desc(tau)) %>% 
+	mutate(Value=round(Value,5),StdError=round(StdError,5),t_value=round(t_value,4),p_value=round(p_value,4)))
 
-rm(ff1,fff,ff2)
+
+rm(ff1,fff,ff2,qu1,qu2)
 
 
 
@@ -654,90 +657,70 @@ save.image()
 
 ```
 
-# Fit Max patch fluctuations to heavy tail distribution
+# Calculate Skewness and Fit Max patch fluctuations to heavy tail distribution
+
+ku 
 
 ```{r fitMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
 
 #
 # Skewness 
 #
-ff1<-filter(pstat, total_patch_area>1e7)
-ff1<-pstat
+ff1<-pstat_threshold
 require(fitdistrplus)
 ku <-do(ff1,abs_skewness=(descdist(.$delta_max_patch, discrete=FALSE, boot=500))$skewness)
 ku <-inner_join(ku,do(ff1,prop_skewness=descdist(.$delta_prop_max_patch, discrete=FALSE, boot=500)$skewness))
+ku <- ku %>% mutate(prop_skewness= unlist(prop_skewness), abs_skewness=unlist(abs_skewness))
 
 pandoc.table(ku, round=4)
 
-# Evaluate Gumbel or Frechet distributions???????????????
+ggplot(filter(ku,threshold %in% c(27.5,30,32.5)), aes(x=regsub,y=abs_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
+
+ggplot(filter(ku,threshold %in% c(27.5,30,32.5)), aes(x=regsub,y=prop_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
+
+skewness_threshold <- ku 
+rm(ku,ff1)
 
 #
 # Fit Absolute max patch fluctuations to power law exponential and lognormal distributions
 #
-ff1<-filter(pstat, total_patch_area>1e7) %>%  mutate(delta_max_patch=abs(delta_max_patch))
+ff1<-filter(pstat_threshold, year<2015) %>%  mutate(delta_max_patch=abs(delta_max_patch))
 
-fit_delta<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)) %>% arrange(AICc)
-#fit_delta1<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,0.0001)) %>% arrange(AICc)
+fit_delta_threshold<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,TRUE,FALSE)) %>% mutate(group="Abs") 
 
-ff1<-filter(pstat, total_patch_area<1e7) %>% mutate(delta_max_patch=abs(delta_max_patch)) #%>% filter(!is.na(delta_year_patch))
-
-fit_delta<-bind_rows(fit_delta, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)))
-
-pandoc.table(group_by(fit_delta,region,subregion) %>% arrange(AICc) %>% select( region:n, AICc_weight,GOFp) %>% 
-			 mutate(par1=round(par1,3),
-		    par2=round(par2,3),
-		    xmin=round(xmin,4),
-   	   		AICc_weight=round(AICc_weight,3),
-		    GOFp=round(GOFp,4))
-)
+fft <- fit_delta_threshold %>% filter(delta_AICc==0) %>% arrange(regsub)
 
 #
 # Fit Relative max patch fluctuations to power law exponential and lognormal distributions
 #
 
-ff1<-filter(pstat, total_patch_area>1e7) %>%  mutate(delta_max_patch=abs(delta_prop_max_patch))
+ff1<-filter(pstat_threshold, year<2015) %>%  mutate(delta_max_patch=abs(delta_prop_max_patch))
 
-fit_delta<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)) %>% arrange(AICc)
-#fit_delta1<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,0.0001)) %>% arrange(AICc)
+# Fit models, estimate xmins, Do Plots, Do not do GOF
+#
+fit_delta_threshold<-bind_rows(fit_delta_threshold, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,TRUE,FALSE)) %>% mutate(group="Prop")) 
 
-ff1<-filter(pstat, total_patch_area<1e7) %>% mutate(delta_max_patch=abs(delta_prop_max_patch)) #%>% filter(!is.na(delta_year_patch))
+fft <- fit_delta_threshold %>% filter(delta_AICc==0) %>% arrange(regsub) %>% select(regsub:n, AICc_weight,group)
 
-fit_delta<-bind_rows(fit_delta, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,T,T)))
-#fit_delta1<-bind_rows(fit_delta1, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1)))
-
-pandoc.table(group_by(fit_delta,region,subregion) %>% arrange(AICc) %>% dplyr::select( region:n, AICc_weight,GOFp) %>% 
+pandoc.table(filter(fit_delta_threshold,delta_AICc==0) %>% select( regsub:n, AICc_weight,group) %>% 
 			 mutate(par1=round(par1,3),
 		    par2=round(par2,3),
 		    xmin=round(xmin,4),
-   	   		AICc_weight=round(AICc_weight,3),
-		    GOFp=round(GOFp,4))
+   	   		AICc_weight=round(AICc_weight,3))
+			 
+)
+
+pandoc.table(filter(fit_delta_threshold,delta_AICc==0,threshold==30) %>% arrange(regsub) %>% select( regsub:n, AICc_weight,group) %>% 
+			 mutate(par1=round(par1,3),
+		    par2=round(par2,3),
+		    xmin=round(xmin,4),
+   	   		AICc_weight=round(AICc_weight,3))
+			 
 )
 
 
-
-#
-# Annual patch fluctuations and xmin
-# 
-
-ff1<-filter(pstat, total_patch_area>1e7) %>% mutate(delta_max_patch=abs(delta_max_patch)) 
-ff2<-group_by(fit_delta,region,subregion) %>% select(xmin) %>% inner_join(ff1) 
-
-g <- ggplot(ff2, aes(y=delta_max_patch,x=as.factor(year),colour=region)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
-g + ylab("Fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=region),linetype = 2) 
-#ggsave("figure/Annual_abs_Delta_max_patch_year_gt1e07.png",width=8,height=6,units="in",dpi=600)
-
-g + ylab("Fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=region),linetype = 2) 
-
-ff1<-filter(pstat, total_patch_area<1e7)  %>% mutate(delta_max_patch=abs(delta_max_patch)) 
-ff2<-group_by(fit_delta,region,subregion) %>% select(xmin) %>% inner_join(ff1)
-g <- ggplot(ff2, aes(y=abs(delta_max_patch),x=as.factor(year),colour=subregion)) +  theme_bw() +
-	geom_point(shape=19) + facet_wrap(~region) #geom_smooth(method = "ml",se=F)
-g + ylab("Fluctuations Max Patch") + xlab("year") +scale_colour_brewer(palette="Set1",name="Region") + 
-	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=xmin,colour=subregion),linetype = 2)
-
+rm(ff1,ff2,fft)
+save.image()
 ```
 
 
@@ -749,6 +732,7 @@ monotonic 51%
 quantile 83%
 
 ```{r varMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
+
 require(lawstat)
 require(quantreg)
 

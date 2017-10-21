@@ -977,7 +977,7 @@ plot_size_dist_by_region <-function(region,odir,Thres=0,Year=0)
 	if(Thres>0)
 		options.glo$data_set_name <- options.glo$data_set_name[threshold==thres] 
 
-	if(Year=0)
+	if(Year>0)
 		options.glo$data_set_name <- options.glo$data_set_name[year==Year] 
 	
 	# Read binary data
@@ -1239,4 +1239,64 @@ merge2_region_fit_con_heavy_tail <-function(options,region,new_region){
 	setwd(oldcd)
 	
 	return(fit)
+}
+
+
+#  Plot of RSmax by year and threshold
+#
+#  pst: pstat_threshold data frame
+#  regions: vector of regions to include
+plot_RSmax_yearThreshold <- function(pst,regions){
+
+	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	pd <-position_dodge(.3)
+	g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
+
+	ff2<- group_by(ff1,regsub,threshold) %>%  summarise(mprop=mean(prop_max_patch))
+
+	print(g + ylab(expression(RS[max]))  +
+		theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) 
+		)
+
+
+}
+
+#  Plot fluctuations of RSmax by year and faceted by threshold
+#
+#  pst: pstat_threshold data frame
+#  regions: vector of regions to include
+plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions){
+	
+	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	pd <-position_dodge(.3)
+	#
+	# Fluctuations around the mean Smax - <Smax>/TotArea
+	#
+	g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=region)) +  theme_bw() +
+		geom_point(shape=19) + facet_wrap(~threshold) + 
+		ylab(expression(Delta~RS[max])) + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
+		theme(axis.text.x = element_text(angle=90,hjust=0)) +
+		stat_quantile(quantiles=c(.10,.50,.90),linetype=2)
+	
+	print(g)
+}
+
+#  Plot fluctuations of Absolute max patch Smax by year and faceted by threshold
+#
+#  pst: pstat_threshold data frame
+#  regions: vector of regions to include
+plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
+	
+	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	#
+	# Fluctuations around the mean Smax - <Smax>/TotArea
+	#
+	g <- ggplot(ff1, aes(y=delta_max_patch,x=year,colour=region)) +  theme_bw() +
+		geom_point(shape=19) + facet_wrap(~threshold) +
+		ylab(expression(Delta~S[max]~~~(km^2))) + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
+		theme(axis.text.x = element_text(angle=90,hjust=0)) +
+		stat_quantile(quantiles=c(.10,.50,.90),linetype=2)
+	
+	print(g)
 }
