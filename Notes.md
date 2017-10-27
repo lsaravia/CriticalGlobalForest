@@ -849,3 +849,8 @@ that would be used in practice must be able to accurately
 predict a regime shift from the results using only one initial
 condition in a single model simulation.
 
+---------------
+@Alstott2014 powerlaw: A Python Package for Analysis of Heavy-Tailed Distributions
+
+Given enough data, an empirical dataset with any noise or imperfections will always fail a bootstrapping test for any theoretical distribution. If one keeps absolute adherence to the exact theoretical distribution, one can enter the tricky position of passing a bootstrapping test, but only with few enough data [6]. 
+Thus, it is generally more sound and useful to compare the fits of many candidate distributions, and identify which one fits the best.
