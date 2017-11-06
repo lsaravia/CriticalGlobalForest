@@ -17,12 +17,10 @@ panderOptions('table.split.table',Inf)
 panderOptions('table.style', 'multiline')
 options("scipen"=6, "digits"=6)
 
-#Load package
-library(poweRlaw) 
 
-#source("R/powerlaw/discpowerexp.R")
-#source("R/powerlaw/discexp.R")
-#source("R/powerlaw/zeta.R")
+# Functions for the analysis
+#
+source("R/power_fun.r")
 
 # Load functions for continuous ht distributions
 #
@@ -30,14 +28,11 @@ source("R/powerlaw/powerexp.R")
 source("R/powerlaw/exp.R")
 source("R/powerlaw/pareto.R")
 
-# Functions for the analysis
-#
-source("R/power_fun.r")
 
 # Set global options and parameters 
 #
 options.glo <- vector("list", length=0)
-options.glo$GOF <- 0						# Estimate godness of fit for power law 
+options.glo$GOF <- TRUE						# Estimate godness of fit for power law 
 options.glo$ploting <- 0					# Plots of cumulative distributions
 options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
 options.glo$resultsDir <- ""        		# Folder with bin files  
@@ -48,8 +43,7 @@ options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit
 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
 options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
-# UPDATE -> I deleted the estimation for fixed Xmin, only Estimated Xmin 
-#
+
 
 
 
@@ -75,8 +69,6 @@ options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 # Folder with new data sets with different thresholds
 #
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/africa"
-options.glo$sample_data <- 0                 # Set >0 For testing
-
 
 # Set random seed for reproducibility 
 #
@@ -84,19 +76,29 @@ set.seed(seed=0)
 
 # Fit the heavy tailed distributions for all binary files in the folder
 #
-tic("Fitting heavy tailed")
-fit <- region_fit_con_heavy_tail(options.glo,"AF") 
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir,FALSE) 
 toc()
 
 # add to a new global data_frame
 #
-all_fit_threshold <- data_frame()
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+pyfit_threshold <- data_frame()
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
+
+
+# Result of the distribution range 99.7
+#
+#   model_name higher     n        mlow         mhi    modFreq
+#        <chr>  <lgl> <int>       <dbl>       <dbl>      <dbl>
+# 1    LogNorm  FALSE   287 1.07123e-34 4.67543e-14 0.99652778
+# 2    LogNorm   TRUE     1 1.63852e-11 7.84487e+00 0.00347222
+# 3 LogNormPos   TRUE   288 2.71207e-04 4.04711e+03 1.00000000
 
 rm(fit)
 save.image()
 
 # Fitting heavy tailed: 7481.035 sec elapsed, NO paralell code and no GOF
+# Python fitting heavy tailed: 372.726 sec elapsed
 
 # Plots fits for AF (Africa) 
 #
@@ -122,11 +124,8 @@ options.glo$sample_data <- 0                 # Set >0 For testing
 
 set.seed(seed=0)
 
-
-tic("Fitting heavy tailed SEAS")
-
-fit <- region_fit_con_heavy_tail(options.glo,"SEAS") 
-
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir) 
 toc()
 
 # Fitting heavy tailed SEAS: 5125.844 sec elapsed
@@ -135,7 +134,15 @@ toc()
 #
 # add to a new global data_frame
 #
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
+
+# Result of the distribution range 99.7
+#
+#   model_name higher     n        mlow         mhi modFreq
+#        <chr>  <lgl> <int>       <dbl>       <dbl>   <dbl>
+# 1    LogNorm  FALSE   288 3.20462e-51 2.59915e-25       1
+# 2 LogNormPos   TRUE   288 3.61299e-04 4.88225e+03       1
+
 
 rm(fit)
 save.image()
@@ -156,18 +163,23 @@ save.image()
 #options.glo$resultsDir <- "Results/oceania"
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/oceania"
 
-options.glo$sample_data <- 0                 # Set >0 For testing
-
 set.seed(seed=0)
 
-tic("Fitting heavy tailed OC")
-fit <- region_fit_con_heavy_tail(options.glo,"OC") 
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir) 
 toc()
 # Fitting heavy tailed OC: 3233.113 sec elapsed
 
-#  Add the fitted distribution models data to all_fit data frame 
+# Result of the distribution range 99.7
 #
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+#   model_name higher     n        mlow         mhi modFreq
+#        <chr>  <lgl> <int>       <dbl>       <dbl>   <dbl>
+# 1    LogNorm  FALSE  1152 9.42026e-39 1.43738e-16       1
+# 2 LogNormPos   TRUE  1152 5.82053e-04 2.74795e+03       1
+
+  Add the fitted distribution models data to all_fit data frame 
+#
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
 
 rm(fit)
 save.image()
@@ -190,21 +202,21 @@ save.image()
 #
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/southamerica"
 
-options.glo$sample_data <- 0                 # Set >0 For testing
-
 
 set.seed(seed=0)
-
-tic("Fitting heavy tailed SA")
-
-fit <- region_fit_con_heavy_tail(options.glo,"SA") 
-
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir,FALSE) 
 toc()
 # Fitting heavy tailed SA: 9271.123 sec elapsed
 
+#   model_name higher     n        mlow         mhi modFreq
+#        <chr>  <lgl> <int>       <dbl>       <dbl>   <dbl>
+# 1    LogNorm  FALSE   432 2.56357e-28 5.95092e-09       1
+# 2 LogNormPos   TRUE   432 2.28301e-04 5.69198e+03       1
+
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
 
 rm(fit)
 
@@ -227,22 +239,20 @@ save.image()
 #
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/northamerica"
 
-options.glo$sample_data <- 0                 # Set >0 For testing
-
-
-set.seed(seed=0)
-
-
-tic("Fitting heavy tailed NA")
-
-fit <- region_fit_con_heavy_tail(options.glo,"NA") 
-
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir,FALSE) 
 toc()
 # Fitting heavy tailed NA: 7948.865 sec elapsed
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
+
+#   model_name higher     n        mlow             mhi    modFreq
+#        <chr>  <lgl> <int>       <dbl>           <dbl>      <dbl>
+# 1    LogNorm  FALSE   511 1.18154e-17    0.0000172011 0.99416342
+# 2    LogNorm   TRUE     3 7.78206e-05   15.8818205295 0.00583658
+# 3 LogNormPos   TRUE   514 4.69762e-02 1654.8680805708 1.00000000
 
 rm(fit)
 
@@ -265,22 +275,19 @@ save.image()
 # options.glo$resultsDir <- "Results/eurasia"
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
 
-options.glo$sample_data <- 0                 # Set >0 For testing
-
-
-set.seed(seed=0)
-
-tic("Fitting heavy tailed EUAS")
-
-fit <- region_fit_con_heavy_tail(options.glo,"EUAS") 
-
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir,FALSE) 
 toc()
 
-
+#   model_name higher     n        mlow             mhi   modFreq
+#        <chr>  <lgl> <int>       <dbl>           <dbl>     <dbl>
+# 1    LogNorm  FALSE   426 7.08543e-19    0.0000321927 0.9861111
+# 2    LogNorm   TRUE     6 1.80158e-05  341.2559817713 0.0138889
+# 3 LogNormPos   TRUE   432 3.44860e-04 4924.5115823363 1.0000000
 
 #  Add the fitted distribution models data to all_fit data frame 
 #
-all_fit_threshold <- bind_rows(all_fit_threshold,fit)
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
 
 rm(fit)
 
@@ -299,7 +306,15 @@ setwd(oldcd)
 require(dplyr)
 require(ggplot2)
 
-ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin") %>% 
+pyfit_threshold <- pyfit_threshold %>% mutate(regsub = paste0(region,subregion)) 
+pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA2",regsub !="NA3",regsub !="NA4"))
+
+pyfit_threshold %>% filter(regsub !="NA4") %>% summarise(n=n())
+pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA4")
+
+unique(pyfit_threshold$regsub)
+
+ff <- pyfit_threshold %>% filter(model_name=="Power" ) %>% 
 	mutate(se=(par1-1)/sqrt(n),lPar1=par1-2*se,hPar1=par1+2*se)
 
 pd <-position_dodge(.3)
@@ -308,11 +323,11 @@ g <- ggplot(ff, aes(x=year,y=par1,colour=threshold),shape=22) +  theme_bw() + ge
 	scale_colour_brewer(palette="Set1",guide=F) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
 
-ff1<- group_by(ff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
+ff1<- group_by(ff,regsub) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
-g + geom_hline(aes(yintercept=malpha,colour=subregion),ff1,linetype = 2) + facet_wrap( ~region+subregion) 
+g + geom_hline(aes(yintercept=malpha,colour=regsub),ff1,linetype = 2) + facet_wrap( ~regsub) 
 
-fff <-filter(ff,subregion==1,region!="SAT",region!="OC")
+fff <-filter(ff,subregion==1,region!="SAT",region!="OC", threshold %in% c(20,30,40))
 g <- ggplot(fff, aes(x=year,y=par1,colour=threshold),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
 	scale_colour_brewer(palette="Set1",name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
@@ -326,7 +341,7 @@ g + geom_hline(aes(yintercept=malpha),ff1,linetype = 2) + facet_wrap( ~region)
 #
 # Mean alpha and Xmin by region
 #
-ta <-filter(all_fit_threshold,model_name=="Power",model_set=="Estimated Xmin") %>% group_by(region,subregion,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+ta <-filter(pyfit_threshold,model_name=="Power") %>% group_by(region,subregion,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
 
 pandoc.table(ta)
 
@@ -334,7 +349,7 @@ pandoc.table(ta)
 # Proportion of Selected models 
 # 
 names(all_fit_treshold)
-tot_fit_by_model <- all_fit_threshold %>% group_by(region,subregion,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
+tot_fit_by_model <- pyfit_threshold %>% group_by(region,subregion,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
 	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
 
 #
@@ -350,19 +365,28 @@ ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 # Plot proportion of best models by region-subregion - 25 - 35 thresholds
 #
 unique(tot_fit_by_model$threshold)
-tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(25,27.5,30,32.5,35))
+tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(20,25,30,35,40))
 ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
 
-ggsave("figure/BestModelByThreshold25_35.png",width=8,height=6,units="in",dpi=600)
+ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
 
+#
+# Power exp and power law alpha difference at threshold 30 = 0.01121
+#
+
+ta <-filter(pyfit_threshold,model_name=="Power",regsub=="EUAS3") %>% select(model_name:file_name,threshold) 
+ta <-bind_rows(ta, filter(pyfit_threshold,model_name=="PowerExp",regsub=="EUAS3") %>% select(model_name:file_name,threshold) )
+ta %>% group_by(threshold,model_name) %>% summarize(alpha=mean(par1))
+
+rm(ta)
 ```
 
 # Calculate bootstraped confidence intervals by threshold for alpha parameter 
 
 ```{r alphaGLS, eval=F,echo=T,message=T,warning=T}
 
-ff <- filter(all_fit_threshold,model_name=="Power", model_set=="Estimated Xmin") %>% 
+ff <- filter(pyfit_threshold,model_name=="Power") %>% 
 	mutate(se=(par1-1)/sqrt(n),weight=se,year=as.numeric(year),region=paste0(region,subregion)  )
 
 
@@ -436,13 +460,19 @@ pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
 pstat_threshold <- rbind(pstat_threshold,region_fit_con_heavy_tail(options.glo,"EUAS") )
 
-pstat_threshold <-filter(pstat_threshold,total_patch_area>100000,!(region=="NA"& subregion==2))
+pstat_threshold <-pstat_threshold %>% filter(!(region=="NA"& subregion %in% c(2,3,4)))
+
 pstat_threshold <-mutate(pstat_threshold, regsub = paste0(region,subregion))
+
+pstat_threshold <-pstat_threshold %>% filter(year != 2015 ) %>% ungroup()
+unique(pstat_threshold$regsub)
+
+names(pstat_threshold)
 #
 # Max patch plot
 #
-g <- ggplot(pstat_threshold, aes(y=max_patch,x=year,colour=threshold)) +  theme_bw() +
-	geom_point(shape=19) +  facet_wrap(~regsub,)
+g <- ggplot(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)), aes(y=max_patch,x=year,colour=threshold)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~regsub)
 g + ylab(expression(S[max]~Km^2))  +scale_colour_brewer(palette="Set1",name="Sub-region") + scale_y_log10() + theme(axis.text.x = element_text(angle=90,hjust=0))
 
 #ggsave("figure/max_patch_year.png",width=7,height=6,units="in",dpi=600)
@@ -455,8 +485,7 @@ save.image()
 #
 # Add max patch with alpha
 #
-
-ta <-filter(all_fit_threshold,model_name=="Power",model_set=="Estimated Xmin") %>% mutate(regsub = paste0(region,subregion)) %>% group_by(regsub,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
+ta <-filter(pyfit_threshold,model_name=="Power") %>% group_by(regsub,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
 
 require(boot)
 mymean <- function(dat,i) mean(dat[i])
@@ -473,17 +502,19 @@ require(viridis)
 # Total area greater than 10.000.000
 #
 
-ggplot(filter(ta,mean_tot_area>1e7)%>% mutate_if(is.numeric,funs(./1e07)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() +
-	geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^7~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + coord_flip()
+ggplot(filter(ta,mean_tot_area>1e7, threshold %in% c(20,25,30,35,40))%>% mutate_if(is.numeric,funs(./1e07)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() + geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^7~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") + coord_flip()
 ggsave("figure/TotPatch_ByThreshold_gt1e07.png",width=6,height=6,units="in",dpi=600)
 
 #
 # Total area less than 10.000.000
 #
-ggplot(filter(ta,mean_tot_area<=1e7)%>% mutate_if(is.numeric,funs(./1e07)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() +
-	geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^7~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + coord_flip()
+ggplot(filter(ta,mean_tot_area<=1e7,threshold %in% c(20,25,30,35,40))%>% mutate_if(is.numeric,funs(./1e06)), aes(y=mean_tot_area,x=threshold,colour=regsub)) +  theme_bw() +
+	geom_point(shape=22)+ geom_linerange(aes(ymin = low, ymax = high)) + ylab(expression(Total~patch~area~10^6~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + facet_wrap(~regsub) + theme(legend.position="bottom") +  coord_flip()
 ggsave("figure/TotPatch_ByThreshold_le1e07.png",width=6,height=6,units="in",dpi=600)
 
+names(pstat_threshold)
+ggplot(filter(pstat_threshold,regsub=="EUAS1",threshold %in% c(20,25,30,35,40))%>% mutate(total_patch_area=total_patch_area/1e06), aes(y=total_patch_area,x=year,colour=threshold)) +  theme_bw() +
+	geom_point(shape=22)+ ylab(expression(Total~patch~area~10^6~Km^2))  + scale_colour_viridis(discrete=T,name="Region",guide=FALSE) + theme(legend.position="bottom") 
 
 ```
 
@@ -517,8 +548,7 @@ pstat_threshold<- group_by(pstat_threshold,regsub,threshold) %>%  mutate(year=as
 											  delta_prop_max_patch=delta_max_patch/total_patch_area, # Delta max patch proportion
 											  delta_year_patch=max_patch-lag(max_patch,order_by=year), 
 											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)
-											) %>% select(-data_set_name)
-
+											) 
 
 # Average RSmax 
 #
@@ -532,11 +562,11 @@ rsmax_ci <- group_by(pstat_threshold,regsub,threshold) %>% do( {
 				})
 
 require(viridis)
-ggplot(rsmax_ci, aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub) + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) 
+ggplot(filter(rsmax_ci,threshold %in% c(20,25,30,35,40)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub) + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + scale_y_continuous(breaks = c(.2,.4,.6,.8))
 ggsave("figure/RSmax_ByThreshold.png",width=6,height=6,units="in",dpi=600)
 
-ggplot(filter(rsmax_ci,threshold %in% c(25,27.5,30,32.5,35)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub)  + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5))
-ggsave("figure/RSmax_ByThreshold25-35.png",width=6,height=6,units="in",dpi=600)
+ggplot(filter(rsmax_ci,threshold %in% c(20,25,30,35,40)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub)  + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5))
+#ggsave("figure/RSmax_ByThreshold25-35.png",width=6,height=6,units="in",dpi=600)
 
 
 
@@ -546,7 +576,7 @@ pandoc.table(ff2,round=2)
 #
 # Max patch proportion plot greater than 1e7 Km2
 #
-ff1 <- filter(pstat_threshold,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"),year<2015) 
+ff1 <- filter(pstat_threshold,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"), threshold %in% c(20,25,30,35,40)) 
 pd <-position_dodge(.3)
 g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
 	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
@@ -587,7 +617,7 @@ ff2 %>% filter(sdRSmax==max(sdRSmax))
 # Test if quantiles are significative
 #
 
-ff1<-filter(pstat_threshold, total_patch_area>1e7,year<2015)  
+ff1<-filter(pstat_threshold, year<2015, threshold %in% c(20,25,30,35,40))  
 
 qu_treshold <-group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..)
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
@@ -595,27 +625,15 @@ qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Prop")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
 
-#
-# Total patch area less than 1e07
-#
-# Test if quantiles are significative generate table
-#
-ff1 <- filter(pstat_threshold,total_patch_area<1e7,year<2015)
-
-qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
-
-qu_treshold <- bind_rows(qu_treshold, group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
-
-qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
-
-qu1 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub)
-
+qu1 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub,threshold)
+pandoc.table(qu1)
 #
 # RSmax Fluctuations around the mean Smax - <Smax>/TotArea
 #
 plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "AF1")
 plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
 plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SAST1")
+plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "EUAS1")
 
 
 
@@ -625,7 +643,7 @@ plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SAST1")
 
 # Test if quantiles are significative generate table
 #
-ff1<-filter(pstat_threshold, year<2015)  
+ff1<-filter(pstat_threshold, year<2015)   
 
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
@@ -633,13 +651,15 @@ qu_treshold <- bind_rows(qu_treshold, group_by(ff1,regsub,threshold) %>% do(data
 
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu2 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub,threshold)
+qu2<-filter(qu_treshold, p_value<0.05, threshold %in% c(20,25,30,35,40))  %>% arrange( regsub,threshold) %>% mutate_if(is.numeric,round, digits=4)  
+
+pandoc.table(qu2)
 
 # The paterns of the quantile slopes are robust to the threshold, in the range 10-40, with one exception EUAS1 40 change to negative 
 # The fits of the distributions of patches are also robust range 25-35
 # The Skewness is less robust rante 27.2 32.5
 
-
+plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "EUAS1")
 plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "AF1")
 plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
 plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "EUAS2")
@@ -659,7 +679,6 @@ save.image()
 
 # Calculate Skewness and Fit Max patch fluctuations to heavy tail distribution
 
-ku 
 
 ```{r fitMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
 

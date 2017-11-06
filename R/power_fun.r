@@ -239,8 +239,9 @@ data_con_heavy_tail <-function(options,i){
 	
 	# Read binary data
 	connection_file <- file(options$original_bin_files[i], "rb")
-	data_set <- readBin(connection_file, "double", n = 10^6)
-	
+	data_set <- readBin(connection_file, "double",n = 10^7)
+	if(length(data_set)==10^7)
+			warning("Data set",options$original_bin_files[i], " may be bigger than 10^7")
 	nl<-length(data_set[data_set>=9])
 	mx<-max(data_set)*233*233/1000000 # Convert to km2
 	ta<-sum(data_set)*233*233/1000000
@@ -1300,3 +1301,53 @@ plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
 	
 	print(g)
 }
+
+
+#
+#' Call python routine to estimate distributions and likelihood ratio tests 
+#'
+#' @param binDir folder with bin files with patch sizes
+#'
+#' @return data frame with results
+#'
+call_python_powlawfit <- function(binDir,fit=TRUE){
+	
+	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
+
+	setwd(binDir)
+	if(fit){
+		file.remove("fittedDistributions.txt")
+		
+		system(ps)
+	}
+	pyfit <- read.table("fittedDistributions.txt", header=TRUE,sep="\t",stringsAsFactors=FALSE)
+	#names(pyfit)
+
+	pyfit1 <- pyfit %>% group_by(model_name,file_name) %>% do(  {
+		ss <- strsplit(.$file_name,"_")
+		region <- ss[[1]][2]
+		subregion <- ss[[1]][3]
+		threshold <- ss[[1]][4]
+		year <- gsub(".*\\.A([0-9]{4}).*","\\1",.$file_name)
+		data.frame(region=region,subregion=subregion,threshold=threshold,year=year)})
+	
+	pyfit <- pyfit %>% inner_join(pyfit1) %>% arrange(region,subregion,threshold)
+	
+	# Lognormal without restriction has mu negative which results in a 99.7% probability is outside the range of patch data
+	#
+	
+	lNorm <- pyfit  %>% ungroup() %>% filter(grepl("Log.*",model_name)) %>% select(model_name:xmin) %>% mutate(mu=exp(par1),si=exp(par2),lowd=mu/si^3,hid=mu*si^3)
+
+	print(lNorm %>% mutate(higher= hid>.01) %>% group_by(model_name,higher) %>% summarize(n=n(), mlow=mean(lowd),mhi=mean(hid)) %>% mutate(modFreq= n/sum(n)))
+	#
+	#
+	pyfit <- filter(pyfit, model_name!="LogNorm")
+	
+	pyfit <- pyfit %>% group_by(file_name) %>% mutate(delta_AICc= AICc - min(AICc),
+													  norm_AICc_w = exp(-0.5*delta_AICc),
+													  AICc_weight=exp(-0.5*delta_AICc)/sum(norm_AICc_w))
+	
+	setwd(oldcd)
+	
+	return(list(pyfit=pyfit,lNorm=lNorm))
+	}

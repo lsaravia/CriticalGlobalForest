@@ -1,6 +1,6 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=journal-of-ecology.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGF.pdf CriticalGF.docx CriticalGF_bioRxiv.pdf
+all: Appendices.pdf CriticalGF.pdf PatchThresholdSensitivity.pdf
 
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty

@@ -291,11 +291,11 @@ plot_size_dist_by_region("EUAS","Results/eurasia")
 
 ```
 
-# Fit again heavy tailed distributions EUAS 1  
+# Testing python code to Fit again heavy tailed distributions EUAS 1  
 
 ```{r conheavytailfitEUAS3_SAST1, eval=F,echo=T,message=T,warning=T}
 
-
+require(dplyr)
 # eliminate NA_5
 #
 #all_fit<- filter(all_fit, grepl("NA_5",data_set_name,fixed = T))
@@ -303,36 +303,48 @@ plot_size_dist_by_region("EUAS","Results/eurasia")
 # Delete duplicated 
 #all_fit <- group_by(all_fit,region, subregion) %>% unique() %>% ungroup()
 
-
 options.glo$resultsDir <- "Results/eurasia"
 options.glo$xmins <- seq(1:600)				# Range of xmins (minimun patch sizes) to fit 
 options.glo$sample_data <- 0                 # Set >0 For testing
 
+# Test with python
+#
+ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
+#setwd(paste0(oldcd, "/Code"))
+setwd(options.glo$resultsDir)
+file.remove("fittedDistributions.txt")
 
-all_fit <-filter(all_fit, !grepl("EUAS_3",data_set_name,fixed = T))
+tic("Python - Fitting heavy tailed EUAS")
+system(ps)
+toc()
 
-fit <- region_fit_con_heavy_tail(options.glo,"EUAS_3")
+pyfit <- read.table("fittedDistributions.txt", header=TRUE,sep="\t",stringsAsFactors=FALSE)
+names(pyfit)
 
-all_fit <- bind_rows(all_fit,fit)
+
+pyfit <- pyfit %>% mutate(region=strsplit(pyfit$file_name[1],"_")[[1]][2], subregion=strsplit(pyfit$file_name[1],"_")[[1]][3],
+				 threshold= strsplit(pyfit$file_name[1],"_")[[1]][4],
+				 year = gsub(".*\\.A([0-9]{4}).*","\\1",file_name))
+names(all_fit_threshold)
+
+
+# Lognormal without restriction has mu negative which results in a 99.7% probability is outside the range of patch data
+#
+
+lNorm <- filter(pyfit, grepl("Log.*",model_name)) %>% ungroup() %>% select(model_name:xmin) %>% mutate(mu=exp(par1),si=exp(par2),low=mu/si^3,hi=mu*si^3)
+
+lNorm %>% mutate(higher= hi>.01) %>% group_by( model_name,higher) %>% summarize(n=n()) %>% mutate(modFreq= n/sum(n))
+
+#
+#
+pyfit <- filter(pyfit, model_name!="LogNorm")
+
+pyfit <- pyfit %>% group_by(file_name) %>% mutate(delta_AICc= AICc - min(AICc),
+												  norm_AICc_w = exp(-0.5*delta_AICc),
+												  AICc_weight=exp(-0.5*delta_AICc)/sum(norm_AICc_w))
 
 setwd(oldcd)
 
-save.image()
-
-plot_size_dist_by_region("EUAS_3","Results/eurasia")
-
-
-options.glo$resultsDir <- "Results/southamerica"
-
-all_fit <-filter(all_fit, !grepl("SAST_1",data_set_name,fixed = T))
-
-fit <- region_fit_con_heavy_tail(options.glo,"SAST_1")
-
-all_fit <- bind_rows(all_fit,fit)
-
-save.image()
-
-plot_size_dist_by_region("SAST_1","Results/southamerica")
 
 ```
 
