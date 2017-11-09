@@ -812,6 +812,7 @@ the type of transition (Fig. 3), and regardless of the vegetation cover
 (Fig. 2c, f).
 
 
+The maximun values of alpha (the power law exponent) are 1.77 and 1.75
 
 --------------
 Dantas2013 Fire drives functional thresholds on the savanna-forest transition

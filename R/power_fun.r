@@ -1312,7 +1312,7 @@ plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
 #'
 call_python_powlawfit <- function(binDir,fit=TRUE){
 	
-	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
+	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 1")
 
 	setwd(binDir)
 	if(fit){
@@ -1350,4 +1350,60 @@ call_python_powlawfit <- function(binDir,fit=TRUE){
 	setwd(oldcd)
 	
 	return(list(pyfit=pyfit,lNorm=lNorm))
+	}
+
+
+#
+#' Call python routine to estimate distributions and likelihood ratio tests 
+#' for delta_Smax and delta_RSmax
+#'
+#' @param binDir folder with bin files with patch sizes
+#'
+#' @return data frame with results
+#'
+call_python_powlawfit_delta_threshold <- function(ff,binDir,fit=TRUE){
+	
+	setwd(binDir)
+
+	group_by(ff, regsub,threshold) %>% do( nothing={ 	
+		zz <- file(paste0("delta_", .$regsub,"_",.$threshold,"_.bin")[1], "wb")
+		writeBin(.$delta_max_patch,zz) 
+		close(zz)
+		return(.$regsub)
+	    })
+
+
+
+	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
+
+	if(fit){
+		file.remove("fittedDistributions.txt")
+		
+		system(ps)
+	}
+	pyfit <- read.table("fittedDistributions.txt", header=TRUE,sep="\t",stringsAsFactors=FALSE)
+	#names(pyfit)
+
+	pyfit1 <- pyfit %>% group_by(model_name,file_name) %>% do(  {
+		ss <- strsplit(.$file_name,"_")
+		regsub <- ss[[1]][2]
+		threshold <- ss[[1]][3]
+		data.frame(regsub=regsub,threshold=threshold)})
+	
+	pyfit <- pyfit %>% inner_join(pyfit1) %>% arrange(regsub,threshold)
+	
+	#
+	#
+	pyfit <- filter(pyfit, model_name!="LogNormPos")
+	pyfit <- filter(pyfit, model_name!="PowerExp")
+	
+	pyfit <- pyfit %>% group_by(file_name) %>% mutate(delta_AICc= AICc - min(AICc),
+													  norm_AICc_w = exp(-0.5*delta_AICc),
+													  AICc_weight=exp(-0.5*delta_AICc)/sum(norm_AICc_w)) %>% 
+		ungroup() %>% select( -file_name )
+	
+	unlink("*.bin")
+	setwd(oldcd)
+	
+	return(pyfit=pyfit)
 	}

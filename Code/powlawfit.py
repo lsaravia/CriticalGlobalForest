@@ -75,7 +75,7 @@ def fitDitributionsML(fname,xmin=0):
     par2 = 0.0
     n =len(patch[patch>fit.power_law.xmin])
     LL = sum(fit.power_law.loglikelihoods(patch))
-    if n<20:
+    if n<5:
         return
     
     #

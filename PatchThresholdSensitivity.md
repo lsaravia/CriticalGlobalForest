@@ -1,19 +1,90 @@
 # Patch threshold sensitivity analysis 
 
 
-We vary the threshold to determine if a pixel is classified as forest or non-forest from 20% to 40% of forest cover. When forest is determined by pixels with low cover, we will obtain a bigger area of forest and more variability. This is because smaller disturbances could make patches to leave the forest category and relatively small growth can make patches to enter in it. A pixel that has 20% of forest means around 1.1 ha, 30% 1.6 ha, 40% 2.2 ha of forest cover respectively. Some studies suggest that for pantropical areas the structure of the forest change at 40%, because at this level a different type of trees, with different height, are found [@Xu2016]. This was not studied for temperate and boreal forest.
-First we checked if different threshold give different results for the patch distribution models (Figure S1), in all cases except one power law is always the selected model. In EUAS3 (Great Britain) the power law with exponential cutoff was selected, this in fact implies that the power law model is valid but bigger patches are smaller than expected because an external factor.  
+We vary the threshold of forest cover to determine if a pixel is classified as forest or non-forest from 20% to 40% in 5% intervals. When forest is determined by pixels with low cover, we will obtain a bigger area of forest and more variability. This is because smaller disturbances could make patches to leave the forest category and relatively small growth can make patches to enter in it. A pixel that has 20% of forest means around 1.1 ha, 30% 1.6 ha, 40% 2.2 ha of forest cover respectively. Some studies suggest that for pantropical areas the structure of the forest change at 40%, because at this level a different type of trees, with different height, are found [@Xu2016]. This was not studied for temperate and boreal forest.
+
+First we checked if different thresholds give different results for the patch distribution models (Figure S1), in all cases except one, power law is always the selected model. In EUAS3 (Great Britain) the power law with exponential cutoff was selected, this in fact implies that the power law model is valid but bigger patches are smaller than expected because an external factor, or due to finite size effects.  
 
 ![](figure/BestModelByThreshold.png)
 
-As expected [cita] the values of the exponent alpha change for each threshold
+As expected the values of the exponent $\alpha$ change for each threshold [@Kellner2009], variations are greater in smaller regions, which means that the distributions of patch sizes change less for bigger regions (AF1,EUAS1,NA1,OC1,SAST1,SAT1,SEAS1). In general the values of $\alpha$ are smaller when the threshold is higher, this implies bigger differences between small patch sizes and big patch size.  We determined the bootstraped 95% confidence intervals which are non-overlaping in a range 1.90-1.99, and an overall mean of 1.94. So we use the range of $\alpha$ obtained to compare with the values obtained from models. 
 
+![](figure/AverageAlphaByRegionThreshold.png)
 
-There is not a clear pattern of change in $RS_{max}$, based on this we maintain the 30% threshold as a compromise value, but to be more conservative in interpreting $RS_{max}$ as a measure of the state of the forest a 40% should be recomended.
+-------------------------------------
+ threshold   mean        CI      CI
+            $\alpha$   lower   higher 
+----------- -------- -------- -------
+    20      1.9994     1.9911  2.0082 
 
+    25      1.9636     1.9564  1.9711 
 
+    30      1.9383     1.9320  1.9447 
+
+    35      1.9164     1.9106  1.9221 
+
+    40      1.9001     1.8947  1.9059 
+-------------------------------------
+table: $\alpha$ Bootstrapped confidence intervals for each threshold.  
+
+The total area of forest is different and also the absolute size of the largest patch $S_{max}$. We expecte less variations in the largest patch proportional to forest area $RS_{max}$, in ten cases it keeps near or higher than 60% (EUAS2, NA5, OC2, OC3, OC4, OC5, OC6, OC8, SAST1, SAT1) over the 25-35 range or more. In four cases it keeps around 40% or less at least over the 25-30% range (AF1, EUAS3, OC1, SAST2) and in six cases there is a crossover from more than 60% to around 40% or less (AF2, EUAS1, NA1, OC7, SEAS1, SEAS2)  change. So we adopt the criteria of using the most conservative threshold value of 40% to interpret $RS_{max}$, we call it $RS_{max40}.
 
 ![](figure/RSmax_ByThreshold.png)
+
+
+We analized the temporal fluctuation of largest patch $\Delta S_{max}$ and the largest patch proportional to forest area $\Delta RS_{max}$ by fitting exponential, power law and lognormal distributions. The data is too small to determine which is the best distribution  
+
+quantile regressions, the same EUAS1 change to increasing variance in 40% threshold.
+
+
+---------------------------------------------------------------------
+ Region  Threshold       Total   $S_{max}$   $RS_{max}$     CI     CI 
+                          Area                             low   high
+-------- ---------  ----------  ----------  ----------- ------ ------
+  AF1       40        14451373  4867069.55      0.33     0.28   0.38 
+
+  AF2       40         439866    208461.90      0.48     0.44   0.52 
+
+ EUAS1      40        32156489  6977443.43      0.22     0.21   0.25 
+
+ EUAS2      40         828734    777467.11      0.94     0.93   0.94 
+
+ EUAS3      40         138620     3892.54       0.03     0.02   0.03 
+
+  NA1       40        22496669  6532431.33      0.31     0.28   0.36 
+
+  NA5       40         230676    124574.04      0.54     0.47   0.61 
+
+  OC1       40         1266324   457500.40      0.36     0.35   0.37 
+
+  OC2       40         3499422  3354399.37      0.96     0.94   0.97 
+
+  OC3       40         2996110  2786747.92      0.92     0.89   0.94 
+
+  OC4       40         1481036  1250640.87      0.84     0.81   0.86 
+
+  OC5       40         655092    538191.41      0.82     0.81   0.85 
+
+  OC6       40         299402    225259.85      0.75     0.74   0.76 
+
+  OC7       40         180385    31657.58       0.16     0.13   0.21 
+
+  OC8       40         327413    211580.24      0.64     0.62   0.68 
+
+ SAST1      40        39613027  23148967.7      0.56     0.49   0.63 
+
+ SAST2      40         184451    27756.44       0.15     0.14   0.16 
+
+  SAT1      40         846476    463071.11      0.54     0.51   0.57 
+
+ SEAS1      40        11892747  3305593.94      0.28     0.24   0.32 
+
+ SEAS2      40         269263    91941.60       0.33     0.29   0.41 
+---------------------------------------------------------------------
+Table: The largest patch divided by the total forest area (Total Area in Km^2^) $RS_{max}$, averaged across year at the 40% pixel threshold. The absolute largest patch in Km^2^ $S_{max}$, and the bootstrapped 95% confidence interval. 
+
+ 
+
 
 -------------------------------------------------------------------------------
  regsub   threshold     Value      StdError    t_value   p_value   tau   group 
@@ -265,7 +336,7 @@ There is not a clear pattern of change in $RS_{max}$, based on this we maintain 
  SEAS2       40       9320.0000    1791.0000   5.2036    0.0002    0.9    Abs  
 -------------------------------------------------------------------------------
 
-Table: Quantile regressions of the fluctuations of the largest patch relative to total forest area $RS_{max}$ vs year, for 10%, 50% and 90% quantils at different pixel thresholds. Only the significant quantils are showed, to compare The column group signals the if the fluctuations are relative to the total area (prop) or absolute (Abs)
+Table: Quantil regressions of the fluctuations of the largest patch relative to total forest area $RS_{max}$ vs year, for 10%, 50% and 90% quantils at different pixel thresholds. Only the significant quantils are showed, to compare The column group signals the if the fluctuations are relative to the total area (prop) or absolute (Abs)
 
 ### Patch size distributions
 
