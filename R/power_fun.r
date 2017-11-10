@@ -242,10 +242,10 @@ data_con_heavy_tail <-function(options,i){
 	data_set <- readBin(connection_file, "double",n = 10^7)
 	if(length(data_set)==10^7)
 			warning("Data set",options$original_bin_files[i], " may be bigger than 10^7")
-	nl<-length(data_set[data_set>=9])
+	nl<-length(data_set)
 	mx<-max(data_set)*233*233/1000000 # Convert to km2
 	ta<-sum(data_set)*233*233/1000000
-	cat(options$original_bin_files[i],"\t",nl,"\t",mx,"\t",ta,"\n")
+	cat(options$original_bin_files[i],"\tNo.patches",nl,"\tMax.PatchKm2",mx,"\tTotalKm2",ta,"\n")
 	
 	fit_ht_df <- data_frame(number_of_patches=nl,max_patch=mx,total_patch_area=ta)
 	fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
@@ -1249,7 +1249,7 @@ merge2_region_fit_con_heavy_tail <-function(options,region,new_region){
 #  regions: vector of regions to include
 plot_RSmax_yearThreshold <- function(pst,regions){
 
-	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	ff1 <- filter(pst,regsub %in% regions) 
 	pd <-position_dodge(.3)
 	g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
 	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
@@ -1269,7 +1269,7 @@ plot_RSmax_yearThreshold <- function(pst,regions){
 #  regions: vector of regions to include
 plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions){
 	
-	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	ff1 <- filter(pst,regsub %in% regions) 
 	pd <-position_dodge(.3)
 	#
 	# Fluctuations around the mean Smax - <Smax>/TotArea
@@ -1289,7 +1289,7 @@ plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions){
 #  regions: vector of regions to include
 plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
 	
-	ff1 <- filter(pst,regsub %in% regions,year<2015) 
+	ff1 <- filter(pst,regsub %in% regions) 
 	#
 	# Fluctuations around the mean Smax - <Smax>/TotArea
 	#

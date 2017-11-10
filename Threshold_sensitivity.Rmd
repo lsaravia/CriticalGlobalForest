@@ -24,24 +24,24 @@ source("R/power_fun.r")
 
 # Load functions for continuous ht distributions
 #
-source("R/powerlaw/powerexp.R")
-source("R/powerlaw/exp.R")
-source("R/powerlaw/pareto.R")
-
-
-# Set global options and parameters 
-#
-options.glo <- vector("list", length=0)
-options.glo$GOF <- TRUE						# Estimate godness of fit for power law 
-options.glo$ploting <- 0					# Plots of cumulative distributions
-options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
-options.glo$resultsDir <- ""        		# Folder with bin files  
-options.glo$sample_data <- 0                # Set  >0 For testing
-options.glo$original_bin_files <- ""        # Files with patch sizes for each region (bin=binary)
-options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit 
-											#
-											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
-options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
+# source("R/powerlaw/powerexp.R")
+# source("R/powerlaw/exp.R")
+# source("R/powerlaw/pareto.R")
+# 
+# 
+# # Set global options and parameters 
+# #
+# options.glo <- vector("list", length=0)
+# options.glo$GOF <- TRUE						# Estimate godness of fit for power law 
+# options.glo$ploting <- 0					# Plots of cumulative distributions
+# options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
+# options.glo$resultsDir <- ""        		# Folder with bin files  
+# options.glo$sample_data <- 0                # Set  >0 For testing
+# options.glo$original_bin_files <- ""        # Files with patch sizes for each region (bin=binary)
+# options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit 
+# 											#
+# 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
+# options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
 
 
 
@@ -518,8 +518,11 @@ pstat_threshold <-pstat_threshold %>% filter(!(region=="NA"& subregion %in% c(2,
 
 pstat_threshold <-mutate(pstat_threshold, regsub = paste0(region,subregion))
 
-pstat_threshold <-pstat_threshold %>% filter(year != 2015 ) %>% ungroup()
+pstat_threshold <-pstat_threshold %>% filter(!(regsub=="EUAS1" & year == 2015 )) %>% ungroup()
+
 unique(pstat_threshold$regsub)
+
+unique(pstat_threshold$year)
 
 names(pstat_threshold)
 #
@@ -656,12 +659,13 @@ g + ylab(expression(RS[max]))  +
 ggsave("figure/RSmax_gt1e7_ByYearThreshold.png",width=6,height=6,units="in",dpi=600)
 
 
-plot_RSmax_yearThreshold(pstat_threshold,"AF1")
-plot_RSmax_yearThreshold(pstat_threshold,"EUAS1")
-plot_RSmax_yearThreshold(pstat_threshold,"NA1")
-plot_RSmax_yearThreshold(pstat_threshold,"SAST1")
-plot_RSmax_yearThreshold(pstat_threshold,"SEAS1")
-plot_RSmax_yearThreshold(pstat_threshold,"SEAS2")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"AF1")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"EUAS1")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"EUAS2")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"NA1")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SAST1")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SEAS1")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SEAS2")
 
 
 #
@@ -674,7 +678,7 @@ plot_RSmax_yearThreshold(pstat_threshold,"SEAS2")
 # Test if quantiles are significative
 #
 
-ff1<-filter(pstat_threshold, year<2015, threshold %in% c(20,25,30,35,40))  
+ff1<-filter(pstat_threshold, threshold %in% c(20,25,30,35,40))  
 
 qu_treshold <-group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..)
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_prop_max_patch)~year,data=.,tau=c(.50)),se="boot",R=999))[2,]))) %>% mutate(tau=.50, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
@@ -684,13 +688,6 @@ qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.
 
 qu1 <- filter(qu_treshold, p_value<0.05) %>% arrange( regsub,threshold)
 pandoc.table(qu1)
-#
-# RSmax Fluctuations around the mean Smax - <Smax>/TotArea
-#
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "AF1")
-plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
-plot_RSmax_Fluctuations_yearThreshold(pstat_threshold, "SAST1")
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "EUAS1")
 
 
 
@@ -707,25 +704,36 @@ qu_treshold <- bind_rows(qu_treshold, group_by(ff1,regsub,threshold) %>% do(data
 
 qu_treshold <- bind_rows(qu_treshold,group_by(ff1,regsub,threshold) %>% do(data.frame(t(coef(summary(rq((delta_max_patch)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs",Value=round(Value,0),Std..Error=round(Std..Error,0)) %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
 
-qu2<-filter(qu_treshold, p_value<0.05, threshold %in% c(20,25,30,35,40))  %>% arrange( regsub,threshold) %>% mutate_if(is.numeric,round, digits=4)  
-
-pandoc.table(qu2)
+pandoc.table(filter(qu_treshold, p_value<0.05, threshold %in% c(20,25,30,35,40))  %>% arrange( regsub,threshold) %>% mutate_if(is.numeric,round, digits=4))
 
 # The paterns of the quantile slopes are robust to the threshold, in the range 10-40, with one exception EUAS1 40 change to negative 
 # The fits of the distributions of patches are also robust range 25-35
 # The Skewness is less robust rante 27.2 32.5
 
-plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "EUAS1")
-plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "AF1")
-plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "SEAS2")
-plot_Smax_Fluctuations_yearThreshold(pstat_threshold, "EUAS2")
-
-
 pandoc.table(arrange(qu_treshold,regsub,group,desc(tau)) %>% 
 	mutate(Value=round(Value,5),StdError=round(StdError,5),t_value=round(t_value,4),p_value=round(p_value,4)))
 
+#
+# RSmax Fluctuations around the mean Smax - <Smax>/TotArea
+#
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(30,40)), "AF1")      # Increasing at 30
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,30,40)), "EUAS1") # Increasing at 30 40, decreasing at 20 
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(35,40)), "EUAS2")    # Increasing at 35 40
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30)), "NA1")   # Decreasing all
 
-rm(ff1,fff,ff2,qu1,qu2)
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(25,30,35)), "OC1")   # Increasing 30 35
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(25,30,35)), "OC2")   # Decreasing 25 30 35
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(35,40)), "OC3")      # Increasing 40
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30)), "OC4")   # Increasing 30 35
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(40)), "OC6")         # Increasing 40
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(25,30)), "SAST1")    # Increasing 25 30
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,40)), "SAST2")    # Increasing 25 40
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(25,30,35)), "SAT1")     # Decreasing 25 30 35
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25)), "SEAS1")       # Increasing 25
+
+plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SEAS2") # Increasing 30 40 Decreasing 20 25
+
+rm(ff,ff1,fff,ff2,qu1,qu2)
 
 
 
@@ -778,11 +786,21 @@ fit <- call_python_powlawfit_delta_threshold(ff1,"Results",TRUE)
 
 fit_delta_threshold <- bind_rows(fit_delta_threshold, fit %>% mutate(group="Prop")) 
 
+#
+# Add the LRT value test to the power law row
+# 
+fit_delta_threshold <- fit_delta_threshold %>% group_by(regsub,threshold,group) %>% do( {
+							a <- filter(., model_name=="Exp")
+							.$LRT[1] <- a$LRT
+							.$pvalue[1] <- a$pvalue
+							return(.)
+							})
+
 # Fit models, estimate xmins, Do Plots, Do not do GOF
 #
 # fit_delta_threshold<-bind_rows(fit_delta_threshold, do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,TRUE,FALSE)) %>% mutate(group="Prop")) 
 
-fft <- fit_delta_threshold %>% filter(pvalue<0.05) %>% arrange(regsub) %>% select(regsub,threshold,model_name:n,LRT,pvalue,AICc_weight,group)
+fft <- fit_delta_threshold %>% filter(pvalue<0.05,pvalue!=0,delta_AICc==0) %>% arrange(regsub) %>% select(regsub,threshold,model_name:n,LRT,pvalue,AICc_weight,group)
 
 pandoc.table(fft %>% 
 			 mutate(par1=round(par1,3),
@@ -792,11 +810,9 @@ pandoc.table(fft %>%
 			 
 )
 
-pandoc.table(filter(fit_delta_threshold,delta_AICc==0,threshold==30) %>% arrange(regsub) %>% select( regsub:n, AICc_weight,group) %>% 
-			 mutate(par1=round(par1,3),
-		    par2=round(par2,3),
-		    xmin=round(xmin,4),
-   	   		AICc_weight=round(AICc_weight,3))
+pandoc.table(filter(fit_delta_threshold,delta_AICc==0) %>% arrange(regsub) %>% 
+			 	select(regsub,threshold,model_name:n,LRT,pvalue,AICc_weight,group) %>% 
+			 mutate_at( vars(par1:AICc_weight),round, digits=3)
 			 
 )
 
