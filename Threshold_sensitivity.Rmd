@@ -314,59 +314,39 @@ pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA4")
 
 unique(pyfit_threshold$regsub)
 
-ff <- pyfit_threshold %>% filter(model_name=="Power" ) %>% 
+ff <- pyfit_threshold %>% filter(model_name=="Power", !(regsub=="EUAS1" & year==2015) ) %>% 
 	mutate(se=(par1-1)/sqrt(n),lPar1=par1-2*se,hPar1=par1+2*se)
 
 pd <-position_dodge(.3)
-g <- ggplot(ff, aes(x=year,y=par1,colour=threshold),shape=22) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
-	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) + 
-	scale_colour_brewer(palette="Set1",guide=F) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
-
-ff1<- group_by(ff,regsub) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
-
-g + geom_hline(aes(yintercept=malpha,colour=regsub),ff1,linetype = 2) + facet_wrap( ~regsub) 
-
-fff <-filter(ff,subregion==1,region!="SAT",region!="OC", threshold %in% c(20,30,40))
+fff <-filter(ff,subregion==1,region!="SAT",region!="OC", threshold %in% c(20,25,30,35,40))
 g <- ggplot(fff, aes(x=year,y=par1,colour=threshold),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
-	scale_colour_brewer(palette="Set1",name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+	scale_colour_brewer(palette="Set1",name="Threshold") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
 ff1<- group_by(fff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
 g + geom_hline(aes(yintercept=malpha),ff1,linetype = 2) + facet_wrap( ~region)
-#ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
+ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
 
-
-#
-# Mean alpha and Xmin by region
-#
-ta <-filter(pyfit_threshold,model_name=="Power") %>% group_by(region,subregion,threshold) %>% summarise(alpha=mean(par1),xmin=mean(xmin))
-
-pandoc.table(ta)
 
 #
 # Proportion of Selected models 
 # 
 names(all_fit_treshold)
-tot_fit_by_model <- pyfit_threshold %>% group_by(region,subregion,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
+tot_fit_by_model <- pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(regsub,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
 	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
 
 #
 # Plot proportion of best models by region-subregion - ALL thresholds
 #
-unique(tot_fit_by_model$threshold)
-tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) #%>% filter(threshold %in% c(25,27.5,30,32.5,35))
-ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
-
-ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
 #
 # Plot proportion of best models by region-subregion - 25 - 35 thresholds
 #
 unique(tot_fit_by_model$threshold)
 tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(20,25,30,35,40))
-ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold )
+ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold ) +  coord_flip()
 
 ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
@@ -640,7 +620,7 @@ rsmax_ci
 #
 # Table with RSmax and CI, Smax, and total forest areas
 #
-ff2<- pstat_threshold %>% filter(threshold %in% c(40)) %>% group_by(regsub,threshold) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area)) %>% inner_join(rsmax_ci) %>% mutate_if(is.numeric,round,digits=2)
+ff2<- pstat_threshold %>% filter(threshold %in% c(20,25,30,35,40)) %>% group_by(regsub,threshold) %>%  summarise(mmaxpatch=mean(max_patch),mtotpatch=mean(total_patch_area)) %>% inner_join(rsmax_ci) %>% mutate_if(is.numeric,round,digits=2)
 pandoc.table(ff2,round=2) 
 
 #
@@ -659,13 +639,44 @@ g + ylab(expression(RS[max]))  +
 ggsave("figure/RSmax_gt1e7_ByYearThreshold.png",width=6,height=6,units="in",dpi=600)
 
 
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"AF1")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"EUAS1")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"EUAS2")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"NA1")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SAST1")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SEAS1")
-plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,35,40)),"SEAS2")
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(30)),"AF1")
+ggsave("figure/RSmax_yearThreshold_AF1.png",width=6,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,30,40)),"EUAS1")
+ggsave("figure/RSmax_yearThreshold_EUAS1.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(35,40)),"EUAS2")
+ggsave("figure/RSmax_yearThreshold_EUAS2.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30)),"NA1")
+ggsave("figure/RSmax_yearThreshold_NA1.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(30,35)),"OC1")
+ggsave("figure/RSmax_yearThreshold_OC1.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(25,30,35)),"OC2")
+ggsave("figure/RSmax_yearThreshold_OC2.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(35,40)),"OC3")
+ggsave("figure/RSmax_yearThreshold_OC3.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30)),"OC4")
+ggsave("figure/RSmax_yearThreshold_OC4.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(40)),"OC6")
+ggsave("figure/RSmax_yearThreshold_OC6.png",width=6,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(25,30)),"SAST1")
+ggsave("figure/RSmax_yearThreshold_SAST1.png",width=8,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(40)),"SAST2")
+ggsave("figure/RSmax_yearThreshold_SAST2.png",width=6,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(25)),"SEAS1")
+ggsave("figure/RSmax_yearThreshold_SEAS1.png",width=6,height=6,units="in",dpi=600)
+
+plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(20,25,30,40)),"SEAS2")
+ggsave("figure/RSmax_yearThreshold_SEAS2.png",width=8,height=6,units="in",dpi=600)
 
 
 #
@@ -755,19 +766,19 @@ ku <-do(ff1,abs_skewness=(descdist(.$delta_max_patch, discrete=FALSE, boot=500))
 ku <-inner_join(ku,do(ff1,prop_skewness=descdist(.$delta_prop_max_patch, discrete=FALSE, boot=500)$skewness))
 ku <- ku %>% mutate(prop_skewness= unlist(prop_skewness), abs_skewness=unlist(abs_skewness))
 
-pandoc.table(ku, round=4)
+pandoc.table(filter(ku,threshold %in% c(20,25,30,35,40)) %>% mutate_if(is.numeric, round, digits=4))
 
-ggplot(filter(ku,threshold %in% c(27.5,30,32.5)), aes(x=regsub,y=abs_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
+ggplot(filter(ku,threshold %in% c(20,25,30,35,40)), aes(x=regsub,y=abs_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
 
 ggplot(filter(ku,threshold %in% c(27.5,30,32.5)), aes(x=regsub,y=prop_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
 
-skewness_threshold <- ku 
+skewness_threshold <- filter(ku, threshold %in% c(20,25,30,35,40))
 rm(ku,ff1)
 
 #
 # Fit Absolute max patch fluctuations to power law exponential and lognormal distributions
 #
-ff1<-filter(pstat_threshold, year<2015, threshold %in% c(20,25,30,35,40)) %>%  mutate(delta_max_patch=abs(delta_max_patch))
+ff1<-filter(pstat_threshold, threshold %in% c(20,25,30,35,40)) %>%  mutate(delta_max_patch=abs(delta_max_patch))
 
 fit <- call_python_powlawfit_delta_threshold(ff1,"Results",TRUE)
 fit_delta_threshold <- fit %>% mutate(group="Abs") 
@@ -775,13 +786,13 @@ fit_delta_threshold <- fit %>% mutate(group="Abs")
 # fit_delta_threshold<-do(ff1,fit_cont_heavy_tail_mdls(.$delta_max_patch,-1,TRUE,FALSE)) %>% mutate(group="Abs") 
 
 fft <- fit_delta_threshold %>% filter(delta_AICc==0) %>% arrange(regsub)
-fft <- fit_delta_threshold %>% filter(pvalue<0.05) %>% arrange(regsub)
+fft <- fit_delta_threshold %>% filter(pvalue>0,pvalue<0.05) %>% arrange(regsub)
 
 #
 # Fit Relative max patch fluctuations to power law exponential and lognormal distributions
 #
 
-ff1<-filter(pstat_threshold, year<2015,threshold %in% c(20,25,30,35,40)) %>%  mutate(delta_max_patch=abs(delta_prop_max_patch))
+ff1<-filter(pstat_threshold, threshold %in% c(20,25,30,35,40)) %>%  mutate(delta_max_patch=abs(delta_prop_max_patch))
 fit <- call_python_powlawfit_delta_threshold(ff1,"Results",TRUE)
 
 fit_delta_threshold <- bind_rows(fit_delta_threshold, fit %>% mutate(group="Prop")) 
@@ -817,7 +828,7 @@ pandoc.table(filter(fit_delta_threshold,delta_AICc==0) %>% arrange(regsub) %>%
 )
 
 
-rm(ff1,ff2,fft,fit,qu1,qu2,ta,am,m.gls,mdl1,mdl2,re)
+rm(ff1,ff2,fft,fit,qu1,qu2,ta,am,m.gls,mdl1,mdl2)
 save.image()
 ```
 

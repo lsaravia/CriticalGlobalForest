@@ -1250,14 +1250,25 @@ merge2_region_fit_con_heavy_tail <-function(options,region,new_region){
 plot_RSmax_yearThreshold <- function(pst,regions){
 
 	ff1 <- filter(pst,regsub %in% regions) 
-	pd <-position_dodge(.3)
-	g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
-	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
-
 	ff2<- group_by(ff1,regsub,threshold) %>%  summarise(mprop=mean(prop_max_patch))
+	
+	if(length(unique(ff1$regsub))==1)
+	{
+		require(viridis)
+		g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+		geom_point(shape=19) + facet_wrap(~threshold) + scale_colour_viridis(discrete = T,guide=F) + 
+			ggtitle(unique(ff1$regsub)) +  theme(plot.title = element_text(hjust = 0.5)) +
+			geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2)
+		
+	} else {
+		pd <-position_dodge(.3)
+		g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+		geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")  +
+		geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2)
+	}
 
 	print(g + ylab(expression(RS[max]))  +
-		theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) 
+		theme(axis.text.x = element_text(angle=90,hjust=0)) 
 		)
 
 

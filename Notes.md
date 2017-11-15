@@ -1,4 +1,7 @@
 
+
+The existence of a critical transition between to states has been for forest at global scale in different works (@Hirota2011; @Verbesselt2016; @Wuyts2017). It was not probed but is generally believed that this constitutes a first order catastrophic transition. The regions where forest can growth are not distributed homonegeously, there are demographic fluctuations in forest growth and disturbances produced by human activities. Due to new theoretical advances [@Martin2015; @VillaMartin2014] all these factors imply that if these were first order transitions they will be converted or observed as second order continuous transitions. From this basis we applied indices derived from second order transitions to global forest cover dynamics.    
+
 # Justification
 
 We are using a percolative approach because it is a widely known framework from the physical sciences that has a estiblished theoretical body and a long history of empirical application. In the framework of ecological studies, there are several models applied to vegetation and also to forest that produce percolation phenomena [@Abades2014; @Staver2012; @McKenzie2012] and there is also several empirical studies that apply percolation to forests [@Loehle1996b; @Gastner2009; Hantson2015; @Sole2005; @Pueyo2010; @Scanlon2007]. 

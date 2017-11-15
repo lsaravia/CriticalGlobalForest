@@ -26,7 +26,8 @@ As expected the values of the exponent $\alpha$ change for each threshold [@Kell
 
     40      1.9001     1.8947  1.9059 
 -------------------------------------
-table: $\alpha$ Bootstrapped confidence intervals for each threshold.  
+
+Table: Bootstrapped 95% confidence intervals for the power law exponent $\alpha$ at each threshold.  
 
 The total area of forest is different and also the absolute size of the largest patch $S_{max}$. We expecte less variations in the largest patch proportional to forest area $RS_{max}$, in ten cases it keeps near or higher than 60% (EUAS2, NA5, OC2, OC3, OC4, OC5, OC6, OC8, SAST1, SAT1) over the 25-35 range or more. In four cases it keeps around 40% or less at least over the 25-30% range (AF1, EUAS3, OC1, SAST2) and in six cases there is a crossover from more than 60% to around 40% or less (AF2, EUAS1, NA1, OC7, SEAS1, SEAS2)  change. So we adopt the criteria of using the most conservative threshold value of 40% to interpret $RS_{max}$.
 
@@ -442,7 +443,7 @@ Table: Model selection for fluctuation of largest patch (Abs), and largest patch
 
  SEAS2      40         269263    91941.60       0.33     0.29   0.41 
 ---------------------------------------------------------------------
-Table: The largest patch divided by the total forest area (Total Area in Km^2^) $RS_{max}$, averaged across year at the 40% pixel threshold. The absolute largest patch in Km^2^ $S_{max}$, and the bootstrapped 95% confidence interval. 
+Table: Patch related indices averaged across years at 40% pixel threshold to represent forest. The sum of all patches is the total Area in Km^2^, $S_{max}$ is the largest patch in Km^2^ , $RS_{max}$ is the largest patch divided by the total area and the bootstrapped 95% confidence interval for $RS_{max}$. 
 
  
 
@@ -652,82 +653,82 @@ Table: The largest patch divided by the total forest area (Total Area in Km^2^) 
  SEAS2       40       8337.0000    2146.0000   3.8854    0.0016    0.9    Abs  
 -------------------------------------------------------------------------------
 
-Table: Quantil regressions of the fluctuations of the largest patch vs year, for 10%, 50% and 90% quantils at different pixel thresholds. Only the significant quantils are showed. The column group signals the if the fluctuations are relative to total forest area $RS_{max}$ (prop) or absolute $S_{max}$ (Abs).
+Table: Quantil regressions of the fluctuations of the largest patch vs year, for 10%, 50% and 90% quantils at different pixel thresholds. Only the significant quantils are showed. The column group signals if the fluctuations are relative to total forest area $RS_{max}$ (prop) or absolute $S_{max}$ (Abs).
 
 
----------------------------------------------
- regsub   threshold     Variance    Skewness
--------- ----------- ------------  ----------
-  AF1        30        Increase     Negative
+---------------------------------------------------------
+ regsub   threshold    $RS_{max}$   Variance    Skewness
+-------- ----------- ------------ -----------  ----------
+  AF1        30         0.33       Increase     Negative
 
- EUAS1       20        Decrease     Negative
+ EUAS1       20         0.22       Decrease     Negative
 
- EUAS1       30        Increase     Positive
+ EUAS1       30                    Increase     Positive
 
- EUAS1       40        Increase     Negative
+ EUAS1       40                    Increase     Negative
 
- EUAS2       35        Increase     Negative 
+ EUAS2       35        0.94        Increase     Negative 
 
- EUAS2       40        Increase     Negative
+ EUAS2       40                    Increase     Negative
 
-  NA1        20        Decrease     Negative
+  NA1        20        0.31        Decrease     Negative
 
-  NA1        25        Decrease     Negative
+  NA1        25                    Decrease     Negative
 
-  NA1        30        Decrease     Negative
+  NA1        30                    Decrease     Negative
 
-  OC1        30        Increase     Positive
+  OC1        30        0.36        Increase     Positive
 
-  OC1        35        Increase     Negative
+  OC1        35                    Increase     Negative
 
-  OC2        25        Decrease     Negative
+  OC2        25        0.96        Decrease     Negative
 
-  OC2        30        Decrease     Positive
+  OC2        30                    Decrease     Positive
   
-  OC2        35        Decrease     Negative
+  OC2        35                    Decrease     Negative
 
-  OC3        35        Increase     Negative
+  OC3        35        0.92        Increase     Negative
 
-  OC3        40        Increase     Negative
+  OC3        40                    Increase     Negative
   
-  OC4        20        Increase     Negative
+  OC4        20        0.84        Increase     Negative
 
-  OC4        25        Increase     Negative
+  OC4        25                    Increase     Negative
 
-  OC4        30        Increase     Negative
+  OC4        30                    Increase     Negative
 
-  OC6        40        Increase     Positive
+  OC6        40        0.75        Increase     Positive
 
- SAST1       25        Increase     Positive
+ SAST1       25        0.56        Increase     Positive
 
- SAST1       30        Increase     Negative
+ SAST1       30                    Increase     Negative
 
- SAST2       20        Increase     Positive
+ SAST2       20        0.15        Increase     Positive
 
- SAST2       25        Increase     Positive
+ SAST2       25                    Increase     Positive
 
- SAST2       30        Increase     Positive
+ SAST2       30                    Increase     Positive
 
- SAST2       40        Increase     Negative
+ SAST2       40                    Increase     Negative
 
-  SAT1       25        Decrease     Positive
+  SAT1       25        0.54        Decrease     Positive
 
-  SAT1       30        Decrease     Negative
+  SAT1       30                    Decrease     Negative
 
-  SAT1       35        Decrease     Negative
+  SAT1       35                    Decrease     Negative
 
- SEAS1       25        Increase     Negative
+ SEAS1       25        0.28        Increase     Negative
 
- SEAS2       20        Decrease     Negative
+ SEAS2       20        0.33        Decrease     Negative
 
- SEAS2       25        Decrease     Negative
+ SEAS2       25                    Decrease     Negative
 
- SEAS2       30        Increase     Positive
+ SEAS2       30                    Increase     Positive
 
- SEAS2       40        Increase     Positive
----------------------------------------------
+ SEAS2       40                    Increase     Positive
+---------------------------------------------------------
 
-Table: Increse or decrease of variance detected by quantile regressions. The regions are the same as table 1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.
+Table: Regions which have a significant increase or decrease of variance at different thresholds.  The regions are the same as table 1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.;
 
 
 ---------------------------------------------------
@@ -939,8 +940,6 @@ Table: Skewness of fluctuations of the largest patch $S_{max}$ and fluctuations 
 
 
 
-![](figure/AverageAlphaByRegionThreshold25-30.png)
-
 
 ![](figure/TotPatch_ByThreshold_gt1e07.png)
 
@@ -950,4 +949,3 @@ Table: Skewness of fluctuations of the largest patch $S_{max}$ and fluctuations 
 
 ![](figure/RSmax_ByThreshold.png)
 
-![](figure/RSmax_ByThreshold25-35.png)
