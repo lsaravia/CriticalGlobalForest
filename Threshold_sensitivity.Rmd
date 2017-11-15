@@ -342,7 +342,7 @@ tot_fit_by_model <- pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)
 #
 
 #
-# Plot proportion of best models by region-subregion - 25 - 35 thresholds
+# Plot proportion of best models by region-subregion 20 - 40 thresholds
 #
 unique(tot_fit_by_model$threshold)
 tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(20,25,30,35,40))
@@ -355,8 +355,8 @@ ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 # Power exp and power law alpha difference at threshold 30 = 0.01121
 #
 
-ta <-filter(pyfit_threshold,model_name=="Power",regsub=="EUAS3") %>% select(model_name:file_name,threshold) 
-ta <-bind_rows(ta, filter(pyfit_threshold,model_name=="PowerExp",regsub=="EUAS3") %>% select(model_name:file_name,threshold) )
+ta <-filter(pyfit_threshold,model_name=="Power",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) 
+ta <-bind_rows(ta, filter(pyfit_threshold,model_name=="PowerExp",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) )
 ta %>% group_by(threshold,model_name) %>% summarize(alpha=mean(par1))
 
 rm(ta)
