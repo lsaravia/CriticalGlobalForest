@@ -306,15 +306,31 @@ setwd(oldcd)
 require(dplyr)
 require(ggplot2)
 
+#
+# Create variable regsub and filter some with bad or very small n, not included in the paper
+#
 pyfit_threshold <- pyfit_threshold %>% mutate(regsub = paste0(region,subregion)) 
-pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA2",regsub !="NA3",regsub !="NA4"))
+pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA2",regsub !="NA3",regsub !="NA4")
+pyfit_threshold <- pyfit_threshold %>% filter(!(regsub=="EUAS1" & year==2015))
 
-pyfit_threshold %>% filter(regsub !="NA4") %>% summarise(n=n())
-pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA4")
+
+#
+# Add the LRT and pvalue from PowerExp to Power model row
+# 
+pyfit_threshold <- pyfit_threshold %>% group_by(regsub,year,threshold) %>% do( {
+							a <- filter(., model_name=="PowerExp")
+							.$LRT[1] <- a$LRT[1]
+							.$pvalue[1] <- a$pvalue[1]
+							return(.)
+							})
 
 unique(pyfit_threshold$regsub)
 
-ff <- pyfit_threshold %>% filter(model_name=="Power", !(regsub=="EUAS1" & year==2015) ) %>% 
+#
+# Plot of power law alpha by region and threshold
+#
+
+ff <- pyfit_threshold %>% filter(model_name=="Power" ) %>% 
 	mutate(se=(par1-1)/sqrt(n),lPar1=par1-2*se,hPar1=par1+2*se)
 
 pd <-position_dodge(.3)
@@ -333,18 +349,22 @@ ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
 #
 # Proportion of Selected models 
 # 
-names(all_fit_treshold)
 tot_fit_by_model <- pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(regsub,threshold,model_name) %>% mutate(tot_by_model=n()) %>% 
 	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
 
 #
-# Plot proportion of best models by region-subregion - ALL thresholds
+# Global proportion of best models 
 #
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(model_name) %>% mutate(tot_by_model=n()) %>% 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
+
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(model_name) %>% mutate(tot_by_model=n(),) %>% 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
+
 
 #
 # Plot proportion of best models by region-subregion 20 - 40 thresholds
 #
-unique(tot_fit_by_model$threshold)
 tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(20,25,30,35,40))
 ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold ) +  coord_flip()
 
@@ -357,9 +377,26 @@ ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
 ta <-filter(pyfit_threshold,model_name=="Power",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) 
 ta <-bind_rows(ta, filter(pyfit_threshold,model_name=="PowerExp",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) )
+
 ta %>% group_by(threshold,model_name) %>% summarize(alpha=mean(par1))
 
-rm(ta)
+rm(ta,tot_fit_by_model1,ff1,ff2,fff,fft,ff)
+save.image()
+
+# Write fitted parameters and AIC comparison to ascii tab separated file
+# 
+#
+ta <- pyfit_threshold  %>% filter(threshold %in% c(20,25,30,35,40)) %>% arrange(regsub,year,threshold,desc(AICc_weight)) %>%
+  	select(regsub,year,threshold,model_name,xmin,par1,par2,n,LL,AICc,delta_AICc,AICc_weight,LRT,pvalue) %>%
+	mutate_if(is.numeric, round, digits=4)
+  	  
+# Write table for supplementary material
+#
+write.table(ta,file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
+
+write.csv(ta,file='Fitted_Patch_models.csv',row.names = F)
+
+
 ```
 
 # Calculate bootstraped confidence intervals by threshold for alpha parameter 
