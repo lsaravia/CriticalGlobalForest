@@ -324,7 +324,6 @@ pyfit_threshold <- pyfit_threshold %>% group_by(regsub,year,threshold) %>% do( {
 							return(.)
 							})
 
-unique(pyfit_threshold$regsub)
 
 #
 # Plot of power law alpha by region and threshold
@@ -340,9 +339,9 @@ g <- ggplot(fff, aes(x=year,y=par1,colour=threshold),shape=21) +  theme_bw() + g
 	geom_errorbar(aes(ymin=lPar1, ymax=hPar1),width=0.5,position=pd) + ylab(expression(alpha)) +
 	scale_colour_brewer(palette="Set1",name="Threshold") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
 
-ff1<- group_by(fff,region,subregion) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
+ff1<- group_by(fff,regsub) %>% summarise(malpha=mean(par1),mxmin=mean(xmin))
 
-g + geom_hline(aes(yintercept=malpha),ff1,linetype = 2) + facet_wrap( ~region)
+g + geom_hline(aes(yintercept=malpha),ff1,linetype = 2) + facet_wrap( ~regsub)
 ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
 
 
@@ -355,11 +354,17 @@ tot_fit_by_model <- pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)
 #
 # Global proportion of best models 
 #
-pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(model_name) %>% mutate(tot_by_model=n()) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% 	filter(delta_AICc==0) %>% group_by(model_name) %>% 
+ summarise(n=n()) %>% mutate(best_model_prop=n/sum(n)) %>% select(n,model_name,best_model_prop)  
 
-pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% group_by(model_name) %>% mutate(tot_by_model=n(),) %>% 
-	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% mutate(dif_model= (pvalue<0.05)) %>% group_by(model_name,dif_model) %>% 	filter(delta_AICc==0) %>% summarise(n=n()) %>% mutate(best_model_prop=n/sum(n)) %>% select(model_name,dif_model,best_model_prop)  
+
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% mutate(dif_model= (pvalue<0.05)) %>% group_by(model_name,dif_model) %>% 	summarise(n=n()) %>% mutate(best_model_prop=n/sum(n)) %>% select(n,model_name,dif_model,best_model_prop)  
+
+#
+# Exponential Tail of Power law with exponential cutoff best models
+# 
+pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% 	filter(delta_AICc==0,model_name=="PowerExp") %>% group_by(model_name) %>% summarise(n=n(),exp_tail=1/mean(par2)) 
 
 
 #
@@ -378,7 +383,9 @@ ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 ta <-filter(pyfit_threshold,model_name=="Power",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) 
 ta <-bind_rows(ta, filter(pyfit_threshold,model_name=="PowerExp",regsub=="EUAS3", threshold %in% c(20,25,30,35,40)) %>% select(model_name:file_name,threshold) )
 
-ta %>% group_by(threshold,model_name) %>% summarize(alpha=mean(par1))
+
+require(tidyr)
+ta %>% group_by(threshold,model_name) %>% summarize(alpha=mean(par1)) %>% spread(model_name,alpha) %>% mutate(dif=Power-PowerExp)
 
 rm(ta,tot_fit_by_model1,ff1,ff2,fff,fft,ff)
 save.image()
@@ -395,7 +402,6 @@ ta <- pyfit_threshold  %>% filter(threshold %in% c(20,25,30,35,40)) %>% arrange(
 write.table(ta,file='Fitted_Patch_models.txt',quote = F,sep = "\t",row.names = F)
 
 write.csv(ta,file='Fitted_Patch_models.csv',row.names = F)
-
 
 ```
 
@@ -441,47 +447,57 @@ require(boot)
 myboot <- boot(ff$par1,mymean,R=10000)
 myci <- boot.ci(myboot)
 mean(myboot$t)
+# Intervals : 
 # Level      Normal              Basic         
-# 95%   ( 1.940,  1.947 )   ( 1.940,  1.947 )  
+# 95%   ( 1.964,  1.970 )   ( 1.964,  1.970 )  
 # 
 # Level     Percentile            BCa          
-# 95%   ( 1.940,  1.947 )   ( 1.940,  1.947 )  
+# 95%   ( 1.964,  1.970 )   ( 1.964,  1.970 )  
 
 #
-# bootstraped ci by threshold 
+# bootstraped ci by region and year across thresholds 
+# 
+ff1 <- filter(pyfit_threshold,model_name=="Power",threshold %in% c(20,25,30,35,40)) %>% group_by(regsub, year) %>% do( { myboot <- boot(.$par1,mymean,R=10000)
+									myci <- boot.ci(myboot)
+									data_frame(mean=mean(myboot$t), lowbca=myci$bca[4],hibca=myci$bca[5])
+										})
+pd <-position_dodge(.3)
+fff <-filter(ff1,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"))
+g <- ggplot(fff, aes(x=year,y=mean,colour=regsub),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+	geom_errorbar(aes(ymin=lowbca, ymax=hibca),width=0.5,position=pd) + ylab(expression(alpha)) +
+	scale_colour_viridis(discrete=TRUE,name="Region") + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+
+ff2<- group_by(fff,regsub) %>% summarise(malpha=mean(mean))
+
+g + geom_hline(aes(yintercept=malpha,colour=regsub),ff2,linetype = 2) 
+ggsave("figure/PowerExp_gt10e7_year.png",width=6,height=6,units="in",dpi=600)
+
+
+#
+# Plot for all regions
+#
+g <- ggplot(ff1, aes(x=year,y=mean,colour=regsub),shape=21) +  theme_bw() + geom_point(position=pd,size=1.5)+ 
+	geom_errorbar(aes(ymin=lowbca, ymax=hibca),width=0.5,position=pd) + ylab(expression(alpha)) +
+	scale_colour_viridis(discrete=TRUE,guide=FALSE) + theme(legend.position="bottom") +  theme(axis.text.x = element_text(angle = 90, hjust = 0))
+
+ff2<- group_by(ff1,regsub) %>% summarise(malpha=mean(mean))
+
+g + geom_hline(aes(yintercept=malpha,colour=regsub),ff2,linetype = 2) + facet_wrap(~regsub)
+ggsave("figure/PowerExp_all_year.png",width=6,height=6,units="in",dpi=600)
+
+
+pandoc.table(mutate_if(ff1,is.numeric,round,digits=4))
+
+
+#
+# bootstraped ci by thresholds 
 # 
 ff1 <- ff %>% group_by(threshold) %>% do( { myboot <- boot(.$par1,mymean,R=10000)
 									myci <- boot.ci(myboot)
 									data_frame(mean=mean(myboot$t), lowbca=myci$bca[4],hibca=myci$bca[5])
 										})
 
-pandoc.table(mutate_if(ff1,is.numeric,round,digits=4))
-
-
-# linear mixed model with year as Random factor 
-#
-
-require(nlme)
-
-am <-gls(par1 ~ regsub*threshold,data=ff,weights = varFixed(~sd_alpha))
-summary(am)
-plot(am, which=1)
-
-ctrl <- lmeControl(opt='optim');
-mdl1 <- lme(par1~regsub*threshold, random=~1 | year, data=ff,method="REML",weights = varFixed(~sd_alpha))
-summary(mdl1)
-plot(mdl1)
-mdl2 <- lme(par1~regsub*threshold, random=~1+threshold | year, data=ff,method="REML",control = ctrl,weights = varFixed(~sd_alpha))
-summary(mdl2)
-anova(mdl2)
-plot(mdl2)
-e2 <- resid(mdl2,type="normalized")
-boxplot(e2 ~ regsub,data=ff)
-boxplot(e2 ~ threshold,data=ff)
-
-AIC(am,mdl1,mdl2)
-anova(am,mdl1)
-anova(mdl1,mdl2)
+pandoc.table(mutate_if(ff1,is.numeric,round,digits=4) %>% filter(threshold %in% c(20,25,30,35,40)))
 
 ```
 
@@ -632,7 +648,7 @@ pstat_threshold<- group_by(pstat_threshold,regsub,threshold) %>%  mutate(year=as
 											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)
 											) 
 
-# Average RSmax 
+# Average RSmax with bootstraped CI: rsmax_ci
 #
 require(boot)
 mymean <- function(dat,i) mean(dat[i])
@@ -648,11 +664,6 @@ rsmax_ci <- ungroup(rsmax_ci)
 ggplot(filter(rsmax_ci,threshold %in% c(20,25,30,35,40)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+  scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub) + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5)) + scale_y_continuous(breaks = c(.2,.4,.6,.8))
 ggsave("figure/RSmax_ByThreshold.png",width=6,height=6,units="in",dpi=600)
 
-ggplot(filter(rsmax_ci,threshold %in% c(20,25,30,35,40)), aes(threshold,mRSmax,colour=regsub)) + geom_point(shape=22) + geom_linerange(aes(ymin = low, ymax = high)) +theme_bw()+ ylab(expression(paste("Average ",RS[max])))+ coord_flip() + scale_colour_viridis(discrete = T,guide=FALSE) + facet_wrap(~regsub)  + theme(axis.text.x = element_text(angle=90, hjust = 0, vjust=.5))
-#ggsave("figure/RSmax_ByThreshold25-35.png",width=6,height=6,units="in",dpi=600)
-
-rsmax_ci
-
 
 #
 # Table with RSmax and CI, Smax, and total forest areas
@@ -663,18 +674,48 @@ pandoc.table(ff2,round=2)
 #
 # Max patch proportion plot greater than 1e7 Km2
 #
-ff1 <- filter(pstat_threshold,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"), threshold %in% c(20,25,30,35,40)) 
+ff1 <- filter(pstat_threshold,regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1"), threshold %in% c(40)) 
 pd <-position_dodge(.3)
 g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
-	geom_point(shape=19,position=pd) + facet_wrap(~threshold) + scale_colour_brewer(palette="Set1",name="Region")
+	geom_point(shape=19) +geom_line() + scale_colour_viridis(discrete = T,guide=FALSE)#  scale_colour_brewer(palette="Set1",name="Region")
 
 ff2<- group_by(ff1,regsub,threshold) %>%  summarise(mprop=mean(prop_max_patch))
 
+g + ylab(expression(RS[max]))  +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) + facet_wrap(~regsub)
+
+ggsave("figure/RSmax_gt1e7_ByYearThreshold_facet.png",width=6,height=6,units="in",dpi=600)
+
+#
+# The same plot without facets
+#
+g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+	geom_point(shape=19) +geom_line() + scale_colour_viridis(discrete = T)#  scale_colour_brewer(palette="Set1",name="Region")
 g + ylab(expression(RS[max]))  +
 	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) 
 
 ggsave("figure/RSmax_gt1e7_ByYearThreshold.png",width=6,height=6,units="in",dpi=600)
 
+
+#
+# Max patch proportion for other regions 
+#
+ff1 <- filter(pstat_threshold,!(regsub %in% c("AF1","EUAS1","NA1","SAST1","SEAS1")), threshold %in% c(40)) 
+pd <-position_dodge(.3)
+g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
+	geom_point(shape=19) +geom_line() + scale_colour_viridis(discrete = T,guide=FALSE)#  scale_colour_brewer(palette="Set1",name="Region")
+
+ff2<- group_by(ff1,regsub,threshold) %>%  summarise(mprop=mean(prop_max_patch))
+
+g + ylab(expression(RS[max]))  +
+	theme(axis.text.x = element_text(angle=90,hjust=0)) + geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2) + facet_wrap(~regsub)
+
+ggsave("figure/RSmax_lt1e7_ByYearThreshold_facet.png",width=6,height=6,units="in",dpi=600)
+
+
+#
+# Plots of RSmax for individual regions for the thresholds with significative variance increase or decrease
+#
 
 plot_RSmax_yearThreshold(filter(pstat_threshold,threshold %in% c(30)),"AF1")
 ggsave("figure/RSmax_yearThreshold_AF1.png",width=6,height=6,units="in",dpi=600)
@@ -717,10 +758,7 @@ ggsave("figure/RSmax_yearThreshold_SEAS2.png",width=8,height=6,units="in",dpi=60
 
 
 #
-# Fluctuations of maximun patch vs year Smax - <Smax>/TotArea
-#
-#
-# Areas greater than 10000000 km2
+# Fluctuations of RSmax =  Smax - <Smax>/TotArea
 #
 #
 # Test if quantiles are significative

@@ -1256,7 +1256,7 @@ plot_RSmax_yearThreshold <- function(pst,regions){
 	{
 		require(viridis)
 		g <- ggplot(ff1, aes(y=prop_max_patch,x=year,colour=regsub)) +  theme_bw() +
-		geom_point(shape=19) + facet_wrap(~threshold) + scale_colour_viridis(discrete = T,guide=F) + 
+		geom_point(shape=19) + geom_line() + facet_wrap(~threshold) + scale_colour_viridis(discrete = T,guide=F) + 
 			ggtitle(unique(ff1$regsub)) +  theme(plot.title = element_text(hjust = 0.5)) +
 			geom_hline(aes(yintercept=mprop,colour=regsub),ff2,linetype = 2)
 		

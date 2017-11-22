@@ -657,9 +657,11 @@ Table: Quantil regressions of the fluctuations of the largest patch vs year, for
 
 
 ---------------------------------------------------------
- regsub   threshold    $RS_{max}$   Variance    Skewness
+ Region   threshold    $RS_{max}$   Variance    Skewness
 -------- ----------- ------------ -----------  ----------
   AF1        30         0.33       Increase     Negative
+
+  AF2        40         0.48       NS
 
  EUAS1       20         0.22       Decrease     Negative
 
@@ -676,6 +678,8 @@ Table: Quantil regressions of the fluctuations of the largest patch vs year, for
   NA1        25                    Decrease     Negative
 
   NA1        30                    Decrease     Negative
+
+  NA5        40        0.54        NS
 
   OC1        30        0.36        Increase     Positive
 
@@ -697,7 +701,11 @@ Table: Quantil regressions of the fluctuations of the largest patch vs year, for
 
   OC4        30                    Increase     Negative
 
+  OC5        40        0.82        NS
+
   OC6        40        0.75        Increase     Positive
+
+  OC7        40        0.16        NS           
 
  SAST1       25        0.56        Increase     Positive
 
@@ -728,7 +736,7 @@ Table: Quantil regressions of the fluctuations of the largest patch vs year, for
  SEAS2       40                    Increase     Positive
 ---------------------------------------------------------
 
-Table: Regions which have a significant increase or decrease of variance at different thresholds.  The regions are the same as table 1: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.;
+sTable: Regions which have a significant increase or decrease of variance at different thresholds. The $RS_{max}$ showed is the obtained with a 40$ threshold value.  The regions are: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.;
 
 
 ---------------------------------------------------
