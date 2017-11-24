@@ -1278,18 +1278,39 @@ plot_RSmax_yearThreshold <- function(pst,regions){
 #
 #  pst: pstat_threshold data frame
 #  regions: vector of regions to include
-plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions){
-	
+plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions,isSignif,numcol=3){
+	require(viridis)
 	ff1 <- filter(pst,regsub %in% regions) 
-	pd <-position_dodge(.3)
+	ff1 <- filter(ff1,threshold %in% isSignif) %>% mutate(is_signif=TRUE) %>% bind_rows( filter(ff1,!(threshold %in% isSignif)) %>% mutate(is_signif=FALSE) )
 	#
 	# Fluctuations around the mean Smax - <Smax>/TotArea
 	#
-	g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=region)) +  theme_bw() +
-		geom_point(shape=19) + facet_wrap(~threshold) + 
-		ylab(expression(Delta~RS[max])) + scale_colour_brewer(palette="Set1",name="Sub-Region",guide=F) +
-		theme(axis.text.x = element_text(angle=90,hjust=0)) +
-		stat_quantile(quantiles=c(.10,.50,.90),linetype=2)
+	g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=is_signif)) +  theme_bw() +
+		geom_point(shape=19) + facet_wrap(~threshold,ncol=numcol) + 
+		ylab(expression(Delta~RS[max])) + scale_colour_viridis(discrete = T,guide=F,direction = -1) + 
+		ggtitle(unique(ff1$regsub)) +
+		theme(axis.text.x = element_text(angle=90,hjust=0),plot.title = element_text(hjust = 0.5)) +
+		stat_quantile(quantiles=c(.10,.90),linetype=2)
+	
+	print(g)
+}
+
+
+plot_RSmax_Fluctuations_yearThreshold_regions <- function(pst,regions,isSignif,numcol=3){
+	require(viridis)
+	ff1 <- filter(pst,regsub %in% regions) 
+	ff2 <- inner_join(ff1,isSignif) %>% mutate(is_signif=TRUE) 
+	ff3 <- anti_join(ff1 %>% ungroup(),isSignif) %>% mutate(is_signif=FALSE) 
+	ff1 <- bind_rows(ff2,ff3)
+	#%>% bind_rows( filter(ff1,!(threshold %in% isSignif)) %>% mutate(is_signif=FALSE) )
+	#
+	# Fluctuations around the mean Smax - <Smax>/TotArea
+	#
+	g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=is_signif)) +  theme_bw() +
+		geom_point(shape=19) + facet_grid(threshold~regsub) + 
+		ylab(expression(Delta~RS[max])) + scale_colour_viridis(discrete = T,guide=F,direction = -1) + 
+		theme(axis.text.x = element_text(angle=90,hjust=0),plot.title = element_text(hjust = 0.5)) +
+		stat_quantile(quantiles=c(.10,.90),linetype=2)
 	
 	print(g)
 }

@@ -93,7 +93,7 @@ To select the best model we calculated corrected Akaike Information Criteria ($A
 
 The largest patch is the one that connects the highest number of sites in the area. This has been used extensively to indicate fragmentation [@Ochoa-Quintero2015; @Gardner2007]. The relation of the size of the largest patch $S_{max}$ to critical transitions has been extensively studied in relation to percolation phenomena [@Bazant2000;@Botet2004;@Stauffer1994], but seldom used in ecological studies (for an exception see @Gastner2009). When the system is in a connected state ($p>p_c$) the landscape is almost insensitive to the loss of a small fraction of forest, but close to the critical point a minor loss can have important effects [@Sole2006; @Oborny2007], because at this point the largest patch will have a filamentary structure, i.e. extended forest areas will be connected by thin threads. Small losses can thus produce large fluctuations. 
 
-One way to evaluate the fragmentation of the forest is to calculate the proportion of the largest patch against the total area [@Keitt1997]. The total area of the regions we are considering (Appendix S4, figures S1-S6) may not be the same than the total area that the forest could potentially occupy, thus a more accurate way to evaluate the weight of $S_{max}$ is to  use the total forest area, that can be easily calculated summing all the forest pixels. We calculate the proportion of the largest patch for each year, dividing $S_{max}$ by the total forest area of the same year: $RS_{max} = S_{max}/\sum_{i}S_i$. This has the effect of reducing the $S_{max}$ fluctuations produced due to environmental or climatic changes influences in total forest area.  When the proportion $RS_{max}$ is large (more than 60%) the largest patch contains most of the forest so there are fewer small forest patches and the system is probably in a connected phase. Conversely, when it is low (less than 20%), the system is probably in a fragmented phase [@Saravia2017]. As we calculated these largest patch indices for different thresholds, the values of the total forest area and the value of $S_{max}$ are lower as threshold is higher, we expect that the value of $RS_{max}$ will change and probably be lower at high thresholds. To define if a region will be in a connected or unconnected state we used the $RS_{max}$ of the highest threshold (40%) which is more conservative to evaluate the risk of fragmentation and includes the most dense forest area. 
+One way to evaluate the fragmentation of the forest is to calculate the proportion of the largest patch against the total area [@Keitt1997]. The total area of the regions we are considering (Appendix S4, figures S1-S6) may not be the same than the total area that the forest could potentially occupy, thus a more accurate way to evaluate the weight of $S_{max}$ is to  use the total forest area, that can be easily calculated summing all the forest pixels. We calculate the proportion of the largest patch for each year, dividing $S_{max}$ by the total forest area of the same year: $RS_{max} = S_{max}/\sum_{i}S_i$. This has the effect of reducing the $S_{max}$ fluctuations produced due to environmental or climatic changes influences in total forest area.  When the proportion $RS_{max}$ is large (more than 60%) the largest patch contains most of the forest so there are fewer small forest patches and the system is probably in a connected phase. Conversely, when it is low (less than 20%), the system is probably in a fragmented phase [@Saravia2017]. As we calculated these largest patch indices for different thresholds, the values of the total forest area and the value of $S_{max}$ are lower as threshold is higher, we expect that the value of $RS_{max}$ will change and probably be lower at high thresholds. To define if a region will be in a connected or unconnected state we used the $RS_{max}$ of the highest threshold (40%) which is more conservative to evaluate the risk of fragmentation and includes the most dense forest area. Aditionally if $RS_{max}$ is a good indicator of the fragmented or unfragmented state of the forest and these are the two alternative states for the critical transition the $RS_{max}$ distribution of frequencies should be bimodal [@Bestelmeyer2011]; so we apply the Hartigan’s dip test that measures departures from unimodality [@Hartigan1985]. 
 
 The $RS_{max}$ is a useful qualitative index that does not tell us if the system is near or far from the critical transition; this can be evaluated using the temporal fluctuations. We calculate the fluctuations around the mean with the absolute values $\Delta S_{max}=S_{max}(t)-\langle S_{max} \rangle$, using the proportions of $RS_{max}$. To characterize fluctuations we fitted three empirical distributions: power-law, log-normal, and exponential, using the same methods described previously. We expect that large fluctuation near a critical point have heavy tails (log-normal or power-law) and that fluctuations far from a critical point have exponential tails, corresponding to Gaussian processes [@VanRooij2013]. As the data set spans 16 years, it is probable that will do not have enough power to reliably detect which distribution is better [@Clauset2009]. To improve this we used the same likelihood ratio test we used previously [@Clauset2009; @Vuong1989]; if the p-value obtained to compare the best distribution against the others we concluded that there is not enough data to decide which is the best model. We generated animated maps showing the fluctuations of the two largest patches at 30% threshold, to aid in the interpretations of the results.
 
@@ -109,77 +109,119 @@ The figure 1 shows an example of the distribution of the biggest 200 patches for
 
 The power law distribution was selected as the best model in 99% of the cases (Figure S7). In a small number of cases (1%) the power law with exponential cutoff was selected, but the value of the parameter $\alpha$ was similar by $\pm 0.03$ to the pure power law (Table S1, and model fit data table). Additionally the patch size where the exponential tail begins is very large, thus we used the power law parameters for this cases (region EUAS3,SAST2). In finite-size systems the favored model should be the power law with exponential cut-off, because the power-law tails are truncated to the size of the system [@Stauffer1994]. This implies that differences between the two kinds of power law models should be small. We observed that phenomena: when the pure power-law model is selected as the best model the likelihood ratio test shows that in 64% of the cases the differences with power law with exponential cutoff are not significant (p-value>0.05); in these cases the differences between the fitted $\alpha$ for both models are less than 0.001. Instead the likelihood ratio test clearly differentiates the power law model from the exponential model (100% cases p-value<0.05), and the log-normal model (90% cases p-value<0.05). 
 
-The global mean of the power-law exponent $\alpha$ is 1.967 and the bootstrapped 95% confidence interval is 1.964 - 1.970. Besides that, the global values for each threshold are different, because their confidence intervals do not overlap, and their range goes from 1.90 to 2.00 (Table S1). Analyzing the biggest regions (Figure 1, Table S2) the north hemisphere (EUAS1 & NA1) have similar values of $\alpha$ (1.97, 1.98), pantropical areas have different $\alpha$ with greatest values for South America (SAST1, 2.01) and in descending order Africa (AF1, 1.946) and Southeast Asia (SEAS1, 1.895). With greater $\alpha$ the fluctuations of patch sizes are lower and viceversa [@Newman2005].
+The global mean of the power-law exponent $\alpha$ is 1.967 and the bootstrapped 95% confidence interval is 1.964 - 1.970. Besides that, the global values for each threshold are different, because their confidence intervals do not overlap, and their range goes from 1.90 to 2.00 (Table S1). Analyzing the biggest regions (Figure 1, Table S2) the north hemisphere (EUAS1 & NA1) have similar values of $\alpha$ (1.97, 1.98), pantropical areas have different $\alpha$ with greatest values for South America (SAST1, 2.01) and in descending order Africa (AF1, 1.946) and Southeast Asia (SEAS1, 1.895). With greater $\alpha$ the fluctuations of patch sizes are lower and vice versa [@Newman2005].
 
 ![Power law exponents ($\alpha$) of forest patch distributions for regions with total forest area $> 10^{7}$ \si{km^2}. Dashed horizontal lines are the means by region, with  95% confidence interval error bars estimated by bootstrap resampling. The regions are AF1: Africa mainland, EUAS1: Eurasia mainland, NA1: North America mainland, SAST1: South America subtropical and tropical, SEAS1: Southeast Asia mainland.](figure/PowerExp_gt10e7_year.png)
 
-We calculated the total areas of forest and the largest patch $S_{max}$ by year for different thresholds; as expected these two values increase for smaller thresholds (Table S3). We expect less variations in the largest patch relative to total forest area $RS_{max}$ (Figure S9); in ten cases it keeps near or higher than 60% (EUAS2, NA5, OC2, OC3, OC4, OC5, OC6, OC8, SAST1, SAT1) over the 25-35 range or more. In four cases it keeps around 40% or less at least over the 25-30% range (AF1, EUAS3, OC1, SAST2) and in six cases there is a crossover from more than 60% to around 40% or less (AF2, EUAS1, NA1, OC7, SEAS1, SEAS2). So we adopt the criteria of using the most conservative threshold value of 40% to interpret $RS_{max}$ with regard to the fragmentation state of the forest.
+We calculated the total areas of forest and the largest patch $S_{max}$ by year for different thresholds; as expected these two values increase for smaller thresholds (Table S3). We expect less variations in the largest patch relative to total forest area $RS_{max}$ (Figure S9); in ten cases it keeps near or higher than 60% (EUAS2, NA5, OC2, OC3, OC4, OC5, OC6, OC8, SAST1, SAT1) over the 25-35 range or more. In four cases it keeps around 40% or less at least over the 25-30% range (AF1, EUAS3, OC1, SAST2) and in six cases there is a crossover from more than 60% to around 40% or less (AF2, EUAS1, NA1, OC7, SEAS1, SEAS2). This confirms the criteria of using the most conservative threshold value of 40% to interpret $RS_{max}$ with regard to the fragmentation state of the forest. The frequency of $RS_{max}$ showed bimodality (Figure 3) and the dip test rejected unimodality (D = 0.0416, p-value = 0.0003), which also indicates $RS_{max}$ as a good index to study the fragmentation state of the forest. 
 
-The $RS_{max}$ for regions with more than $10^{7}$ \si{km^2} of forest is shown in figure 3. South America tropical and subtropical (SAST1) is the only region with an average close to 60%, the other regions are below 30%. Eurasia mainland (EUAS1) has the lowest value near 20%. For regions with less total forest area (Figure S10, Table S3), Great Britain (EUAS3) has the lowest proportion less than 5%, Java (OC7) and Cuba (SAST2) are under 25%, while other regions such as New Guinea (OC2), Malaysia/Kalimantan (OC3), Sumatra (OC4), Sulawesi (OC5) and South New Zealand (OC6) have a very high proportion (75% or more).  Philippines (SEAS2) seems to be a very interesting case because it seems to be under 30% until the year 2007, fluctuates around 30% in years 2008-2010, then jumps near 60% in 2011-2013 and then falls again to 30%, this seems an example of a transition from a fragmented state to a unfragmented one (figure S10).  
+
+![Frequency distribution of Largest patch proportion relative to total forest area $RS_{max}$ calculated using a threshold of 40% of forest in each pixel to determine patches. Bimodality is observed and confirmed by the dip test (D = 0.0416, p-value = 0.0003).This indicates the existence of two states needed for a critical transition.](figure/RSmax_Frequency_40_Threshold.png)
+
+The $RS_{max}$ for regions with more than $10^{7}$ \si{km^2} of forest is shown in figure 4. South America tropical and subtropical (SAST1) is the only region with an average close to 60%, the other regions are below 30%. Eurasia mainland (EUAS1) has the lowest value near 20%. For regions with less total forest area (Figure S10, Table S3), Great Britain (EUAS3) has the lowest proportion less than 5%, Java (OC7) and Cuba (SAST2) are under 25%, while other regions such as New Guinea (OC2), Malaysia/Kalimantan (OC3), Sumatra (OC4), Sulawesi (OC5) and South New Zealand (OC6) have a very high proportion (75% or more).  Philippines (SEAS2) seems to be a very interesting case because it seems to be under 30% until the year 2007, fluctuates around 30% in years 2008-2010, then jumps near 60% in 2011-2013 and then falls again to 30%, this seems an example of a transition from a fragmented state to a unfragmented one (figure S10).  
 
 ![Largest patch proportion relative to total forest area $RS_{max}$, for regions with total forest area $>10^{7}$ \si{km^2}. We show here the $RS_{max}$ calculated using a threshold of 40% of forest in each pixel to determine patches. Dashed lines are averages across time. The regions are AF1: Africa mainland, EUAS1: Eurasia mainland, NA1: North America mainland, SAST1: South America tropical and subtropical, SEAS1: Southeast Asia mainland.](figure/RSmax_gt1e7_ByYearThreshold_facet.png)
 
 We analyzed the distributions of fluctuations of the largest patch relative to total forest area $\Delta RS_{max}$ and the fluctuations of the largest patch $\Delta S_{max}$. Besides the Akaike criteria identified different distributions as the best, in most cases the Likelihood ratio test is not significant thus the data is not enough to determine with confidence which is the best distribution. Only 1 case the distribution selected by the Akaike criteria is confirmed as the correct model for relative and absolute fluctuations (Table S4). Thus we do not apply this criteria because is not informative, we can not decide with reliability if the best distribution is the selected one.  
 
-The animations of the two largest patches (see supplementary data, largest patch gif animations) qualitatively shows the nature of fluctuations and if the state of the forest is connected or not. If the largest patch is always the same patch over time, the forest is probably not fragmented; this happens for regions with $RS_{max}$ of more than 40% such as AF2 (Madagascar), NA1 (North America), and OC3 (Malaysia). In the regions with $RS_{max}$ between 40% and 30% the identity of the largest patch could change or stay the same in time. For OC7 (Java) the largest patch changes and for AF1 (Africa mainland) it stays the same. Only for EUAS1 (Eurasia mainland)  we observed that the two largest patches are always the same, implying that this region is probably composed of two independent domains and should be divided in further studies. The regions with $RS_{max}$ less than 25%: SAST2 (Cuba) and EUAS3 (Great Britain), the largest patch always changes reflecting their fragmented state. In the case of SEAS2 (Philippines) a transition is observed, with the identity of the largest patch first variable, and then constant after 2010.  
+The animations of the two largest patches (see supplementary data, largest patch gif animations) qualitatively shows the nature of fluctuations and if the state of the forest is connected or not. If the largest patch is always the same patch over time, the forest is probably not fragmented; this happens for regions with $RS_{max}$ of more than 40% such as AF2 (Madagascar), EUAS2 (Japan), NA5 (Newfoundland) and OC3 (Malaysia). In the regions with $RS_{max}$ between 40% and 30% the identity of the largest patch could change or stay the same in time. For OC7 (Java) the largest patch changes and for AF1 (Africa mainland) it stays the same. Only for EUAS1 (Eurasia mainland)  we observed that the two largest patches are always the same, implying that this region is probably composed of two independent domains and should be divided in further studies. The regions with $RS_{max}$ less than 25%: SAST2 (Cuba) and EUAS3 (Great Britain), the largest patch always changes reflecting their fragmented state. In the case of SEAS2 (Philippines) a transition is observed, with the identity of the largest patch first variable, and then constant after 2010.  
 
-The results of quantile regressions are identical for $\Delta RS_{max}$ and $\Delta S_{max}$ (Appendix S4, table S4). Among the biggest regions, Africa (AF1) has upper and lower quantiles with significantly negative slopes, but the lower quantile slope is lower, implying that negative fluctuations and variance are increasing (Figure 4). Eurasia mainland (EUAS1) has only the upper quantile significant with a positive slope, suggesting an increase in the variance. North America mainland (NA1) exhibits a significant lower quantile with positive slope, implying decreasing variance. Finally, for mainland Australia, all quantiles are significant, and the slope of the lower quantiles is greater than the upper ones, showing that variance is decreasing (Appendix S4, figure S10). These results are summarized in Table 1.   
+The results of quantile regressions are almost identical for $\Delta RS_{max}$ and $\Delta S_{max}$ (table S5); in very few cases only one of them is significant so we only take into account results where both are significant. Among the biggest regions, Africa (AF1) has a similar pattern across thresholds but only at 30% is significant; the upper and lower quantiles have significant negative slopes, but the lower quantile slope is lower, implying that negative fluctuations and variance are increasing (Figure 5). Eurasia mainland (EUAS1) has significant slopes at 20%, 30% and 40% thresholds but the patterns are different at 20% variance is decreasing, at 30% and 40% only is increasing. This is because the largest patch is composed of pixels with different cover of forest, thus there are more variation in pixels from 30% to 20$ than from 20% to less than 20%, then the fluctuations are happening between 40% and 20%. The signal is that the variation of the most dense portion of the largest patch is increasing. North America mainland (NA1) exhibits the same pattern at 20%,25% and 30% thresholds: a significant lower quantile with positive slope, implying decreasing variance. South America tropical and subtropical (SAST1) have significant lower quantile with negative slope at 25% and 30% thresholds indicating an increase in variance. Finally, SEAS1 have a upper quantile with positive slope significant for 25% threshold, also indicating an increasing variance. The plots for other regions are showed in the appendix (Figures Sx - Sx) and all these results are summarized in Table 1.   
 
 The conditions that indicate that a region is near a critical fragmentation threshold are that patch size distributions follow a power law; temporal $\Delta RS_{max}$ fluctuations follow a power law; variance of $\Delta RS_{max}$ is increasing in time; and skewness is negative. All these conditions were true only for Africa mainland (AF1) and South America tropical & subtropical (SAST1).
 
-![Largest patch fluctuations for regions with total forest area $>10^{7} \si{km^2}$ across years. The patch sizes are relative to the total forest area of the same year. Dashed lines are 90%, 50% and 10% quantile regressions, to show if fluctuations were increasing. The regions are AF1: Africa mainland, EUAS1: Eurasia mainland, NA1: North America mainland, SAST1: South America tropical and subtropical, SEAS1: Southeast Asia mainland.](figure/Delta_prop_patch_year_gt1e07.png)
+![Largest patch fluctuations for regions with total forest area $>10^{7} \si{km^2}$ across years. The patch sizes are relative to the total forest area of the same year. Dashed lines are 90% and 10% quantile regressions, to show if fluctuations were increasing; purple (dark) panels have significant slopes. The regions are AF1: Africa mainland, EUAS1: Eurasia mainland, NA1: North America mainland, SAST1: South America tropical and subtropical, SEAS1: Southeast Asia mainland.](figure/DeltaRSmax_yearThreshold_gt1e07.png)
 
 \newpage
 
-\scriptsize
 
------------------------------------------------------------------------------------------------------------------------
-                                              Average        Patch      $\Delta RS_{max}$             
-Region          Description                   $RS_{max}$  Size Distrib    Distrib.         Skewness   Variance
--------  ----------------------------------- ----------- -------------  ----------------- ---------  -----------
-AF1      Africa mainland                        0.36       Power          Power             -1.8630     Increase
+-------------------------------------------------------------------------------------------------
+                                                                       Variance of
+ Region  Description                         $RS_{max}$  Threshold  $\Delta RS_{max}$    Skewness
+-------- --------------------------------- ------------ ----------- -----------------  ----------
+  AF1     Africa mainland                     0.33          30             Increase     -1.4653
 
-AF2      Madagascar                             0.65       Power          Power             -0.2478     NS
+  AF2     Madagascar                          0.48          20             Increase     0.7226
 
-EUAS1    Eurasia, mainland                      0.36       LogNormal      Exp                0.4016     Increase
+ EUAS1    Eurasia, mainland                   0.22          20             Decrease     -0.4814
 
-EUAS2    Japan                                  0.94       Power          Power              0.0255     NS
+ EUAS1                                                      30             Increase     0.3113
 
-EUAS3    Great Britain                         0.07       Power          Power              2.1330     NS
+ EUAS1                                                      40             Increase     -1.2790
 
-NA1      North America, mainland                0.71       Power          Power             -1.5690     Decrease
+ EUAS2    Japan                              0.94           35             Increase     -0.3913 
 
-NA5      Newfoundland                           0.87       Power          Power             -0.7411     NS
+ EUAS2                                                      40             Increase     -0.5030
 
-OC1      Australia, Mainland                    0.28       Power          Power             0.0685      Decrease
+ EUAS3    Great Britain                      0.03           40             NS           
 
-OC2   	 New Guinea                             0.97       Power          Exp               0.1321      Decrease
+  NA1     North America, mainland            0.31           20             Decrease     -2.2895
 
-OC3   	 Malaysia/Kalimantan                    0.97       Power          Exp               -0.9633     NS
+  NA1                                                       25             Decrease     -2.4465
 
-OC4   	 Sumatra                                0.92       Power          Power             1.3150      Increase
+  NA1                                                       30             Decrease     -1.6340
 
-OC5   	 Sulawesi                               0.87       Power          Power             -0.3863     NS
+  NA5     Newfoundland                       0.54           40             NS           
 
-OC6   	 New Zealand South Island               0.76       Power          Exp               -0.6683     NS
+  OC1     Australia, Mainland                0.36           30             Increase     0.0920
 
-OC7   	 Java                                   0.38       Power          Exp               -0.1948     NS
+  OC1                                                       35             Increase     -0.8033
 
-OC8   	 New Zealand North Island               0.75       Power          Exp               0.2940      NS
+  OC2     New Guinea                         0.96           25             Decrease     -0.1003
 
-SAST1    South America, Tropical and            0.68       Power          Power             -2.7760     Increase
-         subtropical forest up to Mexico
+  OC2                                                       30             Decrease     0.1214
+  
+  OC2                                                       35             Decrease     -0.0124
 
-SAST2    Cuba                                   0.21       Power          Power             0.2751      NS
+  OC3     Malaysia/Kalimantan                0.92           35             Increase     -1.0147
 
-SAT1     South America, Temperate forest        0.60       Power          Power            -1.5070      Decrease
+  OC3                                                       40             Increase     -1.5649
+  
+  OC4     Sumatra                            0.84           20             Increase     -1.3846
 
-SEAS1    Southeast Asia, Mainland               0.40       Power          Power             3.0030      NS
+  OC4                                                       25             Increase     -0.5887
 
-SEAS2    Philippines                            0.54       Power          Power             0.3113      Increase
------------------------------------------------------------------------------------------------------------------
+  OC4                                                       30             Increase     -1.4226
 
-Table: Regions and indicators of closeness to a critical fragmentation threshold. Where, $RS_{max}$ is the largest patch divided by the total forest area, $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean, skewness was calculated for $RS_{max}$ and the increase or decrease in the variance was estimated using quantile regressions, NS means the results were non-significant. The conditions that determine the closeness to a threshold are: power law distributions in patch sizes and $\Delta RS_{max}$; increasing variance of $\Delta RS_{max}$ and negative skewness.  
+  OC5     Sulawesi                           0.82           40             NS           
+
+  OC6     New Zealand South Island           0.75           40             Increase     0.3553
+
+  OC7     Java                               0.16           40             NS           
+
+  OC8     New Zealand North Island           0.64           40             NS           
+  
+ SAST1    South America, Tropical and        0.56           25             Increase     1.0519
+          Subtropical forest up to Mexico
+
+ SAST1                                                      30             Increase     -2.7216
+
+ SAST2    Cuba                               0.15           20             Increase     0.5049
+
+ SAST2                                                      25             Increase     1.7263
+
+ SAST2                                                      30             Increase     0.1665
+
+ SAST2                                                      40             Increase     -0.5401
+
+  SAT1   South America, Temperate forest     0.54           25             Decrease     0.1483
+
+  SAT1                                                      30             Decrease     -1.6059
+
+  SAT1                                                      35             Decrease     -1.3809
+
+ SEAS1   Southeast Asia, Mainland            0.28           25             Increase     -1.3328
+
+ SEAS2   Philippines                         0.33           20             Decrease     -1.6373
+
+ SEAS2                                                      25             Decrease     -0.6648
+
+ SEAS2                                                      30             Increase     0.1517
+
+ SEAS2                                                      40             Increase     1.5996
+-------------------------------------------------------------------------------------------------
+
+Table: Regions and indicators of closeness to a critical fragmentation point. Where: $RS_{max}$ is the largest patch divided by the total forest area; Threshold is the value used to calculate patches from the MODIS VCF pixels; $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean and and the increase or decrease in the variance was estimated using quantile regressions; skewness was calculated for $RS_{max}$. NS means the results were non-significant. The conditions that determine the closeness to a fragmentation point are: increasing variance of $\Delta RS_{max}$ and negative skewness.  $RS_{max}$ indicates if the forest is unfragmented (>0.6) or fragmented (<0.3).
 
 \normalsize
 

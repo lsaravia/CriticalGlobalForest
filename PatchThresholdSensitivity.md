@@ -655,88 +655,92 @@ Table: Patch related indices averaged across years at 40% pixel threshold to rep
 
 Table: Quantil regressions of the fluctuations of the largest patch vs year, for 10%, 50% and 90% quantils at different pixel thresholds. Only the significant quantils are showed. The column group signals if the fluctuations are relative to total forest area $RS_{max}$ (prop) or absolute $S_{max}$ (Abs).
 
+---------------------------------------------------------------------------------------------
+ Region            Description                 $RS_{max}$  threshold    Variance     Skewness
+-------- ----------------------------------- ------------ ----------- -----------  ----------
+  AF1     Africa mainland                       0.33          30       Increase     -1.4653
 
----------------------------------------------------------
- Region   threshold    $RS_{max}$   Variance    Skewness
--------- ----------- ------------ -----------  ----------
-  AF1        30         0.33       Increase     Negative
+  AF2     Madagascar                            0.48          20       Increase     0.7226
 
-  AF2        40         0.48       NS
+ EUAS1    Eurasia, mainland                     0.22          20       Decrease     -0.4814
 
- EUAS1       20         0.22       Decrease     Negative
+ EUAS1                                                        30       Increase     0.3113
 
- EUAS1       30                    Increase     Positive
+ EUAS1                                                        40       Increase     -1.2790
 
- EUAS1       40                    Increase     Negative
+ EUAS2    Japan                                0.94           35       Increase     -0.3913 
 
- EUAS2       35        0.94        Increase     Negative 
+ EUAS2                                                        40       Increase     -0.5030
 
- EUAS2       40                    Increase     Negative
+ EUAS3    Great Britain                        0.03           40       NS           
 
-  NA1        20        0.31        Decrease     Negative
+  NA1     North America, mainland              0.31           20       Decrease     -2.2895
 
-  NA1        25                    Decrease     Negative
+  NA1                                                         25       Decrease     -2.4465
 
-  NA1        30                    Decrease     Negative
+  NA1                                                         30       Decrease     -1.6340
 
-  NA5        40        0.54        NS
+  NA5     Newfoundland                         0.54           40       NS           
 
-  OC1        30        0.36        Increase     Positive
+  OC1     Australia, Mainland                  0.36           30       Increase     0.0920
 
-  OC1        35                    Increase     Negative
+  OC1                                                         35       Increase     -0.8033
 
-  OC2        25        0.96        Decrease     Negative
+  OC2     New Guinea                           0.96           25       Decrease     -0.1003
 
-  OC2        30                    Decrease     Positive
+  OC2                                                         30       Decrease     0.1214
   
-  OC2        35                    Decrease     Negative
+  OC2                                                         35       Decrease     -0.0124
 
-  OC3        35        0.92        Increase     Negative
+  OC3     Malaysia/Kalimantan                  0.92           35       Increase     -1.0147
 
-  OC3        40                    Increase     Negative
+  OC3                                                         40       Increase     -1.5649
   
-  OC4        20        0.84        Increase     Negative
+  OC4     Sumatra                              0.84           20       Increase     -1.3846
 
-  OC4        25                    Increase     Negative
+  OC4                                                         25       Increase     -0.5887
 
-  OC4        30                    Increase     Negative
+  OC4                                                         30       Increase     -1.4226
 
-  OC5        40        0.82        NS
+  OC5     Sulawesi                             0.82           40       NS           
 
-  OC6        40        0.75        Increase     Positive
+  OC6     New Zealand South Island             0.75           40       Increase     0.3553
 
-  OC7        40        0.16        NS           
+  OC7     Java                                 0.16           40       NS           
 
- SAST1       25        0.56        Increase     Positive
+  OC8     New Zealand North Island             0.64           40       NS           
+  
+ SAST1    South America, Tropical and          0.56           25       Increase     1.0519
+          Subtropical forest up to Mexico
 
- SAST1       30                    Increase     Negative
+ SAST1                                                        30       Increase     -2.7216
 
- SAST2       20        0.15        Increase     Positive
+ SAST2    Cuba                                 0.15           20       Increase     0.5049
 
- SAST2       25                    Increase     Positive
+ SAST2                                                        25       Increase     1.7263
 
- SAST2       30                    Increase     Positive
+ SAST2                                                        30       Increase     0.1665
 
- SAST2       40                    Increase     Negative
+ SAST2                                                        40       Increase     -0.5401
 
-  SAT1       25        0.54        Decrease     Positive
+  SAT1   South America, Temperate forest       0.54           25       Decrease     0.1483
 
-  SAT1       30                    Decrease     Negative
+  SAT1                                                        30       Decrease     -1.6059
 
-  SAT1       35                    Decrease     Negative
+  SAT1                                                        35       Decrease     -1.3809
 
- SEAS1       25        0.28        Increase     Negative
+ SEAS1  Southeast Asia, Mainland               0.28           25       Increase     -1.3328
 
- SEAS2       20        0.33        Decrease     Negative
+ SEAS2  Philippines                            0.33           20       Decrease     -1.6373
 
- SEAS2       25                    Decrease     Negative
+ SEAS2                                                        25       Decrease     -0.6648
 
- SEAS2       30                    Increase     Positive
+ SEAS2                                                        30       Increase     0.1517
 
- SEAS2       40                    Increase     Positive
----------------------------------------------------------
+ SEAS2                                                        40       Increase     1.5996
+---------------------------------------------------------------------------------------------
 
-sTable: Regions which have a significant increase or decrease of variance at different thresholds. The $RS_{max}$ showed is the obtained with a 40$ threshold value.  The regions are: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.;
+Table: Regions which have a significant increase or decrease of variance at different thresholds. The $RS_{max}$ showed is the obtained with a 40$ threshold value.  The regions are: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.;
 
 
 ---------------------------------------------------
