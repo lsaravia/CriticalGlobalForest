@@ -1286,13 +1286,14 @@ plot_RSmax_Fluctuations_yearThreshold <- function(pst,regions,isSignif,numcol=3)
 	# Fluctuations around the mean Smax - <Smax>/TotArea
 	#
 	g <- ggplot(ff1, aes(y=delta_prop_max_patch,x=year,colour=is_signif)) +  theme_bw() +
-		geom_point(shape=19) + facet_wrap(~threshold,ncol=numcol) + 
+		geom_point(shape=19,size=1) + facet_wrap(~threshold,ncol=numcol) + 
 		ylab(expression(Delta~RS[max])) + scale_colour_viridis(discrete = T,guide=F,direction = -1) + 
 		ggtitle(unique(ff1$regsub)) +
-		theme(axis.text.x = element_text(angle=90,hjust=0),plot.title = element_text(hjust = 0.5)) +
+		theme(axis.text.x = element_text(angle=90,hjust=0),plot.title = element_text(hjust = 0.5,size=12)) +
 		stat_quantile(quantiles=c(.10,.90),linetype=2)
-	
+
 	print(g)
+	return(g)
 }
 
 

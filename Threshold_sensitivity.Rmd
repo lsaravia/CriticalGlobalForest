@@ -820,40 +820,44 @@ pandoc.table(arrange(qu_treshold,regsub,group,desc(tau)) %>%
 # RSmax Fluctuations around the mean Smax - <Smax>/TotArea
 #
 plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "AF1",c(30))      # Increasing at 30
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "AF2",c(20))      # Increasing at 20
-ggsave("figure/DeltaRSmax_yearThreshold_AF2.png",width=6,height=6,units="in",dpi=600)
+g1 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "AF2",c(20),5)      # Increasing at 20
+#ggsave("figure/DeltaRSmax_yearThreshold_AF2.png",width=6,height=6,units="in",dpi=600)
 
 plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "EUAS1",c(20,30,40)) # Increasing at 30 40, decreasing at 20 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "EUAS2",c(35,40))    # Increasing at 35 40
-ggsave("figure/DeltaRSmax_yearThreshold_EUAS2.png",width=6,height=6,units="in",dpi=600)
-
+g2 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "EUAS2",c(35,40),5)    # Increasing at 35 40
+#ggsave("figure/DeltaRSmax_yearThreshold_EUAS2.png",width=6,height=6,units="in",dpi=600)
 plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "NA1",c(20,25,30))   # Decreasing all
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC1", c(30,35) )   # Increasing 30 35
-ggsave("figure/DeltaRSmax_yearThreshold_OC1.png",width=6,height=6,units="in",dpi=600)
+g3 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC1", c(30,35),5 )   # Increasing 30 35
+#ggsave("figure/DeltaRSmax_yearThreshold_OC1.png",width=6,height=6,units="in",dpi=600)
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC2", c(25,30,35))   # Decreasing 25 30 35
-ggsave("figure/DeltaRSmax_yearThreshold_OC2.png",width=6,height=6,units="in",dpi=600)
+g4 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC2", c(25,30,35),5)   # Decreasing 25 30 35
+#ggsave("figure/DeltaRSmax_yearThreshold_OC2.png",width=6,height=6,units="in",dpi=600)
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC3",c(35,40))      # Increasing 40
-ggsave("figure/DeltaRSmax_yearThreshold_OC3.png",width=6,height=6,units="in",dpi=600)
+g5 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC3",c(35,40),5)      # Increasing 40
+#ggsave("figure/DeltaRSmax_yearThreshold_OC3.png",width=6,height=6,units="in",dpi=600)
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC4",c(20,25,30))   # Increasing 30 35
-ggsave("figure/DeltaRSmax_yearThreshold_OC4.png",width=6,height=6,units="in",dpi=600)
+g6 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC4",c(20,25,30),5)   # Increasing 30 35
+#ggsave("figure/DeltaRSmax_yearThreshold_OC4.png",width=6,height=6,units="in",dpi=600)
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC6",c(40))         # Increasing 40
-ggsave("figure/DeltaRSmax_yearThreshold_OC6.png",width=6,height=6,units="in",dpi=600)
+g7 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "OC6",c(40),5)         # Increasing 40
+#ggsave("figure/DeltaRSmax_yearThreshold_OC6.png",width=6,height=6,units="in",dpi=600)
 
 plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SAST1",c(25,30))    # Increasing 25 30
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SAST2",c(20,25,30,40))    # Increasing 25 40
-ggsave("figure/DeltaRSmax_yearThreshold_SAST2.png",width=6,height=6,units="in",dpi=600)
+g8 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SAST2",c(20,25,40),5)    # Increasing 20 25 40
+#ggsave("figure/DeltaRSmax_yearThreshold_SAST2.png",width=6,height=6,units="in",dpi=600)
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SAT1",c(25,30,35))     # Decreasing 25 30 35
-ggsave("figure/DeltaRSmax_yearThreshold_SAT1.png",width=6,height=6,units="in",dpi=600)
+g9 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SAT1",c(25,30,35),5)     # Decreasing 25 30 35
+#ggsave("figure/DeltaRSmax_yearThreshold_SAT1.png",width=6,height=6,units="in",dpi=600)
 
 plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SEAS1",c(25))       # Increasing 25
 
-plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SEAS2",c(20,25,30,40)) # Increasing 30 40 Decreasing 20 25
-ggsave("figure/DeltaRSmax_yearThreshold_SEAS2.png",width=6,height=6,units="in",dpi=600)
+g10 <- plot_RSmax_Fluctuations_yearThreshold(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)), "SEAS2",c(20,25,30,40),5) # Increasing 30 40 Decreasing 20 25
+#ggsave("figure/DeltaRSmax_yearThreshold_SEAS2.png",width=6,height=6,units="in",dpi=600)
+
+require(cowplot)
+plot_grid(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,ncol=2)
+ggsave("figure/DeltaRSmax_yearThreshold_lt1e07.png",width=7,height=9,units="in",dpi=600)
+
 
 rm(ff,ff1,fff,ff2,qu1,qu2)
 
@@ -861,7 +865,7 @@ ff <- data_frame(regsub="AF1",threshold=c(30))
 ff <- add_row(ff,regsub="EUAS1",threshold=c(20,30,40))
 ff <- add_row(ff,regsub="NA1",threshold=c(20,25,30))
 ff <- add_row(ff,regsub="SAST1",threshold=c(25,30))
-ff <- add_row(ff,regsub="SEAS1",threshold=c(20,25))
+ff <- add_row(ff,regsub="SEAS1",threshold=c(25))
 ff <- mutate(ff,threshold=as.character(threshold))
 
 plot_RSmax_Fluctuations_yearThreshold_regions(filter(pstat_threshold, threshold %in% c(20,25,30,35,40)),

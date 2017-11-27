@@ -105,7 +105,7 @@ All statistical analyses were performed using the GNU R version 3.3.0 [@RCoreTea
 
 The figure 1 shows an example of the distribution of the biggest 200 patches for years 2000 and 2014, this distribution is highly variable, but the biggest patch usually maintains its place. Sometimes the biggest patch breaks and then big fluctuations in its size are observed, as we will analyze below.  Smaller patches can merge or break more easily so they enter or leave the list of 200, and this is why there is a color change across years.   
 
-![Forest patch distributions for continental regions for the years 2000 and 2014. The images are the 200 biggest patches, showed at a coarse pixel scale of 2.5 Km.  The regions are: a) & b) southeast Asia; c) & d) South America subtropical and tropical and  e) & f) Africa mainland, for the years 2000 and 2014 respectively. The color palette was chosen to discriminate different patches and do not represent patch size.](figure/top200_patch_continent.png)
+![Forest patch distributions for continental regions for the years 2000 and 2014. The images are the 200 biggest patches, showed at a coarse pixel scale of 2.5 km.  The regions are: a) & b) southeast Asia; c) & d) South America subtropical and tropical and  e) & f) Africa mainland, for the years 2000 and 2014 respectively. The color palette was chosen to discriminate different patches and do not represent patch size.](figure/top200_patch_continent.png)
 
 The power law distribution was selected as the best model in 99% of the cases (Figure S7). In a small number of cases (1%) the power law with exponential cutoff was selected, but the value of the parameter $\alpha$ was similar by $\pm 0.03$ to the pure power law (Table S1, and model fit data table). Additionally the patch size where the exponential tail begins is very large, thus we used the power law parameters for this cases (region EUAS3,SAST2). In finite-size systems the favored model should be the power law with exponential cut-off, because the power-law tails are truncated to the size of the system [@Stauffer1994]. This implies that differences between the two kinds of power law models should be small. We observed that phenomena: when the pure power-law model is selected as the best model the likelihood ratio test shows that in 64% of the cases the differences with power law with exponential cutoff are not significant (p-value>0.05); in these cases the differences between the fitted $\alpha$ for both models are less than 0.001. Instead the likelihood ratio test clearly differentiates the power law model from the exponential model (100% cases p-value<0.05), and the log-normal model (90% cases p-value<0.05). 
 
@@ -126,9 +126,9 @@ We analyzed the distributions of fluctuations of the largest patch relative to t
 
 The animations of the two largest patches (see supplementary data, largest patch gif animations) qualitatively shows the nature of fluctuations and if the state of the forest is connected or not. If the largest patch is always the same patch over time, the forest is probably not fragmented; this happens for regions with $RS_{max}$ of more than 40% such as AF2 (Madagascar), EUAS2 (Japan), NA5 (Newfoundland) and OC3 (Malaysia). In the regions with $RS_{max}$ between 40% and 30% the identity of the largest patch could change or stay the same in time. For OC7 (Java) the largest patch changes and for AF1 (Africa mainland) it stays the same. Only for EUAS1 (Eurasia mainland)  we observed that the two largest patches are always the same, implying that this region is probably composed of two independent domains and should be divided in further studies. The regions with $RS_{max}$ less than 25%: SAST2 (Cuba) and EUAS3 (Great Britain), the largest patch always changes reflecting their fragmented state. In the case of SEAS2 (Philippines) a transition is observed, with the identity of the largest patch first variable, and then constant after 2010.  
 
-The results of quantile regressions are almost identical for $\Delta RS_{max}$ and $\Delta S_{max}$ (table S5); in very few cases only one of them is significant so we only take into account results where both are significant. Among the biggest regions, Africa (AF1) has a similar pattern across thresholds but only at 30% is significant; the upper and lower quantiles have significant negative slopes, but the lower quantile slope is lower, implying that negative fluctuations and variance are increasing (Figure 5). Eurasia mainland (EUAS1) has significant slopes at 20%, 30% and 40% thresholds but the patterns are different at 20% variance is decreasing, at 30% and 40% only is increasing. This is because the largest patch is composed of pixels with different cover of forest, thus there are more variation in pixels from 30% to 20$ than from 20% to less than 20%, then the fluctuations are happening between 40% and 20%. The signal is that the variation of the most dense portion of the largest patch is increasing. North America mainland (NA1) exhibits the same pattern at 20%,25% and 30% thresholds: a significant lower quantile with positive slope, implying decreasing variance. South America tropical and subtropical (SAST1) have significant lower quantile with negative slope at 25% and 30% thresholds indicating an increase in variance. Finally, SEAS1 have a upper quantile with positive slope significant for 25% threshold, also indicating an increasing variance. The plots for other regions are showed in the appendix (Figures Sx - Sx) and all these results are summarized in Table 1.   
+The results of quantile regressions are almost identical for $\Delta RS_{max}$ and $\Delta S_{max}$ (table S5); in very few cases only one of them is significant but we only take into account results where both are significant. Among the biggest regions, Africa (AF1) has a similar pattern across thresholds but only at 30% threshold is significant; the upper and lower quantiles have significant negative slopes, but the lower quantile slope is lower, implying that negative fluctuations and variance are increasing (Figure 5). Eurasia mainland (EUAS1) has significant slopes at 20%, 30% and 40% thresholds but the patterns are different at 20% variance is decreasing, at 30% and 40% only is increasing. This is because the largest patch is composed of pixels with different cover of forest, thus there are more variation in pixels from 30% to 20$ than from 20% to less than 20%, then the fluctuations are happening between 40% and 20%. The signal is that the variation of the most dense portion of the largest patch is increasing withing a limited range. North America mainland (NA1) exhibits the same pattern at 20%,25% and 30% thresholds: a significant lower quantile with positive slope, implying decreasing variance. South America tropical and subtropical (SAST1) have significant lower quantile with negative slope at 25% and 30% thresholds indicating an increase in variance. Finally, SEAS1 have a upper quantile with positive slope significant for 25% threshold, also indicating an increasing variance. The other regions, with forest area smaller than $10^{7} \si{km^2}$ are showed in figure S11 and table S5. Philippines (SEAS2) is an interesting case: the slopes of lower quantils are positive for thresholds 20% and 25%, and the upper quantil slopes are positive for thresholds 30% and 40$; thus variance is decreasing at 20%-25% and increasing at 30%-40%.
 
-The conditions that indicate that a region is near a critical fragmentation threshold are that patch size distributions follow a power law; temporal $\Delta RS_{max}$ fluctuations follow a power law; variance of $\Delta RS_{max}$ is increasing in time; and skewness is negative. All these conditions were true only for Africa mainland (AF1) and South America tropical & subtropical (SAST1).
+The conditions that indicate that a region is near a critical fragmentation threshold are that patch size distributions follow a power law; variance of $\Delta RS_{max}$ is increasing in time; and skewness is negative. All these conditions must happen at the same time at least for one threshold. When the threshold is higher more dense regions of the forest are at risk.  This happens for Africa mainland (AF1), Eurasia mainland(EUAS1), Japan (EUAS2), Australia mainland (OC1), Malaysia/Kalimantan (OC3), Sumatra (OC4), South America tropical & subtropical (SAST1), Cuba (SAST2), Southeast Asia, Mainland (SEAS1).
 
 ![Largest patch fluctuations for regions with total forest area $>10^{7} \si{km^2}$ across years. The patch sizes are relative to the total forest area of the same year. Dashed lines are 90% and 10% quantile regressions, to show if fluctuations were increasing; purple (dark) panels have significant slopes. The regions are AF1: Africa mainland, EUAS1: Eurasia mainland, NA1: North America mainland, SAST1: South America tropical and subtropical, SEAS1: Southeast Asia mainland.](figure/DeltaRSmax_yearThreshold_gt1e07.png)
 
@@ -227,7 +227,7 @@ Table: Regions and indicators of closeness to a critical fragmentation point. Wh
 
 ## Discussion
 
-We found that the forest patch distribution of most regions of the world followed power laws spanning seven orders of magnitude. These include tropical rainforest, boreal and temperate forest. Power laws have previously been found for several kinds of vegetation, but never at global scales as in this study. Interestingly, Eurasia does not follow a power law, but it is a geographically extended region, consisting of different domains (as we observed in the largest patch animations, see supplementary data). It is known that the union of two independent power law distributions produces a lognormal distribution [@VanRooij2013]. Future studies should split this region into two or more new regions, and test if the underlying distributions are power laws. 
+We found that the forest patch distribution of all regions of the world followed power laws spanning seven orders of magnitude. These include tropical rainforest, boreal and temperate forest. Power laws have previously been found for several kinds of vegetation, but never at global scales as in this study. Interestingly, Eurasia does not follow a power law, but it is a geographically extended region, consisting of different domains (as we observed in the largest patch animations, see supplementary data). It is known that the union of two independent power law distributions produces a lognormal distribution [@VanRooij2013]. Future studies should split this region into two or more new regions, and test if the underlying distributions are power laws. 
 
 Several mechanisms have been proposed for the emergence of power laws in forest: the first is related self organized criticality (SOC), when the system is driven by its internal dynamics to a critical state; this has been suggested mainly for fire-driven forests [@Zinck2009; @Hantson2015].  Real ecosystems do not seem to meet the requirements of SOC dynamics [@Sole2002a;@Pueyo2010;@McKenzie2012]. A second possible mechanism, suggested by Pueyo et al. [-@Pueyo2010], is isotropic percolation, when a system is near the critical point power law structures arise. This is equivalent to the random forest model that we explained previously, and requires the tuning of an external environmental condition to carry the system to this point. We did not expect forest growth to be a random process at local scales, but it is possible that combinations of factors cancel out to produce seemingly random forest dynamics at large scales. If this is the case the power law exponent should be theoretically near $\alpha=2.055$; this is close but outside the confidence interval we observed (1.898 - 1.920). The third mechanism suggested as the cause of pervasive power laws in patch size distribution is facilitation [@Manor2008a;@Irvine2016]: a patch surrounded by forest will have a smaller probability of been deforested or degraded than an isolated patch. We hypothesize that models that include facilitation could explain the patterns observed here. The model of Scanlon et al. [-@Scanlon2007] showed an $\alpha=1.34$ which is also different from our results. Another model but with three states (tree/non-tree/degraded), including local facilitation and grazing, was also used to obtain power laws patch distributions without external tuning, and exhibited deviations from power laws at high grazing pressures [@Kefi2007b]. The values of the power law exponent $\alpha$ obtained for this model are dependent on the intensity of facilitation, when facilitation is more intense the exponent is higher, but the maximal values they obtained are still lower than the ones we observed. The interesting point is that the value of the exponent is dependent on the parameters, and thus the observed $\alpha$ might be obtained with some parameter combination. 
 
@@ -257,44 +257,45 @@ Therefore, even if critical thresholds are reached only in some forest regions a
 
 **Appendix**
 
-*Table S1*: Proportion of Power law models not rejected by the goodness of fit test at $p\le0.05$ level. 
+*Table S1*: Mean power-law exponent and Bootstrapped 95% confidence intervals by threshold. 
 
-*Table S2*: Generalized least squares fit by maximizing the restricted log-likelihood.
+*Table S2*: Mean power-law exponent and Bootstrapped 95% confidence intervals across thresholds by region and year.
 
-*Table S3*: Simultaneous Tests for General Linear Hypotheses of the power law exponent. 
+*Table S3*: Mean total patch area; largest patch $S_{max}$ in km^2^; largest patch propotional to total patch area $RS_{max}$ and 95% bootstrapped confidence interval of $RS_{max}$, by region and thresholds, averaged across years
 
-*Table S4*: Quantile regressions of the proportion of largest patch area vs year.
+*Table S4*: Model selection for distributions of fluctuation of largest patch $\Delta S_{max}$ and largest patch relative to total forest area $\Delta RS_{max}$.
 
-*Table S5*: Unbiased estimation of skewness for absolute largest patch fluctuations and relative fluctuations.
+*Table S5*: Quantil regressions of the fluctuations of the largest patch vs year, for 10% and 90% quantils at different pixel thresholds.
 
-*Table S6*: Model selection using Akaike criterion for largest patch fluctuations in absolute values
 
-*Table S7*: Model selection for fluctuation of largest patch in relative to total forest area.
+*Table S6*: Unbiased estimation of Skewness of fluctuations of the largest patch $\Delta S_{max}$ and fluctuations relative to total forest area $\Delta RS_{max}$.
 
-*Figure S1*: Regions for Africa (AF), 1 Mainland, 2 Madagascar.
+*Figure S1*: Regions for Africa: Mainland (AF1), Madagascar (AF2).
 
-*Figure S2*: Regions for Eurasia (EUAS), 1 Mainland, 2 Japan, 3 Great Britain.
+*Figure S2*: Regions for Eurasia: Mainland (EUAS1), Japan (EUAS2), Great Britain (EUAS3).
 
-*Figure S3*: Regions for North America (NA), 1 Mainland, 5 Newfoundland.
+*Figure S3*: Regions for North America: Mainland (NA1), Newfoundland (NA5).
 
-*Figure S4*: Regions for Australia and islands (OC), 1 Australia mainland; 2 New Guinea; 3 Malaysia/Kalimantan; 4 Sumatra; 5 Sulawesi; 6 New Zealand south island; 7 Java; 8 New Zealand north island.
+*Figure S4*: Regions for Australia and islands: Australia mainland (OC1), New Guinea (OC2),  Malaysia/Kalimantan (OC3), Sumatra (OC4), Sulawesi (OC5), New Zealand south island (OC6), Java (OC7), New Zealand north island (OC8).
 
-*Figure S5*: Regions for South America, SAST1 Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest.
+*Figure S5*: Regions for South America: Tropical and subtropical forest up to Mexico (SAST1), Cuba (SAST2), South America Temperate forest (SAT1).
 
-*Figure S6*: Regions for Southeast Asia (SEAS), 1  Mainland; 2 Philippines.
+*Figure S6*: Regions for Southeast Asia: Mainland (SEAS1), Philippines (SEAS2).
 
 *Figure S7*: Proportion of best models selected for patch size distributions using the Akaike criterion.
 
-*Figure S8*: Power law exponents for forest patch distributions by year.
+*Figure S8*: Power law exponents for forest patch distributions by year for all regions.
 
-*Figure S9*: Largest patch proportion relative to total forest area $RS_{max}$, for regions with total forest area less than $10^{7}$ km^2^. 
+*Figure S9*: Average largest patch relative to total forest area $RS_{max}$ by threshold, for all regions.
 
-*Figure S10*: Fluctuations of largest patch for regions with total forest area less than $10^{7}$ km^2^. The patch sizes are relativized to the total forest area for that year.
+*Figure S10*: Largest patch relative to total forest area $RS_{max}$ by year at 40% threshold, for  regions with total forest area less than $10^{7}$ km^2^.
+
+*Figure S11*: Fluctuations of largest patch relative to total forest area $RS_{max}$ for regions with total forest area less than $10^{7}$ km^2^ by year and threshold.
 
 
 ## Data Accessibility
 
-Csv text file with model fits for patch size distribution, and model selection for all the regions; Gif Animations of a forest model percolation;  Gif animations of largest patches; patch size files for all years and regions used here; and all the R and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
+Csv text file with model fits for patch size distribution, and model selection for all the regions; Gif Animations of a forest model percolation;  Gif animations of largest patches; patch size files for all years and regions used here; and all the R, Python and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
 
 ## Acknowledgments
 
