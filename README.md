@@ -22,12 +22,13 @@ One of the most important changes produced in the biosphere is the replacement o
 
 
 
-* Fit_heavy_tails.Rmd :
+* Threshold_sensitivity.Rmd :
 
-		Fits heavy tail distributions to patch sizes, each chunk takes 3 or 4 days in  AMD FX(tm)-8350 8 processors 3.6Ghz.
-		Makes plots of exponents and Xmin
-		Test a linear model for alpha using generalized least squares (GLS)
+		Fits heavy tail distributions to patch sizes, using Python package powerlaw
+		Makes plots of exponents 
+		Makes bootsrapped confidence intervals using boot packages 
 		Extracts maximum patches and fit distributions to the fluctuations. 
+
 
 
 * Download_modis.Rmd : Code to download and convert to geotiff the MODIS files (MOD44B version 051) 
@@ -36,10 +37,11 @@ One of the most important changes produced in the biosphere is the replacement o
 
 * Map_Max_patches.Rmd : Generate gif animations of largest patch dynamics
 
+* Run_Contact_Model.Rmd : Run a contact model to apply the same set of indicators used for global forest.
 
 ## Folders
 
 	| 
-	|--- Code: matlab and R code by S. Doyle
+	|--- Code: matlab and Python code by S. Doyle / L. Saravia
 	|--- R: R code by L. Saravia
-    	 |-- powerlaw: code by Cosma Rohilla Shalizi
+    	 

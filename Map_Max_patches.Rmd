@@ -490,19 +490,18 @@ time <- 100
 #
 
 deathRate <- 0.4  #0.606502
-birthRate <-1
+birthRate <- 1
 m =  0.0
 #
 # lambda critical = 1.6488
 lambda <- round(birthRate/deathRate,4)
-
 # Make simulations
 #
-simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",time,5,1,"U",T,T,1,1,deathRate,birthRate)
 
 # Make animations
 #
-p_load(animation)
+require(animation)
   saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
           interval = .5,
           movie.name="dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")

@@ -1412,26 +1412,28 @@ call_simul_NeutralPlotTime <- function(nsp,side,disp,migr,repl,simul=T,time=1000
 #         2 Filled lattice with metacommunity frequency  
 #         3 center with species nro 1 (a square of nsp individuals)
 #
-simul_NeutralTimeSeries <- function(nsp,side,disp,migr,repl,simul=T,time=1000,sims=10,mf="N",meta="U",clus="S",sedIni=0,timeInit=1,timeDelta=10,rndSeed=0,delOldSim=FALSE) {
+simul_NeutralTimeSeries_ClustBin <- function(nsp,side,disp,migr,repl,death=0.2,birth=1,simul=T,time=1000,sims=10,meta="U",clus="S",sedIni=0,timeInit=1,timeDelta=10,modType=4,rndSeed=0,delOldSim=FALSE) {
   
   if(!exists("neuBin")) stop("Variable neuBin not set (neutral binary)")
   op <- options()
   options("scipen"=0, "digits"=4)
   
+  # Parameter for dynamic percolation 
+  lambda=round(birth/death,4)                  # lambda critical = 1.6488
+  
   if(toupper(meta)=="L") {
     if(simul) prob <- genFisherSAD(nsp,side)
-    neuParm <- paste0("fishP",nsp,"_",side,"R", repl)
-    bname <- paste0("neuFish",nsp,"_",side,"R", repl)
+    neuParm <- paste0("fishP",nsp,"_",side,"R", lambda)
+    bname <- paste0("neuFish",nsp,"_",side,"R", lambda)
   } else {
     if(simul) prob <- rep(1/nsp,nsp)  
-    neuParm <- paste0("unifP",nsp,"_",side,"R", repl)
-    bname <- paste0("neuUnif",nsp,"_",side,"R", repl)
+    neuParm <- paste0("unifP",nsp,"_",side,"R", lambda)
+    bname <- paste0("neuUnif",nsp,"_",side,"R", lambda)
   }
-  pname <- paste0("pomacR",repl,".lin")
+  pname <- paste0("pomacR",lambda,".lin")
   
   # Add the start and end time to simulation output
   #
-  old_bname <- bname
   bname <- paste0(bname ,"T0-", time )         
   
   # make simulations 
@@ -1439,16 +1441,17 @@ simul_NeutralTimeSeries <- function(nsp,side,disp,migr,repl,simul=T,time=1000,si
     
     if(rndSeed==0 | (rndSeed>0 & !file.exists(paste0(neuParm,".sed"))))
     {
-      genNeutralParms(neuParm,side,prob,1,0.2,disp,migr,repl)
-      
-      if(sedIni==1){
-        genInitialSed(paste0(neuParm,".sed"),nsp,side,0)
-      } else if(sedIni==2){
-        genInitialSed(paste0(neuParm,".sed"),nsp,side,prob)
-      } else if(sedIni==3){
-        genInitialSed(paste0(neuParm,".sed"),nsp,side,1)
+      genNeutralParms(neuParm,side,prob,birth,death,disp,migr,repl)
+
+     if(sedIni==1){
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,0)    # Initial 1 individual of each sp
+      } else if(sedIni==2) {
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,prob) # Filled with metacommunity sp
+      } else {
+        genInitialSed(paste0(neuParm,".sed"),nsp,side,2) # Filled with sp 1
       }
     }
+    
     # Delete old simulations
     if(delOldSim){
       system(paste0("rm ",bname,"m*.txt")) # MultiFractal mf
@@ -1463,10 +1466,10 @@ simul_NeutralTimeSeries <- function(nsp,side,disp,migr,repl,simul=T,time=1000,si
     
     par[par$V1=="inter",]$V2 <- timeDelta   # interval to measure Density and Diversity
     par[par$V1=="init",]$V2 <- timeInit     # Firs time of measurement = interval
-    par[par$V1=="modType",]$V2 <- 4         # Hierarchical saturated
+    par[par$V1=="modType",]$V2 <- modType         # Hierarchical saturated
     par[par$V1=="sa",]$V2 <- "N"            # Save a snapshot of the model
     par[par$V1=="baseName",]$V2 <- bname    # Base name for output 
-    par[par$V1=="mfDim",]$V2 <- mf
+    par[par$V1=="mfDim",]$V2 <- "N"
     par[par$V1=="minBox",]$V2 <- 2
     par[par$V1=="pomac",]$V2 <- 1           # 0:one set of parms 
     # 1:several simulations with pomac.lin parameters 
@@ -1474,10 +1477,10 @@ simul_NeutralTimeSeries <- function(nsp,side,disp,migr,repl,simul=T,time=1000,si
     par[par$V1=="minProp",]$V2 <- 0
     par[par$V1=="clusters",]$V2 <- clus       # Calculate max cluster size
     
-    parfname <- paste0("sim",nsp,"_",side,"R", repl,".par")
+    parfname <- paste0("sim",nsp,"_",side,"R", lambda,".par")
     write.table(par, parfname, sep="\t",row.names=F,col.names=F,quote=F)
-    
-    genPomacParms(pname,1,c(0.2),disp,migr,repl,sims)
+
+    genPomacParms(pname,birth,death,disp,migr,repl,sims)
     
     # Get kind of OS 32 or 64Bits 
     s <- system("uname -a",intern=T)
@@ -1500,23 +1503,48 @@ simul_NeutralTimeSeries <- function(nsp,side,disp,migr,repl,simul=T,time=1000,si
   cat("Reading ", bname, "\n")
   den <-readWideDensityOut(bname)
   
-  clu <-readClusterOut(bname)
-  if(nrow(den)!=nrow(clu)) {
-    stop("CluSizes <> Density -", bname)
-  }
-  clu$Richness <- den$Richness 
-  clu$H <- den$H
+  #clu <-readClusterOut(bname)
+  clu <-readClusterOut(bname,clus)
+
   clu$RndIni <- rndSeed
-  clu$Rep    <- den$Rep
   clu$MetaType <-meta
   clu$Side <- side
   clu$MetaNsp <- nsp
+
+  # Split repetition of simulations  
+  #
+  nOutputs <- (time - timeInit + 1)/timeDelta
+  # I divide by nOutputs because there are 10 outputs for each repetition
   
-  require(plyr)
-  require(dplyr)
-  clu <- clu %>% rename(MaxSpeciesAbund=TotalSpecies) %>% mutate( MaxClusterProp = MaxClusterSize/(side*side),MaxClusterSpProp=MaxClusterSize/MaxSpeciesAbund,SpanningClust=ifelse(SpanningSpecies>0,MaxClusterProp,0))
+  clu <- mutate(clu, Rep = ceiling((cumsum(ClusterSize == -1) + 1)/nOutputs)) %>% filter(ClusterSize != -1)
+  clu <- mutate(clu, lambda = round(birth/MortalityRate,4))
   
-  return(clu)
+  # Spanning species
+  clu1 <-group_by(clu,MortalityRate,DispersalDistance,ColonizationRate,ReplacementRate,lambda,Rep,Time) %>% slice(1:1) %>% rename(Spanning=ClusterSize)
+  
+  # Print name and repetitions
+  cat(bname," - ", nrow(clu1),"\n")
+  
+  clu <-group_by(clu,MortalityRate,DispersalDistance,ColonizationRate,ReplacementRate,lambda,Rep,Time) %>% slice(2:n()) 
+  
+  clu <- left_join(clu,clu1) %>% mutate(Spanning=ifelse(is.na(Spanning),0,1))
+  
+  cluMax <- clu %>% summarise(Smax=max(ClusterSize),TotArea=sum(ClusterSize),RSmax=Smax/TotArea,Spanning=mean(Spanning))
+  # africa_AF_2_30_perc_thresholdinMOD44B.MRTWEB.A2014065.051.Percent_Tree_Cover.tif.bin
+  #
+  #
+  # Delete bin files 
+  #
+  system(paste0("rm *.bin")) 
+  
+  #
+  clu %>% do( nothing={  
+    zz <- file(paste0("contact_R", formatC(.$Rep,width=2,format="d",flag=0),"_Disp",.$DispersalDistance,"_L",lambda,"_Time.A",formatC(.$Time, width = 4, format = "d", flag = "0"),"_.bin")[1], "wb")
+    writeBin(as.double(.$ClusterSize),zz) 
+    close(zz)
+      })
+
+  return(cluMax)
 }
 
 # Plot average H and Richnes of neutral simulations (Time=2900-3000) 

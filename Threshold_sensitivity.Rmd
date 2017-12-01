@@ -51,9 +51,7 @@ source("R/power_fun.r")
 
 ## Dataframes 
 
-* all_fit: has all the fits of distributions with threshold=30, including GOF and bootstap confidence intervals of power laws
-
-* all_fit_threshold: has all the fits with differnt thresholds, no GOF, no bootstrap estimation 
+* all_fit_threshold: has all the fits with differnt thresholds and likelhood ratio test  
 
 # Fit heavy tailed distributions AF (Africa - new output)
 

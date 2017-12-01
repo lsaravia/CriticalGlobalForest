@@ -36,9 +36,7 @@ def main():
     
     Parallel(n_jobs=num_cores)(delayed(fitDitributionsML)(f,xmin) for f in filenames)
 #    for f in filenames:
-#        fitDitributionsML(f,xmin,firstTime)
-#        if firstTime:
-#            firstTime=False
+#        fitDitributionsML(f,xmin)
                 
                 
 
