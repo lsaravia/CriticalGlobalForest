@@ -26,7 +26,7 @@ One of the most important changes produced in the biosphere is the replacement o
 
 		Fits heavy tail distributions to patch sizes, using Python package powerlaw
 		Makes plots of exponents 
-		Makes bootsrapped confidence intervals using boot packages 
+		Makes bootstrapped confidence intervals using boot packages 
 		Extracts maximum patches and fit distributions to the fluctuations. 
 
 
@@ -37,7 +37,7 @@ One of the most important changes produced in the biosphere is the replacement o
 
 * Map_Max_patches.Rmd : Generate gif animations of largest patch dynamics
 
-* Run_Contact_Model.Rmd : Run a contact model to apply the same set of indicators used for global forest.
+
 
 ## Folders
 
