@@ -1,4 +1,4 @@
-# Sensitivity of the Power laws and max patch metrics to the threshold value to detect forest
+# Fit distributions to patch sizes and calculate patch stats (RSmax) by year and threshold 
 
 ## Setup
 
@@ -22,38 +22,14 @@ options("scipen"=6, "digits"=6)
 #
 source("R/power_fun.r")
 
-# Load functions for continuous ht distributions
-#
-# source("R/powerlaw/powerexp.R")
-# source("R/powerlaw/exp.R")
-# source("R/powerlaw/pareto.R")
-# 
-# 
-# # Set global options and parameters 
-# #
-# options.glo <- vector("list", length=0)
-# options.glo$GOF <- TRUE						# Estimate godness of fit for power law 
-# options.glo$ploting <- 0					# Plots of cumulative distributions
-# options.glo$data_set_name <- ""				# image_names from wich patch sizes were calculated
-# options.glo$resultsDir <- ""        		# Folder with bin files  
-# options.glo$sample_data <- 0                # Set  >0 For testing
-# options.glo$original_bin_files <- ""        # Files with patch sizes for each region (bin=binary)
-# options.glo$xmins <- seq(1:500)				# Range of xmins (minimun patch sizes) to fit 
-# 											#
-# 											# Size of the maximun xmin in Km 233*233*400/(1000*1000)
-# options.glo$fit <- TRUE 					# Make the fits or calculate patch stats
-
-
-
-
 
 ```
 
 ## Dataframes 
 
-* all_fit_threshold: has all the fits with differnt thresholds and likelhood ratio test  
+* pyfit_threshold: has all the fits with different thresholds and likelhood ratio tests  
 
-# Fit heavy tailed distributions AF (Africa - new output)
+# Fit heavy tailed distributions AF (Africa)
 
 ```{r conheavytailfitAF, eval=F,echo=T,message=T,warning=T}
 
@@ -187,7 +163,6 @@ save.image()
 ```
 
 
-
 # Fit heavy tailed distributions SA (south america)
 
 ```{r conheavytailfitSA, eval=F,echo=T,message=T,warning=T}
@@ -227,13 +202,12 @@ save.image()
 
 ```
 
-# North america fits
+# Fit heavy tailed distributions North america (NA)
 
 ```{r conheavytailfitNA, eval=F,echo=T,message=T,warning=T}
 
 # Set folder with results for the region 
 #
-#options.glo$resultsDir <- "Results/northamerica"
 #
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/northamerica"
 
@@ -503,8 +477,7 @@ pandoc.table(mutate_if(ff1,is.numeric,round,digits=4) %>% filter(threshold %in% 
 
 ## Data Frames
 
-pstat            Original patch stats 30 threshold, RSmax=prop_max_patch, Smax=max_patch
-pstat_threshold  Patch stats with variable threshold 10-40
+pstat_threshold  Patch stats with variable threshold 10-40, , RSmax=prop_max_patch, Smax=max_patch
 
 
 
@@ -618,7 +591,6 @@ ggplot(filter(pstat_threshold,regsub=="EUAS1",threshold %in% c(20,25,30,35,40))%
 
 ## Data Frames	     
 
-qu               Original quantile regressions of fluctuations of patch dynamics with 30 threshold
 qu_treshold      New fluctuation of patch dynamics with variable threshold
 
 
@@ -955,88 +927,18 @@ save.image()
 ```
 
 
-# Check for monotonic increase in variance
+# Test EUAS1 year 2015 
 
-The fligner test and other test for monotonic trends in variances have less power than quantile regression
-Fligner 23%
-monotonic 51%
-quantile 83%
+```{r testEUAS1_2015, eval=F,echo=T,message=T,warning=T}
 
-```{r varMaxPatchDynamics, eval=F,echo=T,message=T,warning=T}
+require(dplyr)
+# Patch statistics 
+filter(pstat_threshold, regsub=="EUAS1",year>2013) %>% select(year,number_of_patches:total_patch_area)
 
-require(lawstat)
-require(quantreg)
-
-
-
-# All Regions 
+# Distribution fits
 #
-names(pstat)
-# Split in groups of 7 years
-# 
-
-ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:3,each=5,length.out=15))
-
-#ff1<-filter(ff1, !is.na(delta_year_prop_patch))
-
-
-# Variances of the two groups
-#
-do(ff1, data.frame(matrix(aggregate(delta_prop_max_patch~period,data=.,FUN=var)[,2],nrow = 1)))
-
-# Check autocorrelations
-#
-dev.off()
-do(ff1,data.frame(matrix(acf(.$delta_prop_max_patch,plot=T)$acf,nrow=1)))
-
-# p-value is 1.96/sqrt(T-lag)= 0.565803 (lag 2)
-
-# Fluctuations in max patch proportions
-#
-# Non-parametric test for an increasing trend in variances 
-#
-ff2 <-do(ff1, data.frame(lnested.test(.$delta_prop_max_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff2)[3] <- "Increase"
-#pandoc.table(ff2[,c(1,2,4,3)])
-
-ff3 <-do(ff1, data.frame(lnested.test(.$delta_prop_max_patch,.$period,tail="left",bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff3)[3] <- "Decrease"
-
-pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
-
-
-# Fluctuation in absolute max patch area 
-#
-ff2 <- do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff2)[3] <- "Increase"
-
-ff3<-do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,tail="left",bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff3)[3] <- "Decrease"
-
-pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
-
-
-# Fluctuation in absolute max patch area 
-#
-ff1<-pstat %>% group_by(region,subregion) %>% mutate(period=rep(1:5,each=3,length.out=15))
-
-# Check for autocorrelations
-#
-do(ff1,data.frame(matrix(acf(.$delta_max_patch,plot=T)$acf,nrow=1)))
-
-ff2 <- do(ff1, data.frame(lnested.test(.$delta_prop_max_patch,.$period,bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff2)[3] <- "Increase"
-
-ff3<-do(ff1, data.frame(lnested.test(.$delta_year_patch,.$period,tail="left",bootstrap = T,num.bootstrap = 999,correction.method="zero.correction")$N[2]))
-
-names(ff3)[3] <- "Decrease"
-
-pandoc.table(inner_join(ff2,ff3) %>% mutate(Increase=round(Increase,4),Decrease=round(Decrease,4)))
+names(pyfit_threshold)
+filter(pyfit_threshold, regsub=="EUAS1",year>2012,delta_AICc==0,threshold==30) %>% select(year,model_name:n)
 
 ```
 
