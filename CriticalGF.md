@@ -288,7 +288,7 @@ Therefore, even if critical thresholds are reached only in some forest regions a
 
 ## Data Accessibility
 
-Csv text file with model fits for patch size distribution, and model selection for all the regions; Gif Animations of a forest model percolation;  Gif animations of largest patches; patch size files for all years and regions used here; and all the R, Python and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
+The MODIS VCF product is freely available from NASA at <https://search.earthdata.nasa.gov/>. Csv text file with model fits for patch size distribution, and model selection for all the regions; Gif Animations of a forest model percolation;  Gif animations of largest patches; patch size files for all years and regions used here; and all the R, Python and Matlab scripts are available at figshare <http://dx.doi.org/10.6084/m9.figshare.4263905>.
 
 ## Acknowledgments
 
