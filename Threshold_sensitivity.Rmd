@@ -244,11 +244,11 @@ save.image()
 
 # Set folder with results for the region 
 #
-# options.glo$resultsDir <- "Results/eurasia"
+#options.glo$resultsDir <- "Results/eurasia"
 options.glo$resultsDir <- "~/Dropbox1T/GlobalCriticalForest/Results/GCF_first_paper_sensitivity_analysis/eurasia"
 
 tic("Python fitting heavy tailed")
-fit <- call_python_powlawfit(options.glo$resultsDir,FALSE) 
+fit <- call_python_powlawfit(options.glo$resultsDir,TRUE) 
 toc()
 
 #   model_name higher     n        mlow             mhi   modFreq
@@ -283,7 +283,6 @@ require(ggplot2)
 #
 pyfit_threshold <- pyfit_threshold %>% mutate(regsub = paste0(region,subregion)) 
 pyfit_threshold <- pyfit_threshold %>% filter(regsub !="NA2",regsub !="NA3",regsub !="NA4")
-pyfit_threshold <- pyfit_threshold %>% filter(!(regsub=="EUAS1" & year==2015))
 
 
 #
@@ -342,8 +341,7 @@ pyfit_threshold %>% filter( threshold %in% c(20,25,30,35,40)) %>% 	filter(delta_
 #
 # Plot proportion of best models by region-subregion 20 - 40 thresholds
 #
-tot_fit_by_model1 <- tot_fit_by_model %>% ungroup %>% mutate(region = paste0(region,subregion)) %>% filter(threshold %in% c(20,25,30,35,40))
-ggplot(tot_fit_by_model1, aes(x=region,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion")  + scale_fill_discrete(name="Models") + facet_wrap( ~threshold ) +  coord_flip()
+ggplot(tot_fit_by_model, aes(x=regsub,y=best_model_prop,fill=model_name)) + geom_bar(stat="identity") + theme_bw() + scale_colour_brewer(palette="Set1") + theme(axis.text.x = element_text(angle = 90, hjust = 0, vjust=.5),axis.title.x = element_blank()) + ylab("Best models proportion") + xlab("Region") + scale_fill_discrete(name="Models") + facet_wrap( ~threshold ) +  coord_flip()
 
 ggsave("figure/BestModelByThreshold.png",width=8,height=6,units="in",dpi=600)
 
@@ -381,9 +379,7 @@ write.csv(ta,file='Fitted_Patch_models.csv',row.names = F)
 
 ```{r alphaGLS, eval=F,echo=T,message=T,warning=T}
 
-ff <- filter(pyfit_threshold,model_name=="Power",threshold %in% c(20,25,30,35,40)) %>% 
-	mutate(se=(par1-1)/sqrt(n),weight=se,year=as.numeric(year),region=paste0(region,subregion)  )
-
+ff <- filter(pyfit_threshold,model_name=="Power",threshold %in% c(20,25,30,35,40)) %>% ungroup() %>% mutate(se=(par1-1)/sqrt(n),weight=se,year=as.numeric(year)  )
 
 
 require(boot)
@@ -419,12 +415,13 @@ require(boot)
 myboot <- boot(ff$par1,mymean,R=10000)
 myci <- boot.ci(myboot)
 mean(myboot$t)
+# Global mean 1.94364
 # Intervals : 
 # Level      Normal              Basic         
-# 95%   ( 1.964,  1.970 )   ( 1.964,  1.970 )  
+# 95%   ( 1.940,  1.947 )   ( 1.940,  1.947 )  
 # 
 # Level     Percentile            BCa          
-# 95%   ( 1.964,  1.970 )   ( 1.964,  1.970 )  
+# 95%   ( 1.940,  1.947 )   ( 1.940,  1.947 )  
 
 #
 # bootstraped ci by region and year across thresholds 
@@ -457,9 +454,9 @@ ff2<- group_by(ff1,regsub) %>% summarise(malpha=mean(mean))
 g + geom_hline(aes(yintercept=malpha,colour=regsub),ff2,linetype = 2) + facet_wrap(~regsub)
 ggsave("figure/PowerExp_all_year.png",width=6,height=6,units="in",dpi=600)
 
+pandoc.table(mutate_if(ff1,is.numeric,round,digits=4) )
 
-pandoc.table(mutate_if(ff1,is.numeric,round,digits=4))
-
+#ff1 %>% filter(year==2015,regsub=="EUAS1") %>% mutate_if(is.numeric,round,digits=4)
 
 #
 # bootstraped ci by thresholds 
@@ -522,7 +519,7 @@ pstat_threshold <-pstat_threshold %>% filter(!(region=="NA"& subregion %in% c(2,
 
 pstat_threshold <-mutate(pstat_threshold, regsub = paste0(region,subregion))
 
-pstat_threshold <-pstat_threshold %>% filter(!(regsub=="EUAS1" & year == 2015 )) %>% ungroup()
+#pstat_threshold <-pstat_threshold %>% filter(!(regsub=="EUAS1" & year == 2015 )) %>% ungroup()
 
 unique(pstat_threshold$regsub)
 
@@ -686,13 +683,14 @@ ggsave("figure/RSmax_lt1e7_ByYearThreshold_facet.png",width=6,height=6,units="in
 #
 # Check if the distribution of RSmax is unimodal or bimodal (p-value<0.05)
 #
+require(diptest)
 ff1 <- filter(pstat_threshold, threshold %in% c(40)) 
 dip.test(ff1$prop_max_patch,simulate.p.value = T, B=10000)
 
 # Hartigans' dip test for unimodality / multimodality with simulated p-value (based on 10000 replicates)
 # 
 # data:  ff1$prop_max_patch
-# D = 0.04163, p-value = 0.0003
+# D = 0.0415, p-value = 0.0003
 # alternative hypothesis: non-unimodal, i.e., at least bimodal
 
 ggplot(ff1, aes(prop_max_patch,fill=..count..)) + geom_histogram(binwidth = 0.1) + scale_fill_viridis(discrete = F,guide=FALSE) + xlab(expression(RS[max]))
@@ -894,12 +892,13 @@ fit_delta_threshold <- bind_rows(fit_delta_threshold, fit %>% mutate(group="Prop
 #
 # Add the LRT value test to the power law row
 # 
-fit_delta_threshold <- fit_delta_threshold %>% group_by(regsub,threshold,group) %>% do( {
-							a <- filter(., model_name=="Exp")
-							.$LRT[1] <- a$LRT
-							.$pvalue[1] <- a$pvalue
-							return(.)
-							})
+f <- function(df) {
+	a <- filter(df, model_name=="Exp")
+	df$LRT[1] <- a$LRT
+	df$pvalue[1] <- a$pvalue
+	return(df)
+}
+fit_delta_threshold  <- fit_delta_threshold %>% group_by(regsub,threshold,group) %>% do(f(.) )
 
 # Fit models, estimate xmins, Do Plots, Do not do GOF
 #
@@ -922,7 +921,7 @@ pandoc.table(filter(fit_delta_threshold,delta_AICc==0) %>% arrange(regsub) %>%
 )
 
 
-rm(ff1,ff2,fft,fit,qu1,qu2,ta,am,m.gls,mdl1,mdl2)
+rm(fit1,fff,ff1,ff2,fft,fit,qu1,qu2,ta,am,m.gls,mdl1,mdl2)
 save.image()
 ```
 
@@ -931,15 +930,68 @@ save.image()
 
 ```{r testEUAS1_2015, eval=F,echo=T,message=T,warning=T}
 
+
+# Add distribution fit for 2015 EUAS1
+#
+
+# Set folder with results for the region 
+#
+options.glo$resultsDir <- "Results/eurasia"
+
+tic("Python fitting heavy tailed")
+fit <- call_python_powlawfit(options.glo$resultsDir,TRUE) 
+toc()
+
+#   model_name higher     n        mlow             mhi   modFreq
+#        <chr>  <lgl> <int>       <dbl>           <dbl>     <dbl>
+# 1    LogNorm  FALSE   426 7.08543e-19    0.0000321927 0.9861111
+# 2    LogNorm   TRUE     6 1.80158e-05  341.2559817713 0.0138889
+# 3 LogNormPos   TRUE   432 3.44860e-04 4924.5115823363 1.0000000
+
+#  Add the fitted distribution models data to all_fit data frame 
+#
+euas1fit <- fit$pyfit
+names(euas1fit)
+names(pyfit_threshold)
+pyfit_threshold <- pyfit_threshold %>% bind_rows( euas1fit %>%  mutate(regsub = paste0(region,subregion))) 
+
+
+
+#
+#
+options.glo$resultsDir <- "Results/eurasia"
+p_euas1<- region_fit_con_heavy_tail(options.glo,"EUAS") 
+
+names(pstat_threshold)
+names(p_euas1)
+p_euas1 <-mutate(p_euas1, regsub = paste0(region,subregion))
+
+p_euas1<- group_by(p_euas1,regsub,threshold) %>%  mutate(year=as.numeric(year),
+																		 mean_max_patch=mean(max_patch), 
+											  prop_max_patch=max_patch/total_patch_area,  # Max patch proportion
+											  delta_max_patch=max_patch-mean_max_patch,   # Delta max patch
+											  delta_prop_max_patch=delta_max_patch/total_patch_area, # Delta max patch proportion
+											  delta_year_patch=max_patch-lag(max_patch,order_by=year), 
+											  delta_year_prop_patch=prop_max_patch-lag(prop_max_patch,order_by=year)
+											) 
+
+pstat_threshold <- rbind(pstat_threshold,p_euas1 )
+
 require(dplyr)
 # Patch statistics 
-filter(pstat_threshold, regsub=="EUAS1",year>2013) %>% select(year,number_of_patches:total_patch_area)
+filter(pstat_threshold, regsub=="EUAS1",year>2012,threshold==30) %>% select(year,number_of_patches:total_patch_area)
 
 # Distribution fits
 #
 names(pyfit_threshold)
 filter(pyfit_threshold, regsub=="EUAS1",year>2012,delta_AICc==0,threshold==30) %>% select(year,model_name:n)
 
+#
+pyfit_threshold <- bind_rows(pyfit_threshold,fit$pyfit)
+
+
+rm(fit,euas1fit)
+save.image()
 ```
 
 

@@ -1345,7 +1345,7 @@ plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
 #'
 call_python_powlawfit <- function(binDir,fit=TRUE){
 	
-	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 1")
+	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
 
 	setwd(binDir)
 	if(fit){
@@ -1402,7 +1402,6 @@ call_python_powlawfit_delta_threshold <- function(ff,binDir,fit=TRUE){
 		zz <- file(paste0("delta_", .$regsub,"_",.$threshold,"_.bin")[1], "wb")
 		writeBin(.$delta_max_patch,zz) 
 		close(zz)
-		return(.$regsub)
 	    })
 
 
