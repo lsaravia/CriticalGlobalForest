@@ -1,7 +1,7 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=journal-of-ecology.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGF.pdf 
-	
+all: Appendices.pdf CriticalGF.pdf CriticalGF_bioRxiv.pdf
+
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty
 	evince $@		
