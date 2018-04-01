@@ -1,4 +1,4 @@
-OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=journal-of-ecology.csl --latex-engine=xelatex 
+OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=ecology-letters.csl --latex-engine=xelatex 
 
 all: Appendices.pdf CriticalGF.pdf CriticalGF_bioRxiv.pdf
 
