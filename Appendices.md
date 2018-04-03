@@ -1654,6 +1654,8 @@ Table: Unbiased estimation of Skewness of fluctuations of the largest patch $S_{
 
 ![Average largest patch relative to total forest area $RS_{max}$ by threshold, for all regions.  The regions are: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/RSmax_ByThreshold.png)
 
+![Frequency distribution of Largest patch proportion relative to total forest area $RS_{max}$ calculated using a threshold of 40% of forest in each pixel to determine patches. Bimodality is observed and confirmed by the dip test (D = 0.0416, p-value = 0.0003).This indicates the existence of two states needed for a critical transition.](figure/RSmax_Frequency_40_Threshold.png)
+
 ![Largest patch relative to total forest area $RS_{max}$ by year at 40% threshold, for  regions with total forest area less than $10^{7}$ km^2^.  The regions are: AF1, Africa Mainland, AF2, Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America, Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines.](figure/RSmax_lt1e7_ByYearThreshold_facet.png)
 
 
