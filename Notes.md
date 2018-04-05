@@ -1,4 +1,4 @@
-
+Word Count main text: 5813
 
 The existence of a critical transition between to states has been for forest at global scale in different works (@Hirota2011; @Verbesselt2016; @Wuyts2017). It was not probed but is generally believed that this constitutes a first order catastrophic transition. The regions where forest can growth are not distributed homonegeously, there are demographic fluctuations in forest growth and disturbances produced by human activities. Due to new theoretical advances [@Martin2015; @VillaMartin2014] all these factors imply that if these were first order transitions they will be converted or observed as second order continuous transitions. From this basis we applied indices derived from second order transitions to global forest cover dynamics.    
 
