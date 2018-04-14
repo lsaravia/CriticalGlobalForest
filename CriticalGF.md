@@ -14,6 +14,23 @@ of Maryland–College Park, 5825 University Research Court #3500, College Park, 
 
 **Running title**: Critical fragmentation in global forest 
 
+Word count Abstract: 144
+
+Word count main text: 5813
+
+type of article: Letters
+
+Number of references: 101
+
+Number of figures and tables: 5
+
+Statement of authorship: LAS designed the study, SRD LAS performed modelling work, BBl review methods, and LAS SRD BBL wrote the manuscript 
+
+Data accessibility statement: all the raw data is from public repositories, the data
+supporting the results is archived at figshare public repository and the data DOI is included at in the article.. 	 
+
+\newpage
+
 
 ## Abstract
 
