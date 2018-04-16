@@ -1,5 +1,9 @@
 # Appendices
 
+## Contact model description
+
+The area of interest by a square lattice and each site of the lattice can be occupied by forest or empty. A site with forest can become extinct with probability $e$, and produce another forest site in a neighborhood with probability $c$. We use a neighborhood defined by an isotropic power law probability distribution. We defined a single control parameter as $\lambda=c/e$ and ran simulations for the unfragmented state $\lambda < \lambda_c$, with $\lambda=2$, near the critical point for $\lambda=2.5$, and for the fragmented state with $\lambda=5$. We generated gif animations with these 3 cases to compare with the animations from real forest patches.
+
 
 ## Metadata for files available at figshare 
 
@@ -890,7 +894,7 @@ Table: Mean power-law exponent and Bootstrapped 95% confidence intervals across 
  SEAS2       40       90903.67     269518          0.33   0.29   0.41 
 ----------------------------------------------------------------------
 
-Table: Mean total patch area; largest patch $S_{max}$ in Km^2^; largest patch propotional to total patch area $RS_{max}$ and 95% bootstrapped confidence interval of $RS_{max}$, by region and thresholds, averaged across years. The regions are: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
+Table: Mean total patch area; largest patch $S_{max}$ in Km^2^; largest patch relative to total forest area $RS_{max}$ and 95% bootstrapped confidence interval of $RS_{max}$, by region and thresholds, averaged across years. The regions are: AF1 Africa Mainland; AF2 Madagascar; EUAS1 Eurasia mainland; EUAS2 Japan; EUAS3 Great Britain; NA1 North America mainland; NA5 Newfoundland; OC1 Australia mainland; OC2 New Guinea; OC3 Malaysia/Kalimantan; OC4 Sumatra; OC5 Sulawesi; OC6 New Zealand south island; OC7 Java; OC8 New Zealand north island; SAST1 South America, Tropical and subtropical forest up to Mexico; SAST2 Cuba; SAT1 South America Temperate forest; SEAS1 Southeast Asia mainland; SEAS2 Philippines
 
 \newpage
 
