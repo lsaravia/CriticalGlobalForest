@@ -1,6 +1,6 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=ecology-letters.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGFEcoLett.pdf FiguresTables.pdf CriticalGF_bioRxiv.pdf
+all: Appendices.pdf CriticalGF.pdf FiguresTables.pdf CriticalGF_bioRxiv.pdf
 
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty
@@ -8,12 +8,13 @@ all: Appendices.pdf CriticalGFEcoLett.pdf FiguresTables.pdf CriticalGF_bioRxiv.p
 
 FiguresTables.pdf: FiguresTables.md margins.sty 
 	pandoc $< -o $@ $(OPTS)
-	pdftk CriticalGFEcoLett.pdf FiguresTables.pdf cat output CriticalGFELFigures.pdf
+	pdftk CriticalGF.pdf FiguresTables.pdf cat output CriticalGFELFigures.pdf
 	evince $@		
 
-CriticalGFEcoLett.pdf: CriticalGFEcoLett.md margins.sty 
+CriticalGF.pdf: CriticalGF.md margins.sty 
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
+	pdftk CriticalGF.pdf FiguresTables.pdf cat output CriticalGFELFigures.pdf
 	evince $@		
 
 Appendices.pdf: Appendices.md 
@@ -24,7 +25,7 @@ CriticalGF.docx: CriticalGF.md margins.sty CriticalGF.bib makefile
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 			
-CriticalGF_bioRxiv.pdf: CriticalGFEcoLett.md nolineno.sty CriticalGF.bib
+CriticalGF_bioRxiv.pdf: CriticalGF.md nolineno.sty CriticalGF.bib
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
-	pandoc -H nolineno.sty --bibliography CriticalGF.bib --latex-engine=xelatex --csl=plos.csl CriticalGFEcoLett.md -o CriticalGF_bioRxiv.pdf 
-	evince CriticalGF_bioRxiv.pdf		
+	pandoc  $< -H nolineno.sty --bibliography CriticalGF.bib --latex-engine=xelatex --csl=plos.csl -o $@
+	evince $@		
