@@ -1,0 +1,333 @@
+# Contact model to test criteria of maximun patch dynamics 
+
+I use here the following neutral model with power dispersal kernel and only one species:
+
+<https://github.com/lsaravia/Neutral>
+
+
+
+## Setup
+
+```{r setup, eval=T }
+load(".RData")
+
+if (!require(pacman)) {
+	install.packages("pacman") 
+	require(pacman)
+}
+p_load(plyr, dplyr, ggplot2, quantreg, viridis,pander)
+
+panderOptions('table.split.table',Inf)
+panderOptions('table.style', 'multiline')
+
+oldcd <-getwd()
+rasterOptions(tmpdir="~/Academicos/tmp")
+source("R/map_fun.r")
+
+
+```
+
+
+# Calculate patch statistics for the contact model with different lambda=birth/death at steady state 
+
+
+```{r patch_steady, echo=FALSE,eval=FALSE}
+
+
+source("R/Neutral_fun.r")
+oldcd<- getwd()
+neuBin <- "~/Dropbox/cpp/CaNew/Neutral/ipsNeutralPow"
+neuBin64<- "~/Dropbox/cpp/CaNew/Neutral/ipsNeutralP64"
+
+makeAnimations <- FALSE
+
+if(makeAnimations){
+	# Make simulations
+	#
+	# (nsp,side,disp,migr,repl,clus="S",time=1000,inter=10,init=1,meta="L",delo=F,sim=T,sedIni=0,modType=4,death=0.2,birth=1,colPal=0,savSed="S") 
+	simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",time,1,time-15,"U",T,T,999,1,deathRate,birthRate)
+	
+	# Make animations
+	#
+	p_load(animation)
+	  saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,time,1,time-15,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+	          interval = .5,
+	          movie.name=paste0("dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+	  )
+
+	# Super-critical 
+	#
+	deathRate <- 0.2
+	lambda <- round(birthRate/deathRate,4)
+	simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+	
+	saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+	          interval = .5,
+	          movie.name=paste0("dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+	  )
+	
+	# Sub-critical
+	#
+	deathRate <- 0.5
+	lambda <- round(birthRate/deathRate,4)
+	simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,5,1,"U",T,T,1,1,deathRate,birthRate)
+	
+	saveGIF(plot_NeutralSmaxCluster(nsp,side,alfa,m,ReplRate,100,5,1,"U",deathRate,birthRate,c("#000000","#76EE00")),       
+	          interval = .5,
+	          movie.name=paste0("dPer",nsp,"_",side,"R", ReplRate,"L",round(birthRate/deathRate,4),".gif")
+	  )
+	
+}
+
+#  Simulations of time series and save bin files with patch distributions
+#
+# (nsp,side,disp,migr,repl,death=0.2,birth=1,simul=T,time=1000,sims=10,meta="U",clus="S",sedIni=0,timeInit=1,timeDelta=10,modType=4,rndSeed=0,delOldSim=FALSE)
+
+#
+
+# Near-critical 
+#
+alfa=2.17641 # 6.6
+side <- 256
+nsp <- 1
+nSimul <- 1
+ReplRate <- 0.0
+time <- 100
+m =  0.0
+birthRate <- 1
+
+# Near critical fragmentation
+#
+#
+# lambda critical = 1.6488
+deathRate <- c(0.4,0.39,0.38,0.35,0.41,0.42,0.45)
+
+contact_patch <- data_frame()
+contact_fit  <- data_frame()
+for(i in 1:length(deathRate))
+{ 
+	(lambda <- round(birthRate/deathRate[i],4))
+	setwd("Results/ContactModel")
+	contact_patch <-bind_rows(contact_patch, 
+				simul_NeutralTimeSeries_ClustBin(nsp,side,alfa,m,ReplRate,deathRate[i],birthRate,T,time,3,"U","A",3,time-15,1,1,999,T))
+
+	# Fitting distriibutions using Python
+	#
+	fit <- call_python_powlawfit(".",TRUE) 
+	contact_fit <- bind_rows(contact_fit,fit$pyfit)
+}
+setwd(oldcd)
+rm(fit)
+save.image()
+
+```
+
+# Calculate fluctuations delta RSmax Make plots and clean up data.frames 
+
+*contact_fit*
+*contact_patch*
+
+
+```{r patch_steady_delta_plots, echo=FALSE,eval=FALSE}
+
+require(dplyr)
+require(ggplot2)
+require(quantreg)
+require(viridis)
+require(pander)
+panderOptions('table.split.table',Inf)
+panderOptions('table.style', 'multiline')
+
+#
+# Arrange the data.frame
+#
+
+contact_fit <- contact_fit %>% rename(lambda= threshold,Rep=region) %>% mutate(lambda=as.numeric(substring(lambda,2)))
+
+f <- function(df) {
+	a <- filter(df, model_name=="PowerExp")
+	df$LRT[1] <- a$LRT[1]
+	df$pvalue[1] <- a$pvalue[1]
+	return(df)
+	
+}
+#undebug(f)
+contact_fit <- contact_fit %>% group_by(lambda,Rep,year) %>% do( f(.))
+
+#
+# Best models by lambda distribution
+#
+
+contact_tot_fit_by_model <- contact_fit %>% group_by(lambda,model_name) %>% mutate(tot_by_model=n()) %>% 
+	filter(delta_AICc==0) %>% summarise(best_model_prop=n()/max(tot_by_model)) %>% select(model_name,best_model_prop)  
+
+
+# Mean of power law exponent
+#
+contact_fit %>% filter(model_name=="Power") %>% group_by(lambda) %>% summarize(malpha=mean(par1))
+
+# contact_patch <- contact_patch %>% mutate(lambda=round(1/MortalityRate,2))
+
+g <- ggplot(contact_patch, aes(y=RSmax,x=Time,colour=Rep)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~lambda) +  ylab(expression(RS[max]))   + scale_colour_viridis(discrete=F,guide=FALSE)  
+
+g
+ggsave("figure/ContactMdl_RSmax_lambda_year.png",width=6,height=6,units="in",dpi=600)
+
+contact_patch<- group_by(contact_patch,lambda,Rep) %>%  mutate(year=as.numeric(Time),
+																		 mean_Smax=mean(Smax), 
+											  delta_Smax=Smax-mean_Smax,   # Delta max patch
+											  delta_RSmax=delta_Smax/TotArea
+											  ) 
+
+
+#
+# Fluctuations of RSmax =  Smax - <Smax>/TotArea
+#
+#
+# Test if quantiles are significative
+#
+require(ggplot2)
+require(quantreg)
+require(viridis)
+
+contact_qu <-group_by(contact_patch,lambda,Rep) %>% do(data.frame(t(coef(summary(rq((delta_RSmax)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..)
+
+contact_qu <-bind_rows(contact_qu, group_by(contact_patch,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_RSmax)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Prop")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+
+
+
+#
+# Absolute Fluctuations around the mean Smax - <Smax>
+#
+
+# Test if quantiles are significative generate table
+#
+contact_qu <-bind_rows(contact_qu, group_by(contact_patch,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_Smax)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+contact_qu <-bind_rows(contact_qu, group_by(contact_patch,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_Smax)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+qu1 <- filter(contact_qu, p_value<0.05) %>% arrange( lambda,Rep)
+pandoc.table(qu1)
+
+
+#
+# Skewness 
+#
+ff1<-contact_patch
+require(fitdistrplus)
+ku <-do(ff1,abs_skewness=(descdist(.$delta_Smax, discrete=FALSE, boot=500))$skewness)
+ku <-inner_join(ku,do(ff1,prop_skewness=descdist(.$delta_RSmax, discrete=FALSE, boot=500)$skewness))
+ku <- ku %>% mutate(prop_skewness= unlist(prop_skewness), abs_skewness=unlist(abs_skewness))
+
+pandoc.table(ku %>% mutate_if(is.numeric, round, digits=4))
+
+ggplot(filter(ku,threshold %in% c(20,25,30,35,40)), aes(x=regsub,y=abs_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
+
+ggplot(filter(ku,threshold %in% c(27.5,30,32.5)), aes(x=regsub,y=prop_skewness,colour=threshold)) + geom_point(shape=22)  +theme_bw()+ ylab(expression(paste("Skewness ",S[max])))+ coord_flip() + scale_colour_viridis(discrete = T) + geom_point(data=filter(ku,threshold==30),colour="red")
+
+skewness_threshold <- filter(ku, threshold %in% c(20,25,30,35,40))
+rm(ku,ff1)
+
+
+
+setwd(oldcd)
+
+```
+
+# Calculate transient responses from subcritical to critical 
+
+
+```{r patch_steady_transient, echo=FALSE,eval=FALSE}
+
+deathRate <- c(0.4,0.39,0.38,0.35,0.41,0.42,0.45)
+1/deathRate
+
+
+contact_patch_trans <- data_frame()
+contact_fit_trans  <- data_frame()
+# Sub-critical to critical
+#
+deathRate <- c(0.45,0.42,0.35,0.38)
+for(i in 1:length(deathRate))
+{
+	(lambdaFrom <- round(birthRate/deathRate[i],4))
+	setwd("Results/ContactModel")
+	
+	simul_NeutralSpatPatB(nsp,side,alfa,m,ReplRate,"S",100,1,100,"U",T,T,3,1,deathRate[i],birthRate)
+	(lambdaTo <- round(birthRate/0.4,4))
+	
+	# Convert BI to SP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	#
+	inised <- read_sed(paste0("neuUnif1_256R0L",lambdaFrom,"-0100.sed"))
+	
+	save_matrix_as_sed(inised,paste0("unifP1_256R",lambdaTo,".sed"),"SP")
+	
+	
+	pat <- 	simul_NeutralTimeSeries_ClustBin(nsp,side,alfa,m,ReplRate,0.4,birthRate,T,16,3,"U","A",3,1,1,1,999,T)
+	pat <- pat %>% ungroup() %>% mutate(lambda = lambdaFrom)
+	contact_patch_trans <-bind_rows(contact_patch_trans,pat)
+	
+	fit <- call_python_powlawfit(".",TRUE) 
+	contact_fit_trans <- bind_rows(contact_fit_trans, fit$pyfit)
+}
+
+setwd(oldcd)
+
+g <- ggplot(contact_patch_trans, aes(y=RSmax,x=Time,colour=Rep)) +  theme_bw() +
+	geom_point(shape=19) +  facet_wrap(~lambda) +  ylab(expression(RS[max]))   + scale_colour_viridis(discrete=F,guide=FALSE)  
+
+g
+#ggsave("figure/ContactMdl_RSmax_lambda_year.png",width=6,height=6,units="in",dpi=600)
+
+contact_patch_trans<- group_by(contact_patch_trans,lambda,Rep) %>%  mutate(year=as.numeric(Time),
+																		 mean_Smax=mean(Smax), 
+											  delta_Smax=Smax-mean_Smax,   # Delta max patch
+											  delta_RSmax=delta_Smax/TotArea
+											  ) 
+
+
+contact_qu1 <-group_by(contact_patch_trans,lambda,Rep) %>% do(data.frame(t(coef(summary(rq((delta_RSmax)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.10, group="Prop") %>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..)
+
+contact_qu1 <-bind_rows(contact_qu1, group_by(contact_patch_trans,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_RSmax)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Prop")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+#
+# Absolute Fluctuations around the mean Smax - <Smax>
+#
+
+# Test if quantiles are significative generate table
+#
+contact_qu1 <-bind_rows(contact_qu1, group_by(contact_patch_trans,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_Smax)~year,data=.,tau=c(.10)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+contact_qu1 <-bind_rows(contact_qu1, group_by(contact_patch_trans,lambda,Rep) %>% 
+do(data.frame(t(coef(summary(rq((delta_Smax)~year,data=.,tau=c(.90)),se="boot",R=999))[2,]))) %>% mutate(tau=.90, group="Abs")%>% rename(StdError=Std..Error,t_value=t.value,p_value=Pr...t..))
+
+qu1 <- filter(contact_qu1, p_value<0.05) %>% arrange( lambda,Rep)
+pandoc.table(qu1)
+
+
+save.image()
+
+
+
+```
+
+# Read table S2 from Hansen 2013
+
+```{r patch_steady, echo=FALSE,eval=FALSE}
+
+
+s2 <- read.delim("Results/Hansen2013TableS2.txt", stringsAsFactors = FALSE)
+names(s2)
+
+s2 <- mutate(s2,Country=NA)
+s2 <- add_row(s2, Country="Indonesia",TotalLoss=157850,TotalGain=69701,
+		Treecover2000_lt25=252964,Treecover2000_26.50=68334,Treecover2000_51.75=141996,Treecover2000_76.100=1411892)
+
+```

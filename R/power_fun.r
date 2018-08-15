@@ -245,9 +245,10 @@ data_con_heavy_tail <-function(options,i){
 	nl<-length(data_set)
 	mx<-max(data_set)*233*233/1000000 # Convert to km2
 	ta<-sum(data_set)*233*233/1000000
-	cat(options$original_bin_files[i],"\tNo.patches",nl,"\tMax.PatchKm2",mx,"\tTotalKm2",ta,"\n")
+	mx2 <- (sort(data_set,partial=nl-1)[nl-1])*233*233/1000000
+	cat(options$original_bin_files[i],"\tNo.patches",nl,"\tMax.PatchKm2",mx,"\t2nd.Max.PatchKm2",mx2,"\tTotalKm2",ta,"\n")
 	
-	fit_ht_df <- data_frame(number_of_patches=nl,max_patch=mx,total_patch_area=ta)
+	fit_ht_df <- data_frame(number_of_patches=nl,max_patch=mx,second_max=mx2,total_patch_area=ta)
 	fit_ht_df$data_set_name <- strsplit(options$data_set_name[i],".tif")[[1]][1]
 	ss <- strsplit(options$data_set_name[i],"_")
 	fit_ht_df$region <- ss[[1]][2]
@@ -1345,7 +1346,7 @@ plot_Smax_Fluctuations_yearThreshold <- function(pst,regions){
 #'
 call_python_powlawfit <- function(binDir,fit=TRUE){
 	
-	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 0")
+	ps <-  paste0("python ", oldcd,"/Code/powlawfit.py 1")
 
 	setwd(binDir)
 	if(fit){
@@ -1402,6 +1403,7 @@ call_python_powlawfit_delta_threshold <- function(ff,binDir,fit=TRUE){
 		zz <- file(paste0("delta_", .$regsub,"_",.$threshold,"_.bin")[1], "wb")
 		writeBin(.$delta_max_patch,zz) 
 		close(zz)
+		return(.$regsub)
 	    })
 
 

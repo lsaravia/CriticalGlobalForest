@@ -24,19 +24,19 @@
 -------- --------------------------------- ------------ ----------- -----------------  ----------
   AF1     Africa mainland                     0.33          30             Increase     -1.4653
 
-  AF2     Madagascar                          0.48          20             Increase     0.7226
+  AF2     Madagascar                          0.48          20             Increase     -0.4461
 
- EUAS1    Eurasia, mainland                   0.22          20             Decrease     -0.4814
+ EUAS1    Eurasia, mainland                   0.22          20             Decrease     -0.5015
 
  EUAS1                                                      30             Increase     0.3113
 
- EUAS1                                                      40             Increase     -1.2790
+ EUAS1                                                      40             Increase     -1.316
 
  EUAS2    Japan                              0.94           35             Increase     -0.3913 
 
  EUAS2                                                      40             Increase     -0.5030
 
- EUAS3    Great Britain                      0.03           40             NS           
+ EUAS3    Great Britain                      0.03           40             NS            0.1860
 
   NA1     North America, mainland            0.31           20             Decrease     -2.2895
 
@@ -44,7 +44,7 @@
 
   NA1                                                       30             Decrease     -1.6340
 
-  NA5     Newfoundland                       0.54           40             NS           
+  NA5     Newfoundland                       0.54           40             NS           -0.1053
 
   OC1     Australia, Mainland                0.36           30             Increase     0.0920
 
@@ -66,13 +66,13 @@
 
   OC4                                                       30             Increase     -1.4226
 
-  OC5     Sulawesi                           0.82           40             NS           
+  OC5     Sulawesi                           0.82           40             NS            0.0323
 
-  OC6     New Zealand South Island           0.75           40             Increase     0.3553
+  OC6     New Zealand South Island           0.75           40             Increase      0.3024
 
-  OC7     Java                               0.16           40             NS           
+  OC7     Java                               0.16           40             NS            2.0105
 
-  OC8     New Zealand North Island           0.64           40             NS           
+  OC8     New Zealand North Island           0.64           40             NS            1.3175
   
  SAST1    South America, Tropical and        0.56           25             Increase     1.0519
           Subtropical forest
@@ -107,3 +107,4 @@
 Table: Regions and indicators of closeness to a critical fragmentation point. Where: $RS_{max}$ is the largest patch divided by the total forest area; Threshold is the value used to calculate patches from the MODIS VCF pixels; $\Delta RS_{max}$ are the fluctuations of $RS_{max}$ around the mean and the increase or decrease in the variance was estimated using quantile regressions; skewness was calculated for $RS_{max}$. NS means the results were non-significant. The conditions that determine the closeness to a fragmentation point are: increasing variance of $\Delta RS_{max}$ and negative skewness.  $RS_{max}$ indicates if the forest is unfragmented (>0.6) or fragmented (<0.3).
 
 \normalsize
+  
