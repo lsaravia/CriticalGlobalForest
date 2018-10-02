@@ -861,3 +861,14 @@ condition in a single model simulation.
 
 Given enough data, an empirical dataset with any noise or imperfections will always fail a bootstrapping test for any theoretical distribution. If one keeps absolute adherence to the exact theoretical distribution, one can enter the tricky position of passing a bootstrapping test, but only with few enough data [6]. 
 Thus, it is generally more sound and useful to compare the fits of many candidate distributions, and identify which one fits the best.
+
+
+---------------
+@Servan2018
+
+Analysing models that include more than a handful of interacting
+populations has, however, proved remarkably difficult, despite the
+fact that ecosystems harbour hundreds of populations, interacting
+through complex networks encompassing consumption, competi-
+tion and mutualism
+

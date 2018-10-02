@@ -1,6 +1,6 @@
 ## Figures and tables
 
-![Forest patch distributions for continental regions for the years 2000 and 2014. The images are the 200 biggest patches, shown at a coarse pixel scale of 2.5 km.  The regions are: a) & b) southeast Asia; c) & d) South America subtropical and tropical and  e) & f) Africa mainland, for the years 2000 and 2014 respectively. The color palette was chosen to discriminate different patches and does not represent patch size.](figure/top200_patch_continent.png)
+![Forest patch distributions for continental regions for the years 2000 and 2014. The images are the 200 biggest patches, shown at a coarse pixel scale of 2.5 km.  The regions are: a) & b) southeast Asia; c) & d) South America subtropical and tropical and  e) & f) Africa mainland, for the years 2000 and 2014 respectively. The color palette was chosen to discriminate different patches and does not represent patch size. The imaged was composed with GIMP 2.8 software and the base maps retrieved from Google maps (Imagery(C)2018 NASA, TerraMetrics)](figure/top200_patch_continent.png){ width=80% }
 
 \newpage
 
