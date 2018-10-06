@@ -244,7 +244,7 @@ Table: Regions and indicators of closeness to a critical fragmentation point. Wh
 
 \normalsize
   
-
+\newpage
 
 ## Supporting information
 
