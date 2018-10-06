@@ -8,16 +8,17 @@ Los Polvorines, Buenos Aires, Argentina.
 2. Pacific Northwest National Laboratory, Joint Global Change Research Institute at the University
 of Maryland–College Park, 5825 University Research Court #3500, College Park, MD 20740, USA
 
-3. Corresponding author e-mail: <lsaravia@ungs.edu.ar>
+3. Corresponding author e-mail: <lsaravia@campus.ungs.edu.ar>
 
 **keywords**: Forest fragmentation, early warning signals, percolation, power-laws, MODIS, critical transitions
 
 **Running title**: Critical fragmentation in global forest 
 
-**Author contributions**: LAS designed the study, SRD LAS performed modelling work, BBl review methods, and LAS SRD BBL wrote the manuscript 
+**Author contributions**: LAS designed the study, SRD LAS performed modelling work, BBL review methods, and LAS SRD BBL wrote the manuscript 
 
 **Data availability**: all the raw data is from public repositories, the data
-supporting the results is archived at figshare public repository and the data DOI is included at in the article.. 	 
+supporting the results is archived at figshare public repository and the data DOI is included at in the article.
+
 **Competing interests**: The author(s) declare no competing interests.
 
 \newpage
