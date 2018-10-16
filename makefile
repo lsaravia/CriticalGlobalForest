@@ -1,6 +1,6 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=scientific-reports.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGF.pdf FiguresTables.pdf CoverLetter.pdf CriticalGF.ltx
+all: Appendices.pdf CriticalGF.pdf FiguresTables.pdf CoverLetter.pdf CriticalGF.tex
 
 %.pdf:%.md
 	pandoc $< -o $@ -H Appendices.sty
@@ -21,7 +21,7 @@ Appendices.pdf: Appendices.md
 	pandoc -H Appendices.sty $^ -o $@
 	evince $@		
 
-CriticalGF.ltx: CriticalGF.md margins.sty CriticalGF.bib makefile
+CriticalGF.tex: CriticalGF.md margins.sty CriticalGF.bib makefile
 	cp "/home/leonardo/BibTeX/Manuscritos-Critical global forest.bib" CriticalGF.bib
 	pandoc $< -o $@ $(OPTS)
 			
