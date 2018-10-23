@@ -244,52 +244,6 @@ Table: Regions and indicators of closeness to a critical fragmentation point. Wh
 
 \normalsize
   
-\newpage
-
-## Supporting information
-
-
-**Appendix**
-
-*Contact model description* 
-
-*Table S1*: Mean power-law exponent and Bootstrapped 95% confidence intervals by threshold. 
-
-*Table S2*: Mean power-law exponent and Bootstrapped 95% confidence intervals across thresholds by region and year.
-
-*Table S3*: Mean total patch area; largest patch $S_{max}$ in km^2^; largest patch relative to total patch area $RS_{max}$ and 95% bootstrapped confidence interval of $RS_{max}$, by region and thresholds, averaged across years
-
-*Table S4*: Model selection for distributions of fluctuation of largest patch $\Delta S_{max}$ and largest patch relative to total forest area $\Delta RS_{max}$.
-
-*Table S5*: Quantil regressions of the fluctuations of the largest patch vs year, for 10% and 90% quantils at different pixel thresholds.
-
-
-*Table S6*: Unbiased estimation of Skewness of fluctuations of the largest patch $\Delta S_{max}$ and fluctuations relative to total forest area $\Delta RS_{max}$.
-
-*Figure S1*: Regions for Africa: Mainland (AF1), Madagascar (AF2).
-
-*Figure S2*: Regions for Eurasia: Mainland (EUAS1), Japan (EUAS2), Great Britain (EUAS3).
-
-*Figure S3*: Regions for North America: Mainland (NA1), Newfoundland (NA5).
-
-*Figure S4*: Regions for Australia and islands: Australia mainland (OC1), New Guinea (OC2),  Malaysia/Kalimantan (OC3), Sumatra (OC4), Sulawesi (OC5), New Zealand south island (OC6), Java (OC7), New Zealand north island (OC8).
-
-*Figure S5*: Regions for South America: Tropical and subtropical forest up to Mexico (SAST1), Cuba (SAST2), South America Temperate forest (SAT1).
-
-*Figure S6*: Regions for Southeast Asia: Mainland (SEAS1), Philippines (SEAS2).
-
-*Figure S7*: Proportion of best models selected for patch size distributions using the Akaike criterion.
-
-*Figure S8*: Power law exponents for forest patch distributions by year for all regions.
-
-*Figure S9*: Average largest patch relative to total forest area $RS_{max}$ by threshold, for all regions.
-
-*Figure s10*: Frequency distribution of Largest patch proportion relative to total forest area $RS_{max}$ calculated using a threshold of 40%.
-
-*Figure S11*: Largest patch relative to total forest area $RS_{max}$ by year at 40% threshold, for  regions with total forest area less than $10^{7}$ km^2^.
-
-*Figure S12*: Fluctuations of largest patch relative to total forest area $RS_{max}$ for regions with total forest area less than $10^{7}$ km^2^ by year and threshold.
-
 
 ## Data Accessibility
 

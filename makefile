@@ -1,9 +1,9 @@
 OPTS= -H margins.sty --bibliography CriticalGF.bib --csl=scientific-reports.csl --latex-engine=xelatex 
 
-all: Appendices.pdf CriticalGF.pdf FiguresTables.pdf CoverLetter.pdf CriticalGF.tex
+all: Appendices.pdf CriticalGF.pdf FiguresTables.pdf PointByPointResponse.pdf CriticalGF.tex
 
 %.pdf:%.md
-	pandoc $< -o $@ -H Appendices.sty
+	pandoc $< -o $@ -H Appendices.sty  --latex-engine=xelatex
 	evince $@		
 
 FiguresTables.pdf: FiguresTables.md margins.sty 

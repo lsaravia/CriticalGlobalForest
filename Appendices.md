@@ -1,4 +1,12 @@
-# Appendices
+
+# Supplementary Information 
+
+# Power laws and critical fragmentation in global forests 
+
+**Leonardo A. Saravia**, **Santiago R. Doyle**, **Ben Bond-Lamberty** 
+
+\newpage
+
 
 ## Contact model description
 
