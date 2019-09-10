@@ -1,5 +1,5 @@
-# Analysis of critical transitions at the Global Forest
-# Global patterns of forest patches suggest closeness to critical transitions
+
+# Power laws and critical fragmentation in global forests
 
 Author(s): 
 
@@ -7,19 +7,19 @@ Author(s):
 [Santiago R. Doyle]()
 [Ben Bond-Lamberty]()
 
-## Abstract (preliminar)
+* Scientific Reports volume 8, Article number: 17766 (2018) 
 
-One of the most important changes produced in the biosphere is the replacement of forest areas with human dominated landscapes. These areas contain much less species that the natural ecosystem they replaced, and are one the main drivers of extinctions in the anthropocene. The forest cover is also coupled to atmospheric dynamics and the balance of gases. The dynamics of forest fragments or patches is central to its function as ecosystem.  In different kinds of vegetation including forests the patch size distributions follow power laws or approximate power law, but all these patterns have been observed at relatively small scales. Here we studied the distribution of forest patch sizes at a global level and its changes in the last fourteen years. We hypothesize that the global forest patches should follow a power law distribution. Power laws are a signal of critical phase transitions, where the system changes suddenly of state at a critical point, in the case of forest patches this change implies an abrupt change in the connectivity that pose a risk on the functioning of forest as an habitat and as an ecosystem. Thus we calculate the distance of the global forest to a possible critical point as an early warning indicator.     
+   <https://doi.org/10.1038/s41598-018-36120-w>
+
+[![DOI](https://zenodo.org/badge/34926581.svg)](https://zenodo.org/badge/latestdoi/34926581)
 
 
-*Target Journal*: []()
+## Abstract 
 
-* [raw manuscript source in markdown](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.md) (figures and citations not rendered in this version)
-* [Draft PDF](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.pdf) (contains parsed citations and figures)
-* [Bibliography](https://github.com/lsaravia/CriticalGlobalForest/blob/master/CriticalGF.bib) blob/master/CriticalGF.bib
+The replacement of forest areas with human-dominated landscapes usually leads to fragmentation, altering the structure and function of the forest. Here we studied the dynamics of forest patch sizes at a global level, examining signals of a critical transition from an unfragmented to a fragmented state, using the MODIS vegetation continuous field. We defined wide regions of connected forest across continents and big islands, and combined five criteria, including the distribution of patch sizes and the fluctuations of the largest patch over the last sixteen years, to evaluate the closeness of each region to a fragmentation threshold. Regions with the highest deforestation rates–South America, Southeast Asia, Africa–all met these criteria and may thus be near a critical fragmentation threshold. This implies that if current forest loss rates are maintained, wide continental areas could suddenly fragment, triggering extensive species loss and degradation of ecosystems services.
+
 
 ## R Markdown files description
-
 
 
 * Threshold_sensitivity.Rmd :
